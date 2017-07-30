@@ -1,0 +1,65 @@
+package crmapp.app;
+
+import java.util.Properties;
+
+import javax.sql.DataSource;
+import javax.persistence.EntityManagerFactory;
+
+import org.apache.commons.dbcp2.BasicDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
+
+@Configuration
+@EnableJpaRepositories
+public class ApplicationConfiguration {
+
+	@Bean
+	@ConfigurationProperties("app.hibernate")
+	@Autowired
+	public EntityManagerFactory entityManagerFactory(DataSource dataSource) {
+		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+		vendorAdapter.setGenerateDdl(true);
+
+		Properties jpaProperties = new Properties();
+		jpaProperties.setProperty("hibernate.show_sql", "${show_sql}");
+		jpaProperties.setProperty("hibernate.dialect", "${dialect}");
+
+		LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+		localContainerEntityManagerFactoryBean.setJpaVendorAdapter(vendorAdapter);
+		localContainerEntityManagerFactoryBean.setPackagesToScan("crmapp.app");
+		localContainerEntityManagerFactoryBean.setDataSource(dataSource);
+		localContainerEntityManagerFactoryBean.setJpaProperties(jpaProperties);
+		localContainerEntityManagerFactoryBean.afterPropertiesSet();
+
+		return localContainerEntityManagerFactoryBean.getObject();
+	}
+
+	@Bean
+	@Autowired
+	public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+		JpaTransactionManager jpaTransactionManager = new JpaTransactionManager();
+		jpaTransactionManager.setEntityManagerFactory(entityManagerFactory);
+		return jpaTransactionManager;
+	}
+
+	@Bean
+	@Primary
+	@ConfigurationProperties("app.datasource")
+	public DataSource dataSource() {
+		BasicDataSource dataSource = new BasicDataSource();
+		dataSource.setDriverClassName("${driver-class-name}");
+		dataSource.setUrl("${url}");
+		dataSource.setUsername("${username}");
+		dataSource.setPassword("${password}");
+		return dataSource;
+	}
+
+}
