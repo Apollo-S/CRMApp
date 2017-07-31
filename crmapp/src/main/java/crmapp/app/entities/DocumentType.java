@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class DocumentType extends UrlBaseEntity {
 
-	
 	@Column(name = "title")
 	private String title;
 
