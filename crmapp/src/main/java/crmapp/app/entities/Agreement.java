@@ -1,11 +1,15 @@
 package crmapp.app.entities;
 
 import java.util.Date;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -13,6 +17,7 @@ import javax.persistence.TemporalType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "agreement")
@@ -33,6 +38,11 @@ public class Agreement extends UrlBaseEntity {
 
 	@Column(name = "comment")
 	private String comment;
+
+	@OneToMany(orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "agreement")
+	@OrderBy("id ASC")
+	@JsonManagedReference(value = "agreement-document")
+	private Set<Document> documents;
 
 	public Agreement() {
 	}
@@ -74,10 +84,18 @@ public class Agreement extends UrlBaseEntity {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	
+
 	@JsonInclude
 	public Integer getContractorId() {
 		return contractor.getId();
+	}
+
+	public Set<Document> getDocuments() {
+		return documents;
+	}
+
+	public void setDocuments(Set<Document> documents) {
+		this.documents = documents;
 	}
 
 }
