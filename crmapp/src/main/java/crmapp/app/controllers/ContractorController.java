@@ -24,8 +24,8 @@ public class ContractorController extends BaseController {
 	@Autowired
 	private ContractorRepository contractorRepository;
 	
-	@RequestMapping(value = GET_VALUE, method = RequestMethod.GET, headers = HEADER_JSON) 
-	public ResponseEntity<List<Contractor>> getAllSpd() {
+	@RequestMapping(value = VALUE_GET_ALL, method = RequestMethod.GET, headers = HEADER_JSON) 
+	public ResponseEntity<List<Contractor>> getAllContractors() {
 		List<Contractor> contractors = contractorRepository.findAll();
 		if(contractors.size() == 0) {
 			return new ResponseEntity<List<Contractor>>(HttpStatus.NO_CONTENT);
@@ -33,16 +33,25 @@ public class ContractorController extends BaseController {
 		return new ResponseEntity<List<Contractor>>(contractors, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = ADD_VALUE, method = RequestMethod.POST, headers = HEADER_JSON)
-	public ResponseEntity<Void> addSpd(@RequestBody Contractor contractor) {
+	@RequestMapping(value = VALUE_GET_BY_ID, method = RequestMethod.GET, headers = HEADER_JSON) 
+	public ResponseEntity<Contractor> getContractorById(@PathVariable(PARAM_ID) int id) {
+		Contractor contractor = contractorRepository.findOne(id);
+		if(contractor == null) {
+			return new ResponseEntity<Contractor>(contractor, HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Contractor>(contractor, HttpStatus.FOUND);
+	}
+	
+	@RequestMapping(value = VALUE_ADD, method = RequestMethod.POST, headers = HEADER_JSON)
+	public ResponseEntity<Void> addContractor(@RequestBody Contractor contractor) {
 		contractor = contractorRepository.save(contractor);
 		HttpHeaders header = new HttpHeaders();
 		return new ResponseEntity<Void>(header, HttpStatus.CREATED);
 	}
 	
 	@Transactional
-	@RequestMapping(value = UPDATE_VALUE, method = RequestMethod.PUT, headers = HEADER_JSON)
-	public ResponseEntity<Void> updateSpd(@PathVariable(PARAM_ID) int id, @RequestBody Contractor contractor) {
+	@RequestMapping(value = VALUE_UPDATE, method = RequestMethod.PUT, headers = HEADER_JSON)
+	public ResponseEntity<Void> updateContractor(@PathVariable(PARAM_ID) int id, @RequestBody Contractor contractor) {
 		contractor.setId(id);
 		contractor.setVersion(contractorRepository.getOne(id).getVersion());
 		contractor = contractorRepository.save(contractor);
@@ -50,8 +59,8 @@ public class ContractorController extends BaseController {
 		return new ResponseEntity<Void>(header, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = DELETE_VALUE, method = RequestMethod.DELETE, headers = HEADER_JSON)
-	public ResponseEntity<Void> deleteSpd(@PathVariable(PARAM_ID) int id, @RequestBody Contractor contractor) {
+	@RequestMapping(value = VALUE_DELETE, method = RequestMethod.DELETE, headers = HEADER_JSON)
+	public ResponseEntity<Void> deleteContractor(@PathVariable(PARAM_ID) int id, @RequestBody Contractor contractor) {
 		contractor.setId(id);
 		contractor.setVersion(contractorRepository.getOne(id).getVersion());
 		contractorRepository.delete(contractor);
