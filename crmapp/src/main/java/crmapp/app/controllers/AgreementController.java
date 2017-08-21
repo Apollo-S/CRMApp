@@ -34,6 +34,15 @@ public class AgreementController extends BaseController {
 		return new ResponseEntity<List<Agreement>>(agreements, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = VALUE_GET_BY_ID, method = RequestMethod.GET, headers = HEADER_JSON) 
+	public ResponseEntity<Agreement> getContractorById(@PathVariable(PARAM_ID) int id) {
+		Agreement agreement = agreementRepository.findOne(id);
+		if(agreement == null) {
+			return new ResponseEntity<Agreement>(agreement, HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Agreement>(agreement, HttpStatus.FOUND);
+	}
+	
 	@RequestMapping(value = VALUE_ADD, method = RequestMethod.POST, headers = HEADER_JSON)
 	public ResponseEntity<Void> addAgreement(@RequestBody Agreement agreement) {
 		agreement = agreementRepository.save(agreement);
