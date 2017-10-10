@@ -13,9 +13,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Table(name = "	contractor")
+@Table(name = "client")
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-public class Contractor extends UrlBaseEntity {
+public class Client extends UrlBaseEntity {
 
 	@Column(name = "title")
 	private String title;
@@ -32,15 +32,15 @@ public class Contractor extends UrlBaseEntity {
 	@Column(name = "vat_certificate")
 	private String vatCertificate;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "contractor", orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "client", orphanRemoval = true)
 	@OrderBy("id ASC")
-	@JsonManagedReference(value="contractor-agreement")
+	@JsonManagedReference(value="client-agreement")
 	private Set<Agreement> agreements;
 
-	public Contractor() {
+	public Client() {
 	}
 
-	public Contractor(String title, String alias, String edrpou, String inn, String vatCertificate) {
+	public Client(String title, String alias, String edrpou, String inn, String vatCertificate) {
 		this.title = title;
 		this.alias = alias;
 		this.edrpou = edrpou;
