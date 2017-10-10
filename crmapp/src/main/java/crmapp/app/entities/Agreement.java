@@ -25,9 +25,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class Agreement extends UrlBaseEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "contractor_id")
-	@JsonBackReference(value = "contractor-agreement")
-	private Contractor contractor;
+	@JoinColumn(name = "client_id")
+	@JsonBackReference(value = "client-agreement")
+	private Client client;
 
 	@Column(name = "number")
 	private String number;
@@ -47,18 +47,18 @@ public class Agreement extends UrlBaseEntity {
 	public Agreement() {
 	}
 
-	public Agreement(Contractor contractor, String number, Date dateStart) {
-		this.contractor = contractor;
+	public Agreement(Client client, String number, Date dateStart) {
+		this.client = client;
 		this.number = number;
 		this.dateStart = dateStart;
 	}
 
-	public Contractor getContractor() {
-		return contractor;
+	public Client getClient() {
+		return client;
 	}
 
-	public void setContractor(Contractor contractor) {
-		this.contractor = contractor;
+	public void setClient(Client client) {
+		this.client = client;
 	}
 
 	public String getNumber() {
@@ -86,8 +86,8 @@ public class Agreement extends UrlBaseEntity {
 	}
 
 	@JsonInclude
-	public Integer getContractorId() {
-		return contractor.getId();
+	public Integer getClientId() {
+		return client.getId();
 	}
 
 	public Set<Document> getDocuments() {

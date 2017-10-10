@@ -16,6 +16,9 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
 @EnableJpaRepositories
@@ -27,9 +30,9 @@ public class ApplicationConfiguration {
 	public EntityManagerFactory entityManagerFactory(DataSource dataSource) {
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		vendorAdapter.setGenerateDdl(true);
+		vendorAdapter.setShowSql(true);
 
 		Properties jpaProperties = new Properties();
-		jpaProperties.setProperty("hibernate.show_sql", "${show_sql}");
 		jpaProperties.setProperty("hibernate.dialect", "${dialect}");
 
 		LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
@@ -38,7 +41,6 @@ public class ApplicationConfiguration {
 		localContainerEntityManagerFactoryBean.setDataSource(dataSource);
 		localContainerEntityManagerFactoryBean.setJpaProperties(jpaProperties);
 		localContainerEntityManagerFactoryBean.afterPropertiesSet();
-
 		return localContainerEntityManagerFactoryBean.getObject();
 	}
 
@@ -60,6 +62,17 @@ public class ApplicationConfiguration {
 		dataSource.setUsername("${username}");
 		dataSource.setPassword("${password}");
 		return dataSource;
+	}
+	
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurerAdapter() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/api/**")
+				.allowedMethods("GET", "POST", "PUT", "DELETE");
+			}
+		};
 	}
 
 }
