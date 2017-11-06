@@ -1,3 +1,83 @@
-<p>
-  dashboard works!
-</p>
+<div class="row">
+  <div class="col-md-3">
+    <div class="list-group" id="list-tab" role="tablist">
+        <a class="list-group-item list-group-item-action active" id="list-client-list" 
+            data-toggle="list" href="#list-client" role="tab" aria-controls="client">
+            <strong>Клиенты</strong></a>
+        <a class="list-group-item list-group-item-action" id="list-employee-list" 
+            data-toggle="list" href="#list-employee" role="tab" aria-controls="employee">
+            <strong>Сотрудники</strong></a>
+        <a class="list-group-item list-group-item-action" id="list-agreement-list" 
+            data-toggle="list" href="#list-agreement" role="tab" aria-controls="agreement">
+            <strong>Договоры</strong></a>
+        <a class="list-group-item list-group-item-action" id="list-doc-list" 
+            data-toggle="list" href="#list-doc" role="tab" aria-controls="doc">
+            <strong>Документы</strong></a>
+        <a class="list-group-item list-group-item-action" id="list-settings-list" 
+            data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">
+            <strong>_Settings</strong></a>
+    </div>
+  </div>
+  <div class="col-md">
+    <div class="tab-content" id="nav-tabContent">
+
+      <!-- Clients -->
+      <div class="tab-pane show active" id="list-client" role="tabpanel" aria-labelledby="list-client-list">
+
+          <app-clients></app-clients>
+
+      </div> <!-- End of Clients -->
+
+      <!-- Employees -->
+      <div class="tab-pane show" id="list-employee" role="tabpanel" aria-labelledby="list-employee-list">
+        
+          <app-employees></app-employees>
+
+      </div> <!-- End of Employees -->
+      
+      <div class="tab-pane show" id="list-agreement" role="tabpanel" aria-labelledby="list-agreement-list">
+          
+            <app-agreements></app-agreements>
+
+      </div>
+
+      <div class="tab-pane show" id="list-doc" role="tabpanel" aria-labelledby="list-doc-list">
+          
+            <app-documents></app-documents>
+
+      </div>
+
+      <div class="tab-pane show" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>
+
+    </div>
+  </div>
+
+  
+
+</div>
+
+<br>
+
+<!-- <div class="row">
+    <div class="col-md-3">
+        <div class="list-group" id="myList" role="tablist">
+            <a class="list-group-item list-group-item-action active" data-toggle="list" href="#home" role="tab">Home</a>
+            <a class="list-group-item list-group-item-action" data-toggle="list" href="#profile" role="tab">Profile</a>
+            <a class="list-group-item list-group-item-action" data-toggle="list" href="#messages" role="tab">Messages</a>
+            <a class="list-group-item list-group-item-action" data-toggle="list" href="#settings" role="tab">Settings</a>
+        </div>
+    </div>
+    <div class="col-md">
+      <div class="tab-content">
+        <div class="tab-pane active" id="home" role="tabpanel">...</div>
+        <div class="tab-pane" id="profile" role="tabpanel">...</div>
+        <div class="tab-pane" id="messages" role="tabpanel">...</div>
+        <div class="tab-pane" id="settings" role="tabpanel">...</div>
+      </div>
+    </div>
+    <script>
+            $(function () {
+              $('#myList a:last').tab('show')
+            })
+          </script>
+</div> -->

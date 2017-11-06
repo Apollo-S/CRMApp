@@ -1,0 +1,92 @@
+<div class="row">
+    <div class="col-md-2">
+      <a [routerLink]="['/employee', employee.id]" href="#" class="btn btn-info btn-sm">
+        <i class="fa fa-arrow-circle-o-left"></i> Вернуться к сотруднику</a> 
+    </div>
+    <div class="col-md-6">
+        <a [routerLink]="['/employee', employee.id]" href="#" class="btn btn-info btn-sm">
+          <i class="fa fa-arrow-circle-o-left"></i> Вернуться к сотруднику</a> 
+    </div>
+  </div>
+  
+  <br>
+
+  <div class="card">
+    <h5 class="card-header text-left"><strong>Редактирование данных о сотруднике</strong></h5>
+    <form (ngSubmit)="onSubmit()">
+      <div class="card-body">
+  
+          <div class="row">
+            <div class="col-md-4">
+              <label for="surname"><strong>Фамилия</strong></label> 
+              <input type="text" class="form-control"
+                [(ngModel)]="employee.surname" name="surname"
+                #employeeSurname="ngModel" minlength="2" required>
+              <div *ngIf="employeeSurname.errors?.required && employeeSurname.touched" class="alert alert-danger">
+                Введите фамилию!
+              </div>
+              <div *ngIf="employeeSurname.errors?.minlength && employeeSurname.touched" class="alert alert-danger">
+                  Фамилия должна содержать не менее 2 символов!
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="firstname"><strong>Имя</strong></label>
+              <input type="text" class="form-control"
+                [(ngModel)]="employee.firstname" name="firstname"
+                #employeeFirstname="ngModel" minlength="2" required>
+              <div *ngIf="employeeFirstname.errors?.required && employeeFirstname.touched" class="alert alert-danger">
+                Введите имя!
+              </div>
+              <div *ngIf="employeeFirstname.errors?.minlength && employeeFirstname.touched" class="alert alert-danger">
+                Имя должно содержать не менее 2 символов!
+              </div>
+            </div>
+            <div class="col-md-4">
+                <label for="lastname"><strong>Отчество</strong></label>
+                <input type="text" class="form-control"
+                  [(ngModel)]="employee.lastname" name="lastname"
+                  #employeeLastname="ngModel" minlength="2" required>
+                <div *ngIf="employeeLastname.errors?.required && employeeLastname.touched" class="alert alert-danger">
+                  Введите отчество!
+                </div>
+                <div *ngIf="employeeLastname.errors?.minlength && employeeLastname.touched" class="alert alert-danger">
+                  Отчество должно содержать не менее 2 символов!
+                </div>
+              </div>
+          </div>
+          <p>
+          <div class="row">
+            <div class="col-md-4">
+              <label for="shortName"><strong>Фамилия, инициалы</strong></label>
+              <input type="text" class="form-control" 
+                [(ngModel)]="employee.shortName" name="edrpou" 
+                #employeeShortName="ngModel" minlength="7" required>
+                <div *ngIf="employeeShortName.errors?.required && employeeShortName.touched" class="alert alert-danger">
+                  Введите Фамилия, инициалы!
+                </div>
+                <div *ngIf="employeeShortName.errors?.minlength && employeeShortName.touched" class="alert alert-danger">
+                    Фамилия, инициалы должно содержать не менее 7 символов!
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="inn"><strong>ИНН</strong></label>
+              <input type="text" class="form-control" 
+              [(ngModel)]="employee.inn" name="inn">
+            </div>
+            <div class="col-md-4">
+              <label for="birthDate"><strong>Дата рождения</strong></label>
+              <input type="text" class="form-control" 
+              [(ngModel)]="employee.birthDate"  name="birthDate">
+            </div>
+          </div>
+          <br>
+          <a [routerLink]="['/employee/' + employee.id]" href="#" class="btn btn-info">
+            <i class="fa fa-arrow-circle-o-left"></i> Вернуться к сотруднику</a> 
+          <button type="submit" class="btn btn-success">Записать</button>
+      </div>
+    </form>
+  </div>
+    
+  
+  
+  
