@@ -1,0 +1,58 @@
+<div class="card">
+  <h4 class="card-header text-center">
+      <i class="fa fa-users"></i> Договоры
+  </h4>
+  
+  <div class="card-body">
+
+<div class="row">
+  <div class="col-md-10">
+      <table *ngIf="agreements?.length > 0; else noAgreements" 
+          class="table table-sm">
+      
+      <thead class="thead-default">
+        <tr>
+            <th class="text-center">Контрагент</th>
+            <th class="text-center">Номер</th>
+            <th class="text-center">Дата</th>
+            <th class="text-center"></th>
+        </tr>
+      </thead>
+    
+      <tr *ngFor="let agreement of agreements">
+            <td class="text-center">
+                <a [routerLink]="['/client', agreement.clientId]" href="">
+                    {{agreement.clientAlias}}
+                </a>
+               
+            </td>
+            <td class="text-center">
+                {{agreement.number}}
+            </td>
+            <td class="text-center">
+                {{agreement.dateStart | date: 'dd.MM.y'}}
+            </td>
+            <td class="text-center">
+                <a [routerLink]="['/agreement', agreement.id]" href="" class="btn btn-info btn-sm">
+                    <i class="fa fa-arrow-circle-o-right"></i> Подробнее
+                </a>
+          </td>
+      </tr>
+          
+    </table>
+  
+    <ng-template #noAgreements>
+      <hr>
+      <h5 class="text-center">Нет ни одного договора в системе...</h5>
+    </ng-template>
+
+  </div>
+  <div class="col-md-2">
+     
+  </div>
+
+</div>
+
+</div>
+</div>
+
