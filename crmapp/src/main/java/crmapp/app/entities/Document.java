@@ -12,13 +12,13 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
 @Table(name = "document")
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+@JsonIgnoreProperties(ignoreUnknown = true,
+	value = { "hibernateLazyInitializer", "handler" })
 public class Document extends UrlBaseEntity {
 
 	@OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
@@ -48,7 +48,6 @@ public class Document extends UrlBaseEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "agreement_id")
-	@JsonBackReference(value = "agreement-document")
 	private Agreement agreement;
 
 	public Document() {

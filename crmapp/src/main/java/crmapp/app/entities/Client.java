@@ -1,5 +1,7 @@
 package crmapp.app.entities;
 
+import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -14,28 +16,46 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "client")
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-public class Client extends UrlBaseEntity {
+@JsonIgnoreProperties(ignoreUnknown = true, 
+	value = { "hibernateLazyInitializer", "handler" })
+public class Client extends UrlBaseEntity implements Serializable {
 
-	@Column(name = "title")
+	private static final long serialVersionUID = 1L;
+
+	@Column(name = "title", length = 255)
 	private String title;
 
-	@Column(name = "alias")
+	@Column(name = "alias", length = 100)
 	private String alias;
 
-	@Column(name = "edrpou")
+	@Column(name = "edrpou", length = 12)
 	private String edrpou;
 
-	@Column(name = "inn")
+	@Column(name = "inn", length = 15)
 	private String inn;
 
-	@Column(name = "vat_certificate")
+	@Column(name = "vat_certificate", length = 20)
 	private String vatCertificate;
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "client", orphanRemoval = true)
 	@OrderBy("id ASC")
-	@JsonManagedReference(value="client-agreement")
-	private Set<Agreement> agreements;
+	@JsonManagedReference(value = "client-agreement")
+	private Set<Agreement> agreements = new HashSet<>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "client", orphanRemoval = true)
+	@OrderBy("id ASC")
+	@JsonManagedReference(value = "client-address")
+	private Set<ClientAddress> addresses = new HashSet<>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "client", orphanRemoval = true)
+	@OrderBy("id ASC")
+	@JsonManagedReference(value = "client-director")
+	private Set<ClientDirector> directors = new HashSet<>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "client", orphanRemoval = true)
+	@OrderBy("id ASC")
+	@JsonManagedReference(value = "client-account")
+	private Set<ClientAccount> accounts = new HashSet<>();
 
 	public Client() {
 	}
@@ -94,6 +114,30 @@ public class Client extends UrlBaseEntity {
 
 	public void setAgreements(Set<Agreement> agreements) {
 		this.agreements = agreements;
+	}
+
+	public Set<ClientAddress> getAddresses() {
+		return addresses;
+	}
+
+	public void setAddresses(Set<ClientAddress> addresses) {
+		this.addresses = addresses;
+	}
+
+	public Set<ClientDirector> getDirectors() {
+		return directors;
+	}
+
+	public void setDirectors(Set<ClientDirector> directors) {
+		this.directors = directors;
+	}
+
+	public Set<ClientAccount> getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(Set<ClientAccount> accounts) {
+		this.accounts = accounts;
 	}
 
 }

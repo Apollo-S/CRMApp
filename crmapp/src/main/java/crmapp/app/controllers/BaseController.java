@@ -8,10 +8,11 @@ public abstract class BaseController {
 	static final String PARAM_ID = "id";
 	static final String HEADER_JSON = "Accept=application/json";
 	
-	static final String VALUE_GET_ALL = "/";
-	static final String VALUE_GET_BY_ID = "/{id}";
-	static final String VALUE_ADD = "/add/";
-	static final String VALUE_UPDATE = "/update/{id}";
-	static final String VALUE_DELETE = "/delete/{id}";
+	static final String REQUEST_MAPPING_EMPTY = "";
+	static final String REQUEST_MAPPING_GET_ALL = "/";
+	static final String REQUEST_MAPPING_BY_ID = "/{" + PARAM_ID + "}";
+	static final String REQUEST_MAPPING_ADD = "/add/";
+	static final String REQUEST_MAPPING_UPDATE = "/update/{id}";
+	static final String REQUEST_MAPPING_DELETE = "/delete/{id}";
 
 }

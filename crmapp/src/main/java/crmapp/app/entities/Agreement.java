@@ -1,5 +1,6 @@
 package crmapp.app.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -15,14 +16,19 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "agreement")
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-public class Agreement extends UrlBaseEntity {
+@JsonIgnoreProperties(ignoreUnknown = true, 
+	value = { "hibernateLazyInitializer", "handler" } )
+public class Agreement extends UrlBaseEntity implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "client_id")
@@ -39,10 +45,10 @@ public class Agreement extends UrlBaseEntity {
 	@Column(name = "comment")
 	private String comment;
 
-	@OneToMany(orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "agreement")
-	@OrderBy("id ASC")
-	@JsonManagedReference(value = "agreement-document")
-	private Set<Document> documents;
+	// @OneToMany(orphanRemoval = true, fetch = FetchType.LAZY, mappedBy =
+	// "agreement")
+	// @OrderBy("id ASC")
+	// private Set<Document> documents;
 
 	public Agreement() {
 	}
@@ -90,12 +96,17 @@ public class Agreement extends UrlBaseEntity {
 		return client.getId();
 	}
 
-	public Set<Document> getDocuments() {
-		return documents;
+	@JsonInclude
+	public String getClientAlias() {
+		return client.getAlias();
 	}
 
-	public void setDocuments(Set<Document> documents) {
-		this.documents = documents;
-	}
+	// public Set<Document> getDocuments() {
+	// return documents;
+	// }
+	//
+	// public void setDocuments(Set<Document> documents) {
+	// this.documents = documents;
+	// }
 
 }
