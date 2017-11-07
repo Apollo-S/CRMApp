@@ -74,6 +74,11 @@ public class Employee extends UrlBaseEntity implements Serializable {
 	@OrderBy("id ASC")
 	@JsonManagedReference(value = "employee-sicklist")
 	private Set<SickList> sickLists = new HashSet<>();
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", orphanRemoval = true)
+	@OrderBy("id ASC")
+	@JsonManagedReference(value = "employee-address")
+	private Set<EmployeeAddress> addresses = new HashSet<>();
 
 	public Employee() {
 	}
@@ -186,6 +191,14 @@ public class Employee extends UrlBaseEntity implements Serializable {
 
 	public void setSickLists(Set<SickList> sickLists) {
 		this.sickLists = sickLists;
+	}
+
+	public Set<EmployeeAddress> getAddresses() {
+		return addresses;
+	}
+
+	public void setAddresses(Set<EmployeeAddress> addresses) {
+		this.addresses = addresses;
 	}
 
 }
