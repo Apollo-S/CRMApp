@@ -45,6 +45,20 @@ VALUES
 	(2, 'Петров', 'Иван', 'Федорович', 'Петров И.Ф.', '3045679871', '1984-06-15', b'1', '2013-06-01', null, 2, 0),
 	(3, 'Сидоров', 'Петр', 'Валерьевич', 'Сидоров П.В.', '2874526548', '1978-09-20', b'0', '2012-01-01', null, 3, 0);
 
+TRUNCATE `employee_address`;
+INSERT INTO `employee_address` (`id`, `employee_id`, `presentation`, `date_start`, `optlock`)
+VALUES 
+  (1, 1, 'Україна, 04205, м.Київ, пр-т Оболонський, буд. 23, кв. 34', '2012-01-01', 0),
+  (2, 2, 'Україна, 01210, м. Киев, вул. Крещатик, 12', '2012-01-01', 0),
+  (3, 3, 'Україна, 00023, м. Киев, бульв. Т. Шевченко, 34/1', '2012-01-01', 0);
+
+TRUNCATE `employee_account`;
+INSERT INTO `employee_account` (`id`, `employee_id`, `presentation`, `date_start`, `optlock`)
+VALUES
+	(1, 1, '26007017100038 в АТ "Піреус Банк МКБ", МФО 300658', '2013-01-01', 0),
+	(2, 2, '26007247100756 в АТ "ПРИВАТБАНК", МФО 320699', '2013-01-01', 0),
+	(3, 3, '26007547230756 в АТ "ПРИВАТБАНК", МФО 320699', '2013-01-01', 0);
+
 TRUNCATE `vacation`;
 INSERT INTO `vacation` (`id`, `employee_id`, `description`, `date_start`, `date_final`, `days_amount`, `holiday_amount`, `comment`, `optlock`)
 VALUES
