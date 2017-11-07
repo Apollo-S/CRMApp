@@ -17,14 +17,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "employee")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @JsonIgnoreProperties(ignoreUnknown = true, 
 	value = { "hibernateLazyInitializer", "handler" })
 public class Employee extends UrlBaseEntity implements Serializable {
@@ -74,11 +71,16 @@ public class Employee extends UrlBaseEntity implements Serializable {
 	@OrderBy("id ASC")
 	@JsonManagedReference(value = "employee-sicklist")
 	private Set<SickList> sickLists = new HashSet<>();
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", orphanRemoval = true)
 	@OrderBy("id ASC")
 	@JsonManagedReference(value = "employee-address")
 	private Set<EmployeeAddress> addresses = new HashSet<>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", orphanRemoval = true)
+	@OrderBy("id ASC")
+	@JsonManagedReference(value = "employee-account")
+	private Set<EmployeeAccount> accounts = new HashSet<>();
 
 	public Employee() {
 	}
@@ -199,6 +201,14 @@ public class Employee extends UrlBaseEntity implements Serializable {
 
 	public void setAddresses(Set<EmployeeAddress> addresses) {
 		this.addresses = addresses;
+	}
+
+	public Set<EmployeeAccount> getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(Set<EmployeeAccount> accounts) {
+		this.accounts = accounts;
 	}
 
 }
