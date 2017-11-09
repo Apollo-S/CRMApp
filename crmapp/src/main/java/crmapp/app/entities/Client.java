@@ -11,6 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -138,6 +139,18 @@ public class Client extends UrlBaseEntity implements Serializable {
 
 	public void setAccounts(Set<ClientAccount> accounts) {
 		this.accounts = accounts;
+	}
+
+	@Override
+	@JsonIgnore
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("title: " + getTitle() + ", ");
+		builder.append("alias: " + getAlias() + ", ");
+		builder.append("edrpou: " + getEdrpou() + ", ");
+		builder.append("inn: " + getInn() + ", ");
+		builder.append("vatCertificate: " + getVatCertificate());
+		return builder.toString();
 	}
 
 }
