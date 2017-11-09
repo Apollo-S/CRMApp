@@ -1,7 +1,9 @@
 <div class="card">
-    <h4 class="card-header text-center">
-        <i class="fa fa-users"></i> Сотрудники
-    </h4>
+    <h5 class="card-header text-center">
+        <strong>
+            <i class="fa fa-users"></i> Сотрудники
+        </strong>
+    </h5>
     <div class="card-body">
 
         <div class="row">
@@ -26,7 +28,7 @@
                         <td class="text-center">
                             {{employee.inn}}
                         </td>
-                        <td class="text-center">
+                        <td class="text-right">
                             <a [routerLink]="['/employee', employee.id]" href="" class="btn btn-info btn-sm">
                                 <i class="fa fa-arrow-circle-o-right"></i> Подробнее
                             </a>
@@ -44,7 +46,7 @@
 
             </div>
             <div class="col-md-2">
-                <app-sidebar-employee></app-sidebar-employee>
+                <app-sidebar [url] = "['/add-employee']" [title] = "['Добавить']"></app-sidebar>
             </div>
         </div>
     </div>

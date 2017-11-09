@@ -9,7 +9,7 @@ import { Client } from '../../models/Client';
 })
 export class ClientsComponent implements OnInit {
   clients: Client[];
-
+  
   constructor(private clientService: ClientService) { }
 
   ngOnInit() {

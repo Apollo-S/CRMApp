@@ -3,5 +3,5 @@ export class ClientAccount {
     public clientId: number;
     public presentation: string;
     public dateStart: string;
-    
+
 }

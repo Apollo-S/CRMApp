@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Employee } from '../../models/Employee';
 import { EmployeeService } from '../../services/employee.service';
