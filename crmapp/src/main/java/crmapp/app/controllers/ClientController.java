@@ -2,6 +2,8 @@ package crmapp.app.controllers;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,7 +25,9 @@ import crmapp.app.repositories.ClientRepository;
 @Transactional
 @RequestMapping(value = "/api/clients")
 public class ClientController extends BaseController {
-
+	
+	private static final Logger logger = LoggerFactory.getLogger(ClientController.class);
+	
 	@Autowired
 	private ClientRepository clientRepository;
 
@@ -55,8 +59,11 @@ public class ClientController extends BaseController {
 
 	@PutMapping(value = "/{id}", headers = HEADER_JSON)
 	public ResponseEntity<Void> updateClient(@PathVariable(PARAM_ID) int id, @RequestBody Client client) {
+		logger.info("<==/////////// Entering to the updateClient() method ... ///////////==>");
 		client.setId(id);
+		logger.info("<==/////////// Id is setted to " + client.getId() + "///////////==>");
 		client.setVersion(clientRepository.getOne(id).getVersion());
+		logger.info("<==/////////// Printing client: " + client + "///////////==>");
 		client = clientRepository.save(client);
 		HttpHeaders header = new HttpHeaders();
 		return new ResponseEntity<Void>(header, HttpStatus.OK);

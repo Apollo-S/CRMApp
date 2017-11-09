@@ -21,13 +21,13 @@ import crmapp.app.repositories.ClientAccountRepository;
 
 @RestController
 @Transactional
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/clients")
 public class ClientAccountController extends BaseController {
 
 	@Autowired
 	private ClientAccountRepository accountRepository;
 
-	@GetMapping(value = "/clients/{clientId}/accounts", headers = HEADER_JSON)
+	@GetMapping(value = "/{clientId}/accounts", headers = HEADER_JSON)
 	public ResponseEntity<List<ClientAccount>> getAllClientAccountsByClientId(
 			@PathVariable("clientId") Integer clientId) {
 		List<ClientAccount> accounts = accountRepository.findAllByClientId(clientId);

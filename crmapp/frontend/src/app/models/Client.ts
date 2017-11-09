@@ -1,6 +1,4 @@
 import { Agreement } from './Agreement';
-import { ClientAddress } from './ClientAddress';
-import { ClientAccount } from './ClientAccount';
 
 export class Client {
     public id: number;
@@ -9,7 +7,5 @@ export class Client {
     public edrpou: string;
     public inn: string;
     public vatCertificate: string;
-    public agreements: Agreement[];
-    public addresses: ClientAddress[];
-    public accounts: ClientAccount[];
+
 }

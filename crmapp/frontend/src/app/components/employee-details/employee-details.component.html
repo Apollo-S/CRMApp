@@ -1,146 +1,155 @@
-
-	<nav class="breadcrumb">
-		<div class="row">
-			<div class="col">
-				<a class="breadcrumb-item" routerLink="/" href=""><strong>Главная</strong></a>
-				<a class="breadcrumb-item" routerLink="/employees" href=""><strong>Сотрудники</strong></a>
-				<span class="breadcrumb-item active"><strong>{{employee.shortName}}</strong></span>
-			</div>
+<nav class="breadcrumb">
+	<div class="row">
+		<div class="col">
+			<h5>
+				<strong>
+					<a class="breadcrumb-item" routerLink="/employees" href=""><i class="fa fa-users"></i> Сотрудники</a>
+					<span class="breadcrumb-item active">{{employee.shortName}}</span>
+				</strong>
+			</h5>
 		</div>
-	</nav>
+	</div>
+</nav>
 
-	<!-- Nav tabs -->
-	<p>
+<p>
+
+<div class="card">
+
+	<!-- <app-employee-nav-tabs></app-employee-nav-tabs> -->
+
+	<div class="card-header">
+		<ul class="nav nav-tabs card-header-tabs nav-fill" role="tablist">
+			<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#main" role="tab">
+				<i class="fa fa-address-card-o"></i> <strong>Основные данные</strong></a>
+			</li>
+			<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#address" role="tab">
+				<i class="fa fa-building-o"></i> <strong>Адрес</strong></a>
+			</li>
+			<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#account" role="tab">
+				<i class="fa fa-bank"></i> <strong>Банковские реквизиты</strong></a>
+			</li>
+			<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#vacation-sick" role="tab">
+				<i class="fa fa-user-o"></i> <strong>Отпуск / Больничные листы</strong></a>
+			</li>
+			<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#document" role="tab">
+				<i class="fa fa-file-text-o"></i> <strong>Документооборот</strong></a>
+			</li>
+		</ul>
+	</div>
+
+	<div class="card-body">
 	
-	<ul class="nav nav-tabs nav-fill" role="tablist">
-		<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#main" role="tab">
-			<i class="fa fa-address-card-o"></i> <strong>Основные данные</strong></a>
-		</li>
-		<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#address" role="tab">
-			<i class="fa fa-building-o"></i> <strong>Адрес</strong></a>
-		</li>
-		<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#account" role="tab">
-			<i class="fa fa-bank"></i> <strong>Банковские реквизиты</strong></a>
-		</li>
-		<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#director" role="tab">
-			<i class="fa fa-user-o"></i> <strong>Руководитель</strong></a>
-		</li>
-		<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#document" role="tab">
-			<i class="fa fa-file-text-o"></i> <strong>Документооборот</strong></a>
-		</li>
-	</ul>
-
-	<p>
 
 	<!-- Tab panes -->
 	<div class="tab-content">
 
 		<!-- Tab pane 'Main'  -->
 		<div class="tab-pane show active" id="main" role="tabpanel">
-			<p>
-
-			<table class="table table-bordered table-sm">
-				<thead class="thead-default">
-					<tr>
-						<th class="text-center">Фамилия</th>
-						<th class="text-center">Имя</th>
-						<th class="text-center">Отчество</th>
-					</tr>
-				</thead>	
-
-				<tr>
-					<td class="text-center">
-						{{employee.surname}}
-					</td>
-					<td class="text-center">
-						{{employee.firstname}}
-					</td>
-					<td class="text-center">
-						{{employee.lastname}}
-					</td>
-				</tr>
-		
-			</table>
 			
-			<br>
 
 			<div class="row">
-				<div class="col-md-3">
-					<table class="table table-bordered table-sm">
-						<thead class="thead-default">
-							<tr>
-								<th class="text-center">ИНН</th>
-							</tr>
-						</thead>	
-		
-						<tr>
-							<td class="text-center">
-									{{employee.inn}}
-							</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-			
-			<br>
-			<h3>Дата рождения</h3>
-			<h5>{{employee.birthDate | date: 'dd.MM.y'}}</h5>
-			<br>
-			<h3>Дата трудоустройства</h3>
-			<h5>{{employee.hireDate | date: 'dd.MM.y'}}</h5>
-			<br>
-			<h3>Дата увольнения</h3>
-			<h5>
-				{{employee.firedDate | date: 'dd.MM.y'}}</h5>
-			<br>
-			<a class="btn btn-success" [routerLink]="['/edit-employee', employee.id]" href="">
-				<i class="fa fa-edit"></i> Изменить
-			</a>
 
-			<!-- Button trigger modal -->
-			<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
-					<i class="fa fa-trash-o"></i> Удалить
-			</button>
+				<div class="col-md-10">
+					
+					<div class="card">
+						<div class="card-body">
+
+							<div class="row">
+								<div class="col-md-4">
+									<label for="surname"><strong>Фамилия</strong></label> 
+									<input type="text" readonly class="form-control" value={{employee.surname}} name="surname">
+								</div>
+								<div class="col-md-4">
+									<label for="firstname"><strong>Имя</strong></label>
+									<input type="text" readonly class="form-control" value="{{employee.firstname}}" name="firstname">
+								</div>
+								<div class="col-md-4">
+									<label for="lastname"><strong>Отчество</strong></label>
+									<input type="text" readonly class="form-control" value="{{employee.lastname}}" name="lastname">
+								</div>
+							</div>
+							<p>
+							<div class="row">
+								<div class="col-md-4">
+									<label for="shortName"><strong>Фамилия, инициалы</strong></label>
+									<input type="text" readonly class="form-control" value="{{employee.shortName}}" name="edrpou">
+								</div>
+								<div class="form-group col-md-4">
+									<label for="inn"><strong>ИНН</strong></label>
+									<input type="text" readonly class="form-control" value="{{employee.inn}}" name="inn">
+								</div>
+								<div class="col-md-4">
+									<label for="birthDate"><strong>Дата рождения</strong></label>
+									<input type="text" readonly class="form-control" value="{{employee.birthDate | date: 'dd.MM.y'}}" name="birthDate">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									<label for="hireDate"><strong>Дата трудоустройства</strong></label>
+									<input type="text" readonly class="form-control" value="{{employee.hireDate | date: 'dd.MM.y'}}" name="hireDate">
+								</div>
+								<div class="col-md-4">
+									<label for="firedDate"><strong>Дата увольнения</strong></label>
+									<input type="text" readonly class="form-control" value="{{employee.firedDate | date: 'dd.MM.y'}}" name="firedDate">
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
 			
-			<!-- Modal -->
-			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">
-								Удаление объекта
-							</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body">
-							Действительно удалить объект?
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
-							<button type="button" class="btn btn-danger" (click)="delete()">
-								<i class="fa fa-trash-o"></i> Удалить</button>
+				<div class="col-md-2">	
+					
+					<a class="btn btn-success btn-block" [routerLink]="['/edit-employee', employee.id]" href="">
+						<i class="fa fa-edit"></i> Изменить
+					</a>
+					
+					<!-- Button trigger modal -->
+					<button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#exampleModal">
+							<i class="fa fa-trash-o"></i> Удалить
+					</button>
+					
+					<!-- Modal -->
+					<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">
+										Удаление объекта
+									</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									Действительно удалить объект?
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-link" data-dismiss="modal">Отмена</button>
+									<button type="button" class="btn btn-danger" (click)="delete()">
+										<i class="fa fa-trash-o"></i> Удалить</button>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-
 		</div>
 		
 		<!-- Tab pane 'Address'  -->
 		<div class="tab-pane show" id="address" role="tabpanel">
-		<p>
+			<p>
+			<app-employee-details-addresses-tab [addresses] = "addresses"></app-employee-details-addresses-tab>
 		</div>
 
 		<!-- Tab pane 'Accounts'  -->
 		<div class="tab-pane show" id="account" role="tabpanel">
-		<p>
-
+			<p>
+			<app-employee-details-accounts-tab [accounts] = "accounts"></app-employee-details-accounts-tab>
 		</div>
 
-		<!-- Tab pane 'Directors'  -->
-		<div class="tab-pane show" id="director" role="tabpanel">
+		<!-- Tab pane 'Vacation'  -->
+		<div class="tab-pane show" id="vacation-sick" role="tabpanel">
 		<p>
 
 		</div>
@@ -149,8 +158,9 @@
 		<div class="tab-pane show" id="document" role="tabpanel">
 				
 		</div>
-		
-		
-		
-	</div>
 
+	
+	</div>
+</div>
+
+</div>

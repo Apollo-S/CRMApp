@@ -16,13 +16,13 @@ import crmapp.app.repositories.VacationRepository;
 
 @RestController
 @Transactional
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/employees")
 public class VacationController extends BaseController {
 	
 	@Autowired
 	private VacationRepository vacationRepository;
 	
-	@GetMapping(value = "/employees/{employeeId}/vacations", headers = HEADER_JSON)
+	@GetMapping(value = "/{employeeId}/vacations", headers = HEADER_JSON)
 	public ResponseEntity<List<Vacation>> getAllVacationsByEmployeeId(@PathVariable("employeeId") int employeeId) {
 		List<Vacation> vacations = vacationRepository.findAllVacationsByEmployeeId(employeeId);
 		if (vacations == null) {

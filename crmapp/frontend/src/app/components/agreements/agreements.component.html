@@ -1,7 +1,10 @@
 <div class="card">
-  <h4 class="card-header text-center">
-      <i class="fa fa-users"></i> Договоры
-  </h4>
+    <h5 class="card-header text-center">
+        <strong>
+            <i class="fa fa-users"></i> Договоры
+        </strong>
+    </h5>
+    
   
   <div class="card-body">
 
@@ -21,7 +24,7 @@
     
       <tr *ngFor="let agreement of agreements">
             <td class="text-center">
-                <a [routerLink]="['/client', agreement.clientId]" href="">
+                <a [routerLink]="['/client', agreement.clientId]" href="" class="card-link">
                     {{agreement.clientAlias}}
                 </a>
                
@@ -32,7 +35,7 @@
             <td class="text-center">
                 {{agreement.dateStart | date: 'dd.MM.y'}}
             </td>
-            <td class="text-center">
+            <td class="text-right">
                 <a [routerLink]="['/agreement', agreement.id]" href="" class="btn btn-info btn-sm">
                     <i class="fa fa-arrow-circle-o-right"></i> Подробнее
                 </a>
@@ -48,7 +51,7 @@
 
   </div>
   <div class="col-md-2">
-     
+    <app-sidebar [url] = "['/add-agreement']" [title] = "['Добавить']"></app-sidebar>
   </div>
 
 </div>

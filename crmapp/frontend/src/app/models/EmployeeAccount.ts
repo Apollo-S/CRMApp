@@ -1,7 +1,7 @@
-export class ClientAccount {
+export class EmployeeAccount {
     public id: number;
-    public clientId: number;
+    public employeeId: number;
     public presentation: string;
     public dateStart: string;
-
+    
 }

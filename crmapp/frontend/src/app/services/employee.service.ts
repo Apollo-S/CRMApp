@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 import { Employee } from '../models/Employee';
+import { EmployeeAddress } from '../models/EmployeeAddress';
+import { EmployeeAccount } from '../models/EmployeeAccount';
 
 @Injectable()
 export class EmployeeService {
@@ -27,6 +29,22 @@ export class EmployeeService {
         .toPromise()
         .then(response => response.json() as Employee)
         .catch(this.handleError); 
+    }
+
+    getAddressesByEmployeeId(employeeId: number): Promise<EmployeeAddress[]> {
+      const url = `${this.employeesUrl}/${employeeId}/addresses`;
+      return this.http.get(url)
+          .toPromise()
+          .then(response => response.json() as EmployeeAddress[])
+          .catch(this.handleError);
+    }
+    
+    getAccountsByEmployeeId(employeeId: number): Promise<EmployeeAccount[]> {
+      const url = `${this.employeesUrl}/${employeeId}/accounts`;
+      return this.http.get(url)
+          .toPromise()
+          .then(response => response.json() as EmployeeAccount[])
+          .catch(this.handleError);
     }
   
     addEmployee(employee: Employee): Promise<Employee> {
