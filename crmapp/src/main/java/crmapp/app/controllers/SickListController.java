@@ -16,13 +16,13 @@ import crmapp.app.repositories.SickListRepository;
 
 @RestController
 @Transactional
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/employees")
 public class SickListController extends BaseController {
 
 	@Autowired
 	private SickListRepository sickListRepository;
 
-	@GetMapping(value = "/employees/{employeeId}/sickLists", headers = HEADER_JSON)
+	@GetMapping(value = "/{employeeId}/sicklists", headers = HEADER_JSON)
 	public ResponseEntity<List<SickList>> getAllSickListsByEmployeeId(@PathVariable("employeeId") int employeeId) {
 		List<SickList> sickLists = sickListRepository.findAllSickListsByEmployeeId(employeeId);
 		if (sickLists == null) {

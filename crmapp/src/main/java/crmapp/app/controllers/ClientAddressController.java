@@ -16,13 +16,13 @@ import crmapp.app.repositories.ClientAddressRepository;
 
 @RestController
 @Transactional
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/clients")
 public class ClientAddressController extends BaseController {
 
 	@Autowired
 	private ClientAddressRepository addressRepository;
 
-	@GetMapping(value = "/clients/{clientId}/addresses", headers = HEADER_JSON)
+	@GetMapping(value = "/{clientId}/addresses", headers = HEADER_JSON)
 	public ResponseEntity<List<ClientAddress>> getAllClientAddresses(@PathVariable("clientId") Integer clientId) {
 		List<ClientAddress> addresses = addressRepository.findAllClientAddressesByClientId(clientId);
 		if (addresses.size() == 0) {
