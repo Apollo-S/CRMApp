@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 
@@ -16,53 +17,70 @@ import { AppComponent } from './app.component';
 import { AboutComponent } from './components/about/about.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NavbarBottomComponent } from './components/navbar-bottom/navbar-bottom.component';
-import { ClientsComponent } from './components/clients/clients.component';
-import { AddClientComponent } from './components/add-client/add-client.component';
-import { ClientDetailsComponent } from './components/client-details/client-details.component';
-import { EditClientComponent } from './components/edit-client/edit-client.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { AgreementsComponent } from './components/agreements/agreements.component';
-import { DocumentsComponent } from './components/documents/documents.component';
-import { ClientDetailsAgrementsTabComponent } from './components/client-details-agrements-tab/client-details-agrements-tab.component';
-import { ClientDetailsAddressesTabComponent } from './components/client-details-addresses-tab/client-details-addresses-tab.component';
-import { ClientDetailsAccountsTabComponent } from './components/client-details-accounts-tab/client-details-accounts-tab.component';
-import { ClientDetailsDirectorsTabComponent } from './components/client-details-directors-tab/client-details-directors-tab.component';
-import { EmployeesComponent } from './components/employees/employees.component';
-import { EmployeeDetailsComponent } from './components/employee-details/employee-details.component';
-import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
-import { EditEmployeeComponent } from './components/edit-employee/edit-employee.component';
-import { EmployeeDetailsAddressesTabComponent } from './components/employee-details-addresses-tab/employee-details-addresses-tab.component';
-import { EmployeeDetailsAccountsTabComponent } from './components/employee-details-accounts-tab/employee-details-accounts-tab.component';
-import { AgreementDetailsComponent } from './components/agreement-details/agreement-details.component';
-import { AddAgreementComponent } from './components/add-agreement/add-agreement.component';
-import { EditAgreementComponent } from './components/edit-agreement/edit-agreement.component';
-import { EmployeeNavTabsComponent } from './components/employee-nav-tabs/employee-nav-tabs.component';
-import { VacationsComponent } from './components/vacations/vacations.component';
-import { VacationDetailsComponent } from './components/vacation-details/vacation-details.component';
 
+import { ClientsComponent } from './components/client/clients/clients.component';
+import { AddClientComponent } from './components/client/add-client/add-client.component';
+import { EditClientComponent } from './components/client/edit-client/edit-client.component';
+import { ClientDetailsComponent } from './components/client/client-details/client-details.component';
+import { ClientDetailsAgrementsTabComponent } from './components/client/client-details-agrements-tab/client-details-agrements-tab.component';
+import { ClientDetailsAddressesTabComponent } from './components/client/client-details-addresses-tab/client-details-addresses-tab.component';
+import { ClientDetailsAccountsTabComponent } from './components/client/client-details-accounts-tab/client-details-accounts-tab.component';
+import { ClientDetailsDirectorsTabComponent } from './components/client/client-details-directors-tab/client-details-directors-tab.component';
+
+import { AgreementsComponent } from './components/agreement/agreements/agreements.component';
+import { AddAgreementComponent } from './components/agreement/add-agreement/add-agreement.component';
+import { EditAgreementComponent } from './components/agreement/edit-agreement/edit-agreement.component';
+import { AgreementDetailsComponent } from './components/agreement/agreement-details/agreement-details.component';
+
+import { DocumentsComponent } from './components/document/documents/documents.component';
+
+import { EmployeesComponent } from './components/employee/employees/employees.component';
+import { AddEmployeeComponent } from './components/employee/add-employee/add-employee.component';
+import { EditEmployeeComponent } from './components/employee/edit-employee/edit-employee.component';
+import { EmployeeDetailsComponent } from './components/employee/employee-details/employee-details.component';
+import { EmployeeDetailsTabsComponent } from './components/employee/employee-details/employee-details-tabs/employee-details-tabs.component';
+import { EmployeeDetailsMainTabComponent } from './components/employee/employee-details/employee-details-main-tab/employee-details-main-tab.component';
+import { EmployeeDetailsAddressesTabComponent } from './components/employee/employee-details/employee-details-addresses-tab/employee-details-addresses-tab.component';
+import { EmployeeDetailsAccountsTabComponent } from './components/employee/employee-details/employee-details-accounts-tab/employee-details-accounts-tab.component';
+
+import { VacationsComponent } from './components/vacation/vacations/vacations.component';
+import { VacationDetailsComponent } from './components/vacation/vacation-details/vacation-details.component';
 
 const appRoutes: Routes = [
-  {path: '', component:DashboardComponent},
   {path: 'about', component:AboutComponent},
+  {path: '', component:DashboardComponent, 
+    children: 
+    [
+      {path:  '', redirectTo: 'clients', pathMatch: 'full'},
+      {path: 'clients', component:ClientsComponent},
+      {path: 'employees', component:EmployeesComponent},
+      {path: 'documents', component:DocumentsComponent},
+      {path: 'vacations', component:VacationsComponent},
+      {path: 'agreements', component:AgreementsComponent},
+    ]
+  },
+  {path: 'clients/add', component:AddClientComponent},
+  {path: 'clients/:id/edit', component:EditClientComponent},
+  {path: 'clients/:id', component:ClientDetailsComponent},
 
-  {path: 'clients', component:ClientsComponent},
-  {path: 'client/:id', component:ClientDetailsComponent},
-  {path: 'edit-client/:id', component:EditClientComponent},
-  {path: 'add-client', component:AddClientComponent},
+  {path: 'employees/add', component:AddEmployeeComponent},
+  {path: 'employees/:id/edit', component:EditEmployeeComponent},
+  {path: 'employees/:id', component:EmployeeDetailsComponent, 
+    children: 
+    [
+      {path:  '', redirectTo: 'main', pathMatch: 'full'},
+      {path: 'main', component: EmployeeDetailsMainTabComponent},
+      {path: 'address', component: EmployeeDetailsAddressesTabComponent},
+      {path: 'account', component: EmployeeDetailsAccountsTabComponent}
+    ]
+  },
 
-  {path: 'employees', component:EmployeesComponent},
-  {path: 'employee/:id', component:EmployeeDetailsComponent},
-  {path: 'edit-employee/:id', component:EditEmployeeComponent},
-  {path: 'add-employee', component:AddEmployeeComponent},
-
-  {path: 'agreements', component:AgreementsComponent},
-  {path: 'agreement/:id', component:AgreementDetailsComponent},
-  {path: 'add-agreement', component:AddAgreementComponent},
-  {path: 'edit-agreement/:id', component:EditAgreementComponent},
-
-  {path: 'vacations', component:VacationsComponent},
+  {path: 'agreements/:id', component:AgreementDetailsComponent},
+  {path: 'agreements/add', component:AddAgreementComponent},
+  {path: 'agreements/:id/edit', component:EditAgreementComponent},
 
 ]
 
@@ -94,15 +112,18 @@ const appRoutes: Routes = [
     AgreementDetailsComponent,
     AddAgreementComponent,
     EditAgreementComponent,
-    EmployeeNavTabsComponent,
     VacationsComponent,
-    VacationDetailsComponent
+    VacationDetailsComponent,
+    EmployeeDetailsMainTabComponent,
+    EmployeeDetailsTabsComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     FlashMessagesModule,
+    NgbModule.forRoot(),
     RouterModule.forRoot(appRoutes)
   ],
   providers: [

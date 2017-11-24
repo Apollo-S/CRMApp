@@ -1,0 +1,117 @@
+
+	<nav class="breadcrumb">
+		<div class="row">
+			<div class="col">
+				<a class="breadcrumb-item" routerLink="/clients" href=""><strong>Клиенты</strong></a>
+				<span class="breadcrumb-item active"><strong>{{client?.alias}}</strong></span>
+			</div>
+		</div>
+	</nav>
+
+	<!-- Nav tabs -->
+	<p>
+	
+	<ul class="nav nav-tabs nav-fill" role="tablist">
+		<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#main" role="tab">
+			<i class="fa fa-address-card-o"></i> <strong>Основные данные</strong></a>
+		</li>
+		<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#address" role="tab">
+			<i class="fa fa-building-o"></i> <strong>Адрес</strong></a>
+		</li>
+		<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#account" role="tab">
+			<i class="fa fa-bank"></i> <strong>Банковские реквизиты</strong></a>
+		</li>
+		<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#director" role="tab">
+			<i class="fa fa-user-o"></i> <strong>Руководитель</strong></a>
+		</li>
+		<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#document" role="tab">
+			<i class="fa fa-file-text-o"></i> <strong>Документооборот</strong></a>
+		</li>
+	</ul>
+
+	<p>
+
+	<!-- Tab panes -->
+	<div class="tab-content">
+
+		<!-- Tab pane 'Main'  -->
+		<div class="tab-pane show active" id="main" role="tabpanel">
+			<p>
+			<h3>Псевдоним:</h3>
+			<h5>{{client?.alias}}</h5>
+			<br>
+			<h3>Название:</h3>
+			<h5>{{client?.title}}</h5>
+			<br>
+			<h3>ЕДРПОУ</h3>
+			<h5>{{client?.edrpou}}</h5>
+			<br>
+			<h3>ИНН</h3>
+			<h5>{{client?.inn}}</h5>
+			<br>
+			<h3>№ свидетельства плат. НДС</h3>
+			<h5>{{client?.vatCertificate}}</h5>
+			<br>
+			<a class="btn btn-success" [routerLink]="['/edit-client/' + client?.id]" href="">
+				<i class="fa fa-edit"></i> Изменить
+			</a>
+
+			<!-- Button trigger modal -->
+			<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+					<i class="fa fa-trash-o"></i> Удалить
+			</button>
+			
+			<!-- Modal -->
+			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">
+								Удаление объекта
+							</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							Действительно удалить объект?
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+							<button type="button" class="btn btn-danger" (click)="delete()">
+								<i class="fa fa-trash-o"></i> Удалить</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		
+		<!-- Tab pane 'Address'  -->
+		<div class="tab-pane show" id="address" role="tabpanel">
+		<p>
+			<app-client-details-addresses-tab [addresses] = "addresses"></app-client-details-addresses-tab>
+		</div>
+
+		<!-- Tab pane 'Accounts'  -->
+		<div class="tab-pane show" id="account" role="tabpanel">
+		<p>
+			<app-client-details-accounts-tab [accounts] = "accounts"></app-client-details-accounts-tab>
+
+		</div>
+
+		<!-- Tab pane 'Directors'  -->
+		<div class="tab-pane show" id="director" role="tabpanel">
+		<p>
+			<app-client-details-directors-tab [directors] = "directors"></app-client-details-directors-tab>
+
+		</div>
+		
+		<!-- Tab pane 'Documents'  -->
+		<div class="tab-pane show" id="document" role="tabpanel">
+				
+		</div>
+		
+		
+		
+	</div>

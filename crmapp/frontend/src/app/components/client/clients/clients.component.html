@@ -1,0 +1,57 @@
+<div class="card">
+    <h5 class="card-header text-center">
+        <strong>
+            <i class="fa fa-users"></i> Клиенты
+        </strong>
+   </h5>
+    
+    <div class="card-body">
+
+        <div class="row">
+            <div class="col-md-10">
+                <table *ngIf="clients?.length > 0; else noClients" 
+                    class="table table-sm">
+                
+                <thead class="thead-default">
+                <tr>
+                    
+                    <th class="text-center">Название</th>
+                    <th class="text-center">ЕДРПОУ</th>
+                    <th class="text-center"></th>
+                </tr>
+                </thead>
+            
+                <tr *ngFor="let client of clients">
+                    
+                    <td class="text-center">
+                        {{client.title}}
+                    </td>
+                    <td class="text-center">
+                        {{client.edrpou}}
+                    </td>
+                    <td class="text-right">
+                        <a class="btn btn-info btn-sm"
+                            [routerLink]="['/clients', client?.id]">
+                            <i class="fa fa-arrow-circle-o-right"></i> Подробнее
+                        </a>
+                    </td>
+                </tr>
+                    
+            </table>
+            
+            <ng-template #noClients>
+                <hr>
+                <h5 class="text-center">Нет ни одного клиента в системе...</h5>
+            </ng-template>
+
+            </div>
+            <div class="col-md-2">
+                <app-sidebar [url] = "['/add-client']" [title] = "['Добавить']"></app-sidebar>
+            </div>
+
+        </div>
+
+</div>
+</div>
+
+
