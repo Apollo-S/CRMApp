@@ -31,7 +31,7 @@ public class ClientController extends BaseController {
 	@Autowired
 	private ClientRepository clientRepository;
 
-	@GetMapping(value = REQUEST_MAPPING_EMPTY, headers = HEADER_JSON)
+	@GetMapping(value = "", headers = HEADER_JSON)
 	public ResponseEntity<List<Client>> getAllClients() {
 		List<Client> clients = clientRepository.findAll();
 		if (clients.size() == 0) {
@@ -40,7 +40,7 @@ public class ClientController extends BaseController {
 		return new ResponseEntity<List<Client>>(clients, HttpStatus.OK);
 	}
 
-	@GetMapping(value = REQUEST_MAPPING_BY_ID, headers = HEADER_JSON)
+	@GetMapping(value = "/{id}", headers = HEADER_JSON)
 	public ResponseEntity<Client> getClientById(@PathVariable(PARAM_ID) int id) {
 		Client client = clientRepository.findOne(id);
 		if (client == null) {
@@ -49,7 +49,7 @@ public class ClientController extends BaseController {
 		return new ResponseEntity<Client>(client, HttpStatus.OK);
 	}
 
-	@PostMapping(value = REQUEST_MAPPING_EMPTY, headers = HEADER_JSON)
+	@PostMapping(value = "", headers = HEADER_JSON)
 	public ResponseEntity<Void> addClient(@RequestBody Client client) {
 		client.setVersion(0);
 		client = clientRepository.save(client);

@@ -2,31 +2,24 @@ package crmapp.app.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@Table(name = "agreement")
+@Table(name = "client_agreement")
 @JsonIgnoreProperties(ignoreUnknown = true, 
 	value = { "hibernateLazyInitializer", "handler" } )
-public class Agreement extends UrlBaseEntity implements Serializable {
+public class ClientAgreement extends UrlBaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -50,10 +43,10 @@ public class Agreement extends UrlBaseEntity implements Serializable {
 	// @OrderBy("id ASC")
 	// private Set<Document> documents;
 
-	public Agreement() {
+	public ClientAgreement() {
 	}
 
-	public Agreement(Client client, String number, Date dateStart) {
+	public ClientAgreement(Client client, String number, Date dateStart) {
 		this.client = client;
 		this.number = number;
 		this.dateStart = dateStart;

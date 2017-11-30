@@ -74,8 +74,8 @@ INSERT INTO `sick_list` (`id`, `employee_id`, `description`, `date_start`, `date
 VALUES
 	(1, 1, 'Больничный в феврале 2014 года', '2014-02-01', '2014-02-12', 12, '', 0);
 
-TRUNCATE `agreement`;
-INSERT INTO `agreement` (`id`, `client_id`, `number`, `date_start`, `comment`, `optlock`)
+TRUNCATE `client_agreement`;
+INSERT INTO `client_agreement` (`id`, `client_id`, `number`, `date_start`, `comment`, `optlock`)
 VALUES 
   (1, 1, '20170701/45/76', '2017-07-01', '', 0),
   (2, 2, 'FLP-2015/3', '2015-03-01', 'Договор на ТП 2015 год', 0),
@@ -97,7 +97,7 @@ VALUES
   (3, 'Оплачен', 0);
   
 TRUNCATE `document`;
-INSERT INTO `document` (`id`, `agreement_id`, `doc_type_id`, `number`, `dated`, `amount`, `payment_date`, `doc_status_id`, `comment`, `optlock`)
+INSERT INTO `document` (`id`, `client_agreement_id`, `doc_type_id`, `number`, `dated`, `amount`, `payment_date`, `doc_status_id`, `comment`, `optlock`)
 VALUES 
   (1, 1, 2, '18', '2017-06-30', 20000.0, null, '1', '', 0),
   (2, 2, 3, '3', '2017-07-01', 500000.0, '2017-07-01', '2', 'На доп. услуги за 3 квартал', 0),
