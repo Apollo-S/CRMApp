@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-md-10">
-      <table *ngIf="directors?.length > 0; else noDirectors" class="table table-sm">
+      <table class="table table-sm"
+        *ngIf="directors?.length > 0; else noDirectors">
 
         <thead class="thead-default">
           <tr>

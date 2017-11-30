@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ClientAccount } from '../../../models/ClientAccount';
+import { ClientAccount } from '../../../../models/ClientAccount';
 
 @Component({
   selector: 'app-client-details-accounts-tab',

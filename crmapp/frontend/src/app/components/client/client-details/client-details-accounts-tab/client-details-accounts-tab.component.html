@@ -1,0 +1,68 @@
+<p>
+
+<div class="row">
+
+  <div class="col-md-10">
+
+    <div class="card">
+      <div class="card-body"> 
+
+        <table *ngIf="accounts?.length > 0; else noAccounts" class="table table-sm">
+          
+          <thead class="thead-default">
+            <tr>
+              <th class="text-center">ID</th>
+              <th class="text-center">Представление</th>
+              <th class="text-center">Действует с</th>
+              <th class="text-center"></th>
+            </tr>
+          </thead>
+          
+          <tr *ngFor="let account of accounts">
+            <td class="text-center" >{{account.id}}</td>
+            <td class="text-center" >{{account.presentation}}</td>
+            <td class="text-center" >{{account.dateStart | date: 'dd.MM.y'}}</td>
+            <td>
+              <div class="d-flex justify-content-end">
+                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                  <div class="btn-group mr-2" role="group" aria-label="First group">
+                    <button type="button" class="btn btn-success btn-sm" >
+                      <i class="fa fa-edit"></i> Изменить
+                    </button>
+                  </div>
+                  <div class="btn-group mr-2" role="group" aria-label="Second group">
+                    <form action="#" method="post">
+                      <button type="submit" class="btn btn-danger btn-sm">
+                        <i class="fa fa-trash-o"></i> Удалить
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+
+        </table>
+
+      </div>
+    </div>
+
+    <ng-template #noAccounts>
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+              <p class="lead text-center">Нет ни одного счета в системе ...</p>
+            </div>
+          </div>
+        <!-- <hr class="my-4">
+        <h5 class="text-center">Нет ни одного счета в системе ...</h5> -->
+    </ng-template>
+
+  </div>
+
+  <div class="col-md-2">
+    <button type="button" class="btn btn-primary btn-block">
+      <i class="fa fa-plus"></i> Новый счет
+    </button>
+  </div>
+
+</div>

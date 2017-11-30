@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ClientDirector } from '../../../models/ClientDirector';
+import { ClientDirector } from '../../../../models/ClientDirector';
 
 @Component({
   selector: 'app-client-details-directors-tab',
