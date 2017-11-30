@@ -26,7 +26,7 @@
   <li class="nav-item">
     <a class="nav-link disabled">
       <i class="fa fa-building-o">
-        </i> <strong>Адрес</strong>
+        </i> <strong>Адресы</strong>
   </a>
   </li>
   <li class="nav-item">
@@ -44,7 +44,7 @@
   <li class="nav-item">
     <a class="nav-link disabled">
       <i class="fa fa-file-text-o">
-        </i> <strong>Документооборот</strong>
+        </i> <strong>Договоры</strong>
     </a>
   </li>
 </ul>
@@ -52,15 +52,10 @@
 <p>
               
 <form (ngSubmit)="onSubmit()">
-
   <div class="row">
-      
     <div class="col-md-10">
-      
       <div class="card">
-
         <div class="card-body">
-  
           <div class="row">
             <div class="col-md-4">
               <label for="surname"><strong>Фамилия</strong></label> 
@@ -99,9 +94,7 @@
                 </div>
               </div>
           </div>
-
           <p>
-
           <div class="row">
             <div class="col-md-4">
               <label for="shortName"><strong>Фамилия, инициалы</strong></label>
@@ -126,21 +119,21 @@
               [(ngModel)]="employee.birthDate" name="birthDate">
             </div>
           </div>
-
         </div>
-
       </div>
-
     </div>
-
     <div class="col-md-2">
       <a class="btn btn-info btn-block"
-        [routerLink]="['/employees', employee?.id]">
+        [routerLink]="['../']">
         <i class="fa fa-arrow-circle-o-left">
           </i> Назад к сотруднику
       </a> 
-      <button type="submit" class="btn btn-success btn-block">Записать</button>
+      <button 
+        type="submit" 
+        class="btn btn-success btn-block">
+          <i class="fa fa-check-square-o">
+            </i> Записать
+      </button>
     </div>
   </div>
-
 </form>
