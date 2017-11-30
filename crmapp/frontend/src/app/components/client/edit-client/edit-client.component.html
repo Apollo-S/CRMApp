@@ -1,74 +1,189 @@
-<div class="row">
-  <div class="col-md-6">
-    <a [routerLink]="['/client/' + client?.id]" href="#" class="btn btn-link">
-      <i class="fa fa-arrow-circle-o-left"></i> Вернуться к клиенту</a> 
-  </div>
-  <div class="col-md-6">
-
-  </div>
-</div>
-
-<div class="card">
-  <h5 class="card-header">{{client?.title}} (ЕДРПОУ: {{client?.edrpou}})</h5>
-  <form (ngSubmit)="onSubmit()">
-    <div class="card-body">
-
-        <div class="row">
-          <div class="col-md-6">
-            <label for="title"><strong>Полное название</strong></label> 
-            <input type="text" class="form-control"
-              [(ngModel)]="client.title" name="title"
-              #clientTitle="ngModel" minlength="2" required>
-            <div *ngIf="clientTitle.errors?.required && clientTitle.touched" class="alert alert-danger">
-              Введите полное название!
-            </div>
-            <div *ngIf="clientTitle.errors?.minlength && clientTitle.touched" class="alert alert-danger">
-              Полное название должно быть не менее 2 символов!
-            </div>
-          </div>
-          <div class="col-md-6">
-            <label for="alias"><strong>Псевдоним</strong></label>
-            <input type="text" class="form-control"
-              [(ngModel)]="client.alias" name="alias"
-              #clientAlias="ngModel" minlength="2" required>
-            <div *ngIf="clientAlias.errors?.required && clientAlias.touched" class="alert alert-danger">
-              Введите псевдоним!
-            </div>
-            <div *ngIf="clientAlias.errors?.minlength && clientAlias.touched" class="alert alert-danger">
-              Псевдоним должен содержать не менее 2 символов!
-            </div>
-          </div>
-        </div>
-        <p>
-        <div class="row">
-          <div class="col-md-4">
-            <label for="edrpou"><strong>ЕДРПОУ</strong></label>
-            <input type="text" class="form-control" 
-              [(ngModel)]="client.edrpou" name="edrpou" 
-              #clientEdrpou="ngModel" minlength="7" required>
-              <div *ngIf="clientEdrpou.errors?.required && clientEdrpou.touched" class="alert alert-danger">
-                Введите ЕДРПОУ!
-              </div>
-              <div *ngIf="clientEdrpou.errors?.minlength && clientEdrpou.touched" class="alert alert-danger">
-                ЕДРПОУ должно содержать не менее 7 символов!
-              </div>
-          </div>
-          <div class="form-group col-md-4">
-            <label for="inn"><strong>ИНН</strong></label>
-            <input type="text" class="form-control" 
-            [(ngModel)]="client.inn" name="inn">
-          </div>
-          <div class="col-md-4">
-            <label for="vatCertificate"><strong>№ свидетельства НДС</strong></label>
-            <input type="text" class="form-control" 
-            [(ngModel)]="client.vatCertificate"  name="vatCertificate">
-          </div>
-        </div>
-        <br>
-        <button type="submit" class="btn btn-success">Записать</button>
+<nav class="breadcrumb">
+  <div class="row">
+    <div class="col">
+      <h5>
+        <strong>
+          <a class="breadcrumb-item" routerLink="/clients">
+            <i class="fa fa-users">
+              </i> Клиенты
+          </a>
+          <span class="breadcrumb-item active">{{client?.alias}} | Редактирование записи</span>
+        </strong>
+      </h5>
     </div>
-  </form>
-</div>
-  
+  </div>
+</nav>
+
+<p>
+        
+<ul class="nav nav-tabs nav-fill">
+  <li class="nav-item">
+    <a class="nav-link active">
+      <i class="fa fa-address-card-o">
+        </i> <strong>Основные данные</strong>
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled">
+      <i class="fa fa-building-o">
+        </i> <strong>Адресы</strong>
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled">
+      <i class="fa fa-bank">
+        </i> <strong>Банковские реквизиты</strong>
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled">
+      <i class="fa fa-user-o">
+        </i> <strong>Руководитель</strong>
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled">
+      <i class="fa fa-file-text-o">
+        </i> <strong>Документооборот</strong>
+    </a>
+  </li>
+</ul>
+
+<p>
+
+<form (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="col-md-10">
+      <div class="card">
+        <div class="card-body"> 
+            <div class="form-group row">
+              <label 
+                for="title"
+                class="col-md-3 col-form-label">
+                <strong>Полное название</strong>
+              </label> 
+              <div class="col-md">
+                <input 
+                  type="text" 
+                  class="form-control"
+                  [(ngModel)]="client.title" 
+                  name="title" 
+                  #clientTitle="ngModel" 
+                  minlength="2" 
+                  required>
+                <div 
+                  *ngIf="clientTitle.errors?.required && clientTitle.touched" 
+                  class="alert alert-danger">
+                  Введите полное название!
+                </div>
+                <div 
+                  *ngIf="clientTitle.errors?.minlength && clientTitle.touched" 
+                  class="alert alert-danger">
+                  Полное название должно быть не менее 2 символов!
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label 
+                for="alias"
+                class="col-md-3 col-form-label">
+                <strong>Псевдоним</strong>
+              </label>
+              <div class="col-md">
+                <input 
+                  type="text" 
+                  class="form-control"
+                  [(ngModel)]="client.alias" 
+                  name="alias"
+                  #clientAlias="ngModel" 
+                  minlength="2" 
+                  required>
+                <div 
+                  *ngIf="clientAlias.errors?.required && clientAlias.touched" 
+                  class="alert alert-danger">
+                  Введите псевдоним!
+                </div>
+                <div 
+                  *ngIf="clientAlias.errors?.minlength && clientAlias.touched" 
+                  class="alert alert-danger">
+                  Псевдоним должен содержать не менее 2 символов!
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label 
+                for="edrpou"
+                class="col-md-3 col-form-label">
+                <strong>ЕДРПОУ</strong>
+              </label>
+              <div class="col-md">
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  [(ngModel)]="client.edrpou" 
+                  name="edrpou" 
+                  #clientEdrpou="ngModel" 
+                  minlength="7" 
+                  required>
+                <div 
+                  *ngIf="clientEdrpou.errors?.required && clientEdrpou.touched" 
+                  class="alert alert-danger">
+                  Введите ЕДРПОУ!
+                </div>
+                <div 
+                  *ngIf="clientEdrpou.errors?.minlength && clientEdrpou.touched" 
+                  class="alert alert-danger">
+                  ЕДРПОУ должно содержать не менее 7 символов!
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label 
+                for="inn"
+                class="col-md-3 col-form-label">
+                <strong>ИНН</strong>
+              </label>
+              <div class="col-md">
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  [(ngModel)]="client.inn" 
+                  name="inn">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label 
+                for="vatCertificate"
+                class="col-md-3 col-form-label">
+                <strong>№ свидетельства плат. НДС</strong>
+              </label>
+              <div class="col-md">
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  [(ngModel)]="client.vatCertificate" 
+                  name="vatCertificate">
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <a class="btn btn-info btn-block"
+        [routerLink]="['../']">
+        <i class="fa fa-arrow-circle-o-left">
+          </i> Назад к клиенту
+      </a>
+      <button 
+        type="submit" 
+        class="btn btn-success btn-block">
+          <i class="fa fa-check-square-o"></i> Записать
+      </button>
+    </div>
+  </div>
+</form>
+         
+
+
 
 

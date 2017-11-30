@@ -13,11 +13,10 @@ export class EditClientComponent implements OnInit {
   client: Client = {};
   id: number;
 
-  constructor(
-    private clientService: ClientService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private flashMessagesService: FlashMessagesService
+  constructor(private clientService: ClientService,
+              private router: Router,
+              private route: ActivatedRoute,
+              private flashMessagesService: FlashMessagesService
   ) { }
 
   ngOnInit() {
@@ -26,14 +25,14 @@ export class EditClientComponent implements OnInit {
       .then(client => this.client = client);
   }
 
-  private update(): void {
-    this.clientService.updateClient(this.client);
-  }
-
   onSubmit() {
     this.update();
-    this.flashMessagesService.show('Изменения сохранены', {cssClass: 'alert-success', timeout: 3000});
+    this.flashMessagesService.show('Изменения сохранены', {cssClass: 'alert-success', timeout: 2000});
     location.reload();
+    }
+
+    private update(): void {
+      this.clientService.updateClient(this.client);
     }
 
 }
