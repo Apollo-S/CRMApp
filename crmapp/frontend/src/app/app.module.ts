@@ -25,10 +25,12 @@ import { ClientsComponent } from './components/client/clients/clients.component'
 import { AddClientComponent } from './components/client/add-client/add-client.component';
 import { EditClientComponent } from './components/client/edit-client/edit-client.component';
 import { ClientDetailsComponent } from './components/client/client-details/client-details.component';
-import { ClientDetailsAgrementsTabComponent } from './components/client/client-details-agrements-tab/client-details-agrements-tab.component';
-import { ClientDetailsAddressesTabComponent } from './components/client/client-details-addresses-tab/client-details-addresses-tab.component';
-import { ClientDetailsAccountsTabComponent } from './components/client/client-details-accounts-tab/client-details-accounts-tab.component';
-import { ClientDetailsDirectorsTabComponent } from './components/client/client-details-directors-tab/client-details-directors-tab.component';
+import { ClientDetailsTabsComponent } from './components/client/client-details/client-details-tabs/client-details-tabs.component';
+import { ClientDetailsMainTabComponent } from './components/client/client-details/client-details-main-tab/client-details-main-tab.component';
+import { ClientDetailsAgreementsTabComponent } from './components/client/client-details/client-details-agreements-tab/client-details-agreements-tab.component';
+import { ClientDetailsAddressesTabComponent } from './components/client/client-details/client-details-addresses-tab/client-details-addresses-tab.component';
+import { ClientDetailsAccountsTabComponent } from './components/client/client-details/client-details-accounts-tab/client-details-accounts-tab.component';
+import { ClientDetailsDirectorsTabComponent } from './components/client/client-details/client-details-directors-tab/client-details-directors-tab.component';
 
 import { AgreementsComponent } from './components/agreement/agreements/agreements.component';
 import { AddAgreementComponent } from './components/agreement/add-agreement/add-agreement.component';
@@ -64,7 +66,22 @@ const appRoutes: Routes = [
   },
   {path: 'clients/add', component:AddClientComponent},
   {path: 'clients/:id/edit', component:EditClientComponent},
-  {path: 'clients/:id', component:ClientDetailsComponent},
+  {path: 'clients/:id', component:ClientDetailsComponent,
+    children:
+    [
+      {path:  '', redirectTo: 'main', pathMatch: 'full'},
+      {path: 'main', component: ClientDetailsMainTabComponent},
+      {path: 'addresses', component: ClientDetailsAddressesTabComponent,
+        children: 
+        [
+          {path: ':id/edit', component:EditClientComponent},
+        ]
+      },
+      {path: 'accounts', component: ClientDetailsAccountsTabComponent},
+      {path: 'directors', component: ClientDetailsDirectorsTabComponent},
+      {path: 'agreements', component: ClientDetailsAgreementsTabComponent}
+    ]
+  },
 
   {path: 'employees/add', component:AddEmployeeComponent},
   {path: 'employees/:id/edit', component:EditEmployeeComponent},
@@ -73,8 +90,8 @@ const appRoutes: Routes = [
     [
       {path:  '', redirectTo: 'main', pathMatch: 'full'},
       {path: 'main', component: EmployeeDetailsMainTabComponent},
-      {path: 'address', component: EmployeeDetailsAddressesTabComponent},
-      {path: 'account', component: EmployeeDetailsAccountsTabComponent}
+      {path: 'addresses', component: EmployeeDetailsAddressesTabComponent},
+      {path: 'accounts', component: EmployeeDetailsAccountsTabComponent}
     ]
   },
 
@@ -100,7 +117,7 @@ const appRoutes: Routes = [
     EmployeesComponent,
     AgreementsComponent,
     DocumentsComponent,
-    ClientDetailsAgrementsTabComponent,
+    ClientDetailsAgreementsTabComponent,
     ClientDetailsAddressesTabComponent,
     ClientDetailsAccountsTabComponent,
     ClientDetailsDirectorsTabComponent,
@@ -115,7 +132,9 @@ const appRoutes: Routes = [
     VacationsComponent,
     VacationDetailsComponent,
     EmployeeDetailsMainTabComponent,
-    EmployeeDetailsTabsComponent
+    EmployeeDetailsTabsComponent,
+    ClientDetailsMainTabComponent,
+    ClientDetailsTabsComponent
   ],
   imports: [
     BrowserModule,
