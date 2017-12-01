@@ -14,7 +14,6 @@
                 
                 <thead class="thead-default">
                 <tr>
-                    
                     <th class="text-center">Название</th>
                     <th class="text-center">ЕДРПОУ</th>
                     <th class="text-center"></th>
@@ -30,10 +29,35 @@
                         {{client.edrpou}}
                     </td>
                     <td class="text-right">
-                        <a class="btn btn-info btn-sm"
-                            [routerLink]="['/clients', client?.id]">
-                            <i class="fa fa-arrow-circle-o-right"></i> Подробнее
-                        </a>
+                        <div class="btn-group">
+                            <a class="btn btn-info btn-sm"
+                                [routerLink]="['/clients', client?.id]">
+                                <i class="fa fa-arrow-circle-o-right">
+                                    </i> Подробнее
+                            </a>
+                            <button 
+                                type="button" 
+                                class="btn btn-info btn-sm dropdown-toggle dropdown-toggle-split" 
+                                data-toggle="dropdown" 
+                                aria-haspopup="true" 
+                                aria-expanded="false">
+                                <span class="sr-only"></span>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" 
+                                    [routerLink]="['/clients', client?.id, 'addresses']">Адресы
+                                </a>
+                                <a class="dropdown-item" 
+                                    [routerLink]="['/clients', client?.id, 'accounts']">Банковские реквизиты
+                                </a>
+                                <a class="dropdown-item" 
+                                    [routerLink]="['/clients', client?.id, 'directors']">Руководители
+                                </a>
+                                <a class="dropdown-item" 
+                                    [routerLink]="['/clients', client?.id, 'agreements']">Документооборот
+                                </a>
+                            </div>
+                        </div>
                     </td>
                 </tr>
                     
@@ -46,7 +70,7 @@
 
             </div>
             <div class="col-md-2">
-                <app-sidebar [url] = "['/add-client']" [title] = "['Добавить']"></app-sidebar>
+                <app-sidebar [url] = "['/clients/add']" [title] = "['Добавить']"></app-sidebar>
             </div>
 
         </div>
