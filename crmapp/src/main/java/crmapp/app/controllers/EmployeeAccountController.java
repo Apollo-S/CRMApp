@@ -21,13 +21,13 @@ import crmapp.app.repositories.EmployeeAccountRepository;
 
 @RestController
 @Transactional
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/employees")
 public class EmployeeAccountController extends BaseController {
 
 	@Autowired
 	private EmployeeAccountRepository accountRepository;
 
-	@GetMapping(value = "/employees/{employeeId}/accounts", headers = HEADER_JSON)
+	@GetMapping(value = "/{employeeId}/accounts", headers = HEADER_JSON)
 	public ResponseEntity<List<EmployeeAccount>> getAllEmployeeAccountsByEmployeeId(
 			@PathVariable("employeeId") Integer employeeId) {
 		List<EmployeeAccount> accounts = accountRepository.findAllByEmployeeId(employeeId);
@@ -37,7 +37,7 @@ public class EmployeeAccountController extends BaseController {
 		return new ResponseEntity<List<EmployeeAccount>>(accounts, HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/employees/accounts", headers = HEADER_JSON)
+	@GetMapping(value = "/accounts", headers = HEADER_JSON)
 	public ResponseEntity<List<EmployeeAccount>> getAllEmployeeAccounts() {
 		List<EmployeeAccount> accounts = accountRepository.findAll();
 		if (accounts.size() == 0) {
@@ -46,7 +46,7 @@ public class EmployeeAccountController extends BaseController {
 		return new ResponseEntity<List<EmployeeAccount>>(accounts, HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/employees/accounts/{id}", headers = HEADER_JSON)
+	@GetMapping(value = "/accounts/{id}", headers = HEADER_JSON)
 	public ResponseEntity<EmployeeAccount> getEmployeeAccountById(@PathVariable(PARAM_ID) int id) {
 		EmployeeAccount account = accountRepository.findOne(id);
 		if (account == null) {
@@ -55,7 +55,7 @@ public class EmployeeAccountController extends BaseController {
 		return new ResponseEntity<EmployeeAccount>(account, HttpStatus.OK);
 	}
 
-	@PostMapping(value = "/employees/accounts/{id}", headers = HEADER_JSON)
+	@PostMapping(value = "/accounts/{id}", headers = HEADER_JSON)
 	public ResponseEntity<Void> addEmployeeAccount(@RequestBody EmployeeAccount account) {
 		account.setVersion(0);
 		account = accountRepository.save(account);
@@ -63,7 +63,7 @@ public class EmployeeAccountController extends BaseController {
 		return new ResponseEntity<Void>(header, HttpStatus.CREATED);
 	}
 	
-	@PutMapping(value = "/employees/accounts/{id}", headers = HEADER_JSON)
+	@PutMapping(value = "/accounts/{id}", headers = HEADER_JSON)
 	public ResponseEntity<Void> updateEmployeeAccount(@PathVariable(PARAM_ID) int id,
 			@RequestBody EmployeeAccount account) {
 		account.setId(id);
@@ -73,7 +73,7 @@ public class EmployeeAccountController extends BaseController {
 		return new ResponseEntity<Void>(header, HttpStatus.OK);
 	}
 	
-	@DeleteMapping(value = "/employees/accounts/{id}", headers = HEADER_JSON)
+	@DeleteMapping(value = "/accounts/{id}", headers = HEADER_JSON)
 	public ResponseEntity<Void> deleteEmployee(@PathVariable(PARAM_ID) int id) {
 		accountRepository.delete(id);
 		HttpHeaders header = new HttpHeaders();
