@@ -1,15 +1,11 @@
 <div class="row">
+
   <div class="col-md-3">
     <div class="list-group">
         <a class="list-group-item list-group-item-action" 
             [routerLink]="['/clients']"
             routerLinkActive="active">
             <strong>Клиенты</strong>
-        </a>
-        <a class="list-group-item list-group-item-action" 
-            [routerLink]="['/employees']" 
-            routerLinkActive="active">
-            <strong>Сотрудники</strong>
         </a>
         <a class="list-group-item list-group-item-action" 
             [routerLink]="['/agreements']"
@@ -21,24 +17,33 @@
             routerLinkActive="active">
             <strong>Документы</strong>
         </a>
+        <br>
+        <a class="list-group-item list-group-item-action" 
+            [routerLink]="['/employees']" 
+            routerLinkActive="active">
+            <strong>Сотрудники</strong>
+        </a>
         <a class="list-group-item list-group-item-action"
             [routerLink]="['/vacations']"
             routerLinkActive="active">
             <strong>Отпуски</strong>
         </a>
-        <a class="list-group-item list-group-item-action" id="list-sicklist-list" 
+        <a class="list-group-item list-group-item-action"
             [routerLink]="['/sicklists']"
             routerLinkActive="active">
             <strong>Больничные листы</strong>
         </a>
+        <br>
+        <a class="list-group-item list-group-item-action"
+            [routerLink]="['/outputs']"
+            routerLinkActive="active">
+            <strong>Исходящий номер</strong>
+        </a>
     </div>
   </div>
-  
-  <div class="col-md">
 
+  <div class="col-md">
     <router-outlet></router-outlet> 
-    
   </div>
 
 </div>
-
