@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
-import { Agreement } from '../models/Agreement';
+import { ClientAgreement } from '../models/ClientAgreement';
 
 @Injectable()
 export class AgreementService {
@@ -10,10 +10,10 @@ export class AgreementService {
 
   constructor(private http: Http) { }
 
-  getAgreements(): Promise<Agreement[]> {
+  getAgreements(): Promise<ClientAgreement[]> {
     return this.http.get(this.agreementsUrl)
         .toPromise()
-        .then(response => response.json() as Agreement[])
+        .then(response => response.json() as ClientAgreement[])
         .catch(this.handleError);
   }
 

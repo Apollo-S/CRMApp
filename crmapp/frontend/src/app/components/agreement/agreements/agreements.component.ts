@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AgreementService } from '../../../services/agreement.service';
-import { Agreement } from '../../../models/Agreement';
+import { ClientAgreement } from '../../../models/ClientAgreement';
 
 @Component({
   selector: 'app-agreements',
@@ -9,16 +9,17 @@ import { Agreement } from '../../../models/Agreement';
 })
 export class AgreementsComponent implements OnInit {
 
-  agreements: Agreement[];
+  agreements: ClientAgreement[];
 
-    constructor(private agreementService: AgreementService) { }
-  
-    ngOnInit() {
-      this.getAgreements();
-    }
-  
-    getAgreements() {
-      this.agreementService.getAgreements().then(agreements => this.agreements = agreements);
-    }
+  constructor(private agreementService: AgreementService) { }
+
+  ngOnInit() {
+    this.getAgreements();
+  }
+
+  getAgreements() {
+    this.agreementService.getAgreements()
+      .then(agreements => this.agreements = agreements);
+  }
 
 }
