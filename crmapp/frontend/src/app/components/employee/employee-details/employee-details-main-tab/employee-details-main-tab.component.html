@@ -5,61 +5,106 @@
   <div class="col-md-10">
     
     <div class="card">
-      <div class="card-body">
-
+      <div class="card-body"> 
         <div class="row">
           <div class="col-md-4">
             <label for="surname"><strong>Фамилия</strong></label> 
-            <input type="text" readonly class="form-control" value={{employee?.surname}} name="surname">
+            <input 
+              type="text" 
+              readonly 
+              class="form-control" 
+              value={{employee?.surname}} 
+              name="surname">
           </div>
           <div class="col-md-4">
             <label for="firstname"><strong>Имя</strong></label>
-            <input type="text" readonly class="form-control" value="{{employee?.firstname}}" name="firstname">
+            <input 
+              type="text" 
+              readonly 
+              class="form-control" 
+              value="{{employee?.firstname}}" 
+              name="firstname">
           </div>
           <div class="col-md-4">
             <label for="lastname"><strong>Отчество</strong></label>
-            <input type="text" readonly class="form-control" value="{{employee?.lastname}}" name="lastname">
+            <input 
+              type="text" 
+              readonly 
+              class="form-control" 
+              value="{{employee?.lastname}}" 
+              name="lastname">
           </div>
         </div>
         <p>
         <div class="row">
           <div class="col-md-4">
             <label for="shortName"><strong>Фамилия, инициалы</strong></label>
-            <input type="text" readonly class="form-control" value="{{employee?.shortName}}" name="edrpou">
+            <input 
+              type="text" 
+              readonly 
+              class="form-control" 
+              value="{{employee?.shortName}}" 
+              name="edrpou">
           </div>
           <div class="form-group col-md-4">
             <label for="inn"><strong>ИНН</strong></label>
-            <input type="text" readonly class="form-control" value="{{employee?.inn}}" name="inn">
+            <input 
+              type="text" 
+              readonly 
+              class="form-control" 
+              value="{{employee?.inn}}" 
+              name="inn">
           </div>
           <div class="col-md-4">
             <label for="birthDate"><strong>Дата рождения</strong></label>
-            <input type="text" readonly class="form-control" value="{{employee?.birthDate | date: 'dd.MM.y'}}" name="birthDate">
+            <input 
+              type="text" 
+              readonly 
+              class="form-control" 
+              value="{{employee?.birthDate | date: 'dd.MM.y'}}" 
+              name="birthDate">
           </div>
         </div>
         <div class="row">
           <div class="col-md-4">
             <label for="hireDate"><strong>Дата трудоустройства</strong></label>
-            <input type="text" readonly class="form-control" value="{{employee?.hireDate | date: 'dd.MM.y'}}" name="hireDate">
+            <input 
+              type="text"
+              readonly
+              class="form-control"
+              value="{{employee?.hireDate | date: 'dd.MM.y'}}"
+              name="hireDate">
           </div>
           <div class="col-md-4">
             <label for="firedDate"><strong>Дата увольнения</strong></label>
-            <input type="text" readonly class="form-control" value="{{employee?.firedDate | date: 'dd.MM.y'}}" name="firedDate">
+            <input 
+              type="text"
+              readonly
+              class="form-control"
+              value="{{employee?.firedDate | date: 'dd.MM.y'}}"
+              name="firedDate">
           </div>
         </div>
-
       </div>
     </div>
+
   </div>
 
   <div class="col-md-2">	
     
-    <a [routerLink]="['/employees', employee?.id, 'edit']" class="btn btn-success btn-block" >
+    <a class="btn btn-success btn-block"
+      [routerLink]="['/employees', employee?.id, 'edit']">
       <i class="fa fa-edit"></i> Изменить
     </a>
     
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#exampleModal">
-        <i class="fa fa-trash-o"></i> Удалить
+    <button 
+      type="button" 
+      class="btn btn-danger btn-block" 
+      data-toggle="modal" 
+      data-target="#exampleModal">
+        <i class="fa fa-trash-o">
+          </i> Удалить
     </button>
     
     <!-- Modal -->
@@ -85,7 +130,9 @@
         </div>
       </div>
     </div>
+
   </div>
+
 </div>
 
 
