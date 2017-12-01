@@ -1,0 +1,138 @@
+<p>
+  
+<div class="row">
+    
+  <div class="col-md-10">
+    
+    <div class="card">
+      <div class="card-body"> 
+        <div class="row">
+          <div class="col-md-4">
+            <label for="surname"><strong>Фамилия</strong></label> 
+            <input 
+              type="text" 
+              readonly 
+              class="form-control" 
+              value={{employee?.surname}} 
+              name="surname">
+          </div>
+          <div class="col-md-4">
+            <label for="firstname"><strong>Имя</strong></label>
+            <input 
+              type="text" 
+              readonly 
+              class="form-control" 
+              value="{{employee?.firstname}}" 
+              name="firstname">
+          </div>
+          <div class="col-md-4">
+            <label for="lastname"><strong>Отчество</strong></label>
+            <input 
+              type="text" 
+              readonly 
+              class="form-control" 
+              value="{{employee?.lastname}}" 
+              name="lastname">
+          </div>
+        </div>
+        <p>
+        <div class="row">
+          <div class="col-md-4">
+            <label for="shortName"><strong>Фамилия, инициалы</strong></label>
+            <input 
+              type="text" 
+              readonly 
+              class="form-control" 
+              value="{{employee?.shortName}}" 
+              name="edrpou">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inn"><strong>ИНН</strong></label>
+            <input 
+              type="text" 
+              readonly 
+              class="form-control" 
+              value="{{employee?.inn}}" 
+              name="inn">
+          </div>
+          <div class="col-md-4">
+            <label for="birthDate"><strong>Дата рождения</strong></label>
+            <input 
+              type="text" 
+              readonly 
+              class="form-control" 
+              value="{{employee?.birthDate | date: 'dd.MM.y'}}" 
+              name="birthDate">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <label for="hireDate"><strong>Дата трудоустройства</strong></label>
+            <input 
+              type="text"
+              readonly
+              class="form-control"
+              value="{{employee?.hireDate | date: 'dd.MM.y'}}"
+              name="hireDate">
+          </div>
+          <div class="col-md-4">
+            <label for="firedDate"><strong>Дата увольнения</strong></label>
+            <input 
+              type="text"
+              readonly
+              class="form-control"
+              value="{{employee?.firedDate | date: 'dd.MM.y'}}"
+              name="firedDate">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-md-2">	
+    
+    <a class="btn btn-success btn-block"
+      [routerLink]="['/employees', employee?.id, 'edit']">
+      <i class="fa fa-edit"></i> Изменить
+    </a>
+    
+    <!-- Button trigger modal -->
+    <button 
+      type="button" 
+      class="btn btn-danger btn-block" 
+      data-toggle="modal" 
+      data-target="#exampleModal">
+        <i class="fa fa-trash-o">
+          </i> Удалить
+    </button>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Удаление объекта
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Действительно удалить объект?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-link" data-dismiss="modal">Отмена</button>
+            <button type="button" class="btn btn-danger" (click)="delete()">
+              <i class="fa fa-trash-o"></i> Удалить</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+

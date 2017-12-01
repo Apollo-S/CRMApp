@@ -46,11 +46,11 @@ public class EmployeeController extends BaseController {
 	}
 
 	@PostMapping(value = REQUEST_MAPPING_EMPTY, headers = HEADER_JSON)
-	public ResponseEntity<Void> addEmployee(@RequestBody Employee employee) {
+	public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee) {
 		employee.setVersion(0);
 		employee = employeeRepository.save(employee);
 		HttpHeaders header = new HttpHeaders();
-		return new ResponseEntity<Void>(header, HttpStatus.CREATED);
+		return new ResponseEntity<Employee>(employee, header, HttpStatus.CREATED);
 	}
 
 	@PutMapping(value = REQUEST_MAPPING_BY_ID, headers = HEADER_JSON)

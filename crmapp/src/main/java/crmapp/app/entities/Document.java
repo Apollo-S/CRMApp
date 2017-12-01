@@ -48,7 +48,7 @@ public class Document extends UrlBaseEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "agreement_id")
-	private Agreement agreement;
+	private ClientAgreement agreement;
 
 	public Document() {
 	}
@@ -122,11 +122,11 @@ public class Document extends UrlBaseEntity {
 		this.dated = dated;
 	}
 
-	public Agreement getAgreement() {
+	public ClientAgreement getAgreement() {
 		return agreement;
 	}
 
-	public void setAgreement(Agreement agreement) {
+	public void setAgreement(ClientAgreement agreement) {
 		this.agreement = agreement;
 	}
 

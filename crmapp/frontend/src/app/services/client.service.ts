@@ -1,18 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 import 'rxjs';
 import { Client } from '../models/Client';
 import { ClientAddress } from '../models/ClientAddress';
 import { ClientAccount } from '../models/ClientAccount';
+import { ClientAgreement } from '../models/ClientAgreement';
 
 @Injectable()
 export class ClientService {
 
   private clientsUrl = 'http://localhost:9000/crmapp/api/clients';
   private headers = new Headers({ 'Content-Type': 'application/json' });
+
+  private _property$: BehaviorSubject<number> = new BehaviorSubject(1);
+  
+  set property(value: number) {
+    this._property$.next(value);
+  }
+
+  get property$(): Observable<number> {
+      return this._property$.asObservable();
+  }
 
   constructor(private http: Http) {}
 
@@ -36,6 +47,14 @@ export class ClientService {
     return this.http.get(url)
         .toPromise()
         .then(response => response.json() as ClientAccount[])
+        .catch(this.handleError);
+  }
+
+  getAgreementsByClientId(clientId: number): Promise<ClientAgreement[]> {
+    const url = `${this.clientsUrl}/${clientId}/agreements`;
+    return this.http.get(url)
+        .toPromise()
+        .then(response => response.json() as ClientAgreement[])
         .catch(this.handleError);
   }
   

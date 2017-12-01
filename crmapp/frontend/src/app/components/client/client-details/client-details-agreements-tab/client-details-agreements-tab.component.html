@@ -1,0 +1,54 @@
+<p>
+
+<div class="row">
+  <div class="col-md-10">
+    <table class="table table-sm"
+      *ngIf="agreements?.length > 0; else noAgreements">
+
+      <thead class="thead-default">
+        <tr>
+          <th class="text-center">ID</th>
+          <th class="text-center">Номер</th>
+          <th class="text-center">Актуален с</th>
+          <th class="text-center"></th>
+        </tr>
+      </thead>
+      
+      <tr *ngFor="let agreement of agreements">
+        <td class="text-center">{{agreement.id}}</td>
+        <td class="text-center">{{agreement.number}}</td>
+        <td class="text-center">{{agreement.dateStart | date: 'dd.MM.y'}}</td>
+        <td>
+          <div class="d-flex justify-content-end">
+            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+              <div class="btn-group mr-2" role="group" aria-label="First group">
+                <a class="btn btn-success btn-sm" [routerLink]="['/agreements', agreement?.id, 'edit']">
+                  <i class="fa fa-edit"></i> Изменить
+                </a>
+              </div>
+              <div class="btn-group mr-2" role="group" aria-label="Second group">
+                <form action="#" method="post">
+                  <button type="submit" class="btn btn-danger btn-sm">
+                    <i class="fa fa-trash-o"></i> Удалить
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <ng-template #noAgreements>
+        <hr>
+        <h5 class="text-center">Нет ни одного договора в системе ...</h5>
+    </ng-template>
+
+
+  </div>
+  <div class="col-md-2">
+    <button type="button" class="btn btn-primary btn-block">
+      <i class="fa fa-plus"></i> Новый договор
+    </button>
+  </div>
+</div>

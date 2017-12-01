@@ -1,0 +1,81 @@
+<div class="card">
+    <h5 class="card-header text-center">
+        <strong>
+            <i class="fa fa-users"></i> Клиенты
+        </strong>
+   </h5>
+    
+    <div class="card-body">
+
+        <div class="row">
+            <div class="col-md-10">
+                <table *ngIf="clients?.length > 0; else noClients" 
+                    class="table table-sm">
+                
+                <thead class="thead-default">
+                <tr>
+                    <th class="text-center">Название</th>
+                    <th class="text-center">ЕДРПОУ</th>
+                    <th class="text-center"></th>
+                </tr>
+                </thead>
+            
+                <tr *ngFor="let client of clients">
+                    
+                    <td class="text-center">
+                        {{client.title}}
+                    </td>
+                    <td class="text-center">
+                        {{client.edrpou}}
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <a class="btn btn-info btn-sm"
+                                [routerLink]="['/clients', client?.id]">
+                                <i class="fa fa-arrow-circle-o-right">
+                                    </i> Подробнее
+                            </a>
+                            <button 
+                                type="button" 
+                                class="btn btn-info btn-sm dropdown-toggle dropdown-toggle-split" 
+                                data-toggle="dropdown" 
+                                aria-haspopup="true" 
+                                aria-expanded="false">
+                                <span class="sr-only"></span>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" 
+                                    [routerLink]="['/clients', client?.id, 'addresses']">Адресы
+                                </a>
+                                <a class="dropdown-item" 
+                                    [routerLink]="['/clients', client?.id, 'accounts']">Банковские реквизиты
+                                </a>
+                                <a class="dropdown-item" 
+                                    [routerLink]="['/clients', client?.id, 'directors']">Руководители
+                                </a>
+                                <a class="dropdown-item" 
+                                    [routerLink]="['/clients', client?.id, 'agreements']">Документооборот
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                    
+            </table>
+            
+            <ng-template #noClients>
+                <hr>
+                <h5 class="text-center">Нет ни одного клиента в системе...</h5>
+            </ng-template>
+
+            </div>
+            <div class="col-md-2">
+                <app-sidebar [url] = "['/clients/add']" [title] = "['Добавить']"></app-sidebar>
+            </div>
+
+        </div>
+
+</div>
+</div>
+
+

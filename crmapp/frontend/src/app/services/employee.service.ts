@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 import { Employee } from '../models/Employee';
@@ -12,6 +12,16 @@ export class EmployeeService {
 
   private employeesUrl = 'http://localhost:9000/crmapp/api/employees';
   private headers = new Headers({ 'Content-Type': 'application/json' });
+ 
+  private _property$: BehaviorSubject<number> = new BehaviorSubject(1);
+
+  set property(value: number) {
+    this._property$.next(value);
+  }
+
+  get property$(): Observable<number> {
+      return this._property$.asObservable();
+  }
 
   constructor(private http: Http) {}
   
@@ -47,13 +57,20 @@ export class EmployeeService {
           .catch(this.handleError);
     }
   
-    addEmployee(employee: Employee): Promise<Employee> {
+    // addEmployee(employee: Employee): Promise<Employee> {
+    //   const url = `${this.employeesUrl}`;
+    //   return this.http.post(url, employee)
+    //     .toPromise()
+    //     .then(response => response.json().data as Employee).then()
+    //     .catch(this.handleError);
+    // }
+
+    addEmployee(employee: Employee): Observable<Employee> {
       const url = `${this.employeesUrl}`;
       return this.http.post(url, employee)
-        .toPromise()
-        .then(response => response.json().data as Employee)
-        .catch(this.handleError);
-    }
+          .map(response => response.json() as Employee);
+          
+  }
 
     updateEmployee(employee: Employee): Promise<Employee> {
       const url = `${this.employeesUrl}/${employee.id}`;

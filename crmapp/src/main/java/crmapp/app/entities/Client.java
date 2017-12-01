@@ -41,7 +41,7 @@ public class Client extends UrlBaseEntity implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "client", orphanRemoval = true)
 	@OrderBy("id ASC")
 	@JsonManagedReference(value = "client-agreement")
-	private Set<Agreement> agreements = new HashSet<>();
+	private Set<ClientAgreement> agreements = new HashSet<>();
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "client", orphanRemoval = true)
 	@OrderBy("id ASC")
@@ -109,11 +109,11 @@ public class Client extends UrlBaseEntity implements Serializable {
 		this.vatCertificate = vatCertificate;
 	}
 
-	public Set<Agreement> getAgreements() {
+	public Set<ClientAgreement> getAgreements() {
 		return agreements;
 	}
 
-	public void setAgreements(Set<Agreement> agreements) {
+	public void setAgreements(Set<ClientAgreement> agreements) {
 		this.agreements = agreements;
 	}
 

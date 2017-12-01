@@ -1,0 +1,20 @@
+
+<nav class="breadcrumb">
+	<div class="row">
+		<div class="col">
+			<h5>
+				<strong>
+					<a class="breadcrumb-item" routerLink="/clients">
+						<i class="fa fa-users"></i> Клиенты
+					</a>
+					<span class="breadcrumb-item active">{{client?.alias}}</span>
+				</strong>
+			</h5>
+		</div>
+	</div>
+</nav>
+
+<div>
+	<app-client-details-tabs></app-client-details-tabs>
+	<router-outlet></router-outlet>
+</div>
