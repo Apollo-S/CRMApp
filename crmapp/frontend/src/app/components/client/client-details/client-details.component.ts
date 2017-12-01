@@ -53,12 +53,4 @@ export class ClientDetailsComponent implements OnInit {
       .then(accounts => this.accounts = accounts);
   }
 
-  delete(id: number): void {
-    this.clientService.delete(this.id).then(() => this.goBackToClients());
-  }
-
-  goBackToClients(): void {
-      this.router.navigateByUrl('/clients');
-  }
-
 }
