@@ -50,11 +50,11 @@ public class ClientController extends BaseController {
 	}
 
 	@PostMapping(value = "", headers = HEADER_JSON)
-	public ResponseEntity<Void> addClient(@RequestBody Client client) {
+	public ResponseEntity<Client> addClient(@RequestBody Client client) {
 		client.setVersion(0);
 		client = clientRepository.save(client);
 		HttpHeaders header = new HttpHeaders();
-		return new ResponseEntity<Void>(header, HttpStatus.CREATED);
+		return new ResponseEntity<Client>(client, header, HttpStatus.CREATED);
 	}
 
 	@PutMapping(value = "/{id}", headers = HEADER_JSON)
