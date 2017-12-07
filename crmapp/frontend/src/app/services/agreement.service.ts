@@ -5,7 +5,7 @@ import { ClientAgreement } from '../models/ClientAgreement';
 @Injectable()
 export class AgreementService {
 
-  private agreementsUrl = 'http://localhost:9000/crmapp/api/agreements';
+  private agreementsUrl = '/api/agreements';
   private headers = new Headers({ 'Content-Type': 'application/json' });
 
   constructor(private http: Http) { }

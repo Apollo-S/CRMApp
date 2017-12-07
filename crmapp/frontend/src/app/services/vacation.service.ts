@@ -8,7 +8,7 @@ import { Vacation } from '../models/Vacation';
 @Injectable()
 export class VacationService {
 
-  private employeesUrl = 'http://localhost:9000/crmapp/api/employees';
+  private employeesUrl = '/api/employees';
   private vacationsUrl = this.employeesUrl + '/vacations';
   private headers = new Headers({ 'Content-Type': 'application/json' });
 
