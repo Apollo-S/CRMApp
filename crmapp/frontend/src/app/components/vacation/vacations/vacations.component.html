@@ -7,47 +7,55 @@
   <div class="card-body">
 
       <div class="row">
-          <div class="col-md-10">
-              <table *ngIf="vacations?.length > 0; else noVacations" 
-                  class="table table-sm">
-              
-                  <thead class="thead-default">
-                      <tr>
-                      
-                      <th class="text-center">Сотрудник</th>
-                      <th class="text-center">Описание</th>
-                      <th class="text-center">Период</th>
-                      <th class="text-center"></th>
-                      </tr>
-                  </thead>
-              
-                  <tr *ngFor="let vacation of vacations">
-                      
-                      <td class="text-center">
-                        <a [routerLink]="['/employee', vacation.employeeId]" href="">
-                          <i class="fa fa-arrow-circle-o-right"></i> {{vacation.employeeShortName}}
-                        </a>
-                      </td>
-                      <td class="text-center">
-                          {{vacation.description}}
-                      </td>
-                      <td class="text-center">
-                          {{vacation.dateStart | date: 'dd.MM.y'}} - {{vacation.dateFinal | date: 'dd.MM.y'}}
-                      </td>
-                      <td class="text-right">
-                          <a [routerLink]="['/vacation', vacation.id]" href="" class="btn btn-info btn-sm">
-                              <i class="fa fa-arrow-circle-o-right"></i> Подробнее
-                          </a>
-                      </td>
-                  </tr>
-                      
-              </table>
+            <div class="col-md-10">
+
+                <div class="card">
+                    <div class="card-body"> 
+
+                        <table *ngIf="vacations?.length > 0; else noVacations" 
+                            class="table table-sm">
+                        
+                            <thead class="thead-default">
+                                <tr>
+                                
+                                <th class="text-center">Сотрудник</th>
+                                <th class="text-center">Описание</th>
+                                <th class="text-center">Период</th>
+                                <th class="text-center"></th>
+                                </tr>
+                            </thead>
+                        
+                            <tr *ngFor="let vacation of vacations">
+                                
+                                <td class="text-center">
+                                    <a [routerLink]="['/employee', vacation.employeeId]" href="">
+                                    <i class="fa fa-arrow-circle-o-right"></i> {{vacation.employeeShortName}}
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    {{vacation.description}}
+                                </td>
+                                <td class="text-center">
+                                    {{vacation.dateStart | date: 'dd.MM.y'}} - {{vacation.dateFinal | date: 'dd.MM.y'}}
+                                </td>
+                                <td class="text-right">
+                                    <a [routerLink]="['/vacation', vacation.id]" href="" class="btn btn-info btn-sm">
+                                        <i class="fa fa-arrow-circle-o-right"></i> Подробнее
+                                    </a>
+                                </td>
+                            </tr>
+                                
+                        </table>
+
+                    </div>
+                </div>
           
-              <ng-template #noEmployees>
-              <hr>
-              <h5 class="text-center">
-                  Отсутствуют сотрудники в системе...
-              </h5>
+              <ng-template #noVacations>
+                <div class="alert alert-light" role="alert">
+                    <h6 class="lead text-center">
+                        <b>Отсутствуют отпуски в системе...</b>
+                    </h6>
+                </div>
               </ng-template>
 
           </div>
