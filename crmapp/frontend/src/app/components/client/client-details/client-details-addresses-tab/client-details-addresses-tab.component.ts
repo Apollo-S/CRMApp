@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Output } from '@angular/core';
 import { ClientAddress } from '../../../../models/ClientAddress';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -20,9 +20,10 @@ export class ClientDetailsAddressesTabComponent implements OnInit, OnDestroy {
 
   ngOnInit() { 
     this._propertySubscribtion = this.service.property$
-    .subscribe(p => {
-      this.clientId = p;
-    });
+      .subscribe(p => {
+        this.clientId = p;
+        }
+      );
     this.getAddressesByClientId(this.clientId);
   }
 
@@ -32,7 +33,7 @@ export class ClientDetailsAddressesTabComponent implements OnInit, OnDestroy {
 
   getAddressesByClientId(clientId: number) {
     this.service.getAddressesByClientId(clientId)
-      .then(addresses => this.addresses = addresses);
+      .subscribe(addresses => this.addresses = addresses);
   }
 
 }

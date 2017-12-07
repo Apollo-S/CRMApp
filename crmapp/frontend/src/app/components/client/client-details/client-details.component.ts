@@ -1,8 +1,8 @@
-import { Component, OnInit, } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Client } from '../../../models/Client';
 import { ClientService } from '../../../services/client.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { ClientAddress } from '../../../models/ClientAddress';
 import { ClientAccount } from '../../../models/ClientAccount';
@@ -12,45 +12,54 @@ import { ClientAccount } from '../../../models/ClientAccount';
   templateUrl: './client-details.component.html',
   styleUrls: ['./client-details.component.css']
 })
-export class ClientDetailsComponent implements OnInit {
+export class ClientDetailsComponent implements OnInit, OnDestroy {
+  private _propertySubscribtion: Subscription;
   client: Client;
-  id: number;
+  clientId: number;
   addresses: ClientAddress[];
   accounts: ClientAccount[];
 
-  constructor(
-    private clientService: ClientService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) { }
+  constructor(private service: ClientService,
+              private router: Router,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
-    // this.id = parseInt(this.route.snapshot.params['id']);
     this.route.params
-    .subscribe(
-      (params: Params) => {
-        this.id = +params['id'];
-        console.log("id = " + this.id);
-      }
-    )
-    this.getClientById(this.id);
-    this.getAddressesByClientId(this.id);
-    this.getAccountsByClientId(this.id);
+      .subscribe(
+        (params: Params) => {
+          this.clientId = +params['id'];
+          console.log("client id (client-details) = " + this.clientId);
+        }
+      )
+    this.service.property = this.clientId;
+    this._propertySubscribtion = this.service.property$
+      .subscribe(
+        p => {
+        this.clientId = p;
+        }
+      )
+    this.getClientById(this.clientId);
+    this.getAddressesByClientId(this.clientId);
+    this.getAccountsByClientId(this.clientId);
   }
 
-  getClientById(id: number) {
-    this.clientService.getClientById(id)
+  private getClientById(id: number) {
+    this.service.getClientById(id)
       .then(client => this.client = client);
   }
 
-  getAddressesByClientId(clientId: number) {
-    this.clientService.getAddressesByClientId(clientId)
-      .then(addresses => this.addresses = addresses);
+  private getAddressesByClientId(clientId: number) {
+    this.service.getAddressesByClientId(clientId)
+      .subscribe(addresses => this.addresses = addresses);
   }
 
-  getAccountsByClientId(clientId: number) {
-    this.clientService.getAccountsByClientId(clientId)
+  private getAccountsByClientId(clientId: number) {
+    this.service.getAccountsByClientId(clientId)
       .then(accounts => this.accounts = accounts);
+  }
+
+  ngOnDestroy() {
+    this._propertySubscribtion.unsubscribe();
   }
 
 }

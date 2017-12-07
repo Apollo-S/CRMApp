@@ -27,14 +27,10 @@
               <div class="d-flex justify-content-end">
                 <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                   <div class="btn-group mr-2" role="group" aria-label="First group">
-                    <a class="btn btn-success btn-sm" [routerLink]="[address?.id, 'edit']">
+                    <a class="btn btn-success btn-sm" 
+                      [routerLink]="[address?.id, 'edit']">
                       <i class="fa fa-edit"></i> Изменить
                     </a>
-                  </div>
-                  <div class="btn-group mr-2" role="group" aria-label="Second group">
-                    <button type="submit" class="btn btn-danger btn-sm">
-                      <i class="fa fa-trash-o"></i> Удалить
-                    </button>
                   </div>
                 </div>
               </div>
@@ -46,14 +42,21 @@
     </div>
 
     <ng-template #noAddresses>
-      <hr>
-      <h5 class="text-center">Нет ни одного адреса в системе...</h5>
+        <div class="alert alert-light" role="alert">
+          <h6 class="lead text-center">
+            <b>Нет ни одного адреса в системе ...</b>
+          </h6>
+        </div>
     </ng-template>
     
   </div>
   <div class="col-md-2">
-    <button type="button" class="btn btn-primary btn-block">
-      <i class="fa fa-plus"></i> Новый адрес
-    </button>
+    <a 
+      class="btn btn-primary btn-block"
+      [routerLink]="['add']">
+      <i class="fa fa-plus">
+        </i> Новый адрес
+    </a>
   </div>
 </div>
+

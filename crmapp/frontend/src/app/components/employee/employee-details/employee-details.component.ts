@@ -34,7 +34,8 @@ export class EmployeeDetailsComponent implements OnInit, OnDestroy {
       .subscribe(
         p => {
         this.employeeId = p;
-      });
+        }
+      );
     this.getEmployeeById(this.employeeId);
   }
 

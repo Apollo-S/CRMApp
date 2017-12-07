@@ -8,8 +8,6 @@ import { Client } from '../../../../models/Client';
 })
 export class ClientDetailsTabsComponent implements OnInit {
 
-  @Input("client") client: Client;
-
   constructor() { }
 
   ngOnInit() {
