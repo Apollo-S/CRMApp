@@ -12,7 +12,7 @@ import { ClientAgreement } from '../models/ClientAgreement';
 @Injectable()
 export class ClientService {
 
-  private clientsUrl = 'http://localhost:9000/crmapp/api/clients';
+  private clientsUrl = '/api/clients';
   private headers = new Headers({ 'Content-Type': 'application/json' });
 
   private _property$: BehaviorSubject<number> = new BehaviorSubject(1);
@@ -29,33 +29,9 @@ export class ClientService {
 
   getClients(): Promise<Client[]> {
     return this.http.get(this.clientsUrl)
-        .toPromise()
-        .then(response => response.json() as Client[])
-        .catch(this.handleError);
-  }
-
-  getAddressesByClientId(clientId: number): Promise<ClientAddress[]> {
-    const url = `${this.clientsUrl}/${clientId}/addresses`;
-    return this.http.get(url)
-        .toPromise()
-        .then(response => response.json() as ClientAddress[])
-        .catch(this.handleError);
-  }
-  
-  getAccountsByClientId(clientId: number): Promise<ClientAccount[]> {
-    const url = `${this.clientsUrl}/${clientId}/accounts`;
-    return this.http.get(url)
-        .toPromise()
-        .then(response => response.json() as ClientAccount[])
-        .catch(this.handleError);
-  }
-
-  getAgreementsByClientId(clientId: number): Promise<ClientAgreement[]> {
-    const url = `${this.clientsUrl}/${clientId}/agreements`;
-    return this.http.get(url)
-        .toPromise()
-        .then(response => response.json() as ClientAgreement[])
-        .catch(this.handleError);
+      .toPromise()
+      .then(response => response.json() as Client[])
+      .catch(this.handleError);
   }
   
   getClientById(id: number): Promise<Client> {
@@ -65,22 +41,13 @@ export class ClientService {
       .then(response => response.json() as Client)
       .catch(this.handleError); 
   }
-
-  addClient(client: Client): Promise<Client> {
+  
+  addClient(client: Client): Observable<Client> {
     const url = `${this.clientsUrl}`;
     return this.http.post(url, client)
-      .toPromise()
-      .then(response => response.json().data as Client)
+      .map(response => response.json() as Client)
       .catch(this.handleError);
   }
-
-  // addClient(client: Client): Promise<Client> {
-  //   return this.http
-  //     .post(this.clientsUrl, JSON.stringify({client}), {headers: this.headers})
-  //     .toPromise()
-  //     .then(res => res.json().data as Client)
-  //     .catch(this.handleError);
-  // }
 
   updateClient(client: Client): Promise<Client> {
     const url = `${this.clientsUrl}/${client.id}`;
@@ -89,12 +56,58 @@ export class ClientService {
       .catch(this.handleError);
   }
 
-  delete(id: number): Promise<void> {
+  deleteClient(id: number): Promise<void> {
     const url = `${this.clientsUrl}/${id}`;
     return this.http
-        .delete(url, { headers: this.headers })
+      .delete(url, { headers: this.headers })
+      .toPromise()
+      .then(() => null)
+      .catch(this.handleError);
+  }
+
+  Addresses
+  getAddressesByClientId(clientId: number) {
+    const url = `${this.clientsUrl}/${clientId}/addresses`;
+    return this.http.get(url, { headers: this.headers })
+      .map(response => response.json() as ClientAddress[])
+      .catch(this.handleError);
+  }
+
+  getAddressById(id: number, clientId: number): Promise<ClientAddress> {
+    const url = `${this.clientsUrl}/${clientId}/addresses/${id}`;
+    return this.http.get(url)
+    .toPromise()
+    .then(response => response.json() as ClientAddress)
+    .catch(this.handleError); 
+  }
+
+  addAddress(address: ClientAddress, clientId: number): Observable<ClientAddress> {
+    const url = `${this.clientsUrl}/${clientId}/addresses/add`;
+    return this.http.post(url, address)
+      .map(response => response.json() as ClientAddress)
+      .catch(this.handleError);
+  }
+  
+  deleteAddress(id: number, clientId: number) {
+    const url = `${this.clientsUrl}/${clientId}/addresses/${id}`;
+    return this.http.delete(url, { headers: this.headers })
+      .map(response => response.json())
+      .catch(this.handleError);
+  }
+  
+  getAccountsByClientId(clientId: number): Promise<ClientAccount[]> {
+    const url = `${this.clientsUrl}/${clientId}/accounts`;
+    return this.http.get(url)
+    .toPromise()
+    .then(response => response.json() as ClientAccount[])
+    .catch(this.handleError);
+  }
+  
+  getAgreementsByClientId(clientId: number): Promise<ClientAgreement[]> {
+    const url = `${this.clientsUrl}/${clientId}/agreements`;
+    return this.http.get(url)
         .toPromise()
-        .then(() => null)
+        .then(response => response.json() as ClientAgreement[])
         .catch(this.handleError);
   }
 
