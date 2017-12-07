@@ -1,61 +1,77 @@
 <div class="card">
     <h5 class="card-header text-center">
         <strong>
-            <i class="fa fa-users"></i> Договоры
+            <i class="fa fa-users">
+                </i> Договорные отношения
         </strong>
     </h5>
-    
-  
-  <div class="card-body">
 
-<div class="row">
-  <div class="col-md-10">
-      <table *ngIf="agreements?.length > 0; else noAgreements" 
-          class="table table-sm">
-      
-      <thead class="thead-default">
-        <tr>
-            <th class="text-center">Контрагент</th>
-            <th class="text-center">Номер</th>
-            <th class="text-center">Дата</th>
-            <th class="text-center"></th>
-        </tr>
-      </thead>
-    
-      <tr *ngFor="let agreement of agreements">
-            <td class="text-center">
-                <a [routerLink]="['/client', agreement.clientId]" href="" class="card-link">
-                    {{agreement.clientAlias}}
-                </a>
-               
-            </td>
-            <td class="text-center">
-                {{agreement.number}}
-            </td>
-            <td class="text-center">
-                {{agreement.dateStart | date: 'dd.MM.y'}}
-            </td>
-            <td class="text-right">
-                <a [routerLink]="['/agreement', agreement.id]" href="" class="btn btn-info btn-sm">
-                    <i class="fa fa-arrow-circle-o-right"></i> Подробнее
-                </a>
-          </td>
-      </tr>
-          
-    </table>
-  
-    <ng-template #noAgreements>
-      <hr>
-      <h5 class="text-center">Нет ни одного договора в системе...</h5>
-    </ng-template>
+    <div class="card-body">
 
-  </div>
-  <div class="col-md-2">
-    <app-sidebar [url] = "['/add-agreement']" [title] = "['Добавить']"></app-sidebar>
-  </div>
+        <div class="row">
+            <div class="col-md-10">
 
-</div>
+                <div class="card">
+                    <div class="card-body"> 
 
-</div>
+                        <table class="table table-sm"
+                            *ngIf="agreements?.length > 0; else noAgreements">
+                    
+                            <thead class="thead-default">
+                                <tr>
+                                    <th class="text-center">Контрагент</th>
+                                    <th class="text-center">Номер</th>
+                                    <th class="text-center">Дата</th>
+                                    <th class="text-center"></th>
+                                </tr>
+                            </thead>
+                    
+                            <tr *ngFor="let agreement of agreements">
+                                <td class="text-center">
+                                    <a class="card-link"
+                                        [routerLink]="['/client', agreement.clientId]">
+                                        {{agreement.clientAlias}}
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    {{agreement.number}}
+                                </td>
+                                <td class="text-center">
+                                    {{agreement.dateStart | date: 'dd.MM.y'}}
+                                </td>
+                                <td class="text-right">
+                                    <a class="btn btn-info btn-sm"
+                                        [routerLink]="['/agreement', agreement.id]">
+                                        <i class="fa fa-arrow-circle-o-right"></i> Подробнее
+                                    </a>
+                                </td>
+                            </tr>
+
+                        </table>
+
+                    </div>
+                </div>
+        
+                <ng-template #noAgreements>
+                    <div class="alert alert-light" role="alert">
+                        <h6 class="lead text-center">
+                            <b>Нет ни одного договора в системе...</b>
+                        </h6>
+                    </div>
+                </ng-template>
+
+            </div>
+
+            <div class="col-md-2">
+                <app-sidebar 
+                    [url] = "['/add-agreement']" 
+                    [title] = "['Добавить']">
+                </app-sidebar>
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
 

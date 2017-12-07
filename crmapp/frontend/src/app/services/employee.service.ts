@@ -10,7 +10,7 @@ import { EmployeeAccount } from '../models/EmployeeAccount';
 @Injectable()
 export class EmployeeService {
 
-  private employeesUrl = 'http://localhost:9000/crmapp/api/employees';
+  private employeesUrl = '/api/employees';
   private headers = new Headers({ 'Content-Type': 'application/json' });
  
   private _property$: BehaviorSubject<number> = new BehaviorSubject(1);

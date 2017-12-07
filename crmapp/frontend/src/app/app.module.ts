@@ -29,6 +29,8 @@ import { ClientDetailsTabsComponent } from './components/client/client-details/c
 import { ClientDetailsMainTabComponent } from './components/client/client-details/client-details-main-tab/client-details-main-tab.component';
 import { ClientDetailsAgreementsTabComponent } from './components/client/client-details/client-details-agreements-tab/client-details-agreements-tab.component';
 import { ClientDetailsAddressesTabComponent } from './components/client/client-details/client-details-addresses-tab/client-details-addresses-tab.component';
+import { AddAddressComponent } from './components/client/client-details/client-details-addresses-tab/add-address/add-address.component';
+import { EditAddressComponent } from './components/client/client-details/client-details-addresses-tab/edit-address/edit-address.component';
 import { ClientDetailsAccountsTabComponent } from './components/client/client-details/client-details-accounts-tab/client-details-accounts-tab.component';
 import { ClientDetailsDirectorsTabComponent } from './components/client/client-details/client-details-directors-tab/client-details-directors-tab.component';
 
@@ -71,12 +73,13 @@ const appRoutes: Routes = [
     [
       {path:  '', redirectTo: 'main', pathMatch: 'full'},
       {path: 'main', component: ClientDetailsMainTabComponent},
-      {path: 'addresses', component: ClientDetailsAddressesTabComponent,
-        children: 
-        [
-          {path: ':id/edit', component:EditClientComponent},
-        ]
-      },
+      {path: 'addresses', component: ClientDetailsAddressesTabComponent},
+      {path: 'addresses/add', component:AddAddressComponent},
+      {path: 'addresses/:id', component:EditAddressComponent,
+      children: [
+        {path:  '', redirectTo: 'edit', pathMatch: 'full'},
+        {path: 'edit', component:EditAddressComponent},
+      ]},
       {path: 'accounts', component: ClientDetailsAccountsTabComponent},
       {path: 'directors', component: ClientDetailsDirectorsTabComponent},
       {path: 'agreements', component: ClientDetailsAgreementsTabComponent}
@@ -134,7 +137,9 @@ const appRoutes: Routes = [
     EmployeeDetailsMainTabComponent,
     EmployeeDetailsTabsComponent,
     ClientDetailsMainTabComponent,
-    ClientDetailsTabsComponent
+    ClientDetailsTabsComponent,
+    AddAddressComponent,
+    EditAddressComponent
   ],
   imports: [
     BrowserModule,

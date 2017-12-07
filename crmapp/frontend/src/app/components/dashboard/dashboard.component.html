@@ -1,49 +1,55 @@
 <div class="row">
 
-  <div class="col-md-3">
-    <div class="list-group">
-        <a class="list-group-item list-group-item-action" 
-            [routerLink]="['/clients']"
-            routerLinkActive="active">
-            <strong>Клиенты</strong>
-        </a>
-        <a class="list-group-item list-group-item-action" 
-            [routerLink]="['/agreements']"
-            routerLinkActive="active">
-            <strong>Договоры</strong>
-        </a>
-        <a class="list-group-item list-group-item-action" 
-            [routerLink]="['/documents']"
-            routerLinkActive="active">
-            <strong>Документы</strong>
-        </a>
-        <br>
-        <a class="list-group-item list-group-item-action" 
-            [routerLink]="['/employees']" 
-            routerLinkActive="active">
-            <strong>Сотрудники</strong>
-        </a>
-        <a class="list-group-item list-group-item-action"
-            [routerLink]="['/vacations']"
-            routerLinkActive="active">
-            <strong>Отпуски</strong>
-        </a>
-        <a class="list-group-item list-group-item-action"
-            [routerLink]="['/sicklists']"
-            routerLinkActive="active">
-            <strong>Больничные листы</strong>
-        </a>
-        <br>
-        <a class="list-group-item list-group-item-action"
-            [routerLink]="['/outputs']"
-            routerLinkActive="active">
-            <strong>Исходящий номер</strong>
-        </a>
-    </div>
-  </div>
+    <div class="col-md-3">
 
-  <div class="col-md">
-    <router-outlet></router-outlet> 
-  </div>
+        <div class="list-group">
+            <a class="list-group-item list-group-item-action" 
+                [routerLink]="['/clients']"
+                routerLinkActive="active">
+                <strong>Клиенты</strong>
+            </a>
+            <a class="list-group-item list-group-item-action" 
+                [routerLink]="['/agreements']"
+                routerLinkActive="active">
+                <strong>Договорные отношения</strong>
+            </a>
+            <a class="list-group-item list-group-item-action" 
+                [routerLink]="['/documents']"
+                routerLinkActive="active">
+                <strong>Документооборот</strong>
+            </a>
+        </div>
+        <br>
+        <div class="list-group">
+            <a class="list-group-item list-group-item-action" 
+                [routerLink]="['/employees']" 
+                routerLinkActive="active">
+                <strong>Сотрудники</strong>
+            </a>
+            <a class="list-group-item list-group-item-action"
+                [routerLink]="['/vacations']"
+                routerLinkActive="active">
+                <strong>Отпуски</strong>
+            </a>
+            <a class="list-group-item list-group-item-action"
+                [routerLink]="['/sicklists']"
+                routerLinkActive="active">
+                <strong>Больничные листы</strong>
+            </a>
+        </div>
+        <br>
+        <div class="list-group">
+            <a class="list-group-item list-group-item-action"
+                [routerLink]="['/outputs']"
+                routerLinkActive="active">
+                <strong>Исходящий номер</strong>
+            </a>
+        </div>
+
+    </div>
+
+    <div class="col-md">
+        <router-outlet></router-outlet> 
+    </div>
 
 </div>
