@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Client } from '../../../../models/Client';
 import { ClientService } from '../../../../services/client.service';
@@ -9,7 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   templateUrl: './client-details-main-tab.component.html',
   styleUrls: ['./client-details-main-tab.component.css']
 })
-export class ClientDetailsMainTabComponent implements OnInit {
+export class ClientDetailsMainTabComponent implements OnInit, OnDestroy {
   private _propertySubscribtion: Subscription;
   client: Client = {};
   clientId: number;
@@ -36,12 +36,12 @@ export class ClientDetailsMainTabComponent implements OnInit {
   }
 
   delete(id: number): void {
-    this.service.delete(this.clientId)
+    this.service.deleteClient(this.clientId)
       .then(() => this.goBackToClients());
   }
 
   goBackToClients(): void {
-      this.router.navigateByUrl('/clients');
+      this.router.navigate(['/clients']);
   }
 
 }

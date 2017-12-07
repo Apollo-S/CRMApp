@@ -7,7 +7,11 @@
             <i class="fa fa-users">
               </i> Сотрудники
           </a>
-          <span class="breadcrumb-item active">{{employee?.shortName}} | Редактирование записи</span>
+          <a 
+            class="breadcrumb-item"
+            [routerLink]="['/employees', employee?.id]">{{employee?.shortName}}
+          </a>
+          <span class="breadcrumb-item active">Редактирование</span>
         </strong>
       </h5>
     </div>

@@ -27,7 +27,7 @@ public class EmployeeController extends BaseController {
 	@Autowired
 	private EmployeeRepository employeeRepository;
 
-	@GetMapping(value = REQUEST_MAPPING_EMPTY, headers = HEADER_JSON)
+	@GetMapping(value = "", headers = HEADER_JSON)
 	public ResponseEntity<List<Employee>> getAllEmployees() {
 		List<Employee> employees = employeeRepository.findAll();
 		if (employees.size() == 0) {
@@ -36,7 +36,7 @@ public class EmployeeController extends BaseController {
 		return new ResponseEntity<List<Employee>>(employees, HttpStatus.OK);
 	}
 
-	@GetMapping(value = REQUEST_MAPPING_BY_ID, headers = HEADER_JSON)
+	@GetMapping(value = "/{id}", headers = HEADER_JSON)
 	public ResponseEntity<Employee> getEmployeeById(@PathVariable(PARAM_ID) int id) {
 		Employee employee = employeeRepository.findOne(id);
 		if (employee == null) {
@@ -45,7 +45,7 @@ public class EmployeeController extends BaseController {
 		return new ResponseEntity<Employee>(employee, HttpStatus.OK);
 	}
 
-	@PostMapping(value = REQUEST_MAPPING_EMPTY, headers = HEADER_JSON)
+	@PostMapping(value = "", headers = HEADER_JSON)
 	public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee) {
 		employee.setVersion(0);
 		employee = employeeRepository.save(employee);
@@ -53,7 +53,7 @@ public class EmployeeController extends BaseController {
 		return new ResponseEntity<Employee>(employee, header, HttpStatus.CREATED);
 	}
 
-	@PutMapping(value = REQUEST_MAPPING_BY_ID, headers = HEADER_JSON)
+	@PutMapping(value = "/{id}", headers = HEADER_JSON)
 	public ResponseEntity<Void> updateEmployee(@PathVariable(PARAM_ID) int id, @RequestBody Employee employee) {
 		employee.setId(id);
 		employee.setVersion(employeeRepository.getOne(id).getVersion());
@@ -62,7 +62,7 @@ public class EmployeeController extends BaseController {
 		return new ResponseEntity<Void>(header, HttpStatus.OK);
 	}
 
-	@DeleteMapping(value = REQUEST_MAPPING_BY_ID, headers = HEADER_JSON)
+	@DeleteMapping(value = "/{id}", headers = HEADER_JSON)
 	public ResponseEntity<Void> deleteEmployee(@PathVariable(PARAM_ID) int id) {
 		employeeRepository.delete(id);
 		HttpHeaders header = new HttpHeaders();

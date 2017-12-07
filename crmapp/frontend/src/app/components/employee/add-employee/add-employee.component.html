@@ -13,34 +13,26 @@
 
 <p>
 
-<div class="card">
-    
-    <div class="card-header">
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs card-header-tabs nav-fill" role="tablist">
+  <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#main" role="tab">
+    <i class="fa fa-address-card-o"></i> <strong>Основные данные</strong></a>
+  </li>
+  <li class="nav-item"><a class="nav-link disabled" data-toggle="tab" href="#address" role="tab">
+    <i class="fa fa-building-o"></i> <strong>Адрес</strong></a>
+  </li>
+  <li class="nav-item"><a class="nav-link disabled" data-toggle="tab" href="#account" role="tab">
+    <i class="fa fa-bank"></i> <strong>Банковские реквизиты</strong></a>
+  </li>
+  <li class="nav-item"><a class="nav-link disabled" data-toggle="tab" href="#vacation-sick" role="tab">
+    <i class="fa fa-user-o"></i> <strong>Отпуск / Больничные листы</strong></a>
+  </li>
+  <li class="nav-item"><a class="nav-link disabled" data-toggle="tab" href="#document" role="tab">
+    <i class="fa fa-file-text-o"></i> <strong>Документооборот</strong></a>
+  </li>
+</ul>          
         
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs card-header-tabs nav-fill" role="tablist">
-              <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#main" role="tab">
-                <i class="fa fa-address-card-o"></i> <strong>Основные данные</strong></a>
-              </li>
-              <li class="nav-item"><a class="nav-link disabled" data-toggle="tab" href="#address" role="tab">
-                <i class="fa fa-building-o"></i> <strong>Адрес</strong></a>
-              </li>
-              <li class="nav-item"><a class="nav-link disabled" data-toggle="tab" href="#account" role="tab">
-                <i class="fa fa-bank"></i> <strong>Банковские реквизиты</strong></a>
-              </li>
-              <li class="nav-item"><a class="nav-link disabled" data-toggle="tab" href="#vacation-sick" role="tab">
-                <i class="fa fa-user-o"></i> <strong>Отпуск / Больничные листы</strong></a>
-              </li>
-              <li class="nav-item"><a class="nav-link disabled" data-toggle="tab" href="#document" role="tab">
-                <i class="fa fa-file-text-o"></i> <strong>Документооборот</strong></a>
-              </li>
-            </ul>
-            <!-- <app-employee-nav-tabs [disabled] = "['disabled']"></app-employee-nav-tabs> -->
-          
-          </div>
-
-    <div class="card-body">
-
       <form (ngSubmit)="onSubmit()">
 
         <div class="row">
@@ -140,18 +132,15 @@
           <button type="submit" class="btn btn-success btn-block">
               <i class="fa fa-check-square-o"></i> Записать
           </button>
-          <a [routerLink]="['/employees']" href="#" class="btn btn-danger btn-block">
+          <a [routerLink]="['../']" class="btn btn-danger btn-block">
             <i class="fa fa-times-rectangle-o"></i> Отмена</a> 
         </div>
 
       </div>
-      
 
     </form>
 
-  </div>
-
-</div>
+  
     
   
   

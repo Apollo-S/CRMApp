@@ -7,7 +7,11 @@
             <i class="fa fa-users">
               </i> Клиенты
           </a>
-          <span class="breadcrumb-item active">{{client?.alias}} | Редактирование записи</span>
+          <a 
+            class="breadcrumb-item"
+            [routerLink]="['/clients', client?.id]">{{client?.alias}}
+          </a>
+          <span class="breadcrumb-item active">Редактирование</span>
         </strong>
       </h5>
     </div>

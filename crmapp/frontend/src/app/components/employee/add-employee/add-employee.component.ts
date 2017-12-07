@@ -25,7 +25,8 @@ export class AddEmployeeComponent implements OnInit {
   private save(): void {
     this.service.addEmployee(this.employee)
       .subscribe(response => {
-          this.router.navigateByUrl("/employee/" + response.id);
+          this.router.navigate(['/employees', response.id]);
+          console.log("new employee id = " + response.id)
         });
   }
 
