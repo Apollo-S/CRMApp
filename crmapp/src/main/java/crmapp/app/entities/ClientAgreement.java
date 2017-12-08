@@ -17,8 +17,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
 @Table(name = "client_agreement")
-@JsonIgnoreProperties(ignoreUnknown = true, 
-	value = { "hibernateLazyInitializer", "handler" } )
+@JsonIgnoreProperties(ignoreUnknown = true, value = { "hibernateLazyInitializer", "handler" })
 public class ClientAgreement extends UrlBaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -92,6 +91,11 @@ public class ClientAgreement extends UrlBaseEntity implements Serializable {
 	@JsonInclude
 	public String getClientAlias() {
 		return client.getAlias();
+	}
+
+	@Override
+	public String toString() {
+		return "ClientAgreement [client=" + client + ", number=" + number + ", " + "dateStart=" + dateStart + "]";
 	}
 
 	// public Set<Document> getDocuments() {
