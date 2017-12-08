@@ -65,7 +65,7 @@ export class ClientService {
       .catch(this.handleError);
   }
 
-  Addresses
+  // Addresses
   getAddressesByClientId(clientId: number) {
     const url = `${this.clientsUrl}/${clientId}/addresses`;
     return this.http.get(url, { headers: this.headers })
@@ -87,6 +87,13 @@ export class ClientService {
       .map(response => response.json() as ClientAddress)
       .catch(this.handleError);
   }
+
+  updateAddress(address: ClientAddress): Promise<Client> {
+    const url = `${this.clientsUrl}/${address.clientId}/addresses/${address.id}`;
+    return this.http.put(url, address)
+      .map(data => data.json()).toPromise()
+      .catch(this.handleError);
+  }
   
   deleteAddress(id: number, clientId: number) {
     const url = `${this.clientsUrl}/${clientId}/addresses/${id}`;
@@ -95,12 +102,26 @@ export class ClientService {
       .catch(this.handleError);
   }
   
-  getAccountsByClientId(clientId: number): Promise<ClientAccount[]> {
+  // Accounts
+  getAccountsByClientId(clientId: number): Observable<ClientAccount[]>  {
     const url = `${this.clientsUrl}/${clientId}/accounts`;
-    return this.http.get(url)
-    .toPromise()
-    .then(response => response.json() as ClientAccount[])
-    .catch(this.handleError);
+    return this.http.get(url, { headers: this.headers })
+      .map(response => response.json() as ClientAccount[])
+      .catch(this.handleError);
+  }
+
+  getAccountById(id: number, clientId: number): Observable<ClientAccount> {
+    const url = `${this.clientsUrl}/${clientId}/accounts/${id}`;
+    return this.http.get(url, { headers: this.headers })
+      .map(response => response.json() as ClientAccount)
+      .catch(this.handleError); 
+  }
+
+  addAccount(account: ClientAccount, clientId: number): Observable<ClientAccount> {
+    const url = `${this.clientsUrl}/${clientId}/accounts/add`;
+    return this.http.post(url, account)
+      .map(response => response.json() as ClientAccount)
+      .catch(this.handleError);
   }
   
   getAgreementsByClientId(clientId: number): Promise<ClientAgreement[]> {
@@ -115,6 +136,5 @@ export class ClientService {
     console.error('Error', error); // for demo purposes only
     return Promise.reject(error.message || error);
   }
-
   
 }

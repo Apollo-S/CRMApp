@@ -32,6 +32,8 @@ import { ClientDetailsAddressesTabComponent } from './components/client/client-d
 import { AddAddressComponent } from './components/client/client-details/client-details-addresses-tab/add-address/add-address.component';
 import { EditAddressComponent } from './components/client/client-details/client-details-addresses-tab/edit-address/edit-address.component';
 import { ClientDetailsAccountsTabComponent } from './components/client/client-details/client-details-accounts-tab/client-details-accounts-tab.component';
+import { AddAccountComponent } from './components/client/client-details/client-details-accounts-tab/add-account/add-account.component';
+import { EditAccountComponent } from './components/client/client-details/client-details-accounts-tab/edit-account/edit-account.component';
 import { ClientDetailsDirectorsTabComponent } from './components/client/client-details/client-details-directors-tab/client-details-directors-tab.component';
 
 import { AgreementsComponent } from './components/agreement/agreements/agreements.component';
@@ -81,6 +83,12 @@ const appRoutes: Routes = [
         {path: 'edit', component:EditAddressComponent},
       ]},
       {path: 'accounts', component: ClientDetailsAccountsTabComponent},
+      {path: 'accounts/add', component: AddAccountComponent},
+      {path: 'accounts/:id', component: EditAccountComponent,
+      children: [
+        {path:  '', redirectTo: 'edit', pathMatch: 'full'},
+        {path: 'edit', component:EditAccountComponent},
+      ]},
       {path: 'directors', component: ClientDetailsDirectorsTabComponent},
       {path: 'agreements', component: ClientDetailsAgreementsTabComponent}
     ]
@@ -139,7 +147,9 @@ const appRoutes: Routes = [
     ClientDetailsMainTabComponent,
     ClientDetailsTabsComponent,
     AddAddressComponent,
-    EditAddressComponent
+    EditAddressComponent,
+    AddAccountComponent,
+    EditAccountComponent
   ],
   imports: [
     BrowserModule,
