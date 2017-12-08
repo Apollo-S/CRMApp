@@ -36,6 +36,11 @@ export class EditAddressComponent implements OnInit, OnDestroy {
     this.getClientAddressById(this.addressId, this.clientId);
   }
 
+  onSubmit() {
+    this.update();
+    this.showMessage();
+  }
+
   delete() {
     if (confirm("Удалить текущий адрес?")) {
       this.service.deleteAddress(this.addressId, this.clientId)
@@ -47,6 +52,19 @@ export class EditAddressComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._propertySubscribtion.unsubscribe();
+  }
+
+  private update(): void {
+    this.service.updateAddress(this.address, this.clientId)
+      .subscribe(response => {
+        this.router.navigate(['/clients', this.clientId, 'addresses']);
+      })
+  }
+
+  private showMessage(): void {
+    this.flashMessagesService.grayOut(true);
+    this.flashMessagesService.show('Aдрес успешно обновлен', 
+      {cssClass: 'alert-success text-center', timeout: 1500});
   }
 
   private getClientAddressById(addressId: number, clientId: number) {

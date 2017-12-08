@@ -88,10 +88,10 @@ export class ClientService {
       .catch(this.handleError);
   }
 
-  updateAddress(address: ClientAddress): Promise<Client> {
-    const url = `${this.clientsUrl}/${address.clientId}/addresses/${address.id}`;
-    return this.http.put(url, address)
-      .map(data => data.json()).toPromise()
+  updateAddress(address: ClientAddress, clientId: number): Observable<ClientAddress>  {
+    const url = `${this.clientsUrl}/${clientId}/addresses/${address.id}`;
+    return this.http.put(url, address, { headers: this.headers })
+      .map(data => data.json() as ClientAddress)
       .catch(this.handleError);
   }
   
