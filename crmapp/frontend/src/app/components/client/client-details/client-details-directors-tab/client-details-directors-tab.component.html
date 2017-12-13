@@ -1,58 +1,67 @@
-<div class="row">
-    <div class="col-md-10">
-      <table class="table table-sm"
-        *ngIf="directors?.length > 0; else noDirectors">
+<P>
 
-        <thead class="thead-default">
-          <tr>
-            <th class="text-center">ID</th>
-            <th class="text-center">ФИО</th>
-            <th class="text-center">должность</th>
-            <th class="text-center">Актуален с</th>
-            <th class="text-center"></th>
-          </tr>
-        </thead>
-        
-        <tr *ngFor="let director of directors">
+<div class="row">
+
+  <div class="col-md-10">
+
+    <div class="card">
+      <div class="card-body"> 
+
+        <table class="table table-sm"
+          *ngIf="directors?.length > 0; else noDirectors">
+
+          <thead class="thead-default">
+            <tr>
+              <th class="text-center">ID</th>
+              <th class="text-center">ФИО</th>
+              <th class="text-center">Должность</th>
+              <th class="text-center">Актуален с</th>
+              <th class="text-center"></th>
+            </tr>
+          </thead>
           
-          <td class="text-center" >{{director.id}}</td>
-          <td class="text-center" >{{director.shortName}}</td>
-          <td class="text-center" >{{director.post}}</td>
-          <td class="text-center" >{{director.dateStart | date: 'dd.MM.y'}}</td>
-          <td>
-            <div class="d-flex justify-content-end">
-              <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                <div class="btn-group mr-2" role="group" aria-label="First group">
-                  <button type="button" class="btn btn-success btn-sm" >
-                    <i class="fa fa-edit"></i> Изменить
-                  </button>
-                </div>
-                <div class="btn-group mr-2" role="group" aria-label="Second group">
-                  <form action="#" method="post">
-                    <button type="submit" class="btn btn-danger btn-sm">
-                      <i class="fa fa-trash-o"></i> Удалить
+          <tr *ngFor="let director of directors">
+            
+            <td class="text-center" >{{director.id}}</td>
+            <td class="text-center" >{{director.shortName}}</td>
+            <td class="text-center" >{{director.post.title}}</td>
+            <td class="text-center" >{{director.dateStart | date: 'dd.MM.y'}}</td>
+            <td>
+              <div class="d-flex justify-content-end">
+                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                  <div class="btn-group mr-2" role="group" aria-label="First group">
+                    <button type="button" class="btn btn-success btn-sm" >
+                      <i class="fa fa-edit"></i> Изменить
                     </button>
-                  </form>
+                  </div>
+                  <div class="btn-group mr-2" role="group" aria-label="Second group">
+                    <form action="#" method="post">
+                      <button type="submit" class="btn btn-danger btn-sm">
+                        <i class="fa fa-trash-o"></i> Удалить
+                      </button>
+                    </form>
+                  </div>
                 </div>
               </div>
-            </div>
-          </td>
-        </tr>
-      </table>
+            </td>
+          </tr>
+        </table>
 
-      <ng-template #noDirectors>
-        <div class="alert alert-light" role="alert">
-          <h6 class="lead text-center">
-            <b>Нет ни одного руководителя в системе ...</b>
-          </h6>
-        </div>
-      </ng-template>
-  
+        <ng-template #noDirectors>
+          <div class="alert alert-light" role="alert">
+            <h6 class="lead text-center">
+              <b>Нет ни одного руководителя в системе ...</b>
+            </h6>
+          </div>
+        </ng-template>
 
+      </div>
     </div>
-    <div class="col-md-2">
-      <button type="button" class="btn btn-primary btn-block">
-        <i class="fa fa-plus"></i> Новый счет
-      </button>
-    </div>
+
   </div>
+
+  <div class="col-md-2">
+    <app-sidebar [url] = "['add']" title = "Добавить"></app-sidebar>
+  </div>
+  
+</div>

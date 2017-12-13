@@ -16,9 +16,9 @@ export class AddAccountComponent implements OnInit, OnDestroy {
   clientId: number;  
 
   constructor(private service: ClientService, 
-    private flashMessagesService: FlashMessagesService,
-    private router: Router,
-    private route: ActivatedRoute) { }
+              private flashMessagesService: FlashMessagesService,
+              private router: Router,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
     this._propertySubscribtion = this.service.property$

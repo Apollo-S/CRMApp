@@ -1,71 +1,71 @@
 <p>
   
-  <form (ngSubmit)="onSubmit()">
-  
-    <div class="row">
-  
-      <div class="col-md-10">
-  
-        <div class="card">
-          <div class="card-body"> 
-  
-            <div class="form-group row">
-              <label 
-                for="title"
-                class="col-md-3 col-form-label">
-                <strong>Банк. счет</strong>
-              </label> 
-              <div class="col-md">
-                <input 
-                  type="text" 
-                  class="form-control"
-                  [(ngModel)]="account.presentation" 
-                  name="presentation" 
-                  #accountPresentation="ngModel" 
-                  minlength="2" 
-                  required>
-              </div>
+<form (ngSubmit)="onSubmit()">
+
+  <div class="row">
+
+    <div class="col-md-10">
+
+      <div class="card">
+        <div class="card-body"> 
+
+          <div class="form-group row">
+            <label 
+              for="title"
+              class="col-md-3 col-form-label">
+              <strong>Банк. счет</strong>
+            </label> 
+            <div class="col-md">
+              <input 
+                type="text" 
+                class="form-control"
+                [(ngModel)]="account.presentation" 
+                name="presentation" 
+                #accountPresentation="ngModel" 
+                minlength="2" 
+                required>
             </div>
-  
-            <div class="form-group row">
-              <label 
-                for="alias"
-                class="col-md-3 col-form-label">
-                <strong>Действует с</strong>
-              </label>
-              <div class="col-md-3">
-                <input 
-                  type="text" 
-                  class="form-control"
-                  [(ngModel)]="account.dateStart" 
-                  name="dateStart"
-                  #accountDateStart="ngModel" 
-                  minlength="2" 
-                  required>
-              </div>
-            </div>
-  
           </div>
+
+          <div class="form-group row">
+            <label 
+              for="dateStart"
+              class="col-md-3 col-form-label">
+              <strong>Действует с</strong>
+            </label>
+            <div class="col-md-3">
+              <input 
+                type="text" 
+                class="form-control"
+                [(ngModel)]="account.dateStart" 
+                name="dateStart"
+                #accountDateStart="ngModel" 
+                minlength="2" 
+                required>
+            </div>
+          </div>
+
         </div>
-  
       </div>
-  
-      <div class="col-md-2">
-        <button 
-          type="submit" 
-          class="btn btn-success btn-block">
-          <i class="fa fa-check-square-o"></i> Записать
-        </button>
-        <a class="btn btn-danger btn-block"
-          [routerLink]="['../']">
-          <i class="fa fa-arrow-circle-o-left">
-            </i> Отменить
-        </a>
-      </div>
-  
-  
+
     </div>
-  
-  </form>
-  
+
+    <div class="col-md-2">
+      <button 
+        type="submit" 
+        class="btn btn-success btn-block">
+        <i class="fa fa-check-square-o"></i> Записать
+      </button>
+      <a class="btn btn-danger btn-block"
+        [routerLink]="['../']">
+        <i class="fa fa-arrow-circle-o-left">
+          </i> Отменить
+      </a>
+    </div>
+
+
+  </div>
+
+</form>
+
   
