@@ -16,8 +16,6 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
   private _propertySubscribtion: Subscription;
   client: Client;
   clientId: number;
-  addresses: ClientAddress[];
-  accounts: ClientAccount[];
 
   constructor(private service: ClientService,
               private router: Router,
@@ -39,27 +37,15 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
         }
       )
     this.getClientById(this.clientId);
-    this.getAddressesByClientId(this.clientId);
-    this.getAccountsByClientId(this.clientId);
+  }
+  
+  ngOnDestroy() {
+    this._propertySubscribtion.unsubscribe();
   }
 
   private getClientById(id: number) {
     this.service.getClientById(id)
       .then(client => this.client = client);
-  }
-
-  private getAddressesByClientId(clientId: number) {
-    this.service.getAddressesByClientId(clientId)
-      .subscribe(addresses => this.addresses = addresses);
-  }
-
-  private getAccountsByClientId(clientId: number) {
-    this.service.getAccountsByClientId(clientId)
-      .then(accounts => this.accounts = accounts);
-  }
-
-  ngOnDestroy() {
-    this._propertySubscribtion.unsubscribe();
   }
 
 }

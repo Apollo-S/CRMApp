@@ -8,6 +8,7 @@ import { Client } from '../models/Client';
 import { ClientAddress } from '../models/ClientAddress';
 import { ClientAccount } from '../models/ClientAccount';
 import { ClientAgreement } from '../models/ClientAgreement';
+import { ClientDirector } from '../models/ClientDirector';
 
 @Injectable()
 export class ClientService {
@@ -65,7 +66,7 @@ export class ClientService {
       .catch(this.handleError);
   }
 
-  Addresses
+  // Addresses
   getAddressesByClientId(clientId: number) {
     const url = `${this.clientsUrl}/${clientId}/addresses`;
     return this.http.get(url, { headers: this.headers })
@@ -87,6 +88,13 @@ export class ClientService {
       .map(response => response.json() as ClientAddress)
       .catch(this.handleError);
   }
+
+  updateAddress(address: ClientAddress, clientId: number): Observable<ClientAddress>  {
+    const url = `${this.clientsUrl}/${clientId}/addresses/${address.id}`;
+    return this.http.put(url, address, { headers: this.headers })
+      .map(data => data.json() as ClientAddress)
+      .catch(this.handleError);
+  }
   
   deleteAddress(id: number, clientId: number) {
     const url = `${this.clientsUrl}/${clientId}/addresses/${id}`;
@@ -95,14 +103,51 @@ export class ClientService {
       .catch(this.handleError);
   }
   
-  getAccountsByClientId(clientId: number): Promise<ClientAccount[]> {
+  // Accounts
+  getAccountsByClientId(clientId: number): Observable<ClientAccount[]>  {
     const url = `${this.clientsUrl}/${clientId}/accounts`;
-    return this.http.get(url)
-    .toPromise()
-    .then(response => response.json() as ClientAccount[])
-    .catch(this.handleError);
+    return this.http.get(url, { headers: this.headers })
+      .map(response => response.json() as ClientAccount[])
+      .catch(this.handleError);
   }
-  
+
+  getAccountById(id: number, clientId: number): Observable<ClientAccount> {
+    const url = `${this.clientsUrl}/${clientId}/accounts/${id}`;
+    return this.http.get(url, { headers: this.headers })
+      .map(response => response.json() as ClientAccount)
+      .catch(this.handleError); 
+  }
+
+  addAccount(account: ClientAccount, clientId: number): Observable<ClientAccount> {
+    const url = `${this.clientsUrl}/${clientId}/accounts/add`;
+    return this.http.post(url, account)
+      .map(response => response.json() as ClientAccount)
+      .catch(this.handleError);
+  }
+
+  updateAccount(account: ClientAccount, clientId: number): Observable<ClientAccount>  {
+    const url = `${this.clientsUrl}/${clientId}/accounts/${account.id}`;
+    return this.http.put(url, account, { headers: this.headers })
+      .map(data => data.json() as ClientAccount)
+      .catch(this.handleError);
+  }
+
+  deleteAccount(id: number, clientId: number) {
+    const url = `${this.clientsUrl}/${clientId}/accounts/${id}`;
+    return this.http.delete(url, { headers: this.headers })
+      .map(response => response.json())
+      .catch(this.handleError);
+  }
+
+  // Directors
+  getDirectorsByClientId(clientId: number): Observable<ClientDirector[]>  {
+    const url = `${this.clientsUrl}/${clientId}/directors`;
+    return this.http.get(url, { headers: this.headers })
+      .map(response => response.json() as ClientDirector[])
+      .catch(this.handleError);
+  }
+
+  // Agreements
   getAgreementsByClientId(clientId: number): Promise<ClientAgreement[]> {
     const url = `${this.clientsUrl}/${clientId}/agreements`;
     return this.http.get(url)
@@ -115,6 +160,5 @@ export class ClientService {
     console.error('Error', error); // for demo purposes only
     return Promise.reject(error.message || error);
   }
-
   
 }

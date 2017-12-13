@@ -1,5 +1,5 @@
 <p>
-    
+  
 <form (ngSubmit)="onSubmit()">
 
   <div class="row">
@@ -11,17 +11,17 @@
 
           <div class="form-group row">
             <label 
-              for="presentation"
+              for="title"
               class="col-md-3 col-form-label">
-              <strong>Адрес</strong>
+              <strong>Банк. счет</strong>
             </label> 
             <div class="col-md">
               <input 
                 type="text" 
                 class="form-control"
-                [(ngModel)]="address.presentation" 
+                [(ngModel)]="account.presentation" 
                 name="presentation" 
-                #addressPresentation="ngModel" 
+                #accountPresentation="ngModel" 
                 minlength="2" 
                 required>
             </div>
@@ -37,9 +37,9 @@
               <input 
                 type="text" 
                 class="form-control"
-                [(ngModel)]="address.dateStart" 
+                [(ngModel)]="account.dateStart" 
                 name="dateStart"
-                #addressDateStart="ngModel" 
+                #accountDateStart="ngModel" 
                 minlength="2" 
                 required>
             </div>
@@ -51,23 +51,21 @@
     </div>
 
     <div class="col-md-2">
-      <a class="btn btn-info btn-block"
-        [routerLink]="['../']">
-        <i class="fa fa-arrow-circle-o-left">
-          </i> Вернуться
-      </a>
       <button 
         type="submit" 
         class="btn btn-success btn-block">
-        <i class="fa fa-check-square-o"></i> Сохранить
+        <i class="fa fa-check-square-o"></i> Записать
       </button>
-      <button type="button" class="btn btn-danger btn-block" (click)="delete()">
-        <i class="fa fa-trash-o"></i> Удалить
-      </button>
+      <a class="btn btn-danger btn-block"
+        [routerLink]="['../']">
+        <i class="fa fa-arrow-circle-o-left">
+          </i> Отменить
+      </a>
     </div>
+
 
   </div>
 
 </form>
-    
-    
+
+  

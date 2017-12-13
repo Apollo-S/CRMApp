@@ -70,12 +70,14 @@ public class ClientAddressController extends BaseController {
 	}
 	
 	@PutMapping(value = "/{id}", headers = HEADER_JSON)
-	public ResponseEntity<Void> updateClientAddress(@PathVariable("id") int id, 
+	public ResponseEntity<Void> updateClientAddress(@PathVariable("clientId") int clientId, 
 			@RequestBody ClientAddress address) {
 		logger.info("<==/////////// Entering to the updateClientAddress() method ... ///////////==>");
-		address.setId(id);
-		logger.info("<==/////////// Id is setted to " + address.getId() + "///////////==>");
-		address.setVersion(addressRepository.getOne(id).getVersion());
+		Client client = clientRepository.findOne(clientId);
+		address.setClient(client);
+		logger.info("<==/////////// Client is setted to " + client + "///////////==>");
+		int actualVersionNumber = addressRepository.getOne(address.getId()).getVersion();
+		address.setVersion(actualVersionNumber);
 		logger.info("<==/////////// Printing address: " + address + "///////////==>");
 		address = addressRepository.save(address);
 		HttpHeaders header = new HttpHeaders();
@@ -85,6 +87,7 @@ public class ClientAddressController extends BaseController {
 	@DeleteMapping(value = "/{id}", headers = HEADER_JSON)
 	public ResponseEntity<Void> deleteClientAddress(@PathVariable(PARAM_ID) int id) {
 		addressRepository.delete(id);
+		logger.info("<==/////////// ClientAddress  with ID = " + id + " was deleted successfully!!! ///////////==>");
 		HttpHeaders header = new HttpHeaders();
 		return new ResponseEntity<Void>(header, HttpStatus.NO_CONTENT);
 	}

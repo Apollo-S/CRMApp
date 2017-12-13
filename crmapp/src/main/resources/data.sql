@@ -19,11 +19,11 @@ VALUES
   (3, 3, 'Україна, 00023, м. Киев, бульв. Т. Шевченко, 18', '2012-01-01', 0);
   
 TRUNCATE `client_director`;
-INSERT INTO `client_director` (`id`, `client_id`, `post`, `full_name`, `short_name`, `date_start`, `optlock`)
+INSERT INTO `client_director` (`id`, `client_id`, `post_id`, `full_name`, `short_name`, `date_start`, `optlock`)
 VALUES
-	(1, 1, 'Генеральний директор', 'Степанюк Алла Борисівна', 'Степанюк А.Б.', '2013-01-01', 0),
-	(2, 2, 'Генеральный директор', 'Слєпаков Семен Валерійович', 'Слєпаков С.В.', '2013-01-01', 0),
-	(3, 3, 'Генеральный директор', 'Махно Нестор Петрович', 'Махно Н.П.', '2013-01-01', 0);
+	(1, 1, 1, 'Степанюк Алла Борисівна', 'Степанюк А.Б.', '2013-01-01', 0),
+	(2, 2, 1, 'Слєпаков Семен Валерійович', 'Слєпаков С.В.', '2013-01-01', 0),
+	(3, 3, 1, 'Махно Нестор Петрович', 'Махно Н.П.', '2013-01-01', 0);
 	
 TRUNCATE `client_account`;
 INSERT INTO `client_account` (`id`, `client_id`, `presentation`, `date_start`, `optlock`)

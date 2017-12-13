@@ -68,4 +68,11 @@ public class ClientAddress extends UrlBaseEntity implements Serializable {
 		this.dateStart = dateStart;
 	}
 
+	@Override
+	public String toString() {
+		return "ClientAddress [clientId=" + client.getId() + ", presentation=" + presentation + ", dateStart=" + dateStart + "]";
+	}
+	
+	
+
 }

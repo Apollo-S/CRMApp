@@ -2,11 +2,14 @@ package crmapp.app.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,8 +30,9 @@ public class ClientDirector extends UrlBaseEntity implements Serializable {
 	@JsonBackReference(value = "client-director")
 	private Client client;
 
-	@Column(name = "post", length = 50)
-	private String post;
+	@OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+	@JoinColumn(name = "post_id")
+	private Post post;
 
 	@Column(name = "full_name", length = 255)
 	private String fullName;
@@ -43,7 +47,7 @@ public class ClientDirector extends UrlBaseEntity implements Serializable {
 	public ClientDirector() {
 	}
 
-	public ClientDirector(Client client, String post, String fullName, String shortName, Date dateStart) {
+	public ClientDirector(Client client, Post post, String fullName, String shortName, Date dateStart) {
 		this.client = client;
 		this.post = post;
 		this.fullName = fullName;
@@ -57,14 +61,6 @@ public class ClientDirector extends UrlBaseEntity implements Serializable {
 
 	public void setClient(Client client) {
 		this.client = client;
-	}
-
-	public String getPost() {
-		return post;
-	}
-
-	public void setPost(String post) {
-		this.post = post;
 	}
 
 	public String getFullName() {
@@ -89,6 +85,14 @@ public class ClientDirector extends UrlBaseEntity implements Serializable {
 
 	public void setDateStart(Date dateStart) {
 		this.dateStart = dateStart;
+	}
+
+	public Post getPost() {
+		return post;
+	}
+
+	public void setPost(Post post) {
+		this.post = post;
 	}
 
 }
