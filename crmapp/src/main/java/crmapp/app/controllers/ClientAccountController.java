@@ -71,10 +71,15 @@ public class ClientAccountController extends BaseController {
 	}
 	
 	@PutMapping(value = "/{id}", headers = HEADER_JSON)
-	public ResponseEntity<Void> updateClientAccount(@PathVariable(PARAM_ID) int id,
+	public ResponseEntity<Void> updateClientAccount(@PathVariable("clientId") int clientId,
 			@RequestBody ClientAccount account) {
-		account.setId(id);
-		account.setVersion(accountRepository.getOne(id).getVersion());
+		logger.info("<==/////////// Entering to the updateClientAccount() method ... ///////////==>");
+		Client client = clientRepository.findOne(clientId);
+		account.setClient(client);
+		logger.info("<==/////////// Client is setted to " + client + "///////////==>");
+		int actualVersionNumber = accountRepository.getOne(account.getId()).getVersion();
+		account.setVersion(actualVersionNumber);
+		logger.info("<==/////////// Printing account: " + account + "///////////==>");
 		account = accountRepository.save(account);
 		HttpHeaders header = new HttpHeaders();
 		return new ResponseEntity<Void>(header, HttpStatus.OK);
