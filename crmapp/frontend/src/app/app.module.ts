@@ -27,7 +27,6 @@ import { EditClientComponent } from './components/client/edit-client/edit-client
 import { ClientDetailsComponent } from './components/client/client-details/client-details.component';
 import { ClientDetailsTabsComponent } from './components/client/client-details/client-details-tabs/client-details-tabs.component';
 import { ClientDetailsMainTabComponent } from './components/client/client-details/client-details-main-tab/client-details-main-tab.component';
-import { ClientDetailsAgreementsTabComponent } from './components/client/client-details/client-details-agreements-tab/client-details-agreements-tab.component';
 import { ClientDetailsAddressesTabComponent } from './components/client/client-details/client-details-addresses-tab/client-details-addresses-tab.component';
 import { AddAddressComponent } from './components/client/client-details/client-details-addresses-tab/add-address/add-address.component';
 import { EditAddressComponent } from './components/client/client-details/client-details-addresses-tab/edit-address/edit-address.component';
@@ -35,6 +34,9 @@ import { ClientDetailsAccountsTabComponent } from './components/client/client-de
 import { AddAccountComponent } from './components/client/client-details/client-details-accounts-tab/add-account/add-account.component';
 import { EditAccountComponent } from './components/client/client-details/client-details-accounts-tab/edit-account/edit-account.component';
 import { ClientDetailsDirectorsTabComponent } from './components/client/client-details/client-details-directors-tab/client-details-directors-tab.component';
+import { AddDirectorComponent } from './components/client/client-details/client-details-directors-tab/add-director/add-director.component';
+import { EditDirectorComponent } from './components/client/client-details/client-details-directors-tab/edit-director/edit-director.component';
+import { ClientDetailsAgreementsTabComponent } from './components/client/client-details/client-details-agreements-tab/client-details-agreements-tab.component';
 
 import { AgreementsComponent } from './components/agreement/agreements/agreements.component';
 import { AddAgreementComponent } from './components/agreement/add-agreement/add-agreement.component';
@@ -90,6 +92,12 @@ const appRoutes: Routes = [
         {path: 'edit', component:EditAccountComponent},
       ]},
       {path: 'directors', component: ClientDetailsDirectorsTabComponent},
+      {path: 'directors/add', component: AddDirectorComponent},
+      {path: 'directors/:id', component: EditDirectorComponent,
+      children: [
+        {path:  '', redirectTo: 'edit', pathMatch: 'full'},
+        {path: 'edit', component:EditDirectorComponent},
+      ]},
       {path: 'agreements', component: ClientDetailsAgreementsTabComponent}
     ]
   },
@@ -149,7 +157,9 @@ const appRoutes: Routes = [
     AddAddressComponent,
     EditAddressComponent,
     AddAccountComponent,
-    EditAccountComponent
+    EditAccountComponent,
+    AddDirectorComponent,
+    EditDirectorComponent
   ],
   imports: [
     BrowserModule,
