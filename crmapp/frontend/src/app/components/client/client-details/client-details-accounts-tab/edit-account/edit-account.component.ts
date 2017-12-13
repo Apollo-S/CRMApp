@@ -38,7 +38,7 @@ export class EditAccountComponent implements OnInit, OnDestroy {
 
   delete() {
     if (confirm("Удалить текущий счет?")) {
-      this.service.deleteAddress(this.accountId, this.clientId)
+      this.service.deleteAccount(this.accountId, this.clientId)
         .subscribe(response => {
           this.goBackToAccounts();
       });
@@ -47,6 +47,24 @@ export class EditAccountComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._propertySubscribtion.unsubscribe();
+  }
+
+  onSubmit() {
+    this.update();
+    this.showMessage();
+  }
+
+  private update(): void {
+    this.service.updateAccount(this.account, this.clientId)
+      .subscribe(response => {
+        this.goBackToAccounts();
+      })
+  }
+
+  private showMessage(): void {
+    this.flashMessagesService.grayOut(true);
+    this.flashMessagesService.show('Банк. счет успешно обновлен', 
+      {cssClass: 'alert-success text-center', timeout: 1500});
   }
 
   private getClientAccountById(accountId: number, clientId: number) {
