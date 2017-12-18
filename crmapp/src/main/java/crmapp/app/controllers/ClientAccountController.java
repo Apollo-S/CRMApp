@@ -55,7 +55,7 @@ public class ClientAccountController extends BaseController {
 		return new ResponseEntity<ClientAccount>(account, HttpStatus.OK);
 	}
 
-	@PostMapping(value = "/{id}", headers = HEADER_JSON)
+	@PostMapping(value = "", headers = HEADER_JSON)
 	public ResponseEntity<ClientAccount> addClientAccount(@PathVariable("clientId") int clientId,
 			@RequestBody ClientAccount account) {
 		logger.info("<==/////////// Entering to the addClientAccount() method ... ///////////==>");

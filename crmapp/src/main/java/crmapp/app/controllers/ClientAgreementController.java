@@ -79,7 +79,7 @@ public class ClientAgreementController extends BaseController {
 		return new ResponseEntity<Void>(header, HttpStatus.OK);
 	}
 
-	@DeleteMapping(value = "/agreements/{id}", headers = HEADER_JSON)
+	@DeleteMapping(value = { "/agreements/{id}", "/clients/{clientId}/agreements/{id}" }, headers = HEADER_JSON)
 	public ResponseEntity<Void> deleteAgreement(@PathVariable(PARAM_ID) int id, @RequestBody ClientAgreement agreement) {
 		agreement.setId(id);
 		agreement.setVersion(agreementRepository.getOne(id).getVersion());

@@ -54,7 +54,7 @@ public class ClientDirectorController extends BaseController {
 		return new ResponseEntity<ClientDirector>(director, HttpStatus.OK);
 	}
 
-	@PostMapping(value = "/add", headers = HEADER_JSON)
+	@PostMapping(value = "", headers = HEADER_JSON)
 	public ResponseEntity<ClientDirector> addClientDirector(@PathVariable("clientId") int clientId,
 			@RequestBody ClientDirector director) {
 		logger.info("<==/////////// Entering to the addClientDirector() method ... ///////////==>");
