@@ -11,6 +11,7 @@ import { ClientService } from './services/client.service';
 import { EmployeeService } from './services/employee.service';
 import { AgreementService } from './services/agreement.service';
 import { VacationService } from './services/vacation.service';
+import { PostService } from './services/post.service';
 
 // Component Imports 
 import { AppComponent } from './app.component';
@@ -174,7 +175,8 @@ const appRoutes: Routes = [
     ClientService,
     EmployeeService,
     AgreementService,
-    VacationService
+    VacationService,
+    PostService
   ],
   bootstrap: [AppComponent]
 })
