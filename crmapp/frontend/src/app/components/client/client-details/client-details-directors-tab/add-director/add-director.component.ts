@@ -4,6 +4,8 @@ import { Subscription } from 'rxjs';
 import { ClientService } from '../../../../../services/client.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Post } from '../../../../../models/Post';
+import { PostService } from '../../../../../services/post.service';
 
 @Component({
   selector: 'app-add-director',
@@ -13,12 +15,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class AddDirectorComponent implements OnInit, OnDestroy {
   private _propertySubscribtion: Subscription;
   director: ClientDirector = {};
+  posts: Post[];
   clientId: number;  
 
   constructor(private service: ClientService, 
+              private postService: PostService,
               private flashMessagesService: FlashMessagesService,
-              private router: Router,
-              private route: ActivatedRoute) { }
+              private router: Router) { }
 
   ngOnInit() {
     this._propertySubscribtion = this.service.property$
@@ -26,6 +29,7 @@ export class AddDirectorComponent implements OnInit, OnDestroy {
       this.clientId = p;
       }
     );
+    this.getPosts();
   }
 
   ngOnDestroy(): void {
@@ -38,17 +42,24 @@ export class AddDirectorComponent implements OnInit, OnDestroy {
   }
 
   private save(): void {
-    // this.service.addDirector(this.director, this.clientId)
-    //   .subscribe(response => {
-    //       this.router.navigate(['/clients', this.clientId, 'directors']);
-    //     }
-    //   );
+    this.service.addDirector(this.director, this.clientId)
+      .subscribe(response => {
+          this.router.navigate(['/clients', this.clientId, 'directors']);
+        }
+      );
   }
 
   private showMessage(): void {
     this.flashMessagesService.grayOut(true);
     this.flashMessagesService.show('Новый директор успешно сохранен', 
       {cssClass: 'alert-success', timeout: 1500});
+  }
+
+  private getPosts() {
+    this.postService.getPosts()
+      .subscribe(post => {
+        this.posts = post;
+      })
   }
 
 }
