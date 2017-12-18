@@ -54,7 +54,7 @@ public class ClientAddressController extends BaseController {
 		return new ResponseEntity<ClientAddress>(address, HttpStatus.OK);
 	}
 
-	@PostMapping(value = "/add", headers = HEADER_JSON)
+	@PostMapping(value = "", headers = HEADER_JSON)
 	public ResponseEntity<ClientAddress> addClientAddress(@PathVariable("clientId") int clientId,
 			@RequestBody ClientAddress address) {
 		logger.info("<==/////////// Entering to the addClientAddress() method ... ///////////==>");
