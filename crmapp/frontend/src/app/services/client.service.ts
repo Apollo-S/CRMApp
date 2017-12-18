@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import { Observable, BehaviorSubject } from 'rxjs';
-import 'rxjs/add/operator/toPromise';
-import 'rxjs/add/operator/map';
 import 'rxjs';
 import { Client } from '../models/Client';
 import { ClientAddress } from '../models/ClientAddress';
@@ -83,7 +81,7 @@ export class ClientService {
   }
 
   addAddress(address: ClientAddress, clientId: number): Observable<ClientAddress> {
-    const url = `${this.clientsUrl}/${clientId}/addresses/add`;
+    const url = `${this.clientsUrl}/${clientId}/addresses`;
     return this.http.post(url, address)
       .map(response => response.json() as ClientAddress)
       .catch(this.handleError);
@@ -119,7 +117,7 @@ export class ClientService {
   }
 
   addAccount(account: ClientAccount, clientId: number): Observable<ClientAccount> {
-    const url = `${this.clientsUrl}/${clientId}/accounts/add`;
+    const url = `${this.clientsUrl}/${clientId}/accounts`;
     return this.http.post(url, account)
       .map(response => response.json() as ClientAccount)
       .catch(this.handleError);
@@ -144,6 +142,34 @@ export class ClientService {
     const url = `${this.clientsUrl}/${clientId}/directors`;
     return this.http.get(url, { headers: this.headers })
       .map(response => response.json() as ClientDirector[])
+      .catch(this.handleError);
+  }
+
+  getDirectorById(id: number, clientId: number): Observable<ClientDirector> {
+    const url = `${this.clientsUrl}/${clientId}/directors/${id}`;
+    return this.http.get(url, { headers: this.headers })
+      .map(response => response.json() as ClientDirector)
+      .catch(this.handleError); 
+  }
+
+  addDirector(director: ClientDirector, clientId: number): Observable<ClientDirector> {
+    const url = `${this.clientsUrl}/${clientId}/directors`;
+    return this.http.post(url, director, { headers: this.headers })
+      .map(response => response.json() as ClientDirector)
+      .catch(this.handleError);
+  }
+
+  updateDirector(director: ClientDirector, clientId: number): Observable<ClientDirector>  {
+    const url = `${this.clientsUrl}/${clientId}/directors/${director.id}`;
+    return this.http.put(url, director, { headers: this.headers })
+      .map(data => data.json() as ClientDirector)
+      .catch(this.handleError);
+  }
+
+  deleteDirector(id: number, clientId: number) {
+    const url = `${this.clientsUrl}/${clientId}/directors/${id}`;
+    return this.http.delete(url, { headers: this.headers })
+      .map(response => response.json())
       .catch(this.handleError);
   }
 
