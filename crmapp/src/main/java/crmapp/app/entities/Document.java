@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -47,7 +48,8 @@ public class Document extends UrlBaseEntity {
 	private DocumentStatus status;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "agreement_id")
+	@JoinColumn(name = "client_agreement_id")
+	@JsonBackReference(value = "agreement-document")
 	private ClientAgreement agreement;
 
 	public Document() {
