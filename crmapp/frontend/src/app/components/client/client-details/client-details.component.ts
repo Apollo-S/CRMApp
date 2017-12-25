@@ -26,7 +26,6 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
       .subscribe(
         (params: Params) => {
           this.clientId = +params['id'];
-          console.log("client id (client-details) = " + this.clientId);
         }
       )
     this.service.property = this.clientId;

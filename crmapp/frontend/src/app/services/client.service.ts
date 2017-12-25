@@ -162,7 +162,7 @@ export class ClientService {
   updateDirector(director: ClientDirector, clientId: number): Observable<ClientDirector>  {
     const url = `${this.clientsUrl}/${clientId}/directors/${director.id}`;
     return this.http.put(url, director, { headers: this.headers })
-      .map(data => data.json() as ClientDirector)
+      .map(response => response.json() as ClientDirector)
       .catch(this.handleError);
   }
 

@@ -62,7 +62,7 @@ export class EditAccountComponent implements OnInit, OnDestroy {
   }
 
   private showMessage(): void {
-    this.flashMessagesService.grayOut(true);
+    this.flashMessagesService.grayOut(false);
     this.flashMessagesService.show('Банк. счет успешно обновлен', 
       {cssClass: 'alert-success text-center', timeout: 1500});
   }
