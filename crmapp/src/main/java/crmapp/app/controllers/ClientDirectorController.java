@@ -70,7 +70,7 @@ public class ClientDirectorController extends BaseController {
 	}
 	
 	@PutMapping(value = "/{id}", headers = HEADER_JSON)
-	public ResponseEntity<Void> updateClientDirector(@PathVariable("clientId") int clientId, 
+	public ResponseEntity<ClientDirector> updateClientDirector(@PathVariable("clientId") int clientId, 
 			@RequestBody ClientDirector director) {
 		logger.info("<==/////////// Entering to the updateClientDirector() method ... ///////////==>");
 		Client client = clientRepository.findOne(clientId);
@@ -81,7 +81,7 @@ public class ClientDirectorController extends BaseController {
 		logger.info("<==/////////// Printing director: " + director + "///////////==>");
 		director = directorRepository.save(director);
 		HttpHeaders header = new HttpHeaders();
-		return new ResponseEntity<Void>(header, HttpStatus.OK);
+		return new ResponseEntity<ClientDirector>(director, header, HttpStatus.OK);
 	}
 	
 	@DeleteMapping(value = "/{id}", headers = HEADER_JSON)

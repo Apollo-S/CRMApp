@@ -71,7 +71,7 @@ public class ClientAccountController extends BaseController {
 	}
 	
 	@PutMapping(value = "/{id}", headers = HEADER_JSON)
-	public ResponseEntity<Void> updateClientAccount(@PathVariable("clientId") int clientId,
+	public ResponseEntity<ClientAccount> updateClientAccount(@PathVariable("clientId") int clientId,
 			@RequestBody ClientAccount account) {
 		logger.info("<==/////////// Entering to the updateClientAccount() method ... ///////////==>");
 		Client client = clientRepository.findOne(clientId);
@@ -82,7 +82,7 @@ public class ClientAccountController extends BaseController {
 		logger.info("<==/////////// Printing account: " + account + "///////////==>");
 		account = accountRepository.save(account);
 		HttpHeaders header = new HttpHeaders();
-		return new ResponseEntity<Void>(header, HttpStatus.OK);
+		return new ResponseEntity<ClientAccount>(account, header, HttpStatus.OK);
 	}
 	
 	@DeleteMapping(value = "/{id}", headers = HEADER_JSON)
