@@ -1,4 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+
+.list-group-item.active {
+    background-color:rgb(194, 194, 194) !important;
+    border-color:rgba(168, 168, 168, 0.747) !important;
+}
+
 .p4 {
 	margin-bottom: 4em;
 }
