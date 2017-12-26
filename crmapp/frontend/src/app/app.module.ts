@@ -43,6 +43,7 @@ import { AgreementsComponent } from './components/agreement/agreements/agreement
 import { AddAgreementComponent } from './components/agreement/add-agreement/add-agreement.component';
 import { EditAgreementComponent } from './components/agreement/edit-agreement/edit-agreement.component';
 import { AgreementDetailsComponent } from './components/agreement/agreement-details/agreement-details.component';
+import { AgreementDetailsDocumentsTabComponent } from './components/agreement/agreement-details/agreement-details-documents-tab/agreement-details-documents-tab.component';
 
 import { DocumentsComponent } from './components/document/documents/documents.component';
 
@@ -71,6 +72,7 @@ const appRoutes: Routes = [
       {path: 'agreements', component:AgreementsComponent},
     ]
   },
+
   {path: 'clients/add', component:AddClientComponent},
   {path: 'clients/:id/edit', component:EditClientComponent},
   {path: 'clients/:id', component:ClientDetailsComponent,
@@ -81,31 +83,51 @@ const appRoutes: Routes = [
       {path: 'addresses', component: ClientDetailsAddressesTabComponent},
       {path: 'addresses/add', component:AddAddressComponent},
       {path: 'addresses/:id', component:EditAddressComponent,
-      children: [
-        {path:  '', redirectTo: 'edit', pathMatch: 'full'},
-        {path: 'edit', component:EditAddressComponent},
-      ]},
+        children: 
+        [
+          {path:  '', redirectTo: 'edit', pathMatch: 'full'},
+          {path: 'edit', component:EditAddressComponent},
+        ]
+      },
       {path: 'accounts', component: ClientDetailsAccountsTabComponent},
       {path: 'accounts/add', component: AddAccountComponent},
       {path: 'accounts/:id', component: EditAccountComponent,
-      children: [
-        {path:  '', redirectTo: 'edit', pathMatch: 'full'},
-        {path: 'edit', component:EditAccountComponent},
-      ]},
+      children: 
+        [
+          {path:  '', redirectTo: 'edit', pathMatch: 'full'},
+          {path: 'edit', component:EditAccountComponent},
+        ]
+      },
       {path: 'directors', component: ClientDetailsDirectorsTabComponent},
       {path: 'directors/add', component: AddDirectorComponent},
       {path: 'directors/:id', component: EditDirectorComponent,
-      children: [
-        {path:  '', redirectTo: 'edit', pathMatch: 'full'},
-        {path: 'edit', component:EditDirectorComponent},
-      ]},
-      {path: 'agreements', component: ClientDetailsAgreementsTabComponent}
+        children: 
+        [
+          {path:  '', redirectTo: 'edit', pathMatch: 'full'},
+          {path: 'edit', component:EditDirectorComponent},
+        ]
+      },
+      {path: 'agreements', component: ClientDetailsAgreementsTabComponent},
+      {path: 'agreements/add', component: AddAgreementComponent},
+      {path: 'agreements/:id', component: AgreementDetailsComponent},
     ]
   },
 
-  {path: 'employees/add', component:AddEmployeeComponent},
-  {path: 'employees/:id/edit', component:EditEmployeeComponent},
-  {path: 'employees/:id', component:EmployeeDetailsComponent, 
+  {path: 'agreements/add', component: AddAgreementComponent},
+  {path: 'agreements/:id', component: AgreementDetailsComponent,
+    children: 
+    [
+      {path:  '', redirectTo: 'main', pathMatch: 'full'},
+      {path: 'main', component: EditAgreementComponent},
+      {path: 'edit', component: EditAgreementComponent},
+      {path: 'documents', component: AgreementDetailsDocumentsTabComponent}
+    ]
+  },
+  {path: 'agreements/:id/edit', component: EditAgreementComponent},
+
+  {path: 'employees/add', component: AddEmployeeComponent},
+  {path: 'employees/:id/edit', component: EditEmployeeComponent},
+  {path: 'employees/:id', component: EmployeeDetailsComponent, 
     children: 
     [
       {path:  '', redirectTo: 'main', pathMatch: 'full'},
@@ -114,10 +136,6 @@ const appRoutes: Routes = [
       {path: 'accounts', component: EmployeeDetailsAccountsTabComponent}
     ]
   },
-
-  {path: 'agreements/:id', component:AgreementDetailsComponent},
-  {path: 'agreements/add', component:AddAgreementComponent},
-  {path: 'agreements/:id/edit', component:EditAgreementComponent},
 
 ]
 
@@ -160,7 +178,8 @@ const appRoutes: Routes = [
     AddAccountComponent,
     EditAccountComponent,
     AddDirectorComponent,
-    EditDirectorComponent
+    EditDirectorComponent,
+    AgreementDetailsDocumentsTabComponent
   ],
   imports: [
     BrowserModule,
