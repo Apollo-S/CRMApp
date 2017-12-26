@@ -1,4 +1,4 @@
 export class DocumentType {
-    id?: number;
-    title?: string;
+    public id?: number;
+    public title?: string;
 }

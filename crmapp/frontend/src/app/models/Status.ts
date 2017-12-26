@@ -1,4 +1,4 @@
 export class Status {
-    id?: number;
-    status?: string;
+    public id?: number;
+    public status?: string;
 }
