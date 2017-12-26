@@ -29,7 +29,7 @@
                             <tr *ngFor="let agreement of agreements">
                                 <td class="text-center">
                                     <a class="card-link"
-                                        [routerLink]="['/client', agreement.clientId]">
+                                        [routerLink]="['/clients', agreement.clientId, 'agreements']">
                                         {{agreement.clientAlias}}
                                     </a>
                                 </td>
@@ -41,7 +41,7 @@
                                 </td>
                                 <td class="text-right">
                                     <a class="btn btn-info btn-sm"
-                                        [routerLink]="['/agreement', agreement.id]">
+                                        [routerLink]="['/agreements', agreement.id]">
                                         <i class="fa fa-arrow-circle-o-right"></i> Подробнее
                                     </a>
                                 </td>
@@ -64,7 +64,7 @@
 
             <div class="col-md-2">
                 <app-sidebar 
-                    [url] = "['/add-agreement']" 
+                    [url] = "['/agreements/add']" 
                     [title] = "['Добавить']">
                 </app-sidebar>
             </div>

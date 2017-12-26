@@ -2,9 +2,12 @@ package crmapp.app.controllers;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,13 +24,15 @@ import crmapp.app.repositories.DocumentRepository;
 
 @RestController
 @Transactional
-@RequestMapping(value = "/api/documents")
+@RequestMapping(value = "/api")
 public class DocumentController extends BaseController {
+
+	private static final Logger logger = LoggerFactory.getLogger(ClientAgreementController.class);
 
 	@Autowired
 	private DocumentRepository documentRepository;
 
-	@GetMapping(value = REQUEST_MAPPING_EMPTY, headers = HEADER_JSON)
+	@GetMapping(value = "/documents", headers = HEADER_JSON)
 	public ResponseEntity<List<Document>> getAllDocuments() {
 		List<Document> documents = documentRepository.findAll();
 		if (documents.size() == 0) {
@@ -36,23 +41,25 @@ public class DocumentController extends BaseController {
 		return new ResponseEntity<List<Document>>(documents, HttpStatus.OK);
 	}
 
-	@GetMapping(value = REQUEST_MAPPING_BY_ID, headers = HEADER_JSON)
-	public ResponseEntity<Document> getContractorById(@PathVariable(PARAM_ID) int id) {
-		Document document = documentRepository.findOne(id);
-		if (document == null) {
-			return new ResponseEntity<Document>(document, HttpStatus.NOT_FOUND);
+	@GetMapping(value = "/agreements/{agreementId}/documents", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Document>> getAllDocumentsByAgreementId(@PathVariable("agreementId") int agreementId) {
+		logger.info("<==/////////// Entering to the getAllAgreementsByClientId() method ... ///////////==>");
+		List<Document> documents = documentRepository.findAllDocumentsByAgreementId(agreementId);
+		logger.info("<==/////////// Printing agreements: " + documents + " ///////////==>");
+		if (documents.size() == 0) {
+			return new ResponseEntity<List<Document>>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<Document>(document, HttpStatus.OK);
+		return new ResponseEntity<List<Document>>(documents, HttpStatus.OK);
 	}
 
-	@PostMapping(value = REQUEST_MAPPING_EMPTY, headers = HEADER_JSON)
+	@PostMapping(value = "/documents", headers = HEADER_JSON)
 	public ResponseEntity<Void> addDocument(@RequestBody Document document) {
 		document = documentRepository.save(document);
 		HttpHeaders header = new HttpHeaders();
 		return new ResponseEntity<Void>(header, HttpStatus.CREATED);
 	}
 
-	@PutMapping(value = REQUEST_MAPPING_BY_ID, headers = HEADER_JSON)
+	@PutMapping(value = "/documents/{id}", headers = HEADER_JSON)
 	public ResponseEntity<Void> updateDocument(@PathVariable(PARAM_ID) int id, @RequestBody Document document) {
 		document.setId(id);
 		document.setVersion(documentRepository.getOne(id).getVersion());
@@ -61,7 +68,7 @@ public class DocumentController extends BaseController {
 		return new ResponseEntity<Void>(header, HttpStatus.OK);
 	}
 
-	@DeleteMapping(value = REQUEST_MAPPING_BY_ID, headers = HEADER_JSON)
+	@DeleteMapping(value = "/documents/{id}", headers = HEADER_JSON)
 	public ResponseEntity<Void> deleteDocument(@PathVariable(PARAM_ID) int id, @RequestBody Document document) {
 		documentRepository.delete(document);
 		HttpHeaders header = new HttpHeaders();

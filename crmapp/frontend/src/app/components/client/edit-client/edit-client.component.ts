@@ -27,7 +27,7 @@ export class EditClientComponent implements OnInit {
 
   onSubmit() {
     this.update();
-    this.flashMessagesService.show('Изменения сохранены', {cssClass: 'alert-success', timeout: 2000});
+    this.flashMessagesService.show('Изменения сохранены', {cssClass: 'alert-success', timeout: 1500});
     location.reload();
     }
 

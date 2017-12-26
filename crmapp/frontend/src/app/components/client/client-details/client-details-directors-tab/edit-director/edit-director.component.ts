@@ -62,19 +62,21 @@ export class EditDirectorComponent implements OnInit {
   private update(): void {
     this.service.updateDirector(this.director, this.clientId)
       .subscribe(response => {
-        this.router.navigate(['/clients', this.clientId, 'directors']);
+        this.goBackToDirectors();
       })
   }
 
   private showMessage(): void {
-    this.flashMessagesService.grayOut(true);
-    this.flashMessagesService.show('Директор успешно обновлен', 
+    this.flashMessagesService.grayOut(false);
+    this.flashMessagesService.show('Директор ' + this.director.shortName + ' успешно обновлен!', 
       {cssClass: 'alert-success text-center', timeout: 1500});
   }
 
   private getDirectorById(directorId: number, clientId: number) {
     this.service.getDirectorById(directorId, clientId)
-      .subscribe(director => this.director = director);
+      .subscribe(director => {
+        this.director = director;
+      });
   }
   
   private goBackToDirectors() {
@@ -86,6 +88,10 @@ export class EditDirectorComponent implements OnInit {
       .subscribe(post => {
         this.posts = post;
       })
+  }
+
+  compareFn(c1: Post, c2: Post): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }
 
 }

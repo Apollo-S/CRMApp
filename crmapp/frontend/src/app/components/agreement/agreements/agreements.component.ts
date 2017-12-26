@@ -19,7 +19,9 @@ export class AgreementsComponent implements OnInit {
 
   getAgreements() {
     this.agreementService.getAgreements()
-      .then(agreements => this.agreements = agreements);
+      .subscribe(agreements => {
+        this.agreements = agreements
+      });
   }
 
 }

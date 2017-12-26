@@ -50,9 +50,9 @@ export class AddDirectorComponent implements OnInit, OnDestroy {
   }
 
   private showMessage(): void {
-    this.flashMessagesService.grayOut(true);
+    this.flashMessagesService.grayOut(false);
     this.flashMessagesService.show('Новый директор успешно сохранен', 
-      {cssClass: 'alert-success', timeout: 1500});
+      {cssClass: 'alert-success text-center', timeout: 1500});
   }
 
   private getPosts() {

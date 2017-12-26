@@ -37,10 +37,10 @@
             <div class="col-md">
               <input 
                 type="text" 
+                name="shortName" 
                 class="form-control"
                 placeholder="напр., Иванов И.И."
                 [(ngModel)]="director.shortName" 
-                name="shortName" 
                 #directorShortName="ngModel" 
                 minlength="2" 
                 required>
@@ -54,9 +54,13 @@
               <strong>Должность</strong>
             </label> 
             <div class="col-md-5">
-              <select class="form-control" [(ngModel)]="director.post" name="post">
-                <option *ngFor="let post of posts" [ngValue]="post">{{post.title}}</option>
-              </select>
+                <select class="form-control" name="post" 
+                  [(ngModel)]="director.post" [compareWith]="compareFn">
+                  <option *ngFor="let post of posts" 
+                    [ngValue]="post">
+                      {{post.title}}
+                  </option>
+                </select>
             </div>
           </div>
 

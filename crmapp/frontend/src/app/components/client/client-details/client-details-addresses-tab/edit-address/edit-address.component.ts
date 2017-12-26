@@ -62,7 +62,7 @@ export class EditAddressComponent implements OnInit, OnDestroy {
   }
 
   private showMessage(): void {
-    this.flashMessagesService.grayOut(true);
+    this.flashMessagesService.grayOut(false);
     this.flashMessagesService.show('Aдрес успешно обновлен', 
       {cssClass: 'alert-success text-center', timeout: 1500});
   }

@@ -70,7 +70,7 @@ public class ClientAddressController extends BaseController {
 	}
 	
 	@PutMapping(value = "/{id}", headers = HEADER_JSON)
-	public ResponseEntity<Void> updateClientAddress(@PathVariable("clientId") int clientId, 
+	public ResponseEntity<ClientAddress> updateClientAddress(@PathVariable("clientId") int clientId, 
 			@RequestBody ClientAddress address) {
 		logger.info("<==/////////// Entering to the updateClientAddress() method ... ///////////==>");
 		Client client = clientRepository.findOne(clientId);
@@ -81,7 +81,7 @@ public class ClientAddressController extends BaseController {
 		logger.info("<==/////////// Printing address: " + address + "///////////==>");
 		address = addressRepository.save(address);
 		HttpHeaders header = new HttpHeaders();
-		return new ResponseEntity<Void>(header, HttpStatus.OK);
+		return new ResponseEntity<ClientAddress>(address, header, HttpStatus.OK);
 	}
 	
 	@DeleteMapping(value = "/{id}", headers = HEADER_JSON)
