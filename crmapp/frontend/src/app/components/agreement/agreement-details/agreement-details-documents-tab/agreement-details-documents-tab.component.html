@@ -1,0 +1,91 @@
+<p>  
+    
+<div class="row">
+  
+  <div class="col-md-10">
+
+    <div class="card">
+      <div class="card-body"> 
+
+        <table class="table table-sm"
+            *ngIf="documents?.length > 0; else noDocuments">
+    
+          <thead class="thead-default">
+              <tr>
+              
+                <th class="text-center">Тип документа</th>
+                <th class="text-center">Номер</th>
+                <th class="text-center">Дата</th>
+                <th class="text-center">Сумма</th>
+                <th class="text-center">Дата оплаты</th>
+                <th class="text-center">Статус документа</th>
+                <th class="text-center">Примечание</th>
+                <th class="text-center"></th>
+              </tr>
+          </thead>
+  
+          <tr *ngFor="let document of documents">
+            <td class="text-center text-success">
+              {{document.docType.title}}
+            </td>
+            <td class="text-center">
+              {{document.number}}
+            </td>
+            <td class="text-center">
+              {{document.dated | date: 'dd.MM.y'}}
+            </td>
+            <td class="text-center">
+              {{document.amount | number: '1.2-2'}}
+            </td>
+            <td class="text-center">
+              {{document.paymentDate | date: 'dd.MM.y'}}
+            </td>
+            <td class="text-center">
+              {{document.status.status}}
+            </td>
+            <td class="text-center">
+              <em>{{document.comment}}</em>
+            </td>
+            <td>
+              <div class="d-flex justify-content-end">
+                <div class="btn-toolbar">
+                  <div class="btn-group mr-2">
+                    <a class="btn btn-success btn-sm" 
+                      [routerLink]="['/documents', document.id, 'edit']">
+                      <i class="fa fa-edit"></i> Изменить
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+
+        </table>
+
+      </div>
+    </div>
+
+    <ng-template #noDocuments>
+        <div class="alert alert-light" role="alert">
+            <h6 class="lead text-center">
+                <b>Отсутствуют документы в системе...</b>
+            </h6>
+        </div>
+    </ng-template>
+
+  </div>
+
+  <div class="col-md-2">
+      <app-sidebar 
+          [url] = "['/documents/add']" 
+          [title] = "['Новый']">
+      </app-sidebar>
+  </div>
+
+</div>
+
+
+    
+
+    
+    
