@@ -1,3 +1,44 @@
+<nav class="breadcrumb">
+	<div class="row">
+		<div class="col">
+			<h5>
+				<strong>
+					<a class="breadcrumb-item" [routerLink]="['../']">
+						<i class="fa fa-users"></i> Договоры
+					</a>
+					<span class="breadcrumb-item active">№ {{agreement?.number}} от {{agreement?.dateStart | date: 'dd.MM.y'}}</span>
+				</strong>
+			</h5>
+		</div>
+	</div>
+</nav>
+
+<div>
+	
+</div>
+
 <p>
-  agreement-details works!
-</p>
+    
+  <ul class="nav nav-tabs nav-fill">
+  
+    <li class="nav-item">
+      <a class="nav-link" 
+        routerLinkActive="active"
+          routerLink="main">
+        <i class="fa fa-address-card-o">
+          </i> <strong>Основные данные</strong>
+      </a>
+    </li>
+    <li class="nav-item"  >
+      <a class="nav-link"
+        routerLinkActive="active"
+        routerLink="documents">
+        <i class="fa fa-file-text-o">
+          </i> <strong>Связанные документы</strong>
+      </a>
+    </li>
+    
+  </ul>
+
+  <router-outlet></router-outlet>
+  
