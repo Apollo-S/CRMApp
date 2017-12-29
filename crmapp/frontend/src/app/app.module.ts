@@ -5,6 +5,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { FlashMessagesModule } from 'angular2-flash-messages';
+import { OrderModule } from 'ngx-order-pipe';
+import { FilterPipeModule } from 'ngx-filter-pipe';
 
 // Service Imports
 import { ClientService } from './services/client.service';
@@ -12,6 +14,7 @@ import { EmployeeService } from './services/employee.service';
 import { AgreementService } from './services/agreement.service';
 import { VacationService } from './services/vacation.service';
 import { PostService } from './services/post.service';
+import { DocumentService } from './services/document.service';
 
 // Component Imports 
 import { AppComponent } from './app.component';
@@ -187,6 +190,8 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpModule,
     FlashMessagesModule,
+    OrderModule,
+    FilterPipeModule,
     NgbModule.forRoot(),
     RouterModule.forRoot(appRoutes)
   ],
@@ -195,7 +200,8 @@ const appRoutes: Routes = [
     EmployeeService,
     AgreementService,
     VacationService,
-    PostService
+    PostService,
+    DocumentService
   ],
   bootstrap: [AppComponent]
 })
