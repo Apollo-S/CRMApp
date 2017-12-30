@@ -11,4 +11,5 @@ export class Document {
     public comment?: string;
     public status?: Status;
     public agreementId?: number;
+    public agreementNumber?: string;
 }
