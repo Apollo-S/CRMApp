@@ -112,11 +112,6 @@ public class Document extends UrlBaseEntity {
 		this.comment = comment;
 	}
 
-	@JsonInclude
-	public Integer getAgreementId() {
-		return agreement.getId();
-	}
-
 	public String getNumber() {
 		return number;
 	}
@@ -139,6 +134,16 @@ public class Document extends UrlBaseEntity {
 
 	public void setAgreement(ClientAgreement agreement) {
 		this.agreement = agreement;
+	}
+	
+	@JsonInclude
+	public Integer getAgreementId() {
+		return agreement.getId();
+	}
+	
+	@JsonInclude
+	public String getAgreementNumber() {
+		return agreement.getNumber();
 	}
 
 }
