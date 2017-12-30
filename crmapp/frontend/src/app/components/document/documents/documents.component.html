@@ -1,3 +1,160 @@
-<p>
-  documents works!
-</p>
+<div class="card">
+  <h5 class="card-header text-center">
+    <div class="row">
+      <div class="col-md-2">
+        <app-sidebar 
+          [url] = "['/documents/add']" 
+          [title] = "['Добавить']">
+        </app-sidebar>
+      </div>
+      <div class="col-md-2">
+        <a class="btn btn-primary btn-block" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+          Фильтр
+        </a>
+      </div>
+      <div class="col-md">
+        <div class="input-group">
+          <span class="input-group-addon">
+            <i class="fa fa-search"></i>
+          </span> 
+          <input class="form-control" placeholder="Поиск" type="search" name="search" [(ngModel)]="filter">
+        </div>
+      </div>
+    </div>
+
+
+
+  </h5>
+
+  <div class="card-body">
+
+    
+      <div class="row col-md">
+        <div class="collapse"  id="collapseExample">
+         
+            <div class="card card-body">
+              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+            </div>
+         
+        </div>
+      </div>
+    
+
+    <div class="row">
+      <div class="col-md">
+
+        <div class="card">
+          <div class="card-body"> 
+                  
+            <table *ngIf="documents?.length > 0; else noDocuments" 
+              class="table table-sm">
+                    
+              <thead class="thead-default">
+                <tr>
+                  <th class="text-center" (click)="sort('agreementNumber')">Договор
+                    <i class="fa sort-icon" 
+                      *ngIf="key =='agreementNumber'" 
+                      [ngClass]="{'fa-chevron-up':reverse,'fa-chevron-down':!reverse}">
+                    </i>
+                  </th>
+                  <th class="text-center" (click)="sort('docType.title')">Тип документа
+                    <i class="fa sort-icon" 
+                      *ngIf="key =='docType.title'" 
+                      [ngClass]="{'fa-chevron-up':reverse,'fa-chevron-down':!reverse}">
+                    </i>
+                  </th>
+                  <th class="text-center" (click)="sort('number')">Номер
+                    <i class="fa sort-icon" 
+                      *ngIf="key =='number'" 
+                      [ngClass]="{'fa-chevron-up':reverse,'fa-chevron-down':!reverse}">
+                    </i>
+                  </th>
+                  <th class="text-center" (click)="sort('amount')">Сумма
+                    <i class="fa sort-icon" 
+                      *ngIf="key =='amount'" 
+                      [ngClass]="{'fa-chevron-up':reverse,'fa-chevron-down':!reverse}">
+                    </i>
+                  </th>
+                  <th class="text-center" (click)="sort('dated')">Дата
+                    <i class="fa sort-icon" 
+                      *ngIf="key =='dated'" 
+                      [ngClass]="{'fa-chevron-up':reverse,'fa-chevron-down':!reverse}">
+                    </i>
+                  </th>
+                  <th class="text-center" (click)="sort('paymentDate')">Дата оплаты
+                    <i class="fa sort-icon" 
+                      *ngIf="key =='paymentDate'" 
+                      [ngClass]="{'fa-chevron-up':reverse,'fa-chevron-down':!reverse}">
+                    </i>
+                  </th>
+                  <th class="text-center" (click)="sort('status')">Статус
+                    <i class="fa sort-icon" 
+                      *ngIf="key =='status'" 
+                      [ngClass]="{'fa-chevron-up':reverse,'fa-chevron-down':!reverse}">
+                    </i>
+                  </th>
+                  <th class="text-center"></th>
+                </tr>
+              </thead>
+                
+              <tr *ngFor="let document of documents | orderBy : key : reverse | filterBy: filter">
+                  
+                <td class="text-center">
+                  <a class="badge badge-info"
+                    [routerLink]="['/agreements', document.agreementId, 'documents']">
+                    {{document.agreementNumber}}
+                  </a>
+                </td>
+                <td class="text-center">
+                    <span class="badge badge-light">
+                      {{document.docType.title}}
+                    </span>
+                </td>
+                <td class="text-center">
+                  <span class="badge badge-light">
+                    {{document.number}}
+                  </span>
+                </td>
+                <td class="text-center">
+                  {{document.amount | number: '1.2-2'}}
+                </td>
+                <td class="text-center">
+                  {{document.dated | date: 'dd.MM.y'}}
+                </td>
+                <td class="text-center">
+                  {{document.paymentDate | date: 'dd.MM.y'}}
+                </td>
+                <td class="text-center">
+                  <span class="badge badge-pill badge-light">
+                    {{document.status.status}}
+                  </span>
+                </td>
+                <td class="text-right">
+                  <a class="btn btn-link btn-sm"
+                    [routerLink]="['/documents', document?.id]">
+                    <i class="fa fa-arrow-circle-o-right"></i>
+                  </a>
+                </td>
+
+              </tr>
+                        
+            </table>
+
+          </div>
+        </div>
+          
+        <ng-template #noDocuments>
+          <div class="alert alert-light" role="alert">
+            <h6 class="lead text-center">
+              <b>Отсутствуют документы в системе...</b>
+            </h6>
+          </div>
+        </ng-template>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

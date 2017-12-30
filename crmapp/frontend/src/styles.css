@@ -37,3 +37,7 @@
     z-index: 10000;
     position: relative;
 }
+
+thead>tr>th {
+    cursor: pointer;
+}
