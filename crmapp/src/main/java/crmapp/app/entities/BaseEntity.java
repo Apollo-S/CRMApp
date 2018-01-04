@@ -42,4 +42,9 @@ public abstract class BaseEntity {
 
 	public abstract String getUrl();
 
+	@Override
+	public String toString() {
+		return "BaseEntity [id=" + id + ", version=" + version + "]";
+	}
+
 }

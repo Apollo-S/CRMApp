@@ -29,4 +29,9 @@ public class DocumentType extends UrlBaseEntity {
 		this.title = title;
 	}
 
+	@Override
+	public String toString() {
+		return "DocumentType [title=" + title + ", toString()=" + super.toString() + "]";
+	}
+
 }

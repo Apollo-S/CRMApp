@@ -14,4 +14,9 @@ public class UrlBaseEntity extends BaseEntity {
 		return getClass().getSimpleName().toLowerCase() + ID_SEPARATOR + getId();
 	}
 
+	@Override
+	public String toString() {
+		return "UrlBaseEntity [toString()=" + super.toString() + "]";
+	}
+
 }
