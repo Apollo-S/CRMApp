@@ -4,6 +4,17 @@ USE `crmapp`;
 
 SET FOREIGN_KEY_CHECKS=0;
 
+TRUNCATE `category`;
+INSERT INTO `category` (`id`, `label`, `router_link`, `comment`, `optlock`)
+VALUES 
+  (1, 'Клиенты', 'clients', '', 0),
+  (2, 'Договорные отношения', 'agreements', '', 0),
+  (3, 'Документооборот', 'documents', '', 0),
+  (4, 'Сотрудники', 'employees', '', 0),
+  (5, 'Отпуски', 'vacations', '', 0),
+  (6, 'Больничные листы', 'sicklists', '', 0),
+  (7, 'Исходящий номер', 'outputs', '', 0);
+
 TRUNCATE `client`;
 INSERT INTO `client` (`id`, `alias`, `title`, `edrpou`, `inn`, `vat_certificate`, `optlock`)
 VALUES 
