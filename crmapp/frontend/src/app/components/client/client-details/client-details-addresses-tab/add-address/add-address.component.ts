@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ClientService } from '../../../../../services/client.service';
-import { FlashMessagesService } from 'angular2-flash-messages';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ClientAddress } from '../../../../../models/ClientAddress';
 import { Subscription } from 'rxjs';
@@ -16,7 +15,6 @@ export class AddAddressComponent implements OnInit, OnDestroy {
   clientId: number;  
 
   constructor(private service: ClientService, 
-              private flashMessagesService: FlashMessagesService,
               private router: Router,
               private route: ActivatedRoute) { }
 
@@ -30,7 +28,6 @@ export class AddAddressComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.save();
-    this.showMessage();
   }
 
   ngOnDestroy(): void {
@@ -43,11 +40,6 @@ export class AddAddressComponent implements OnInit, OnDestroy {
           this.router.navigate(['/clients', this.clientId, 'addresses']);
         }
       );
-  }
-
-  private showMessage(): void {
-    this.flashMessagesService.show('Новый адрес успешно сохранен', 
-      {cssClass: 'alert-success', timeout: 1000});
   }
 
 }

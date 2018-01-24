@@ -3,7 +3,6 @@ import { Employee } from '../../../models/Employee';
 import { DatePipe } from '@angular/common';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { EmployeeService } from '../../../services/employee.service';
-import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-add-employee',
@@ -16,10 +15,13 @@ export class AddEmployeeComponent implements OnInit {
   constructor(
     private service: EmployeeService,
     private router: Router,
-    private route: ActivatedRoute,
-    private flashMessagesService: FlashMessagesService) { }
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
+  }
+
+  onSubmit() {
+    this.save();
   }
 
   private save(): void {
@@ -28,11 +30,6 @@ export class AddEmployeeComponent implements OnInit {
           this.router.navigate(['/employees', response.id]);
           console.log("new employee id = " + response.id)
         });
-  }
-
-  onSubmit() {
-    this.save();
-    this.flashMessagesService.show('Новый сотрудник успешно сохранен', {cssClass: 'alert-success', timeout: 2000});
   }
 
 }

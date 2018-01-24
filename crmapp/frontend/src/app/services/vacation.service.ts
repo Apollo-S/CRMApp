@@ -1,33 +1,31 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http } from '@angular/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 import { Vacation } from '../models/Vacation';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class VacationService {
 
   private employeesUrl = '/api/employees';
   private vacationsUrl = this.employeesUrl + '/vacations';
-  private headers = new Headers({ 'Content-Type': 'application/json' });
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
-  getVacations(): Promise<Vacation[]> {
+  getVacations(): Observable<Vacation[]> {
     const url = `${this.vacationsUrl}`;
-    return this.http.get(url)
-        .toPromise()
-        .then(response => response.json() as Vacation[])
-        .catch(this.handleError);
+    return this.http
+      .get(url)
+      .catch(this.handleError);
   }
 
-  getVacationsByEmployeeId(employeeId: number): Promise<Vacation[]> {
+  getVacationsByEmployeeId(employeeId: number): Observable<Vacation[]> {
     const url = `${this.employeesUrl}/${employeeId}/vacations`;
-    return this.http.get(url)
-        .toPromise()
-        .then(response => response.json() as Vacation[])
-        .catch(this.handleError);
+    return this.http
+      .get(url)
+      .catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {

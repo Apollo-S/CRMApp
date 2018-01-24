@@ -32,7 +32,7 @@ export class ClientDetailsAgreementsTabComponent implements OnInit, OnDestroy {
 
   getAgreementsByClientId(clientId: number) {
     this.service.getAgreementsByClientId(clientId)
-      .then(agreements => this.agreements = agreements);
+      .subscribe(agreements => this.agreements = agreements);
   }
 
 }

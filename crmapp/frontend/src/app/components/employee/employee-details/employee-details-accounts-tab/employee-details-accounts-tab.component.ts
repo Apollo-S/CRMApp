@@ -19,21 +19,25 @@ export class EmployeeDetailsAccountsTabComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this._propertySubscribtion = this.service.property$
-    .subscribe(p => {
-      this.employeeId = p;
-      console.log("account tab property = " + this.employeeId);
-  });
-  this.getAccountsByEmployeeId(this.employeeId);
+    this.getPropertySubscribtion();
+    this.getAccountsByEmployeeId(this.employeeId);
   }
 
   ngOnDestroy(): void {
     this._propertySubscribtion.unsubscribe();
   }
 
+  private getPropertySubscribtion() {
+    this._propertySubscribtion = this.service.property$
+      .subscribe(p => {
+        this.employeeId = p;
+        console.log("account tab property = " + this.employeeId);
+    });
+  }
+
   getAccountsByEmployeeId(employeeId: number) {
     this.service.getAccountsByEmployeeId(employeeId)
-      .then(accounts => this.accounts = accounts);
+      .subscribe(accounts => this.accounts = accounts);
   }
 
 }

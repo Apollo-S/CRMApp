@@ -9,7 +9,7 @@
       </div>
       <div class="col-md-2">
         <a class="btn btn-primary btn-block" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-          Фильтр
+          <i class="fa fa-filter"></i> Фильтр
         </a>
       </div>
       <div class="col-md">
@@ -28,132 +28,127 @@
 
   <div class="card-body">
 
-    
-      <div class="row col-md">
-        <div class="collapse"  id="collapseExample">
+      <form (ngSubmit)="onSubmit()">
+        <div class="collapse" id="collapseExample">
          
-            <div class="card card-body">
-              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+          <div class="card card-body">
+
+            <div class="row">
+
+              <div class="col-md-3 input-group-sm">
+                <input class="form-control" placeholder="ДОГОВОР" type="text" name="agreementSearch">
+              </div>
+
+              <div class="col-md-3 input-group-sm">
+                <select class="form-control" name="docTypeSearch">
+                  <option [ngValue]="undefined" disabled>ТИП ДОКУМЕНТА</option>
+                  <option *ngFor="let docType of docTypes" [ngValue]="docType">
+                      {{docType.title}}
+                  </option>
+                </select>
+              </div>
+              
+              <div class="col-md-2 input-group-sm">
+                <input class="form-control" placeholder="№ ДОКУМЕНТА" type="text" name="numberSearch">
+              </div>
+              
+              <div class="col-md-2 input-group-sm">
+                <input class="form-control" placeholder="СУММА" type="text" name="sumSearch">
+              </div>
+
+              <div class="col-md-2 input-group-sm">
+                <select class="form-control" name="docStatusSearch">
+                  <option [ngValue]="undefined" disabled>СТАТУС</option>
+                  <option *ngFor="let docStatus of docStatuses" [ngValue]="docStatus">
+                      {{docStatus.status}}
+                  </option>
+                </select>
+              </div>
+              
             </div>
-         
+            <p>
+            <div class="row">
+              <div class="col-md-2 input-group">
+                <button 
+                  type="submit" 
+                  class="btn btn-success btn-sm btn-block">
+                    <i class="fa fa-check-square-o"></i> Отобрать
+                </button>
+              </div>
+              <div class="col-md-2 input-group">
+                <a class="btn btn-danger btn-sm btn-block"
+                  [routerLink]="['../']">
+                  <i class="fa fa-arrow-circle-o-left">
+                    </i> Сброс
+                </a>
+              </div>
+            </div>
+
+          </div>
+
         </div>
-      </div>
+      </form>
+
+    <p-dataTable [value]="documents" expandableRows="true"
+      [sortField]="sortF" [sortOrder]="sortO" (onSort)="changeSort($event)">
+      <p-column expander="true" styleClass="col-icon"></p-column>
+      <p-column field="agreementNumber" header="Договор" [sortable]="true"></p-column>
+      <p-column field="docType.title" header="Тип документа" [sortable]="true"></p-column>
+      <p-column field="number" header="№" [sortable]="true"></p-column>
+      <p-column field="amount" header="Сумма" [sortable]="true" >
+        <ng-template let-row="rowData" pTemplate="body" style="text-align:center">
+          {{row.amount | number: '1.2-2'}}
+        </ng-template>  
+      </p-column>
+      <p-column field="dated" header="Дата" [sortable]="true">
+        <ng-template let-row="rowData" pTemplate="body">
+          {{row.dated | date: 'dd.MM.y'}}
+        </ng-template> 
+      </p-column>
+      <p-column field="paymentDate" header="Дата оплаты" [sortable]="true">
+        <ng-template let-row="rowData" pTemplate="body">
+          {{row.paymentDate | date: 'dd.MM.y'}}
+        </ng-template> 
+      </p-column>
+      <p-column field="status.status" header="Статус" [sortable]="true"></p-column>
+      <p-column field="" header="" [sortable]="false">
+        <ng-template let-car="rowData" pTemplate="body">
+          <button type="button" pButton [routerLink]="['/clients']" icon="fa-arrow-circle-o-right"></button>
+        </ng-template>
+      </p-column>
+      <ng-template let-row pTemplate="rowexpansion">
+        <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-3" style="text-align:center">
+                    <i class="fa fa-search" (click)="showCar(car)" style="cursor:pointer;float:left;margin-top:40px"></i>
+                    <img src="">
+                </div>
+                <div class="ui-grid-col-9">
+                    <div class="ui-grid ui-grid-responsive ui-grid-pad">
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2 label">Договор </div>
+                            <div class="ui-grid-col-10">
+                              <button type="button" 
+                                class="btn btn-link btn-sm" 
+                                [routerLink]="['/agreements', row.agreementId, 'documents']">
+                                {{row.agreementNumber}}
+                              </button>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+      <p-footer>
+        <button type="button" label="Сортировка по дате" (click)="changeSort($event)" pButton></button>
+      </p-footer>
+    </p-dataTable>
+
     
 
-    <div class="row">
-      <div class="col-md">
-
-        <div class="card">
-          <div class="card-body"> 
-                  
-            <table *ngIf="documents?.length > 0; else noDocuments" 
-              class="table table-sm">
-                    
-              <thead class="thead-default">
-                <tr>
-                  <th class="text-center" (click)="sort('agreementNumber')">Договор
-                    <i class="fa sort-icon" 
-                      *ngIf="key =='agreementNumber'" 
-                      [ngClass]="{'fa-chevron-up':reverse,'fa-chevron-down':!reverse}">
-                    </i>
-                  </th>
-                  <th class="text-center" (click)="sort('docType.title')">Тип документа
-                    <i class="fa sort-icon" 
-                      *ngIf="key =='docType.title'" 
-                      [ngClass]="{'fa-chevron-up':reverse,'fa-chevron-down':!reverse}">
-                    </i>
-                  </th>
-                  <th class="text-center" (click)="sort('number')">Номер
-                    <i class="fa sort-icon" 
-                      *ngIf="key =='number'" 
-                      [ngClass]="{'fa-chevron-up':reverse,'fa-chevron-down':!reverse}">
-                    </i>
-                  </th>
-                  <th class="text-center" (click)="sort('amount')">Сумма
-                    <i class="fa sort-icon" 
-                      *ngIf="key =='amount'" 
-                      [ngClass]="{'fa-chevron-up':reverse,'fa-chevron-down':!reverse}">
-                    </i>
-                  </th>
-                  <th class="text-center" (click)="sort('dated')">Дата
-                    <i class="fa sort-icon" 
-                      *ngIf="key =='dated'" 
-                      [ngClass]="{'fa-chevron-up':reverse,'fa-chevron-down':!reverse}">
-                    </i>
-                  </th>
-                  <th class="text-center" (click)="sort('paymentDate')">Дата оплаты
-                    <i class="fa sort-icon" 
-                      *ngIf="key =='paymentDate'" 
-                      [ngClass]="{'fa-chevron-up':reverse,'fa-chevron-down':!reverse}">
-                    </i>
-                  </th>
-                  <th class="text-center" (click)="sort('status')">Статус
-                    <i class="fa sort-icon" 
-                      *ngIf="key =='status'" 
-                      [ngClass]="{'fa-chevron-up':reverse,'fa-chevron-down':!reverse}">
-                    </i>
-                  </th>
-                  <th class="text-center"></th>
-                </tr>
-              </thead>
-                
-              <tr *ngFor="let document of documents | orderBy : key : reverse | filterBy: filter">
-                  
-                <td class="text-center">
-                  <a class="badge badge-info"
-                    [routerLink]="['/agreements', document.agreementId, 'documents']">
-                    {{document.agreementNumber}}
-                  </a>
-                </td>
-                <td class="text-center">
-                    <span class="badge badge-light">
-                      {{document.docType.title}}
-                    </span>
-                </td>
-                <td class="text-center">
-                  <span class="badge badge-light">
-                    {{document.number}}
-                  </span>
-                </td>
-                <td class="text-center">
-                  {{document.amount | number: '1.2-2'}}
-                </td>
-                <td class="text-center">
-                  {{document.dated | date: 'dd.MM.y'}}
-                </td>
-                <td class="text-center">
-                  {{document.paymentDate | date: 'dd.MM.y'}}
-                </td>
-                <td class="text-center">
-                  <span class="badge badge-pill badge-light">
-                    {{document.status.status}}
-                  </span>
-                </td>
-                <td class="text-right">
-                  <a class="btn btn-link btn-sm"
-                    [routerLink]="['/documents', document?.id]">
-                    <i class="fa fa-arrow-circle-o-right"></i>
-                  </a>
-                </td>
-
-              </tr>
-                        
-            </table>
-
-          </div>
-        </div>
-          
-        <ng-template #noDocuments>
-          <div class="alert alert-light" role="alert">
-            <h6 class="lead text-center">
-              <b>Отсутствуют документы в системе...</b>
-            </h6>
-          </div>
-        </ng-template>
-
-      </div>
-
-    </div>
+    
 
   </div>
 

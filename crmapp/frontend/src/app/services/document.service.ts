@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Document } from '../models/Document';
 import { Observable } from 'rxjs/Observable';
 
@@ -7,21 +7,21 @@ import { Observable } from 'rxjs/Observable';
 export class DocumentService {
 
   private documentsUrl = '/api/documents';
-  private headers = new Headers({ 'Content-Type': 'application/json' });
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
   getDocuments(): Observable<Document[]> {
     const url = `${this.documentsUrl}`;
-    return this.http.get(url, { headers: this.headers })
-      .map(response => response.json() as Document[])
+    return this.http
+      .get(url, { headers: this.headers })
       .catch(this.handleError);
   }
 
   getDocumentById(id: number): Observable<Document> {
     const url = `${this.documentsUrl}/${id}`;
-    return this.http.get(url, { headers: this.headers })
-      .map(response => response.json() as Document[])
+    return this.http
+      .get(url, { headers: this.headers })
       .catch(this.handleError);
   }
 

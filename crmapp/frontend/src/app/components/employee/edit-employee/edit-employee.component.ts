@@ -3,7 +3,6 @@ import { DatePipe } from '@angular/common';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Employee } from '../../../models/Employee';
 import { EmployeeService } from '../../../services/employee.service';
-import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-edit-employee',
@@ -12,28 +11,32 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 })
 export class EditEmployeeComponent implements OnInit {
   employee: Employee = {};
-  id: number;
+  employeeId: number;
 
-  constructor(
-    private employeeService: EmployeeService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private flashMessagesService: FlashMessagesService) { }
+  constructor(private employeeService: EmployeeService,
+              private router: Router,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.id = parseInt(this.route.snapshot.params['id']);
-    this.employeeService.getEmployeeById(this.id)
-      .then(employee => this.employee = employee);
+    this.route.params.subscribe(
+      (params: Params) => {
+        this.employeeId = +params['id'];
+      });
+    this.getEmployeeById(this.employeeId);
   }
-
-  private update(): void {
-    this.employeeService.updateEmployee(this.employee);
-  }
-
+  
   onSubmit() {
     this.update();
-    this.flashMessagesService.show('Изменения сохранены', {cssClass: 'alert-success', timeout: 3000});
     location.reload();
+  }
+
+  private getEmployeeById(id: number) {
+    this.employeeService.getEmployeeById(this.employeeId)
+      .subscribe(employee => this.employee = employee);
+  }
+  
+  private update(): void {
+    this.employeeService.updateEmployee(this.employee);
   }
 
 }

@@ -1,9 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ClientAddress } from '../../../../../models/ClientAddress';
 import { ClientService } from '../../../../../services/client.service';
-import { FlashMessagesService } from 'angular2-flash-messages';
-import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-edit-address',
@@ -17,7 +16,6 @@ export class EditAddressComponent implements OnInit, OnDestroy {
   clientId: number;  
 
   constructor(private service: ClientService, 
-              private flashMessagesService: FlashMessagesService,
               private router: Router,
               private route: ActivatedRoute) { }
 
@@ -38,7 +36,6 @@ export class EditAddressComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.update();
-    this.showMessage();
   }
 
   delete() {
@@ -61,15 +58,9 @@ export class EditAddressComponent implements OnInit, OnDestroy {
       })
   }
 
-  private showMessage(): void {
-    this.flashMessagesService.grayOut(false);
-    this.flashMessagesService.show('Aдрес успешно обновлен', 
-      {cssClass: 'alert-success text-center', timeout: 1500});
-  }
-
   private getClientAddressById(addressId: number, clientId: number) {
     this.service.getAddressById(addressId, clientId)
-      .then(address => this.address = address);
+      .subscribe(address => this.address = address);
   }
   
   private goBackToAddresses() {

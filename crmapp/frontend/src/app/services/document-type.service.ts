@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { DocumentType } from '../models/DocumentType';
 
@@ -7,21 +7,21 @@ import { DocumentType } from '../models/DocumentType';
 export class DocumentTypeService {
 
   private docTypeUrl = '/api/document-types';
-  private headers = new Headers({ 'Content-Type': 'application/json' });
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
   getDocumentTypes(): Observable<DocumentType[]> {
     const url = `${this.docTypeUrl}`;
-    return this.http.get(url, { headers: this.headers })
-      .map(response => response.json() as DocumentType[])
+    return this.http
+      .get(url, { headers: this.headers })
       .catch(this.handleError);
   }
 
   getDocumentTypeById(id: number): Observable<DocumentType> {
     const url = `${this.docTypeUrl}/${id}`;
-    return this.http.get(url, { headers: this.headers })
-      .map(response => response.json() as DocumentType[])
+    return this.http
+      .get(url, { headers: this.headers })
       .catch(this.handleError);
   }
 

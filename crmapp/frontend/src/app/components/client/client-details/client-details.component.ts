@@ -44,7 +44,7 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
 
   private getClientById(id: number) {
     this.service.getClientById(id)
-      .then(client => this.client = client);
+      .subscribe(client => this.client = client);
   }
 
 }

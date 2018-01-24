@@ -32,7 +32,7 @@ export class ClientDetailsMainTabComponent implements OnInit, OnDestroy {
 
   getClientById(clientId: number) {
     this.service.getClientById(clientId)
-      .then(client => this.client = client);
+      .subscribe(client => this.client = client);
   }
 
   delete(id: number): void {

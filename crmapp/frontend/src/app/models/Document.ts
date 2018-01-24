@@ -1,5 +1,5 @@
 import { DocumentType } from "./DocumentType";
-import { Status } from "./Status";
+import { DocumentStatus } from "./DocumentStatus";
 
 export class Document {
     public id?: number;
@@ -9,7 +9,7 @@ export class Document {
     public dated?: string;
     public paymentDate?: string;
     public comment?: string;
-    public status?: Status;
+    public docStatus?: DocumentStatus;
     public agreementId?: number;
     public agreementNumber?: string;
 }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Client } from '../../../models/Client';
 import { ClientService } from '../../../services/client.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-edit-client',
@@ -15,19 +14,16 @@ export class EditClientComponent implements OnInit {
 
   constructor(private clientService: ClientService,
               private router: Router,
-              private route: ActivatedRoute,
-              private flashMessagesService: FlashMessagesService
-  ) { }
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.id = parseInt(this.route.snapshot.params['id']);
     this.clientService.getClientById(this.id)
-      .then(client => this.client = client);
+      .subscribe(client => this.client = client);
   }
 
   onSubmit() {
     this.update();
-    this.flashMessagesService.show('Изменения сохранены', {cssClass: 'alert-success', timeout: 1500});
     location.reload();
     }
 

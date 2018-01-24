@@ -33,7 +33,7 @@ export class EmployeeDetailsAddressesTabComponent implements OnInit, OnDestroy {
 
   getAddressesByEmployeeId(employeeId: number) {
     this.service.getAddressesByEmployeeId(employeeId)
-      .then(addresses => this.addresses = addresses);
+      .subscribe(addresses => this.addresses = addresses);
   }
 
 }
