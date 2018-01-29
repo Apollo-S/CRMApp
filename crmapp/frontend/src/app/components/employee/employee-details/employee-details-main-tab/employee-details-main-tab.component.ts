@@ -36,4 +36,15 @@ export class EmployeeDetailsMainTabComponent implements OnInit, OnDestroy {
       .subscribe(employee => this.employee = employee);
   }
 
+  delete(): void {
+    if (confirm("Удалить работника?")) {
+      this.service.delete(this.employeeId)
+        .subscribe(() => this.goBackToEmpoloyees());
+    }
+  }
+
+  private goBackToEmpoloyees(): void {
+    this.router.navigate(['/employees']);
+}
+
 }
