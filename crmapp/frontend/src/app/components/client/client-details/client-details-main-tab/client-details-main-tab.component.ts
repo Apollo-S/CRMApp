@@ -35,12 +35,14 @@ export class ClientDetailsMainTabComponent implements OnInit, OnDestroy {
       .subscribe(client => this.client = client);
   }
 
-  delete(id: number): void {
-    this.service.deleteClient(this.clientId)
-      .then(() => this.goBackToClients());
+  delete(): void {
+    if (confirm("Удалить клиента?")) {
+      this.service.deleteClient(this.clientId)
+        .subscribe(() => this.goBackToClients());
+    }
   }
 
-  goBackToClients(): void {
+  private goBackToClients(): void {
       this.router.navigate(['/clients']);
   }
 
