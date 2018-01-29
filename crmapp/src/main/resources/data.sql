@@ -20,7 +20,10 @@ INSERT INTO `client` (`id`, `alias`, `title`, `edrpou`, `inn`, `vat_certificate`
 VALUES 
   (1, 'kyivstar', 'ПРАТ "КИЇВСТАР"', '00987654', '0098765321', '345432678', 0),
   (2, 'farlep', 'ПРАТ "ФАРЛЕП-ІНВЕСТ"', '00678906', '00678905412', '087654322', 0),
-  (3, 'ukrtelecom', 'ПАТ "УКРТЕЛЕКОМ"', '00312156', '00312156412', '085987432', 0);
+  (3, 'ukrtelecom', 'ПАТ "УКРТЕЛЕКОМ"', '00312156', '00312156412', '085987432', 0),
+  (4, 'pride-group', 'ТОВ "ПРАЙД-ГРУП"', '00352359', '', '', 0),
+  (5, '2daytelecom', 'ТОО "2ДЭЙ ТЕЛЕКОМ"', '1111111111', '', '', 0),
+  (6, 'golden-tel', 'ТОВ "ГОЛДЕН ТЕЛЕКОМ"', '19028202', '', '', 0);
   
 TRUNCATE `client_address`;
 INSERT INTO `client_address` (`id`, `client_id`, `presentation`, `date_start`, `optlock`)
