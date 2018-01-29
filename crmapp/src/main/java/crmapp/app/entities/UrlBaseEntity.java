@@ -9,7 +9,6 @@ public class UrlBaseEntity extends BaseEntity {
 	
 	private static final String ID_SEPARATOR = "/";
 
-	@JsonIgnore
 	public String getUrl() {
 		return getClass().getSimpleName().toLowerCase() + "s" + ID_SEPARATOR + getId();
 	}
