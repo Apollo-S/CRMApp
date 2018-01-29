@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
+import { of } from 'rxjs/observable/of';
+import { catchError, map, tap } from 'rxjs/operators';
 import { Employee } from '../models/Employee';
 import { EmployeeAddress } from '../models/EmployeeAddress';
 import { EmployeeAccount } from '../models/EmployeeAccount';
@@ -26,55 +28,70 @@ export class EmployeeService {
   getEmployees(): Observable<Employee[]> {
     const url = `${this.employeesUrl}`;
     return this.http
-      .get(url)
-      .catch(this.handleError);
+      .get<Employee[]>(url, { headers: this.headers })
+      // .catch(this.handleError);
   }
 
   getEmployeeById(id: number): Observable<Employee> {
     const url = `${this.employeesUrl}/${id}`;
     return this.http
-      .get(url)
-      .catch(this.handleError); 
+      .get<Employee>(url, { headers: this.headers })
+      // .catch(this.handleError); 
   }
 
   getAddressesByEmployeeId(employeeId: number): Observable<EmployeeAddress[]> {
     const url = `${this.employeesUrl}/${employeeId}/addresses`;
     return this.http
-      .get(url)
-      .catch(this.handleError);
+      .get<EmployeeAddress[]>(url, { headers: this.headers })
+      // .catch(this.handleError);
   }
   
   getAccountsByEmployeeId(employeeId: number): Observable<EmployeeAccount[]> {
     const url = `${this.employeesUrl}/${employeeId}/accounts`;
     return this.http
-      .get(url)
-      .catch(this.handleError);
+      .get<EmployeeAccount[]>(url, { headers: this.headers })
+      // .catch(this.handleError);
   }
 
   addEmployee(employee: Employee): Observable<Employee> {
     const url = `${this.employeesUrl}`;
     return this.http
-      .post(url, employee)
-      .catch(this.handleError);  
-  }
+      .post<Employee>(url, employee, { headers: this.headers })
+      .pipe(
+        tap(_ => console.log(`added employee shortName=${employee.shortName}`)),
+        catchError(this.handleError<Employee>('addEmployee'))
+      )  
+    }
 
   updateEmployee(employee: Employee): Observable<Employee> {
     const url = `${this.employeesUrl}/${employee.id}`;
     return this.http
-      .put(url, employee)
-      .catch(this.handleError);
+      .put<Employee>(url, employee, { headers: this.headers })
+      .pipe(
+        tap(_ => console.log(`updated employee id=${employee.id}`)),
+        catchError(this.handleError<Employee>('updateEmployee'))
+      );
   }
 
-  delete(id: number): Observable<void> {
+  delete(id: number) {
     const url = `${this.employeesUrl}/${id}`;
     return this.http
       .delete(url, { headers: this.headers })
-      .catch(this.handleError);
+      .pipe(
+        tap(_ => console.log(`deleted employee id=${id}`)),
+        catchError(this.handleError<any>(`delete id=${id}`))
+      );
   }
 
-  private handleError(error: any): Promise<any> {
-    console.error('Error', error); // for demo purposes only
-    return Promise.reject(error.message || error);
+  private handleError<T> (operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+      // TODO: better job of transforming error for user consumption
+      console.log(`${operation} failed: ${error.message}`);
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
   }
 
 }

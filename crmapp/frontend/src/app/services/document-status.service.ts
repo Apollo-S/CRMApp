@@ -14,20 +14,19 @@ export class DocumentStatusService {
   getDocumentStatuses(): Observable<DocumentStatus[]> {
     const url = `${this.docStatusUrl}`;
     return this.http
-      .get(url, { headers: this.headers })
-      .catch(this.handleError);
+      .get<DocumentStatus[]>(url, { headers: this.headers });
   }
 
   getDocumentStatusById(id: number): Observable<DocumentStatus> {
     const url = `${this.docStatusUrl}/${id}`;
     return this.http
-      .get(url, { headers: this.headers })
+      .get<DocumentStatus>(url, { headers: this.headers })
       .catch(this.handleError);
   }
 
-  private handleError(error: any): Promise<any> {
+  private handleError(error: any): Observable<any> {
     console.error('Error', error); // for demo purposes only
-    return Promise.reject(error.message || error);
+    return Observable.of(error.message || error);
   }
 
 }

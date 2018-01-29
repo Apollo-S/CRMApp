@@ -15,20 +15,13 @@ export class PostService {
   getPosts(): Observable<Post[]> {
     const url = `${this.postsUrl}`;
     return this.http
-      .get(url, { headers: this.headers })
-      .catch(this.handleError);
+      .get<Post[]>(url, { headers: this.headers })
   }
 
   getPostById(id: number): Observable<Post> {
     const url = `${this.postsUrl}/${id}`;
     return this.http
-      .get(url, { headers: this.headers })
-      .catch(this.handleError); 
-  }
-
-  private handleError(error: any): Promise<any> {
-    console.error('Error', error); // for demo purposes only
-    return Promise.reject(error.message || error);
+      .get<Post>(url, { headers: this.headers })
   }
 
 }
