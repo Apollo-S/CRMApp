@@ -6,19 +6,21 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // PrimeNG
-import { InputTextModule } from 'primeng/inputtext';
-import { TreeModule }  from 'primeng/tree';
-import { PanelMenuModule } from 'primeng/panelmenu';
-import { MenubarModule } from 'primeng/menubar';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ButtonModule } from 'primeng/button'; 
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { DataTableModule } from 'primeng/datatable'; //deprecated
-import { TableModule } from 'primeng/table';
-import { DialogModule } from 'primeng/dialog';
 import { CardModule } from 'primeng/components/card/card';
+import { DataTableModule } from 'primeng/datatable'; //deprecated
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { MenubarModule } from 'primeng/menubar';
+import { PanelMenuModule } from 'primeng/panelmenu';
 import { PanelModule } from 'primeng/panel';
 import { PaginatorModule } from 'primeng/paginator';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { TableModule } from 'primeng/table';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { TabViewModule } from 'primeng/tabview';
+import { TreeModule }  from 'primeng/tree';
 
 // Custom Service Imports
 import { CategoryService } from './services/category.service';
@@ -218,7 +220,9 @@ const appRoutes: Routes = [
     CardModule,
     PanelModule,
     PaginatorModule,
-    BreadcrumbModule
+    BreadcrumbModule,
+    TabViewModule,
+    TabMenuModule
   ],
   providers: [
     CategoryService,
