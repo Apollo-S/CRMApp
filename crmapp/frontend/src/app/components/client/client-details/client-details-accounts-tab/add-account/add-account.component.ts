@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ClientAccount } from '../../../../../models/ClientAccount';
 import { Subscription } from 'rxjs';
 import { ClientService } from '../../../../../services/client.service';
-import { FlashMessagesService } from 'angular2-flash-messages';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -16,7 +15,6 @@ export class AddAccountComponent implements OnInit, OnDestroy {
   clientId: number;  
 
   constructor(private service: ClientService, 
-              private flashMessagesService: FlashMessagesService,
               private router: Router,
               private route: ActivatedRoute) { }
 
@@ -30,7 +28,6 @@ export class AddAccountComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.save();
-    this.showMessage();
   }
 
   ngOnDestroy(): void {
@@ -43,11 +40,6 @@ export class AddAccountComponent implements OnInit, OnDestroy {
           this.router.navigate(['/clients', this.clientId, 'accounts']);
         }
       );
-  }
-
-  private showMessage(): void {
-    this.flashMessagesService.show('Новый банк. счет успешно сохранен', 
-      {cssClass: 'alert-success', timeout: 1000});
   }
 
 }

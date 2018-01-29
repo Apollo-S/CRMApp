@@ -1,38 +1,48 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http } from '@angular/http';
 import { Observable } from 'rxjs';
-import 'rxjs/add/operator/toPromise';
-import 'rxjs/add/operator/map';
+import { of } from 'rxjs/observable/of';
+import { catchError, map, tap } from 'rxjs/operators';
 import { Vacation } from '../models/Vacation';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class VacationService {
 
   private employeesUrl = '/api/employees';
   private vacationsUrl = this.employeesUrl + '/vacations';
-  private headers = new Headers({ 'Content-Type': 'application/json' });
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
-  getVacations(): Promise<Vacation[]> {
+  getVacations(): Observable<Vacation[]> {
     const url = `${this.vacationsUrl}`;
-    return this.http.get(url)
-        .toPromise()
-        .then(response => response.json() as Vacation[])
-        .catch(this.handleError);
+    return this.http
+      .get<Vacation[]>(url)
+      .pipe(
+        tap(_ => console.log(`got all Vacations`)),
+        catchError(this.handleError<Vacation[]>('getVacations', []))
+      )  
   }
 
-  getVacationsByEmployeeId(employeeId: number): Promise<Vacation[]> {
+  getVacationsByEmployeeId(employeeId: number): Observable<Vacation[]> {
     const url = `${this.employeesUrl}/${employeeId}/vacations`;
-    return this.http.get(url)
-        .toPromise()
-        .then(response => response.json() as Vacation[])
-        .catch(this.handleError);
+    return this.http
+      .get<Vacation[]>(url)
+      .pipe(
+        tap(_ => console.log(`got all Vacations by EmployeeId=${employeeId}`)),
+        catchError(this.handleError<Vacation[]>('getVacationsByEmployeeId', []))
+      )  
   }
 
-  private handleError(error: any): Promise<any> {
-    console.error('Error', error); // for demo purposes only
-    return Promise.reject(error.message || error);
+  private handleError<T> (operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+      // TODO: better job of transforming error for user consumption
+      console.log(`${operation} failed: ${error.message}`);
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
   }
 
 }

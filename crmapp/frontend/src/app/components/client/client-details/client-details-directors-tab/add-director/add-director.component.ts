@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ClientDirector } from '../../../../../models/ClientDirector';
 import { Subscription } from 'rxjs';
 import { ClientService } from '../../../../../services/client.service';
-import { FlashMessagesService } from 'angular2-flash-messages';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Post } from '../../../../../models/Post';
 import { PostService } from '../../../../../services/post.service';
@@ -20,7 +19,6 @@ export class AddDirectorComponent implements OnInit, OnDestroy {
 
   constructor(private service: ClientService, 
               private postService: PostService,
-              private flashMessagesService: FlashMessagesService,
               private router: Router) { }
 
   ngOnInit() {
@@ -38,7 +36,6 @@ export class AddDirectorComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.save();
-    this.showMessage();
   }
 
   private save(): void {
@@ -47,12 +44,6 @@ export class AddDirectorComponent implements OnInit, OnDestroy {
           this.router.navigate(['/clients', this.clientId, 'directors']);
         }
       );
-  }
-
-  private showMessage(): void {
-    this.flashMessagesService.grayOut(false);
-    this.flashMessagesService.show('Новый директор успешно сохранен', 
-      {cssClass: 'alert-success text-center', timeout: 1500});
   }
 
   private getPosts() {

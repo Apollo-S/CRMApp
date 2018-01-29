@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { FlashMessagesService } from 'angular2-flash-messages';
 import { Employee } from '../../../models/Employee';
 import { EmployeeService } from '../../../services/employee.service';
 import { EmployeeAddress } from '../../../models/EmployeeAddress';
@@ -19,8 +18,7 @@ export class EmployeeDetailsComponent implements OnInit, OnDestroy {
 
   constructor(private service: EmployeeService,
               private router: Router,
-              private route: ActivatedRoute,
-              private messagesService: FlashMessagesService) { }
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.params
@@ -45,12 +43,11 @@ export class EmployeeDetailsComponent implements OnInit, OnDestroy {
   
   getEmployeeById(id: number) {
     this.service.getEmployeeById(id)
-      .then(employee => this.employee = employee);
+      .subscribe(employee => this.employee = employee);
   }
 
   delete(id: number): void {
     this.service.delete(this.employeeId);
-    this.messagesService.show('Cотрудник успешно удален', {cssClass: 'alert-success', timeout: 2000});
     this.router.navigateByUrl("/employees");
     location.reload();
   }

@@ -1,20 +1,35 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { FlashMessagesModule } from 'angular2-flash-messages';
-import { OrderModule } from 'ngx-order-pipe';
-import { FilterPipeModule } from 'ngx-filter-pipe';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-// Service Imports
+// PrimeNG
+import { InputTextModule } from 'primeng/inputtext';
+import { TreeModule }  from 'primeng/tree';
+import { PanelMenuModule } from 'primeng/panelmenu';
+import { MenubarModule } from 'primeng/menubar';
+import { ButtonModule } from 'primeng/button'; 
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { DataTableModule } from 'primeng/datatable'; //deprecated
+import { TableModule } from 'primeng/table';
+import { DialogModule } from 'primeng/dialog';
+import { CardModule } from 'primeng/components/card/card';
+import { PanelModule } from 'primeng/panel';
+import { PaginatorModule } from 'primeng/paginator';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+
+// Custom Service Imports
+import { CategoryService } from './services/category.service';
 import { ClientService } from './services/client.service';
 import { EmployeeService } from './services/employee.service';
 import { AgreementService } from './services/agreement.service';
 import { VacationService } from './services/vacation.service';
 import { PostService } from './services/post.service';
 import { DocumentService } from './services/document.service';
+import { DocumentTypeService } from './services/document-type.service';
+import { DocumentStatusService } from './services/document-status.service';
 
 // Component Imports 
 import { AppComponent } from './app.component';
@@ -186,22 +201,35 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
-    FlashMessagesModule,
-    OrderModule,
-    FilterPipeModule,
-    NgbModule.forRoot(),
-    RouterModule.forRoot(appRoutes)
+    HttpClientModule,
+    RouterModule.forRoot(appRoutes),
+    InputTextModule, 
+    ButtonModule, 
+    SplitButtonModule,
+    DataTableModule, 
+    TableModule,
+    DialogModule,
+    TreeModule,
+    PanelMenuModule,
+    MenubarModule,
+    CardModule,
+    PanelModule,
+    PaginatorModule,
+    BreadcrumbModule
   ],
   providers: [
+    CategoryService,
     ClientService,
     EmployeeService,
     AgreementService,
     VacationService,
     PostService,
-    DocumentService
+    DocumentService,
+    DocumentTypeService,
+    DocumentStatusService
   ],
   bootstrap: [AppComponent]
 })

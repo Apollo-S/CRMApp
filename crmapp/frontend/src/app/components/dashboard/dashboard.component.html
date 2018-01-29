@@ -1,51 +1,42 @@
-<div class="row">
+<!-- <div class="ui-g">
 
+    <div class="ui-g-12 ui-md-3">
+        
+        <p-panelMenu [model]="items" ></p-panelMenu>
+
+    </div>
+
+    <div class="ui-g-12 ui-md-9 ui-g-nopad">
+            <div class="ui-g-12">
+                <p-menubar [model]="items">
+                    
+                  </p-menubar>
+            </div>
+            <div class="ui-g-12 ui-g-nopad">
+                <div class="ui-g-12">
+               
+                    <router-outlet></router-outlet> 
+         
+                </div>
+            </div>
+
+    </div>
+
+    
+</div> -->
+
+<div class="row">
     <div class="col-md-3">
 
-        <div class="list-group">
-            <a class="list-group-item list-group-item-action" 
-                [routerLink]="['/clients']"
+        <div class="list-group" >
+            <a *ngFor="let category of categories" class="list-group-item list-group-item-action" 
+                [routerLink]="['/', category.routerLink]"
                 routerLinkActive="active">
-                <strong>Клиенты</strong>
-            </a>
-            <a class="list-group-item list-group-item-action" 
-                [routerLink]="['/agreements']"
-                routerLinkActive="active">
-                <strong>Договорные отношения</strong>
-            </a>
-            <a class="list-group-item list-group-item-action" 
-                [routerLink]="['/documents']"
-                routerLinkActive="active">
-                <strong>Документооборот</strong>
+                <strong>{{category.label}}</strong>
             </a>
         </div>
-        <br>
-        <div class="list-group">
-            <a class="list-group-item list-group-item-action" 
-                [routerLink]="['/employees']" 
-                routerLinkActive="active">
-                <strong>Сотрудники</strong>
-            </a>
-            <a class="list-group-item list-group-item-action"
-                [routerLink]="['/vacations']"
-                routerLinkActive="active">
-                <strong>Отпуски</strong>
-            </a>
-            <a class="list-group-item list-group-item-action"
-                [routerLink]="['/sicklists']"
-                routerLinkActive="active">
-                <strong>Больничные листы</strong>
-            </a>
-        </div>
-        <br>
-        <div class="list-group">
-            <a class="list-group-item list-group-item-action"
-                [routerLink]="['/outputs']"
-                routerLinkActive="active">
-                <strong>Исходящий номер</strong>
-            </a>
-        </div>
-
+        <p>
+ 
     </div>
 
     <div class="col-md">

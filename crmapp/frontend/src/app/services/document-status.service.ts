@@ -1,26 +1,27 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Document } from '../models/Document';
 import { Observable } from 'rxjs/Observable';
+import { DocumentStatus } from '../models/DocumentStatus';
 
 @Injectable()
-export class DocumentService {
+export class DocumentStatusService {
 
-  private documentsUrl = '/api/documents';
+  private docStatusUrl = '/api/document-statuses';
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
+  
   constructor(private http: HttpClient) { }
 
-  getDocuments(): Observable<Document[]> {
-    const url = `${this.documentsUrl}`;
+  getDocumentStatuses(): Observable<DocumentStatus[]> {
+    const url = `${this.docStatusUrl}`;
     return this.http
-      .get<Document[]>(url, { headers: this.headers })
+      .get<DocumentStatus[]>(url, { headers: this.headers });
   }
 
-  getDocumentById(id: number): Observable<Document> {
-    const url = `${this.documentsUrl}/${id}`;
+  getDocumentStatusById(id: number): Observable<DocumentStatus> {
+    const url = `${this.docStatusUrl}/${id}`;
     return this.http
-      .get<Document>(url, { headers: this.headers })
+      .get<DocumentStatus>(url, { headers: this.headers })
+      .catch(this.handleError);
   }
 
   private handleError(error: any): Observable<any> {

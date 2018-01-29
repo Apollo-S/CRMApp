@@ -19,7 +19,7 @@ export class VacationsComponent implements OnInit {
 
   private getVacations() {
     this.vacationService.getVacations()
-      .then(vacations => this.vacations = vacations);
+      .subscribe(vacations => this.vacations = vacations);
   }
 
 }

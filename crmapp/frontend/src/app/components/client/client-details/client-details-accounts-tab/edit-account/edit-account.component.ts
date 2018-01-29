@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ClientService } from '../../../../../services/client.service';
-import { FlashMessagesService } from 'angular2-flash-messages';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ClientAccount } from '../../../../../models/ClientAccount';
 import { Subscription } from 'rxjs';
@@ -17,7 +16,6 @@ export class EditAccountComponent implements OnInit, OnDestroy {
   clientId: number; 
 
   constructor(private service: ClientService, 
-              private flashMessagesService: FlashMessagesService,
               private router: Router,
               private route: ActivatedRoute) { }
 
@@ -51,7 +49,6 @@ export class EditAccountComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.update();
-    this.showMessage();
   }
 
   private update(): void {
@@ -59,12 +56,6 @@ export class EditAccountComponent implements OnInit, OnDestroy {
       .subscribe(response => {
         this.goBackToAccounts();
       })
-  }
-
-  private showMessage(): void {
-    this.flashMessagesService.grayOut(false);
-    this.flashMessagesService.show('Банк. счет успешно обновлен', 
-      {cssClass: 'alert-success text-center', timeout: 1500});
   }
 
   private getClientAccountById(accountId: number, clientId: number) {

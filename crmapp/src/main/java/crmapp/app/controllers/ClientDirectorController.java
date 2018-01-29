@@ -37,7 +37,7 @@ public class ClientDirectorController extends BaseController {
 	private ClientRepository clientRepository;
 
 	@GetMapping(value = "", headers = HEADER_JSON)
-	public ResponseEntity<List<ClientDirector>> getAllClientDirectores(@PathVariable("clientId") Integer clientId) {
+	public ResponseEntity<List<ClientDirector>> getAllClientDirectors(@PathVariable("clientId") Integer clientId) {
 		List<ClientDirector> directors = directorRepository.findAllDirectorsByClientId(clientId);
 		if (directors.size() == 0) {
 			return new ResponseEntity<List<ClientDirector>>(HttpStatus.NO_CONTENT);

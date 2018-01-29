@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
-import 'rxjs/add/operator/toPromise';
-import 'rxjs/add/operator/map';
+import { of } from 'rxjs/observable/of';
+import { catchError, map, tap } from 'rxjs/operators';
 import { Employee } from '../models/Employee';
 import { EmployeeAddress } from '../models/EmployeeAddress';
 import { EmployeeAccount } from '../models/EmployeeAccount';
@@ -11,7 +11,7 @@ import { EmployeeAccount } from '../models/EmployeeAccount';
 export class EmployeeService {
 
   private employeesUrl = '/api/employees';
-  private headers = new Headers({ 'Content-Type': 'application/json' });
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
  
   private _property$: BehaviorSubject<number> = new BehaviorSubject(1);
 
@@ -23,74 +23,75 @@ export class EmployeeService {
       return this._property$.asObservable();
   }
 
-  constructor(private http: Http) {}
+  constructor(private http: HttpClient) {}
   
-    getEmployees(): Promise<Employee[]> {
-      const url = `${this.employeesUrl}`;
-      return this.http.get(url)
-          .toPromise()
-          .then(response => response.json() as Employee[])
-          .catch(this.handleError);
-    }
-
-    getEmployeeById(id: number): Promise<Employee> {
-      const url = `${this.employeesUrl}/${id}`;
-      return this.http.get(url)
-        .toPromise()
-        .then(response => response.json() as Employee)
-        .catch(this.handleError); 
-    }
-
-    getAddressesByEmployeeId(employeeId: number): Promise<EmployeeAddress[]> {
-      const url = `${this.employeesUrl}/${employeeId}/addresses`;
-      return this.http.get(url)
-          .toPromise()
-          .then(response => response.json() as EmployeeAddress[])
-          .catch(this.handleError);
-    }
-    
-    getAccountsByEmployeeId(employeeId: number): Promise<EmployeeAccount[]> {
-      const url = `${this.employeesUrl}/${employeeId}/accounts`;
-      return this.http.get(url)
-          .toPromise()
-          .then(response => response.json() as EmployeeAccount[])
-          .catch(this.handleError);
-    }
-  
-    // addEmployee(employee: Employee): Promise<Employee> {
-    //   const url = `${this.employeesUrl}`;
-    //   return this.http.post(url, employee)
-    //     .toPromise()
-    //     .then(response => response.json().data as Employee).then()
-    //     .catch(this.handleError);
-    // }
-
-    addEmployee(employee: Employee): Observable<Employee> {
-      const url = `${this.employeesUrl}`;
-      return this.http.post(url, employee)
-          .map(response => response.json() as Employee);
-          
+  getEmployees(): Observable<Employee[]> {
+    const url = `${this.employeesUrl}`;
+    return this.http
+      .get<Employee[]>(url, { headers: this.headers })
+      // .catch(this.handleError);
   }
 
-    updateEmployee(employee: Employee): Promise<Employee> {
-      const url = `${this.employeesUrl}/${employee.id}`;
-      return this.http.put(url, employee)
-        .map(data => data.json()).toPromise()
-        .catch(this.handleError);
-    }
+  getEmployeeById(id: number): Observable<Employee> {
+    const url = `${this.employeesUrl}/${id}`;
+    return this.http
+      .get<Employee>(url, { headers: this.headers })
+      // .catch(this.handleError); 
+  }
+
+  getAddressesByEmployeeId(employeeId: number): Observable<EmployeeAddress[]> {
+    const url = `${this.employeesUrl}/${employeeId}/addresses`;
+    return this.http
+      .get<EmployeeAddress[]>(url, { headers: this.headers })
+      // .catch(this.handleError);
+  }
   
-    delete(id: number): Promise<void> {
-      const url = `${this.employeesUrl}/${id}`;
-      return this.http
-          .delete(url, { headers: this.headers })
-          .toPromise()
-          .then(() => null)
-          .catch(this.handleError);
+  getAccountsByEmployeeId(employeeId: number): Observable<EmployeeAccount[]> {
+    const url = `${this.employeesUrl}/${employeeId}/accounts`;
+    return this.http
+      .get<EmployeeAccount[]>(url, { headers: this.headers })
+      // .catch(this.handleError);
+  }
+
+  addEmployee(employee: Employee): Observable<Employee> {
+    const url = `${this.employeesUrl}`;
+    return this.http
+      .post<Employee>(url, employee, { headers: this.headers })
+      .pipe(
+        tap(_ => console.log(`added employee shortName=${employee.shortName}`)),
+        catchError(this.handleError<Employee>('addEmployee'))
+      )  
     }
 
-    private handleError(error: any): Promise<any> {
-      console.error('Error', error); // for demo purposes only
-      return Promise.reject(error.message || error);
-    }
+  updateEmployee(employee: Employee): Observable<Employee> {
+    const url = `${this.employeesUrl}/${employee.id}`;
+    return this.http
+      .put<Employee>(url, employee, { headers: this.headers })
+      .pipe(
+        tap(_ => console.log(`updated employee id=${employee.id}`)),
+        catchError(this.handleError<Employee>('updateEmployee'))
+      );
+  }
+
+  delete(id: number) {
+    const url = `${this.employeesUrl}/${id}`;
+    return this.http
+      .delete(url, { headers: this.headers })
+      .pipe(
+        tap(_ => console.log(`deleted employee id=${id}`)),
+        catchError(this.handleError<any>(`delete id=${id}`))
+      );
+  }
+
+  private handleError<T> (operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+      // TODO: better job of transforming error for user consumption
+      console.log(`${operation} failed: ${error.message}`);
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
+  }
 
 }

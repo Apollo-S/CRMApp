@@ -4,7 +4,6 @@ import { Post } from '../../../../../models/Post';
 import { Subscription } from 'rxjs';
 import { ClientService } from '../../../../../services/client.service';
 import { PostService } from '../../../../../services/post.service';
-import { FlashMessagesService } from 'angular2-flash-messages';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
@@ -21,7 +20,6 @@ export class EditDirectorComponent implements OnInit {
   
   constructor(private service: ClientService, 
               private postService: PostService,
-              private flashMessagesService: FlashMessagesService,
               private router: Router,
               private route: ActivatedRoute) { }
 
@@ -43,7 +41,6 @@ export class EditDirectorComponent implements OnInit {
 
   onSubmit() {
     this.update();
-    this.showMessage();
   }
 
   delete() {
@@ -64,12 +61,6 @@ export class EditDirectorComponent implements OnInit {
       .subscribe(response => {
         this.goBackToDirectors();
       })
-  }
-
-  private showMessage(): void {
-    this.flashMessagesService.grayOut(false);
-    this.flashMessagesService.show('Директор ' + this.director.shortName + ' успешно обновлен!', 
-      {cssClass: 'alert-success text-center', timeout: 1500});
   }
 
   private getDirectorById(directorId: number, clientId: number) {

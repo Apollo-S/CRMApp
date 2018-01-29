@@ -5,4 +5,5 @@ export class Client {
         public edrpou?: string;
         public inn?: string;
         public vatCertificate?: string;
+        public url?: string;
 }

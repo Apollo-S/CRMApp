@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
-import 'rxjs';
+import { of } from 'rxjs/observable/of';
+import { catchError, map, tap } from 'rxjs/operators';
 import { Client } from '../models/Client';
 import { ClientAddress } from '../models/ClientAddress';
 import { ClientAccount } from '../models/ClientAccount';
@@ -12,7 +13,7 @@ import { ClientDirector } from '../models/ClientDirector';
 export class ClientService {
 
   private clientsUrl = '/api/clients';
-  private headers = new Headers({ 'Content-Type': 'application/json' });
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   private _property$: BehaviorSubject<number> = new BehaviorSubject(1);
   
@@ -24,167 +25,226 @@ export class ClientService {
       return this._property$.asObservable();
   }
 
-  constructor(private http: Http) {}
+  constructor(private http: HttpClient) {}
 
-  getClients(): Promise<Client[]> {
-    return this.http.get(this.clientsUrl)
-      .toPromise()
-      .then(response => response.json() as Client[])
-      .catch(this.handleError);
+  getClients(): Observable<Client[]> {
+    const url = `${this.clientsUrl}`;
+    return this.http
+      .get<Client[]>(url, { headers: this.headers })
+      .pipe(
+        catchError(this.handleError('getClients', []))
+      )
   }
   
-  getClientById(id: number): Promise<Client> {
+  getClientById(id: number): Observable<Client> {
     const url = `${this.clientsUrl}/${id}`;
-    return this.http.get(url)
-      .toPromise()
-      .then(response => response.json() as Client)
-      .catch(this.handleError); 
+    return this.http
+      .get<Client>(url, { headers: this.headers })
+      .pipe(
+        tap(_ => console.log(`obtained client ID=${id}`)),
+        catchError(this.handleError<Client>('getClientById'))
+      )  
   }
   
   addClient(client: Client): Observable<Client> {
     const url = `${this.clientsUrl}`;
-    return this.http.post(url, client)
-      .map(response => response.json() as Client)
-      .catch(this.handleError);
+    return this.http
+      .post<Client>(url, client, { headers: this.headers })
+      .pipe(
+        tap(_ => console.log(`added client alias=${client.alias}`)),
+        catchError(this.handleError<Client>('addClient'))
+      )  
   }
 
-  updateClient(client: Client): Promise<Client> {
+  updateClient(client: Client): Observable<Client> {
     const url = `${this.clientsUrl}/${client.id}`;
-    return this.http.put(url, client)
-      .map(data => data.json()).toPromise()
-      .catch(this.handleError);
+    return this.http
+      .put<Client>(url, client, { headers: this.headers })
+      .pipe(
+        tap(_ => console.log(`updated client ID=${client.id}`)),
+        catchError(this.handleError<Client>('updateClient'))
+      );
   }
 
-  deleteClient(id: number): Promise<void> {
+  deleteClient(id: number): Observable<void> {
     const url = `${this.clientsUrl}/${id}`;
     return this.http
       .delete(url, { headers: this.headers })
-      .toPromise()
-      .then(() => null)
-      .catch(this.handleError);
+      .pipe(
+        tap(_ => console.log(`deleted client ID=${id}`)),
+        catchError(this.handleError<any>('deleteClient'))
+      )
   }
 
   // Addresses
-  getAddressesByClientId(clientId: number) {
+  getAddressesByClientId(clientId: number): Observable<ClientAddress[]> {
     const url = `${this.clientsUrl}/${clientId}/addresses`;
-    return this.http.get(url, { headers: this.headers })
-      .map(response => response.json() as ClientAddress[])
-      .catch(this.handleError);
+    return this.http
+      .get<ClientAddress[]>(url, { headers: this.headers })
+      .pipe(
+        catchError(this.handleError<ClientAddress[]>('getAddressesByClientId'))
+      )
   }
 
-  getAddressById(id: number, clientId: number): Promise<ClientAddress> {
+  getAddressById(id: number, clientId: number): Observable<ClientAddress> {
     const url = `${this.clientsUrl}/${clientId}/addresses/${id}`;
-    return this.http.get(url)
-    .toPromise()
-    .then(response => response.json() as ClientAddress)
-    .catch(this.handleError); 
+    return this.http
+      .get<ClientAddress>(url, { headers: this.headers })
+      .pipe(
+        tap(_ => console.log(`obtained address ID=${id}`)),
+        catchError(this.handleError<ClientAddress>('getAddressById'))
+      )
   }
 
   addAddress(address: ClientAddress, clientId: number): Observable<ClientAddress> {
     const url = `${this.clientsUrl}/${clientId}/addresses`;
-    return this.http.post(url, address)
-      .map(response => response.json() as ClientAddress)
-      .catch(this.handleError);
+    return this.http
+      .post<ClientAddress>(url, address, { headers: this.headers })
+      .pipe(
+        tap(_ => console.log(`added address for clientId=${clientId} for client ID=${clientId}`)),
+        catchError(this.handleError<ClientAddress>('addAddress'))
+      )  
   }
 
   updateAddress(address: ClientAddress, clientId: number): Observable<ClientAddress>  {
     const url = `${this.clientsUrl}/${clientId}/addresses/${address.id}`;
-    return this.http.put(url, address, { headers: this.headers })
-      .map(data => data.json() as ClientAddress)
-      .catch(this.handleError);
+    return this.http
+      .put<ClientAddress>(url, address, { headers: this.headers })
+      .pipe(
+        tap(_ => console.log(`updated address ID=${address.id} for client ID=${clientId}`)),
+        catchError(this.handleError<ClientAddress>('updateAddress'))
+      )
   }
   
   deleteAddress(id: number, clientId: number) {
     const url = `${this.clientsUrl}/${clientId}/addresses/${id}`;
-    return this.http.delete(url, { headers: this.headers })
-      .map(response => response.json())
-      .catch(this.handleError);
+    return this.http
+      .delete(url, { headers: this.headers })
+      .pipe(
+        tap(_ => console.log(`deleted address ID=${id} for client ID=${clientId}`)),
+        catchError(this.handleError<any>('deleteAddress'))
+      )
   }
   
   // Accounts
   getAccountsByClientId(clientId: number): Observable<ClientAccount[]>  {
     const url = `${this.clientsUrl}/${clientId}/accounts`;
-    return this.http.get(url, { headers: this.headers })
-      .map(response => response.json() as ClientAccount[])
-      .catch(this.handleError);
+    return this.http
+      .get<ClientAccount[]>(url, { headers: this.headers })
+      .pipe(
+        catchError(this.handleError<ClientAccount[]>('getAccountsByClientId'))
+      )
   }
 
   getAccountById(id: number, clientId: number): Observable<ClientAccount> {
     const url = `${this.clientsUrl}/${clientId}/accounts/${id}`;
-    return this.http.get(url, { headers: this.headers })
-      .map(response => response.json() as ClientAccount)
-      .catch(this.handleError); 
+    return this.http
+      .get<ClientAccount>(url, { headers: this.headers })
+      .pipe(
+        tap(_ => console.log(`obtained account ID=${id} for client ID=${clientId}`)),
+        catchError(this.handleError<ClientAccount>('getAccountById'))
+      )
   }
 
   addAccount(account: ClientAccount, clientId: number): Observable<ClientAccount> {
     const url = `${this.clientsUrl}/${clientId}/accounts`;
-    return this.http.post(url, account)
-      .map(response => response.json() as ClientAccount)
-      .catch(this.handleError);
+    return this.http
+      .post<ClientAccount>(url, account)
+      .pipe(
+        tap(_ => console.log(`added account for clientId=${clientId}`)),
+        catchError(this.handleError<ClientAccount>('addAccount'))
+      )  
   }
 
   updateAccount(account: ClientAccount, clientId: number): Observable<ClientAccount>  {
     const url = `${this.clientsUrl}/${clientId}/accounts/${account.id}`;
-    return this.http.put(url, account, { headers: this.headers })
-      .map(data => data.json() as ClientAccount)
-      .catch(this.handleError);
+    return this.http
+      .put<ClientAccount>(url, account, { headers: this.headers })
+      .pipe(
+        tap(_ => console.log(`updated account ID=${account.id} for client ID=${clientId}`)),
+        catchError(this.handleError<ClientAccount>('updateAccount'))
+      )
   }
 
   deleteAccount(id: number, clientId: number) {
     const url = `${this.clientsUrl}/${clientId}/accounts/${id}`;
-    return this.http.delete(url, { headers: this.headers })
-      .map(response => response.json())
-      .catch(this.handleError);
+    return this.http
+      .delete(url, { headers: this.headers })
+      .pipe(
+        tap(_ => console.log(`deleted account ID=${id} for client ID=${clientId}`)),
+        catchError(this.handleError<any>('deleteAccount'))
+      )
   }
 
   // Directors
   getDirectorsByClientId(clientId: number): Observable<ClientDirector[]>  {
     const url = `${this.clientsUrl}/${clientId}/directors`;
-    return this.http.get(url, { headers: this.headers })
-      .map(response => response.json() as ClientDirector[])
-      .catch(this.handleError);
+    return this.http
+      .get<ClientDirector[]>(url, { headers: this.headers })
+      .pipe(
+        catchError(this.handleError<ClientDirector[]>('getDirectorsByClientId'))
+      )
   }
 
   getDirectorById(id: number, clientId: number): Observable<ClientDirector> {
     const url = `${this.clientsUrl}/${clientId}/directors/${id}`;
-    return this.http.get(url, { headers: this.headers })
-      .map(response => response.json() as ClientDirector)
-      .catch(this.handleError); 
+    return this.http
+      .get<ClientDirector>(url, { headers: this.headers })
+      .pipe(
+        tap(_ => console.log(`obtained director ID=${id} for client ID=${clientId}`)),
+        catchError(this.handleError<ClientDirector>('getDirectorById'))
+      )
   }
 
   addDirector(director: ClientDirector, clientId: number): Observable<ClientDirector> {
     const url = `${this.clientsUrl}/${clientId}/directors`;
-    return this.http.post(url, director, { headers: this.headers })
-      .map(response => response.json() as ClientDirector)
-      .catch(this.handleError);
+    return this.http
+      .post<ClientDirector>(url, director, { headers: this.headers })
+      .pipe(
+        tap(_ => console.log(`added director for clientId=${clientId}`)),
+        catchError(this.handleError<ClientDirector>('addDirector'))
+      )  
   }
 
   updateDirector(director: ClientDirector, clientId: number): Observable<ClientDirector>  {
     const url = `${this.clientsUrl}/${clientId}/directors/${director.id}`;
-    return this.http.put(url, director, { headers: this.headers })
-      .map(response => response.json() as ClientDirector)
-      .catch(this.handleError);
+    return this.http
+      .put<ClientDirector>(url, director, { headers: this.headers })
+      .pipe(
+        tap(_ => console.log(`updated director ID=${director.id} for client ID=${clientId}`)),
+        catchError(this.handleError<ClientDirector>('updateDirector'))
+      )
   }
 
   deleteDirector(id: number, clientId: number) {
     const url = `${this.clientsUrl}/${clientId}/directors/${id}`;
-    return this.http.delete(url, { headers: this.headers })
-      .map(response => response.json())
-      .catch(this.handleError);
+    return this.http
+      .delete(url, { headers: this.headers })
+      .pipe(
+        tap(_ => console.log(`deleted director ID=${id} for client ID=${clientId}`)),
+        catchError(this.handleError<any>('deleteDirector'))
+      )
   }
 
   // Agreements
-  getAgreementsByClientId(clientId: number): Promise<ClientAgreement[]> {
+  getAgreementsByClientId(clientId: number): Observable<ClientAgreement[]> {
     const url = `${this.clientsUrl}/${clientId}/agreements`;
-    return this.http.get(url)
-        .toPromise()
-        .then(response => response.json() as ClientAgreement[])
-        .catch(this.handleError);
+    return this.http
+      .get<ClientAgreement[]>(url, { headers: this.headers })
+      .pipe(
+        catchError(this.handleError<ClientAgreement[]>('getAgreementsByClientId'))
+      )
   }
 
-  private handleError(error: any): Promise<any> {
-    console.error('Error', error); // for demo purposes only
-    return Promise.reject(error.message || error);
+  private handleError<T> (operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+      // TODO: better job of transforming error for user consumption
+      console.log(`${operation} failed: ${error.message}`);
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
   }
   
 }
