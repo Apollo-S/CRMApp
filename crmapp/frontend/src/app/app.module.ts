@@ -11,8 +11,14 @@ import { TreeModule }  from 'primeng/tree';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { MenubarModule } from 'primeng/menubar';
 import { ButtonModule } from 'primeng/button'; 
+import { SplitButtonModule } from 'primeng/splitbutton';
 import { DataTableModule } from 'primeng/datatable'; //deprecated
+import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
+import { CardModule } from 'primeng/components/card/card';
+import { PanelModule } from 'primeng/panel';
+import { PaginatorModule } from 'primeng/paginator';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 // Custom Service Imports
 import { CategoryService } from './services/category.service';
@@ -199,15 +205,20 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    
     RouterModule.forRoot(appRoutes),
     InputTextModule, 
     ButtonModule, 
+    SplitButtonModule,
     DataTableModule, 
+    TableModule,
     DialogModule,
     TreeModule,
     PanelMenuModule,
-    MenubarModule
+    MenubarModule,
+    CardModule,
+    PanelModule,
+    PaginatorModule,
+    BreadcrumbModule
   ],
   providers: [
     CategoryService,
