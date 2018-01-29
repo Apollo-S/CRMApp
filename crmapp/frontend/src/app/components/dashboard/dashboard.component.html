@@ -1,4 +1,4 @@
-<div class="ui-g">
+<!-- <div class="ui-g">
 
     <div class="ui-g-12 ui-md-3">
         
@@ -23,14 +23,14 @@
     </div>
 
     
-</div>
+</div> -->
 
-<!-- <div class="row">
+<div class="row">
     <div class="col-md-3">
 
         <div class="list-group" >
             <a *ngFor="let category of categories" class="list-group-item list-group-item-action" 
-                [routerLink]="['/', category.urlPath]"
+                [routerLink]="['/', category.routerLink]"
                 routerLinkActive="active">
                 <strong>{{category.label}}</strong>
             </a>
@@ -43,4 +43,4 @@
         <router-outlet></router-outlet> 
     </div>
 
-</div> -->
+</div>

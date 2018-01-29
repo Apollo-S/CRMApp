@@ -15,6 +15,7 @@ import { MenuItem } from '../../models/MenuItem';
 export class DashboardComponent implements OnInit {
   categories: Category[];
 
+
   items: MenuItem[];
 
   clients: Client[];
@@ -97,7 +98,6 @@ export class DashboardComponent implements OnInit {
       }
   ];
 
-  console.log(this.clients[0].alias);
   }
 
   private getCategories() {
@@ -107,10 +107,7 @@ export class DashboardComponent implements OnInit {
 
   private getClients() {
     this.clientService.getClients()
-      .subscribe(clients => {
-          this.clients = clients;
-          console.log(this.clients[0].alias);
-      })
+      .subscribe(clients => this.clients = clients);
   }
 
   

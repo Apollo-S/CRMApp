@@ -1,11 +1,9 @@
-import { TreeNode } from 'primeng/primeng';
-
-export class Category implements TreeNode {
+export class Category {
         public id?: number;
         public label?: string;
         public collapsedIcon?: any;
         public expandedIcon?: any;
         public data: any;
-        public urlPath?: string;
+        public routerLink?: string;
         public comment?: string;
 }
