@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import crmapp.app.entities.Category;
 import crmapp.app.entities.Client;
 import crmapp.app.entities.MenuItemClient;
-import crmapp.app.entities.TreeItem;
 import crmapp.app.entities.TreeNode;
 import crmapp.app.repositories.CategoryRepository;
 import crmapp.app.repositories.ClientRepository;
@@ -35,17 +34,17 @@ public class CategoryController extends BaseController {
 	@Autowired
 	private ClientRepository clientRepository;
 
-//	@GetMapping(value = "", headers = HEADER_JSON)
-//	public ResponseEntity<List<Category>> getAllCategorys() {
-//		List<Category> categories = categoryRepository.findAll();
-//		if (categories.size() == 0) {
-//			logger.info("<==/////////// There are no any Category ... ///////////==>");
-//			return new ResponseEntity<List<Category>>(HttpStatus.NO_CONTENT);
-//		}
-//		return new ResponseEntity<List<Category>>(categories, HttpStatus.OK);
-//	}
-	
 	@GetMapping(value = "", headers = HEADER_JSON)
+	public ResponseEntity<List<Category>> getAllCategorys() {
+		List<Category> categories = categoryRepository.findAll();
+		if (categories.size() == 0) {
+			logger.info("<==/////////// There are no any Category ... ///////////==>");
+			return new ResponseEntity<List<Category>>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<Category>>(categories, HttpStatus.OK);
+	}
+	
+	/*@GetMapping(value = "", headers = HEADER_JSON)
 	public ResponseEntity<TreeNode> getAllCategories() {
 		String expandedIcon = "fa-folder-open";
 		String collapsedIcon = "fa-folder";
@@ -79,6 +78,6 @@ public class CategoryController extends BaseController {
 		root.addChild(nodeDocuments);
 		
 		return new ResponseEntity<TreeNode>(root, HttpStatus.OK);
-	}
+	}*/
 
 }
