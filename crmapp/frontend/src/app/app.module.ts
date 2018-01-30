@@ -9,8 +9,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ButtonModule } from 'primeng/button'; 
 import { CardModule } from 'primeng/components/card/card';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DataTableModule } from 'primeng/datatable'; //deprecated
 import { DialogModule } from 'primeng/dialog';
+import { GrowlModule } from 'primeng/growl';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenubarModule } from 'primeng/menubar';
 import { PanelMenuModule } from 'primeng/panelmenu';
@@ -32,6 +34,8 @@ import { PostService } from './services/post.service';
 import { DocumentService } from './services/document.service';
 import { DocumentTypeService } from './services/document-type.service';
 import { DocumentStatusService } from './services/document-status.service';
+import { MessageService } from 'primeng/components/common/messageservice';
+import { ConfirmationService } from 'primeng/api';
 
 // Component Imports 
 import { AppComponent } from './app.component';
@@ -222,7 +226,9 @@ const appRoutes: Routes = [
     PaginatorModule,
     BreadcrumbModule,
     TabViewModule,
-    TabMenuModule
+    TabMenuModule,
+    GrowlModule,
+    ConfirmDialogModule
   ],
   providers: [
     CategoryService,
@@ -233,7 +239,9 @@ const appRoutes: Routes = [
     PostService,
     DocumentService,
     DocumentTypeService,
-    DocumentStatusService
+    DocumentStatusService,
+    MessageService, 
+    ConfirmationService
   ],
   bootstrap: [AppComponent]
 })
