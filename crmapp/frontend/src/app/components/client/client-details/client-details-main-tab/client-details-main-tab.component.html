@@ -1,108 +1,114 @@
 <p>
 
-<div class="row">
-  
-  <div class="col-md-10">
+<p-growl [value]="msgs"></p-growl>
 
-    <div class="card">
-      <div class="card-body"> 
+<p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425" #cd>
+    <p-footer>
+        <button type="button" pButton icon="fa-check" 
+          class="ui-button-primary" label="Ок" (click)="cd.accept()"></button>
+        <button type="button" pButton icon="fa-close" 
+          class="ui-button-secondary" label="Отмена" (click)="cd.reject()"></button>
+    </p-footer>
+</p-confirmDialog>
 
-        <div class="form-group row">
-          <label 
-            for="title" 
-            class="col-md-3 col-form-label">
-            <strong>Полное название</strong>
-          </label>
-          <div class="col-md">
-            <input 
-              type="text" 
-              readonly 
-              class="form-control-plaintext"  
-              name="title"
-              value="{{client?.title}}">
-          </div>
-        </div>
+<div class="ui-g-12">
+    <div class="ui-g-10">
 
-        <div class="form-group row">
-          <label 
-            for="alias" 
-            class="col-md-3 col-form-label">
-            <strong>Псевдоним</strong>
-          </label>
-          <div class="col-md">
-            <input 
-              type="text" 
-              class="form-control-plaintext"
-              value="{{client?.alias}}" 
-              name="alias"
-              readonly>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label 
-            for="edrpou" 
-            class="col-md-3 col-form-label">
-            <strong>ЕДРПОУ</strong>
-          </label>
-          <div class="col-md">
-            <input 
-              type="text" 
-              class="form-control-plaintext"
-              value="{{client?.edrpou}}" 
-              name="edrpou"
-              readonly>
-          </div>
-        </div>
+        <div class="card">
+            <div class="card-body"> 
+      
+              <div class="form-group row">
+                <label 
+                  for="title" 
+                  class="col-md-3 col-form-label">
+                  <strong>Полное название</strong>
+                </label>
+                <div class="col-md">
+                  <input 
+                    type="text" 
+                    readonly 
+                    class="form-control-plaintext"  
+                    name="title"
+                    value="{{client?.title}}">
+                </div>
+              </div>
+      
+              <div class="form-group row">
+                <label 
+                  for="alias" 
+                  class="col-md-3 col-form-label">
+                  <strong>Псевдоним</strong>
+                </label>
+                <div class="col-md">
+                  <input 
+                    type="text" 
+                    class="form-control-plaintext"
+                    value="{{client?.alias}}" 
+                    name="alias"
+                    readonly>
+                </div>
+              </div>
+      
+              <div class="form-group row">
+                <label 
+                  for="edrpou" 
+                  class="col-md-3 col-form-label">
+                  <strong>ЕДРПОУ</strong>
+                </label>
+                <div class="col-md">
+                  <input 
+                    type="text" 
+                    class="form-control-plaintext"
+                    value="{{client?.edrpou}}" 
+                    name="edrpou"
+                    readonly>
+                </div>
+              </div>
+              
+              <div class="form-group row">
+                <label 
+                  for="inn" 
+                  class="col-md-3 col-form-label">
+                  <strong>ИНН</strong>
+                </label>
+                <div class="col-md">
+                  <input 
+                    type="text" 
+                    class="form-control-plaintext"
+                    value="{{client?.inn}}" 
+                    name="inn"
+                    readonly>
+                </div>
+              </div>
+                
+              <div class="form-group row">
+                <label 
+                  for="vatCertificate" 
+                  class="col-md-3 col-form-label">
+                  <strong>№ свидетельства плат. НДС</strong>
+                </label>
+                <div class="col-md">
+                  <input 
+                    type="text" 
+                    class="form-control-plaintext"
+                    value="{{client?.vatCertificate}}" 
+                    name="vatCertificate"
+                    readonly>
+                </div>
+              </div>
         
-        <div class="form-group row">
-          <label 
-            for="inn" 
-            class="col-md-3 col-form-label">
-            <strong>ИНН</strong>
-          </label>
-          <div class="col-md">
-            <input 
-              type="text" 
-              class="form-control-plaintext"
-              value="{{client?.inn}}" 
-              name="inn"
-              readonly>
+            </div>
           </div>
-        </div>
-          
-        <div class="form-group row">
-          <label 
-            for="vatCertificate" 
-            class="col-md-3 col-form-label">
-            <strong>№ свидетельства плат. НДС</strong>
-          </label>
-          <div class="col-md">
-            <input 
-              type="text" 
-              class="form-control-plaintext"
-              value="{{client?.vatCertificate}}" 
-              name="vatCertificate"
-              readonly>
-          </div>
-        </div>
-  
-      </div>
     </div>
-
-  </div>
-
-  <div class="col-md-2">
-
-    <a class="btn btn-success btn-block" 
-      [routerLink]="['/clients', client?.id, 'edit']">
-      <i class="fa fa-edit"></i> Изменить
-    </a>
-
-    <button type="button" class="btn btn-danger btn-block" (click)="delete()">
-        <i class="fa fa-trash-o"></i> Удалить
-    </button>
-
-  </div>
-
+    <div class="ui-g-2">
+        <button pButton type="button" label="Изменить" 
+          class="ui-button-success btn-block" icon="fa fa-edit"
+          [routerLink]="['/clients', client?.id, 'edit']">
+        </button>
+        <button pButton type="button" label="Удалить" 
+          class="ui-button-danger btn-block" icon="fa fa-trash-o"
+          (click)="confirmDeleting()">
+        </button>
+    </div>
 </div>
+
