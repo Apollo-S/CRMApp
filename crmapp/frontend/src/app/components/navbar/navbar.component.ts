@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/primeng';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-navbar',
@@ -8,45 +8,63 @@ import { MenuItem } from 'primeng/primeng';
 })
 export class NavbarComponent implements OnInit {
 
-  items: MenuItem[];
+    items: MenuItem[];
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit() {
-    this.items = [
-    {
-        title: 'CRMApp',
-        label: 'CRMApp',
-        icon: 'fa-home',
-        disabled: true
-    },
-    {
-        label: 'Справочники',
-        icon: 'fa-list',
-        items: [
-        {
-            label: 'Отпуски', 
-            routerLink: ['vacations']
-        }
+    ngOnInit() {
+        this.items = 
+        [
+            {
+                title: 'CRMApp',
+                label: 'CRMApp',
+                icon: 'fa-home',
+                disabled: true
+            },
+            {
+                label: 'Файл',
+                icon: 'fa-home',
+                items: [
+                    {
+                        label: 'Новый клиент', 
+                        routerLink: ['clients/add']
+                    },
+                    {
+                        label: 'Новый сотрудник', 
+                        routerLink: ['employees/add']
+                    }
+                ]
+            },
+            {
+                label: 'Справочники',
+                icon: 'fa-list',
+                items: [
+                    {
+                        label: 'Отпуски', 
+                        routerLink: ['vacations']
+                    },
+                    {
+                        label: 'empty', 
+                        routerLink: ['']
+                    }
+                ]
+            },
+            {
+                label: 'Клиенты',
+                icon: 'fa-users',
+                routerLink: ['clients']
+            },
+            {
+                label: 'Сотрудники',
+                icon: 'fa-users',
+                routerLink: ['employees']
+            },
+            {
+                label: 'Инфо', 
+                icon: 'fa-info-circle',
+                routerLink: ['about']
+            }
         ]
-    },
-    {
-        label: 'Клиенты',
-        icon: 'fa-users',
-        routerLink: 'clients'
-    },
-    {
-        label: 'Сотрудники',
-        icon: 'fa-users',
-        routerLink: 'employees'
-    },
-    {
-        label: 'Инфо', 
-        icon: 'fa-info-circle',
-        routerLink: 'about'
     }
-  ];
-}
   
-
 }
