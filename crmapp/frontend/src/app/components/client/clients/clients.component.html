@@ -1,16 +1,15 @@
-<p-table [columns]="columns" [responsive]="true"
+<p-table #dt [columns]="columns" [responsive]="true"
     [value]="clients" [reorderableColumns]="true" 
     [paginator]="true" [rows]="10">
     <ng-template pTemplate="caption">
-            <div class="ui-helper-clearfix">
-                    <span style="font-size:18px;float:left">
-                        <b>Клиенты</b>
-                    </span>
-                <p-button icon="fa fa-plus-circle" style="float:right" 
-                    label="Добавить" [routerLink]="['/clients/add']">
-                </p-button>
+        <div style="text-align: right">     
+            <p-button icon="fa fa-plus-circle" style="float:left" 
+                label="Добавить" [routerLink]="['/clients/add']">
+            </p-button>
+            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+            <input type="text" pInputText size="50" placeholder="Фильтр" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
             </div>
-        </ng-template>
+    </ng-template>
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th *ngFor="let column of columns" class="text-center" 

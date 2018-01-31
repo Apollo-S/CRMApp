@@ -6,19 +6,23 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // PrimeNG
-import { InputTextModule } from 'primeng/inputtext';
-import { TreeModule }  from 'primeng/tree';
-import { PanelMenuModule } from 'primeng/panelmenu';
-import { MenubarModule } from 'primeng/menubar';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ButtonModule } from 'primeng/button'; 
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { DataTableModule } from 'primeng/datatable'; //deprecated
-import { TableModule } from 'primeng/table';
-import { DialogModule } from 'primeng/dialog';
 import { CardModule } from 'primeng/components/card/card';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DataTableModule } from 'primeng/datatable'; //deprecated
+import { DialogModule } from 'primeng/dialog';
+import { GrowlModule } from 'primeng/growl';
+import { InputTextModule } from 'primeng/inputtext';
+import { MenubarModule } from 'primeng/menubar';
+import { PanelMenuModule } from 'primeng/panelmenu';
 import { PanelModule } from 'primeng/panel';
 import { PaginatorModule } from 'primeng/paginator';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { TableModule } from 'primeng/table';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { TabViewModule } from 'primeng/tabview';
+import { TreeModule }  from 'primeng/tree';
 
 // Custom Service Imports
 import { CategoryService } from './services/category.service';
@@ -30,6 +34,8 @@ import { PostService } from './services/post.service';
 import { DocumentService } from './services/document.service';
 import { DocumentTypeService } from './services/document-type.service';
 import { DocumentStatusService } from './services/document-status.service';
+import { MessageService } from 'primeng/components/common/messageservice';
+import { ConfirmationService } from 'primeng/api';
 
 // Component Imports 
 import { AppComponent } from './app.component';
@@ -218,7 +224,11 @@ const appRoutes: Routes = [
     CardModule,
     PanelModule,
     PaginatorModule,
-    BreadcrumbModule
+    BreadcrumbModule,
+    TabViewModule,
+    TabMenuModule,
+    GrowlModule,
+    ConfirmDialogModule
   ],
   providers: [
     CategoryService,
@@ -229,7 +239,9 @@ const appRoutes: Routes = [
     PostService,
     DocumentService,
     DocumentTypeService,
-    DocumentStatusService
+    DocumentStatusService,
+    MessageService, 
+    ConfirmationService
   ],
   bootstrap: [AppComponent]
 })

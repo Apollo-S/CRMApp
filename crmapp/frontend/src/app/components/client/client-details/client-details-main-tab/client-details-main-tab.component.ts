@@ -3,6 +3,9 @@ import { Subscription } from 'rxjs';
 import { Client } from '../../../../models/Client';
 import { ClientService } from '../../../../services/client.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Message } from 'primeng/components/common/api';
+import { MessageService } from 'primeng/components/common/messageservice';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-client-details-main-tab',
@@ -11,12 +14,15 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class ClientDetailsMainTabComponent implements OnInit, OnDestroy {
   private _propertySubscribtion: Subscription;
+  msgs: Message[] = [];
   client: Client = {};
   clientId: number;
 
   constructor(private service: ClientService,
               private router: Router,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private messageService: MessageService,
+              private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
     this._propertySubscribtion = this.service.property$
@@ -36,14 +42,30 @@ export class ClientDetailsMainTabComponent implements OnInit, OnDestroy {
   }
 
   delete(): void {
-    if (confirm("Удалить клиента?")) {
       this.service.deleteClient(this.clientId)
-        .subscribe(() => this.goBackToClients());
-    }
+        .subscribe(() => 
+          this.goBackToClients()
+      );
   }
 
   private goBackToClients(): void {
       this.router.navigate(['/clients']);
   }
+
+  confirmDeleting() {
+    let msg  = 'Клиент с ID=' + this.clientId + ' успешно удален';
+    this.confirmationService.confirm({
+        message: 'Действительно удалить клиента?',
+        header: 'Удаление объекта',
+        icon: 'fa fa-trash',
+        accept: () => {
+          this.delete();
+          this.msgs = [{severity:'success', summary:'Confirmed', detail: msg}];
+        },
+        reject: () => {
+          this.msgs = [{severity:'info', summary:'Отказ', detail:'Отказано'}];
+        }
+    });
+}
 
 }

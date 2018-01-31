@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Category } from '../../models/Category';
 import { CategoryService } from '../../services/category.service';
 import { Router, ActivatedRoute } from '@angular/router';
-
 import { Client } from '../../models/Client';
 import { ClientService } from '../../services/client.service';
-import { MenuItem } from '../../models/MenuItem';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,13 +13,8 @@ import { MenuItem } from '../../models/MenuItem';
 })
 export class DashboardComponent implements OnInit {
   categories: Category[];
-
-
   items: MenuItem[];
-
   clients: Client[];
-
-  
   
   constructor(private service: CategoryService,
               private clientService: ClientService,

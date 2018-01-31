@@ -1,46 +1,4 @@
 <p>
-    
-<ul class="nav nav-tabs nav-fill">
 
-  <li class="nav-item">
-    <a class="nav-link" 
-      routerLinkActive="active"
-        routerLink="main">
-      <i class="fa fa-address-card-o">
-        </i> <strong>Основные данные</strong>
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" 
-      routerLinkActive="active"
-      routerLink="addresses">
-      <i class="fa fa-building-o">
-        </i> <strong>Адресы</strong>
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link"
-      routerLinkActive="active"
-      routerLink="accounts">
-      <i class="fa fa-bank">
-        </i> <strong>Банковские реквизиты</strong>
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link " 
-      routerLinkActive="active"
-      routerLink="directors">
-      <i class="fa fa-user-o">
-        </i> <strong>Руководители</strong>
-    </a>
-  </li>
-  <li class="nav-item"  >
-    <a class="nav-link"
-      routerLinkActive="active"
-      routerLink="agreements">
-      <i class="fa fa-file-text-o">
-        </i> <strong>Договоры</strong>
-    </a>
-  </li>
-  
-</ul>
+<p-tabMenu [model]="items"></p-tabMenu>
+
