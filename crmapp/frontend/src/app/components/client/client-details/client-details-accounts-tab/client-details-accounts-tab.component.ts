@@ -12,6 +12,7 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 })
 export class ClientDetailsAccountsTabComponent implements OnInit, OnDestroy {
   private _propertySubscribtion: Subscription;
+  columns: any[];
   accounts: ClientAccount[];
   clientId: number;
 
@@ -26,6 +27,11 @@ export class ClientDetailsAccountsTabComponent implements OnInit, OnDestroy {
         }
       );
     this.getAccountsByClientId(this.clientId);
+    this.columns = [
+      { field: '', header: 'ID' },
+      { field: '', header: 'Представление' },
+      { field: '', header: 'Действует с' }      
+    ];
   }
 
   ngOnDestroy() {

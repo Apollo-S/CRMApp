@@ -11,6 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class ClientDetailsAgreementsTabComponent implements OnInit, OnDestroy {
   private _propertySubscribtion: Subscription;
+  columns: any[];
   agreements: ClientAgreement[];
   clientId: number;
   
@@ -24,6 +25,11 @@ export class ClientDetailsAgreementsTabComponent implements OnInit, OnDestroy {
       this.clientId = p;
     });
     this.getAgreementsByClientId(this.clientId);
+    this.columns = [
+      { field: '', header: 'ID' },
+      { field: '', header: 'Номер' },
+      { field: '', header: 'Актуален с' }      
+    ];
   }
 
   ngOnDestroy() {

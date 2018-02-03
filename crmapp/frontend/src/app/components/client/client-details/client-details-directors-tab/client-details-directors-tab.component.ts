@@ -12,6 +12,7 @@ import { Post } from '../../../../models/Post';
 })
 export class ClientDetailsDirectorsTabComponent implements OnInit, OnDestroy {
   private _propertySubscribtion: Subscription;
+  columns: any[];
   directors: ClientDirector[];
   posts: Post[];
   clientId: number;
@@ -28,6 +29,12 @@ export class ClientDetailsDirectorsTabComponent implements OnInit, OnDestroy {
       }
     );
     this.getDirectorsByClientId(this.clientId);
+    this.columns = [
+      { field: '', header: 'ID' },
+      { field: '', header: 'ФИО' },
+      { field: '', header: 'Должность' },
+      { field: '', header: 'Актуален с' }      
+    ];
   }
 
   ngOnDestroy() {
