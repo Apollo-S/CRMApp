@@ -10,6 +10,7 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ButtonModule } from 'primeng/button'; 
 import { CardModule } from 'primeng/components/card/card';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DataListModule } from 'primeng/datalist';
 import { DataTableModule } from 'primeng/datatable'; //deprecated
 import { DialogModule } from 'primeng/dialog';
 import { GrowlModule } from 'primeng/growl';
@@ -212,23 +213,25 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
-    InputTextModule, 
+
     ButtonModule, 
-    SplitButtonModule,
-    DataTableModule, 
-    TableModule,
-    DialogModule,
-    TreeModule,
-    PanelMenuModule,
-    MenubarModule,
-    CardModule,
-    PanelModule,
-    PaginatorModule,
     BreadcrumbModule,
-    TabViewModule,
-    TabMenuModule,
+    CardModule,
+    ConfirmDialogModule,
+    DataListModule,
+    DataTableModule, 
+    DialogModule,
     GrowlModule,
-    ConfirmDialogModule
+    InputTextModule, 
+    MenubarModule,
+    PaginatorModule,
+    PanelMenuModule,
+    PanelModule,
+    SplitButtonModule,
+    TableModule,
+    TabMenuModule,
+    TabViewModule,
+    TreeModule,
   ],
   providers: [
     CategoryService,
