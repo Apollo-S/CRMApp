@@ -1,57 +1,36 @@
-<p>
-
-<div class="row">
-  <div class="col-md-10">
-
-    <div class="card">
-      <div class="card-body"> 
-
-        <table *ngIf="addresses?.length > 0; else noAddresses"
-          class="table table-sm">
-
-          <thead class="thead-default">
-            <tr>
-              <th class="text-center">ID</th>
-              <th class="text-center">Адрес</th>
-              <th class="text-center">Действует с</th>
-              <th class="text-center"></th>
-            </tr>
-          </thead>
-          
-          <tr *ngFor="let address of addresses">
-            
-            <td class="text-center">{{address.id}}</td>
-            <td class="text-center">{{address.presentation}}</td>
-            <td class="text-center">{{address.dateStart | date: 'dd.MM.y'}}</td>
-            <td>
-              <div class="d-flex justify-content-end">
-                <div class="btn-toolbar">
-                  <div class="btn-group mr-2">
-                    <a class="btn btn-success btn-sm" 
-                      [routerLink]="[address?.id, 'edit']">
-                      <i class="fa fa-edit"></i> Изменить
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </td>
-          </tr>
-        </table>
-
-      </div>
-    </div>
-
-    <ng-template #noAddresses>
-        <div class="alert alert-light" role="alert">
-          <h6 class="lead text-center">
-            <b>Нет ни одного адреса в системе ...</b>
-          </h6>
-        </div>
-    </ng-template>
-    
+<div class="ui-g-12">
+  <div class="ui-g-10">
+    <p-table [value]="addresses" [columns]="columns" [responsive]="true">
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width:7%;text-align:center">ID</th>
+          <th style="text-align:center">Адрес</th>
+          <th style="width:15%;text-align:center">Действует с</th>
+          <th style="width:15%;text-align:center"></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-address let-columns="columns">
+        <tr>
+          <td style="text-align:center">{{address.id}}</td>
+          <td style="text-align:start">{{address.presentation}}</td>
+          <td style="text-align:center">{{address.dateStart  | date: 'dd.MM.y'}}</td>
+          <td style="text-align:center">
+            <button pButton type="button" label="Изменить" 
+              class="ui-button-success btn-block" icon="fa fa-edit"
+              [routerLink]="[address?.id, 'edit']">
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+          Кол-во записей: {{addresses?.length}}
+      </ng-template>
+    </p-table>
   </div>
-  <div class="col-md-2">
-    <app-sidebar [url] = "['add']" title = "Новый адрес"></app-sidebar>
+  <div class="ui-g-2">
+    <button pButton type="button" label="Новый адрес" 
+      class="ui-button-primary btn-block" icon="fa fa-plus-circle"
+      [routerLink]="['add']">
+    </button>
   </div>
 </div>
-

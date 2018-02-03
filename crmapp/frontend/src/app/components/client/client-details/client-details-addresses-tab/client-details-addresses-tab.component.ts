@@ -11,6 +11,7 @@ import { ClientService } from '../../../../services/client.service';
 })
 export class ClientDetailsAddressesTabComponent implements OnInit, OnDestroy {
   private _propertySubscribtion: Subscription;
+  columns: any[];
   addresses: ClientAddress[];
   clientId: number;
   
@@ -25,6 +26,11 @@ export class ClientDetailsAddressesTabComponent implements OnInit, OnDestroy {
         }
       );
     this.getAddressesByClientId(this.clientId);
+    this.columns = [
+        { field: '', header: 'ID' },
+        { field: '', header: 'Адрес' },
+        { field: '', header: 'Действует с' }      
+    ];
   }
 
   ngOnDestroy() {
