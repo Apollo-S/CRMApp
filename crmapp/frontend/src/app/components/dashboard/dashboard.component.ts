@@ -25,72 +25,44 @@ export class DashboardComponent implements OnInit {
     this.getCategories();
     this.getClients();
     this.items = [
-      {
-          label: 'Клиенты',
-          icon: 'fa-file-o',
-          routerLink: '/clients',
-          items: [
-              {label: ''},
-              {label: 'this.clients[1].alias'},
-              {label: 'this.clients[2].alias'}
-          ]
-      },
-      {
-          label: 'Договорные отношения',
-          routerLink: '/agreements',
-          icon: 'fa-edit',
-          items: [
-              {label: 'Undo', icon: 'fa-mail-forward'},
-              {label: 'Redo', icon: 'fa-mail-reply'}
-          ]
-      },
-      {
-          label: 'Help',
-          icon: 'fa-question',
-          items: [
-              {
-                  label: 'Contents'
-              },
-              {
-                  label: 'Search', 
-                  icon: 'fa-search', 
-                  items: [
-                      {
-                          label: 'Text', 
-                          items: [
-                              {
-                                  label: 'Workspace'
-                              }
-                          ]
-                      },
-                      {
-                          label: 'File'
-                      }
-              ]}
-          ]
-      },
-      {
-          label: 'Actions',
-          icon: 'fa-gear',
-          items: [
-              {
-                  label: 'Edit',
-                  icon: 'fa-refresh',
-                  items: [
-                      {label: 'Save', icon: 'fa-save'},
-                      {label: 'Update', icon: 'fa-save'},
-                  ]
-              },
-              {
-                  label: 'Other',
-                  icon: 'fa-phone',
-                  items: [
-                      {label: 'Delete', icon: 'fa-minus'}
-                  ]
-              }
-          ]
-      }
-  ];
+        {
+            label: 'Клиенты',
+            icon: 'fa-file-o',
+            routerLink: '/clients'
+        },
+        {
+            label: 'Договорные отношения',
+            icon: 'fa-file-o',
+            routerLink: '/agreements'
+        },
+        {
+            label: 'Документооборот',
+            icon: 'fa-file-o',
+            routerLink: '/documents'
+        },
+        {
+            label: 'Сотрудники',
+            icon: 'fa-file-o',
+            routerLink: '/employees'
+        },
+        {
+            label: 'Отпуски',
+            icon: 'fa-file-o',
+            routerLink: '/vacations'
+        },
+        {
+            label: 'Больничные листы',
+            icon: 'fa-file-o',
+            routerLink: '/vacations'
+        },
+        {
+            label: 'Исходящий номер',
+            icon: 'fa-file-o',
+            routerLink: '/outputs',
+
+        }
+      
+     ];
 
   }
 
