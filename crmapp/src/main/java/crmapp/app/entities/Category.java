@@ -18,6 +18,9 @@ public class Category extends UrlBaseEntity implements Serializable {
 
 	@Column(name = "label", length = 100)
 	private String label;
+	
+	@Column(name = "icon", length = 50)
+	private String icon;
 
 	@Column(name = "router_link", length = 255)
 	private String routerLink;
@@ -34,6 +37,14 @@ public class Category extends UrlBaseEntity implements Serializable {
 
 	public void setLabel(String label) {
 		this.label = label;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
 	}
 
 	public String getRouterLink() {
