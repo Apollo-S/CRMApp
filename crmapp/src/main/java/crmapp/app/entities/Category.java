@@ -25,8 +25,6 @@ public class Category extends UrlBaseEntity implements Serializable {
 	@Column(name = "comment", length = 255)
 	private String comment;
 	
-//	private List<MenuItemClient> menuItemClient;
-
 	public Category() {
 	}
 
@@ -54,12 +52,9 @@ public class Category extends UrlBaseEntity implements Serializable {
 		this.comment = comment;
 	}
 
-//	public List<MenuItemClient> getMenuItemClient() {
-//		return menuItemClient;
-//	}
-//
-//	public void setMenuItemClient(List<MenuItemClient> menuItemClient) {
-//		this.menuItemClient = menuItemClient;
-//	}
+	@Override
+	public String getUrl() {
+		return "categories/" + getId();
+	}
 
 }
