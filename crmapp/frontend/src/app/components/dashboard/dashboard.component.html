@@ -1,32 +1,8 @@
 <div class="ui-g">
-
     <div class="ui-g-12 ui-md-3">
-        
         <p-panelMenu [model]="items" [multiple]="false"></p-panelMenu>
-
     </div>
     <div class="ui-g-12 ui-md-9">
         <router-outlet></router-outlet> 
     </div>
-
 </div>
-
-<!-- <div class="row">
-    <div class="col-md-3">
-
-        <div class="list-group" >
-            <a *ngFor="let category of categories" class="list-group-item list-group-item-action" 
-                [routerLink]="['/', category.routerLink]"
-                routerLinkActive="active">
-                <strong>{{category.label}}</strong>
-            </a>
-        </div>
-        <p>
- 
-    </div>
-
-    <div class="col-md">
-        <router-outlet></router-outlet> 
-    </div>
-
-</div> -->

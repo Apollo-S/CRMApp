@@ -24,51 +24,11 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.getCategories();
     this.getClients();
-    this.items = [
-        {
-            label: 'Клиенты',
-            icon: 'fa-file-o',
-            routerLink: '/clients'
-        },
-        {
-            label: 'Договорные отношения',
-            icon: 'fa-file-o',
-            routerLink: '/agreements'
-        },
-        {
-            label: 'Документооборот',
-            icon: 'fa-file-o',
-            routerLink: '/documents'
-        },
-        {
-            label: 'Сотрудники',
-            icon: 'fa-file-o',
-            routerLink: '/employees'
-        },
-        {
-            label: 'Отпуски',
-            icon: 'fa-file-o',
-            routerLink: '/vacations'
-        },
-        {
-            label: 'Больничные листы',
-            icon: 'fa-file-o',
-            routerLink: '/vacations'
-        },
-        {
-            label: 'Исходящий номер',
-            icon: 'fa-file-o',
-            routerLink: '/outputs',
-
-        }
-      
-     ];
-
   }
 
   private getCategories() {
     this.service.getCategories()
-      .subscribe(categories => this.categories = categories);
+      .subscribe(categories => this.items = categories);
   }
 
   private getClients() {
