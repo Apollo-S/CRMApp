@@ -62,9 +62,7 @@ export class ClientDetailsMainTabComponent implements OnInit, OnDestroy {
           this.delete();
           this.msgs = [{severity:'success', summary:'Confirmed', detail: msg}];
         },
-        reject: () => {
-          this.msgs = [{severity:'info', summary:'Отказ', detail:'Отказано'}];
-        }
+        reject: () => {}
     });
 }
 
