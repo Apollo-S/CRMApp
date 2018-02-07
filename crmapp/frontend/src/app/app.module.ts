@@ -97,14 +97,13 @@ const appRoutes: Routes = [
       {path: 'agreements', component:AgreementsComponent},
     ]
   },
-
   {path: 'clients/add', component:AddClientComponent},
-  {path: 'clients/:id/edit', component:EditClientComponent},
   {path: 'clients/:id', component:ClientDetailsComponent,
     children:
     [
       {path:  '', redirectTo: 'main', pathMatch: 'full'},
       {path: 'main', component: ClientDetailsMainTabComponent},
+      {path: 'main/edit', component:EditClientComponent},
       {path: 'addresses', component: ClientDetailsAddressesTabComponent},
       {path: 'addresses/add', component:AddAddressComponent},
       {path: 'addresses/:id', component:EditAddressComponent,
@@ -137,7 +136,6 @@ const appRoutes: Routes = [
       {path: 'agreements/:id', component: AgreementDetailsComponent},
     ]
   },
-
   {path: 'agreements/add', component: AddAgreementComponent},
   {path: 'agreements/:id', component: AgreementDetailsComponent,
     children: 
@@ -149,7 +147,6 @@ const appRoutes: Routes = [
     ]
   },
   {path: 'agreements/:id/edit', component: EditAgreementComponent},
-
   {path: 'employees/add', component: AddEmployeeComponent},
   {path: 'employees/:id/edit', component: EditEmployeeComponent},
   {path: 'employees/:id', component: EmployeeDetailsComponent, 
@@ -161,7 +158,6 @@ const appRoutes: Routes = [
       {path: 'accounts', component: EmployeeDetailsAccountsTabComponent}
     ]
   },
-
 ]
 
 @NgModule({
