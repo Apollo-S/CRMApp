@@ -3,9 +3,7 @@ import { Client } from '../../../models/Client';
 import { ClientService } from '../../../services/client.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { DatePipe } from '@angular/common';
-import { ClientAddress } from '../../../models/ClientAddress';
-import { ClientAccount } from '../../../models/ClientAccount';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-client-details',
@@ -14,7 +12,7 @@ import { ClientAccount } from '../../../models/ClientAccount';
 })
 export class ClientDetailsComponent implements OnInit, OnDestroy {
   private _propertySubscribtion: Subscription;
-  client: Client;
+  client: Client = {};
   clientId: number;
 
   constructor(private service: ClientService,
