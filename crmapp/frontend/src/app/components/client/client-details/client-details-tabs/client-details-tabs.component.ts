@@ -15,12 +15,12 @@ export class ClientDetailsTabsComponent implements OnInit {
 
   ngOnInit() {
     this.items = [
-      {label: 'Основные данные', icon: 'fa-address-card-o', routerLink: 'main', routerLinkActive: 'active'},
-      {label: 'Адресы', icon: 'fa-building-o', routerLink: 'addresses', routerLinkActive: 'active'},
-      {label: 'Банковские реквизиты', icon: 'fa-bank', routerLink: 'accounts', routerLinkActive: 'active'},
-      {label: 'Руководители', icon: 'fa-user-o', routerLink: 'directors', routerLinkActive: 'active'},
-      {label: 'Договоры', icon: 'fa-file-text-o', routerLink: 'agreements', routerLinkActive: 'active'}
-  ];
+      {label: 'Основные данные', icon: 'fa-address-card-o', routerLink: 'main'},
+      {label: 'Адресы', icon: 'fa-building-o', routerLink: 'addresses'},
+      {label: 'Банковские реквизиты', icon: 'fa-bank', routerLink: 'accounts'},
+      {label: 'Руководители', icon: 'fa-user-o', routerLink: 'directors'},
+      {label: 'Договоры', icon: 'fa-file-text-o', routerLink: 'agreements'}
+    ];
   }
 
 }
