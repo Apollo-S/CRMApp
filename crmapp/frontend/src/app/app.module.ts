@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // PrimeNG
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ButtonModule } from 'primeng/button'; 
-import { CardModule } from 'primeng/components/card/card';
+import { CardModule } from 'primeng/card';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DataListModule } from 'primeng/datalist';
 import { DataTableModule } from 'primeng/datatable'; //deprecated
@@ -19,10 +19,12 @@ import { MenubarModule } from 'primeng/menubar';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { PanelModule } from 'primeng/panel';
 import { PaginatorModule } from 'primeng/paginator';
+import { SidebarModule } from 'primeng/sidebar';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { TableModule } from 'primeng/table';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TabViewModule } from 'primeng/tabview';
+import { ToolbarModule } from 'primeng/toolbar';
 import { TreeModule }  from 'primeng/tree';
 
 // Custom Service Imports
@@ -45,6 +47,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { NavbarBottomComponent } from './components/navbar-bottom/navbar-bottom.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { DashboardMenuComponent } from './components/dashboard/dashboard-menu/dashboard-menu.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 import { ClientsComponent } from './components/client/clients/clients.component';
@@ -172,6 +175,7 @@ const appRoutes: Routes = [
     EditClientComponent,
     SidebarComponent,
     DashboardComponent,
+    DashboardMenuComponent,
     PageNotFoundComponent,
     EmployeesComponent,
     AgreementsComponent,
@@ -223,10 +227,12 @@ const appRoutes: Routes = [
     PaginatorModule,
     PanelMenuModule,
     PanelModule,
+    SidebarModule,
     SplitButtonModule,
     TableModule,
     TabMenuModule,
     TabViewModule,
+    ToolbarModule,
     TreeModule,
   ],
   providers: [
