@@ -3,7 +3,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError } from 'rxjs/operators';
-import { Category } from '../models/Category';
+import { MenuItem } from 'primeng/api';
 
 @Injectable()
 export class CategoryService {
@@ -13,10 +13,10 @@ export class CategoryService {
   
   constructor(private http: HttpClient) { }
 
-  getCategories(): Observable<Category[]> {
+  getCategories(): Observable<MenuItem[]> {
     const url = `${this.categoriesUrl}`;
     return this.http
-      .get<Category[]>(url, { headers: this.headers })
+      .get<MenuItem[]>(url, { headers: this.headers })
       .pipe(
         catchError(this.handleError('getCategories', []))
       )
