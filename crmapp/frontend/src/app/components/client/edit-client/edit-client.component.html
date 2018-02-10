@@ -1,193 +1,67 @@
-<nav class="breadcrumb">
-  <div class="row">
-    <div class="col">
-      <h5>
-        <strong>
-          <a class="breadcrumb-item" routerLink="/clients">
-            <i class="fa fa-users">
-              </i> Клиенты
-          </a>
-          <a 
-            class="breadcrumb-item"
-            [routerLink]="['/clients', client?.id]">{{client?.alias}}
-          </a>
-          <span class="breadcrumb-item active">Редактирование</span>
-        </strong>
-      </h5>
-    </div>
-  </div>
-</nav>
-
-<p>
-        
-<ul class="nav nav-tabs nav-fill">
-  <li class="nav-item">
-    <a class="nav-link active">
-      <i class="fa fa-address-card-o">
-        </i> <strong>Основные данные</strong>
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link disabled">
-      <i class="fa fa-building-o">
-        </i> <strong>Адресы</strong>
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link disabled">
-      <i class="fa fa-bank">
-        </i> <strong>Банковские реквизиты</strong>
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link disabled">
-      <i class="fa fa-user-o">
-        </i> <strong>Руководители</strong>
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link disabled">
-      <i class="fa fa-file-text-o">
-        </i> <strong>Документооборот</strong>
-    </a>
-  </li>
-</ul>
-
-<p>
-
-<form (ngSubmit)="onSubmit()">
-  <div class="row">
-    <div class="col-md-10">
-      <div class="card">
-        <div class="card-body"> 
-            <div class="form-group row">
-              <label 
-                for="title"
-                class="col-md-3 col-form-label">
-                <strong>Полное название</strong>
-              </label> 
-              <div class="col-md">
-                <input 
-                  type="text" 
-                  class="form-control"
-                  [(ngModel)]="client.title" 
-                  name="title" 
-                  #clientTitle="ngModel" 
-                  minlength="2" 
-                  required>
-                <div 
-                  *ngIf="clientTitle.errors?.required && clientTitle.touched" 
-                  class="alert alert-danger">
-                  Введите полное название!
-                </div>
-                <div 
-                  *ngIf="clientTitle.errors?.minlength && clientTitle.touched" 
-                  class="alert alert-danger">
-                  Полное название должно быть не менее 2 символов!
-                </div>
-              </div>
+<div class="ui-g-12">
+  <form form (ngSubmit)="onSubmit()">
+    <div class="ui-g-10">
+      <p-card>
+        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-3">
+              <b>Полное название: *</b>
             </div>
-            <div class="form-group row">
-              <label 
-                for="alias"
-                class="col-md-3 col-form-label">
-                <strong>Псевдоним</strong>
-              </label>
-              <div class="col-md">
-                <input 
-                  type="text" 
-                  class="form-control"
-                  [(ngModel)]="client.alias" 
-                  name="alias"
-                  #clientAlias="ngModel" 
-                  minlength="2" 
-                  required>
-                <div 
-                  *ngIf="clientAlias.errors?.required && clientAlias.touched" 
-                  class="alert alert-danger">
-                  Введите псевдоним!
-                </div>
-                <div 
-                  *ngIf="clientAlias.errors?.minlength && clientAlias.touched" 
-                  class="alert alert-danger">
-                  Псевдоним должен содержать не менее 2 символов!
-                </div>
-              </div>
+            <div class="ui-grid-col-6">
+              <input pInputText type="text" name="title" placeholder="Введите полное название"
+                [(ngModel)]="client && client.title" >
             </div>
-            <div class="form-group row">
-              <label 
-                for="edrpou"
-                class="col-md-3 col-form-label">
-                <strong>ЕДРПОУ</strong>
-              </label>
-              <div class="col-md">
-                <input 
-                  type="text" 
-                  class="form-control" 
-                  [(ngModel)]="client.edrpou" 
-                  name="edrpou" 
-                  #clientEdrpou="ngModel" 
-                  minlength="7" 
-                  required>
-                <div 
-                  *ngIf="clientEdrpou.errors?.required && clientEdrpou.touched" 
-                  class="alert alert-danger">
-                  Введите ЕДРПОУ!
-                </div>
-                <div 
-                  *ngIf="clientEdrpou.errors?.minlength && clientEdrpou.touched" 
-                  class="alert alert-danger">
-                  ЕДРПОУ должно содержать не менее 7 символов!
-                </div>
-              </div>
+            <div class="ui-grid-col-3">
+              
             </div>
-            <div class="form-group row">
-              <label 
-                for="inn"
-                class="col-md-3 col-form-label">
-                <strong>ИНН</strong>
-              </label>
-              <div class="col-md">
-                <input 
-                  type="text" 
-                  class="form-control" 
-                  [(ngModel)]="client.inn" 
-                  name="inn">
-              </div>
+          </div>
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-3">
+              <b>Псевдоним:</b>
             </div>
-            <div class="form-group row">
-              <label 
-                for="vatCertificate"
-                class="col-md-3 col-form-label">
-                <strong>№ свидетельства плат. НДС</strong>
-              </label>
-              <div class="col-md">
-                <input 
-                  type="text" 
-                  class="form-control" 
-                  [(ngModel)]="client.vatCertificate" 
-                  name="vatCertificate">
-              </div>
+            <div class="ui-grid-col-6">
+              <input pInputText type="text" name="alias" placeholder="Required"
+                [(ngModel)]="client&&client.alias" >
             </div>
+          </div>
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-3">
+              <b>ЕДРПОУ: *</b>
+            </div>
+            <div class="ui-grid-col-6">
+              <input pInputText type="text" name="edrpou" placeholder="Введите ЕДРПОУ (не менее 8 цифр)"
+                [(ngModel)]="client&&client.edrpou" >
+            </div>
+          </div>
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-3">
+              <b>ИНН:</b>
+            </div>
+            <div class="ui-grid-col-6">
+              <input pInputText type="text" name="inn" placeholder="Введите ИНН (необязательное поле)"
+                [(ngModel)]="client&&client.inn" >
+            </div>
+          </div>
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-3">
+              <b>№ свидетельства плат. НДС:</b>
+            </div>
+            <div class="ui-grid-col-6">
+              <input pInputText type="text" name="vatCertificate" placeholder="Введите № свид. НДС (необязательное поле)"
+                [(ngModel)]="client&&client.vatCertificate" >
+            </div>
+          </div>
         </div>
-      </div>
+      </p-card>
     </div>
-    <div class="col-md-2">
-      <a class="btn btn-info btn-block"
+    <div class="ui-g-2">
+      <button pButton type="button" label="Назад к клиенту" 
+        class="ui-button-info btn-block" icon="fa-arrow-circle-o-left"
         [routerLink]="['../']">
-        <i class="fa fa-arrow-circle-o-left">
-          </i> Назад к клиенту
-      </a>
-      <button 
-        type="submit" 
-        class="btn btn-success btn-block">
-          <i class="fa fa-check-square-o"></i> Записать
+      </button>
+      <button pButton type="submit" label="Записать"
+        class="ui-button-success btn-block" icon="fa-check-square-o">
       </button>
     </div>
-  </div>
-</form>
-         
-
-
-
-
+  </form>
+</div>
