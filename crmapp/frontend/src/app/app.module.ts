@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // PrimeNG
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ButtonModule } from 'primeng/button'; 
+import { CalendarModule } from 'primeng/calendar';
 import { CardModule } from 'primeng/card';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DataListModule } from 'primeng/datalist';
@@ -216,6 +217,7 @@ const appRoutes: Routes = [
 
     ButtonModule, 
     BreadcrumbModule,
+    CalendarModule,
     CardModule,
     ConfirmDialogModule,
     DataListModule,
