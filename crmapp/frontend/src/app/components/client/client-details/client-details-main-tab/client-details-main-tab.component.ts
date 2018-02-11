@@ -3,9 +3,8 @@ import { Subscription } from 'rxjs';
 import { Client } from '../../../../models/Client';
 import { ClientService } from '../../../../services/client.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Message } from 'primeng/components/common/api';
 import { MessageService } from 'primeng/components/common/messageservice';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, Message } from 'primeng/api';
 
 @Component({
   selector: 'app-client-details-main-tab',
@@ -21,7 +20,6 @@ export class ClientDetailsMainTabComponent implements OnInit, OnDestroy {
   constructor(private service: ClientService,
               private router: Router,
               private route: ActivatedRoute,
-              private messageService: MessageService,
               private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
