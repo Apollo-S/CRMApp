@@ -1,4 +1,47 @@
-<p>
+<p-growl [value]="msgs"></p-growl>
+
+<div class="ui-g-12">
+  <form form (ngSubmit)="onSubmit()">
+    <div class="ui-g-10">
+      <p-card>
+        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-3">
+              <b>Адрес:</b>
+            </div>
+            <div class="ui-grid-col-6">
+              <input pInputText type="text" name="presentation" placeholder="Введите адрес"
+                [(ngModel)]="address.presentation">
+            </div>
+          </div>
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-3">
+              <b>Действует с:</b>
+            </div>
+            <div class="ui-grid-col-3">
+              <p-calendar [(ngModel)]="address.dateStart" name="dateStart" 
+                showButtonBar="true" [showIcon]="true" dateFormat="dd.mm.yy"></p-calendar>
+            </div>
+          </div>
+        </div>
+      </p-card>
+    </div>
+    <div class="ui-g-2">
+      <button pButton type="submit" label="Сохранить"
+        class="ui-button-success btn-block" icon="fa-check-square-o">
+      </button>
+      <button pButton type="button" label="Отменить" 
+        class="ui-button-danger btn-block" icon="fa-arrow-circle-o-left"
+        [routerLink]="['../']">
+      </button>
+    </div>
+  </form>
+</div>
+
+
+
+
+<!-- <p>
 
 <form (ngSubmit)="onSubmit()">
 
@@ -66,4 +109,4 @@
   </div>
 
 </form>
-
+ -->
