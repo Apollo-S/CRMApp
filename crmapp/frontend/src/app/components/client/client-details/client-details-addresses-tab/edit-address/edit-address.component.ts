@@ -39,23 +39,39 @@ export class EditAddressComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.update();
+    this.goBackToAddresses();
   }
-
-  delete() {
-    this.service.deleteAddress(this.addressId, this.clientId)
-      .subscribe(response => {
-        this.goBackToAddresses();
-      })
-  }  
 
   ngOnDestroy(): void {
     this._propertySubscribtion.unsubscribe();
   }
 
+  confirmDeleting() {
+    let msg  = 'Адрес успешно удален (ID=' + this.addressId + ')';
+    this.confirmationService.confirm({
+        message: 'Действительно удалить адрес?',
+        header: 'Удаление адреса',
+        icon: 'fa fa-trash',
+        accept: () => {
+          this.delete(msg);
+          this.goBackToAddresses();
+        },
+        reject: () => {}
+    });
+  }
+
+  private delete(msg: string) {
+    this.service.deleteAddress(this.addressId, this.clientId)
+      .subscribe(response => {
+        this.msgs = [{severity:'success', summary:'Успешно', detail: msg}];
+      })
+  }  
+
   private update(): void {
+    let msg  = 'Адрес успешно обновлен (ID=' + this.addressId + ')';
     this.service.updateAddress(this.address, this.clientId)
       .subscribe(response => {
-        this.goBackToAddresses();
+        this.msgs = [{severity:'success', summary:'Успешно', detail: msg}];
       })
   }
 
@@ -68,21 +84,9 @@ export class EditAddressComponent implements OnInit, OnDestroy {
   }
   
   private goBackToAddresses() {
-    this.router.navigate(['/clients', this.clientId, 'addresses']);
+    setTimeout((router) => {
+      this.router.navigate(['/clients', this.clientId, 'addresses']);
+    }, 1500);
   } 
-
-  confirmDeleting() {
-    let msg  = 'Адрес с ID=' + this.addressId + ' был успешно удален';
-    this.confirmationService.confirm({
-        message: 'Действительно удалить адрес?',
-        header: 'Удаление адреса',
-        icon: 'fa fa-trash',
-        accept: () => {
-          this.delete();
-          this.msgs = [{severity:'success', summary:'Успешно', detail: msg}];
-        },
-        reject: () => {}
-    });
-  }
 
 }
