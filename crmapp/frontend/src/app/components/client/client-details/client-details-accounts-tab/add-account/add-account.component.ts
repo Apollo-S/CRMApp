@@ -3,6 +3,7 @@ import { ClientAccount } from '../../../../../models/ClientAccount';
 import { Subscription } from 'rxjs';
 import { ClientService } from '../../../../../services/client.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Message } from 'primeng/api';
 
 @Component({
   selector: 'app-add-account',
@@ -11,8 +12,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class AddAccountComponent implements OnInit, OnDestroy {
   private _propertySubscribtion: Subscription;
+  msgs: Message[] = [];
   account: ClientAccount = {};
   clientId: number;  
+  years: string;
 
   constructor(private service: ClientService, 
               private router: Router,
@@ -24,10 +27,13 @@ export class AddAccountComponent implements OnInit, OnDestroy {
       this.clientId = p;
       }
     );
+    let currentYear = new Date().getFullYear();
+    this.years = ((currentYear - 5).toString()) + ':' + currentYear.toString();
   }
 
   onSubmit() {
     this.save();
+    this.goBackToAccounts();
   }
 
   ngOnDestroy(): void {
@@ -35,11 +41,18 @@ export class AddAccountComponent implements OnInit, OnDestroy {
   }
 
   private save(): void {
+    let msg  = '';
     this.service.addAccount(this.account, this.clientId)
       .subscribe(response => {
-          this.router.navigate(['/clients', this.clientId, 'accounts']);
-        }
-      );
+        msg = 'Счет успешно добавлен (ID=' + response.id + ')';
+        this.msgs = [{severity:'success', summary:'Успешно', detail: msg}];
+      });
   }
+
+  private goBackToAccounts() {
+    setTimeout((router) => {
+      this.router.navigate(['/clients', this.clientId, 'accounts']);
+    }, 1500);
+  } 
 
 }
