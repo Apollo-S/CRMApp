@@ -14,6 +14,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DataListModule } from 'primeng/datalist';
 import { DataTableModule } from 'primeng/datatable'; //deprecated
 import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
 import { GrowlModule } from 'primeng/growl';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenubarModule } from 'primeng/menubar';
@@ -223,6 +224,7 @@ const appRoutes: Routes = [
     DataListModule,
     DataTableModule, 
     DialogModule,
+    DropdownModule,
     GrowlModule,
     InputTextModule, 
     MenubarModule,
