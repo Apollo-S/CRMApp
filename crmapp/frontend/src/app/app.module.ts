@@ -21,6 +21,7 @@ import { MenubarModule } from 'primeng/menubar';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { PanelModule } from 'primeng/panel';
 import { PaginatorModule } from 'primeng/paginator';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { SidebarModule } from 'primeng/sidebar';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { TableModule } from 'primeng/table';
@@ -231,6 +232,7 @@ const appRoutes: Routes = [
     PaginatorModule,
     PanelMenuModule,
     PanelModule,
+    ProgressSpinnerModule,
     SidebarModule,
     SplitButtonModule,
     TableModule,
