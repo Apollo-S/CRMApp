@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ClientAgreement } from '../../../../models/ClientAgreement';
 import { ClientService } from '../../../../services/client.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Client } from '../../../../models/Client';
+import { ClientAgreement } from '../../../../models/ClientAgreement';
 
 @Component({
   selector: 'app-client-details-agreements-tab',
@@ -12,33 +12,39 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class ClientDetailsAgreementsTabComponent implements OnInit, OnDestroy {
   private _propertySubscribtion: Subscription;
   columns: any[];
-  agreements: ClientAgreement[];
-  clientId: number;
+  agreements: ClientAgreement[] = [];
+  client: Client = {};
   
-  constructor(private service: ClientService,
-              private router: Router,
-              private route: ActivatedRoute) { }
+  constructor(private service: ClientService) { }
 
   ngOnInit() { 
     this._propertySubscribtion = this.service.property$
-    .subscribe(p => {
-      this.clientId = p;
-    });
-    this.getAgreementsByClientId(this.clientId);
-    this.columns = [
-      { field: '', header: 'ID' },
-      { field: '', header: 'Номер' },
-      { field: '', header: 'Актуален с' }      
-    ];
+      .subscribe(
+        p => {
+          this.client = p;
+          this.getAgreementsByClientId(p.id);
+        }
+      );
+    this.initColumns();
   }
 
   ngOnDestroy() {
     this._propertySubscribtion.unsubscribe();
   }
 
-  getAgreementsByClientId(clientId: number) {
-    this.service.getAgreementsByClientId(clientId)
-      .subscribe(agreements => this.agreements = agreements);
+  private getAgreementsByClientId(id: number) {
+    this.service.getAgreementsByClientId(id)
+      .subscribe(
+        agreements => this.agreements = agreements
+      );
+  }
+
+  private initColumns(): void {
+    this.columns = [
+      { field: '', header: 'ID' },
+      { field: '', header: 'Номер' },
+      { field: '', header: 'Актуален с' }      
+    ];
   }
 
 }

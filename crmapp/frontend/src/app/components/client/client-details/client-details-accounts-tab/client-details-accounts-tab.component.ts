@@ -1,9 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ClientAccount } from '../../../../models/ClientAccount';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { ClientAccount } from '../../../../models/ClientAccount';
 import { ClientService } from '../../../../services/client.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
+import { Client } from '../../../../models/Client';
 
 @Component({
   selector: 'app-client-details-accounts-tab',
@@ -13,34 +12,39 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 export class ClientDetailsAccountsTabComponent implements OnInit, OnDestroy {
   private _propertySubscribtion: Subscription;
   columns: any[];
-  accounts: ClientAccount[];
-  clientId: number;
+  accounts: ClientAccount[] = [];
+  client: Client = {};
 
-  constructor(private service: ClientService,
-              private router: Router,
-              private route: ActivatedRoute) { }
+  constructor(private service: ClientService) { }
 
   ngOnInit() { 
     this._propertySubscribtion = this.service.property$
-      .subscribe(p => {
-        this.clientId = p;
+      .subscribe(
+        p => {
+          this.client = p;
+          this.getAccountsByClientId(p.id);
         }
       );
-    this.getAccountsByClientId(this.clientId);
-    this.columns = [
-      { field: '', header: 'ID' },
-      { field: '', header: 'Представление' },
-      { field: '', header: 'Действует с' }      
-    ];
+    this.initColumns();
   }
 
   ngOnDestroy() {
     this._propertySubscribtion.unsubscribe();
   }
 
-  private getAccountsByClientId(clientId: number) {
-    this.service.getAccountsByClientId(clientId)
-      .subscribe(accounts => this.accounts = accounts);
+  private getAccountsByClientId(id: number) {
+    this.service.getAccountsByClientId(id)
+      .subscribe(
+        accounts => this.accounts = accounts
+      );
+  }
+
+  private initColumns(): void {
+    this.columns = [
+      { field: '', header: 'ID' },
+      { field: '', header: 'Представление' },
+      { field: '', header: 'Действует с' }      
+    ];
   }
 
 }
