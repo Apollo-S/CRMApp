@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Client } from '../../../models/Client';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { ClientService } from '../../../services/client.service';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Client } from '../../../models/Client';
 import { MenuItem } from 'primeng/api';
 
 @Component({
@@ -16,7 +16,6 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
   clientId: number;
 
   constructor(private service: ClientService,
-              private router: Router,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -24,16 +23,9 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
       .subscribe(
         (params: Params) => {
           this.clientId = +params['id'];
+          this.getClientById(this.clientId);
         }
-      )
-    this.service.property = this.clientId;
-    this._propertySubscribtion = this.service.property$
-      .subscribe(
-        p => {
-        this.clientId = p;
-        }
-      )
-    this.getClientById(this.clientId);
+      );
   }
   
   ngOnDestroy() {
@@ -42,7 +34,18 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
 
   private getClientById(id: number) {
     this.service.getClientById(id)
-      .subscribe(client => this.client = client);
+      .subscribe(
+        client => {
+          this.client = client;
+          this.service.property = this.client;
+          this._propertySubscribtion = this.service.property$
+            .subscribe(
+              p => {
+                this.client = p;
+              }
+            );
+        }
+      );
   }
 
 }

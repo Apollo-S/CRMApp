@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ClientDirector } from '../../../../models/ClientDirector';
 import { Subscription } from 'rxjs';
 import { ClientService } from '../../../../services/client.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ClientDirector } from '../../../../models/ClientDirector';
+import { Client } from '../../../../models/Client';
 import { Post } from '../../../../models/Post';
 
 @Component({
@@ -13,37 +13,41 @@ import { Post } from '../../../../models/Post';
 export class ClientDetailsDirectorsTabComponent implements OnInit, OnDestroy {
   private _propertySubscribtion: Subscription;
   columns: any[];
-  directors: ClientDirector[];
-  posts: Post[];
-  clientId: number;
+  directors: ClientDirector[] = [];
+  posts: Post[] = [];
+  client: Client = {};
 
-  constructor(private service: ClientService,
-              // private postService: PostService,
-              private router: Router,
-              private route: ActivatedRoute) { }
+  constructor(private service: ClientService) { }
 
   ngOnInit() { 
     this._propertySubscribtion = this.service.property$
-      .subscribe(p => {
-        this.clientId = p;
-      }
-    );
-    this.getDirectorsByClientId(this.clientId);
-    this.columns = [
-      { field: '', header: 'ID' },
-      { field: '', header: 'ФИО' },
-      { field: '', header: 'Должность' },
-      { field: '', header: 'Актуален с' }      
-    ];
+      .subscribe(
+        p => {
+          this.client = p;
+          this.getDirectorsByClientId(p.id);
+        }
+      );
+    this.initColumns();
   }
 
   ngOnDestroy() {
     this._propertySubscribtion.unsubscribe();
   }
 
-  getDirectorsByClientId(clientId: number) {
-    this.service.getDirectorsByClientId(clientId)
-      .subscribe(directors => this.directors = directors);
+  private getDirectorsByClientId(id: number) {
+    this.service.getDirectorsByClientId(id)
+      .subscribe(
+        directors => this.directors = directors
+      );
+  }
+
+  private initColumns() {
+    this.columns = [
+      { field: '', header: 'ID' },
+      { field: '', header: 'ФИО' },
+      { field: '', header: 'Должность' },
+      { field: '', header: 'Актуален с' }      
+    ];
   }
 
 }

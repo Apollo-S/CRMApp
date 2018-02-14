@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, OnDestroy, Output } from '@angular/core';
-import { ClientAddress } from '../../../../models/ClientAddress';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Router, ActivatedRoute } from '@angular/router';
 import { ClientService } from '../../../../services/client.service';
+import { ClientAddress } from '../../../../models/ClientAddress';
+import { Client } from '../../../../models/Client';
 
 @Component({
   selector: 'app-client-details-addresses-tab',
@@ -12,34 +12,39 @@ import { ClientService } from '../../../../services/client.service';
 export class ClientDetailsAddressesTabComponent implements OnInit, OnDestroy {
   private _propertySubscribtion: Subscription;
   columns: any[];
-  addresses: ClientAddress[];
-  clientId: number;
+  addresses: ClientAddress[] = [];
+  client: Client = {};
   
-  constructor(private service: ClientService,
-              private router: Router,
-              private route: ActivatedRoute) { }
+  constructor(private service: ClientService) { }
 
   ngOnInit() { 
     this._propertySubscribtion = this.service.property$
-      .subscribe(p => {
-        this.clientId = p;
+      .subscribe(
+        p => {
+          this.client = p;
+          this.getAddressesByClientId(p.id);
         }
-      );
-    this.getAddressesByClientId(this.clientId);
-    this.columns = [
-        { field: '', header: 'ID' },
-        { field: '', header: 'Адрес' },
-        { field: '', header: 'Действует с' }      
-    ];
+      );    
+    this.initColumns();
   }
 
   ngOnDestroy() {
     this._propertySubscribtion.unsubscribe();
   }
 
-  getAddressesByClientId(clientId: number) {
-    this.service.getAddressesByClientId(clientId)
-      .subscribe(addresses => this.addresses = addresses);
+  private getAddressesByClientId(id: number) {
+    this.service.getAddressesByClientId(id)
+      .subscribe(
+        addresses => this.addresses = addresses
+      );
+  }
+
+  private initColumns(): void {
+    this.columns = [
+      { field: '', header: 'ID' },
+      { field: '', header: 'Адрес' },
+      { field: '', header: 'Действует с' }      
+    ];
   }
 
 }
