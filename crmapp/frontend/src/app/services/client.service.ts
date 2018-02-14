@@ -15,13 +15,13 @@ export class ClientService {
   private clientsUrl = '/api/clients';
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  private _property$: BehaviorSubject<number> = new BehaviorSubject(1);
+  private _property$: BehaviorSubject<Client> = new BehaviorSubject({});
   
-  set property(value: number) {
+  set property(value: Client) {
     this._property$.next(value);
   }
 
-  get property$(): Observable<number> {
+  get property$(): Observable<Client> {
       return this._property$.asObservable();
   }
 
@@ -51,7 +51,7 @@ export class ClientService {
     return this.http
       .post<Client>(url, client, { headers: this.headers })
       .pipe(
-        tap(_ => console.log(`added client alias=${client.alias}`)),
+        tap(_ => console.log(`added client (alias=${client.alias})`)),
         catchError(this.handleError<Client>('addClient'))
       )  
   }
@@ -61,17 +61,17 @@ export class ClientService {
     return this.http
       .put<Client>(url, client, { headers: this.headers })
       .pipe(
-        tap(_ => console.log(`updated client ID=${client.id}`)),
+        tap(_ => console.log(`updated client (ID=${client.id}, alias=${client.alias})`)),
         catchError(this.handleError<Client>('updateClient'))
       );
   }
 
-  deleteClient(id: number): Observable<void> {
-    const url = `${this.clientsUrl}/${id}`;
+  deleteClient(client: Client): Observable<void> {
+    const url = `${this.clientsUrl}/${client.id}`;
     return this.http
       .delete(url, { headers: this.headers })
       .pipe(
-        tap(_ => console.log(`deleted client ID=${id}`)),
+        tap(_ => console.log(`deleted client ${client.alias} (ID=${client.id})`)),
         catchError(this.handleError<any>('deleteClient'))
       )
   }
@@ -86,42 +86,42 @@ export class ClientService {
       )
   }
 
-  getAddressById(id: number, clientId: number): Observable<ClientAddress> {
-    const url = `${this.clientsUrl}/${clientId}/addresses/${id}`;
+  getAddressById(id: number, client: Client): Observable<ClientAddress> {
+    const url = `${this.clientsUrl}/${client.id}/addresses/${id}`;
     return this.http
       .get<ClientAddress>(url, { headers: this.headers })
       .pipe(
-        tap(_ => console.log(`obtained address ID=${id}`)),
+        tap(_ => console.log(`obtained address ID=${id} for client ${client.alias}`)),
         catchError(this.handleError<ClientAddress>('getAddressById'))
       )
   }
 
-  addAddress(address: ClientAddress, clientId: number): Observable<ClientAddress> {
-    const url = `${this.clientsUrl}/${clientId}/addresses`;
+  addAddress(address: ClientAddress, client: Client): Observable<ClientAddress> {
+    const url = `${this.clientsUrl}/${client.id}/addresses`;
     return this.http
       .post<ClientAddress>(url, address, { headers: this.headers })
       .pipe(
-        tap(_ => console.log(`added address for clientId=${clientId} for client ID=${clientId}`)),
+        tap(_ => console.log(`added address for client ${client.alias}`)),
         catchError(this.handleError<ClientAddress>('addAddress'))
       )  
   }
 
-  updateAddress(address: ClientAddress, clientId: number): Observable<ClientAddress>  {
-    const url = `${this.clientsUrl}/${clientId}/addresses/${address.id}`;
+  updateAddress(address: ClientAddress, client: Client): Observable<ClientAddress>  {
+    const url = `${this.clientsUrl}/${client.id}/addresses/${address.id}`;
     return this.http
       .put<ClientAddress>(url, address, { headers: this.headers })
       .pipe(
-        tap(_ => console.log(`updated address ID=${address.id} for client ID=${clientId}`)),
+        tap(_ => console.log(`updated address ID=${address.id} for client=${client.alias}`)),
         catchError(this.handleError<ClientAddress>('updateAddress'))
       )
   }
   
-  deleteAddress(id: number, clientId: number) {
-    const url = `${this.clientsUrl}/${clientId}/addresses/${id}`;
+  deleteAddress(id: number, client: Client) {
+    const url = `${this.clientsUrl}/${client.id}/addresses/${id}`;
     return this.http
       .delete(url, { headers: this.headers })
       .pipe(
-        tap(_ => console.log(`deleted address ID=${id} for client ID=${clientId}`)),
+        tap(_ => console.log(`deleted address ID=${id} for client=${client.alias}`)),
         catchError(this.handleError<any>('deleteAddress'))
       )
   }
@@ -136,42 +136,42 @@ export class ClientService {
       )
   }
 
-  getAccountById(id: number, clientId: number): Observable<ClientAccount> {
-    const url = `${this.clientsUrl}/${clientId}/accounts/${id}`;
+  getAccountById(id: number, client: Client): Observable<ClientAccount> {
+    const url = `${this.clientsUrl}/${client.id}/accounts/${id}`;
     return this.http
       .get<ClientAccount>(url, { headers: this.headers })
       .pipe(
-        tap(_ => console.log(`obtained account ID=${id} for client ID=${clientId}`)),
+        tap(_ => console.log(`obtained account ID=${id} for client ${client.alias}`)),
         catchError(this.handleError<ClientAccount>('getAccountById'))
       )
   }
 
-  addAccount(account: ClientAccount, clientId: number): Observable<ClientAccount> {
-    const url = `${this.clientsUrl}/${clientId}/accounts`;
+  addAccount(account: ClientAccount, client: Client): Observable<ClientAccount> {
+    const url = `${this.clientsUrl}/${client.id}/accounts`;
     return this.http
       .post<ClientAccount>(url, account)
       .pipe(
-        tap(_ => console.log(`added account for clientId=${clientId}`)),
+        tap(_ => console.log(`added account for client ${client.alias}`)),
         catchError(this.handleError<ClientAccount>('addAccount'))
       )  
   }
 
-  updateAccount(account: ClientAccount, clientId: number): Observable<ClientAccount>  {
-    const url = `${this.clientsUrl}/${clientId}/accounts/${account.id}`;
+  updateAccount(account: ClientAccount, client: Client): Observable<ClientAccount>  {
+    const url = `${this.clientsUrl}/${client.id}/accounts/${account.id}`;
     return this.http
       .put<ClientAccount>(url, account, { headers: this.headers })
       .pipe(
-        tap(_ => console.log(`updated account ID=${account.id} for client ID=${clientId}`)),
+        tap(_ => console.log(`updated account ID=${account.id} for client ${client.alias}`)),
         catchError(this.handleError<ClientAccount>('updateAccount'))
       )
   }
 
-  deleteAccount(id: number, clientId: number) {
-    const url = `${this.clientsUrl}/${clientId}/accounts/${id}`;
+  deleteAccount(id: number, client: Client) {
+    const url = `${this.clientsUrl}/${client.id}/accounts/${id}`;
     return this.http
       .delete(url, { headers: this.headers })
       .pipe(
-        tap(_ => console.log(`deleted account ID=${id} for client ID=${clientId}`)),
+        tap(_ => console.log(`deleted account ID=${id} for client ${client.alias}`)),
         catchError(this.handleError<any>('deleteAccount'))
       )
   }
@@ -186,42 +186,42 @@ export class ClientService {
       )
   }
 
-  getDirectorById(id: number, clientId: number): Observable<ClientDirector> {
-    const url = `${this.clientsUrl}/${clientId}/directors/${id}`;
+  getDirectorById(id: number, client: Client): Observable<ClientDirector> {
+    const url = `${this.clientsUrl}/${client.id}/directors/${id}`;
     return this.http
       .get<ClientDirector>(url, { headers: this.headers })
       .pipe(
-        tap(_ => console.log(`obtained director ID=${id} for client ID=${clientId}`)),
+        tap(_ => console.log(`obtained director ID=${id} for client ${client.alias}`)),
         catchError(this.handleError<ClientDirector>('getDirectorById'))
       )
   }
 
-  addDirector(director: ClientDirector, clientId: number): Observable<ClientDirector> {
-    const url = `${this.clientsUrl}/${clientId}/directors`;
+  addDirector(director: ClientDirector, client: Client): Observable<ClientDirector> {
+    const url = `${this.clientsUrl}/${client.id}/directors`;
     return this.http
       .post<ClientDirector>(url, director, { headers: this.headers })
       .pipe(
-        tap(_ => console.log(`added director for clientId=${clientId}`)),
+        tap(_ => console.log(`added director for client ${client.alias}`)),
         catchError(this.handleError<ClientDirector>('addDirector'))
       )  
   }
 
-  updateDirector(director: ClientDirector, clientId: number): Observable<ClientDirector>  {
-    const url = `${this.clientsUrl}/${clientId}/directors/${director.id}`;
+  updateDirector(director: ClientDirector, client: Client): Observable<ClientDirector>  {
+    const url = `${this.clientsUrl}/${client.id}/directors/${director.id}`;
     return this.http
       .put<ClientDirector>(url, director, { headers: this.headers })
       .pipe(
-        tap(_ => console.log(`updated director ID=${director.id} for client ID=${clientId}`)),
+        tap(_ => console.log(`updated director ID=${director.id} for client ${client.alias}`)),
         catchError(this.handleError<ClientDirector>('updateDirector'))
       )
   }
 
-  deleteDirector(id: number, clientId: number) {
-    const url = `${this.clientsUrl}/${clientId}/directors/${id}`;
+  deleteDirector(id: number, client: Client) {
+    const url = `${this.clientsUrl}/${client.id}/directors/${id}`;
     return this.http
       .delete(url, { headers: this.headers })
       .pipe(
-        tap(_ => console.log(`deleted director ID=${id} for client ID=${clientId}`)),
+        tap(_ => console.log(`deleted director ID=${id} for client ${client.alias}`)),
         catchError(this.handleError<any>('deleteDirector'))
       )
   }
