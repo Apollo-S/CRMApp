@@ -40,6 +40,7 @@ import { PostService } from './services/post.service';
 import { DocumentService } from './services/document.service';
 import { DocumentTypeService } from './services/document-type.service';
 import { DocumentStatusService } from './services/document-status.service';
+import { UtilService } from './services/util.service';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { ConfirmationService } from 'primeng/api';
 
@@ -251,6 +252,7 @@ const appRoutes: Routes = [
     DocumentService,
     DocumentTypeService,
     DocumentStatusService,
+    UtilService,
     MessageService, 
     ConfirmationService
   ],
