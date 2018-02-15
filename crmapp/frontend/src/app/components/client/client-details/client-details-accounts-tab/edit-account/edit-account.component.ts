@@ -1,8 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ClientService } from '../../../../../services/client.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { ClientAccount } from '../../../../../models/ClientAccount';
 import { Subscription } from 'rxjs';
+import { ClientService } from '../../../../../services/client.service';
+import { UtilService } from '../../../../../services/util.service';
+import { Client } from '../../../../../models/Client';
+import { ClientAccount } from '../../../../../models/ClientAccount';
+import { ConfirmationService, Message } from 'primeng/api';
 
 @Component({
   selector: 'app-edit-account',
@@ -11,60 +14,90 @@ import { Subscription } from 'rxjs';
 })
 export class EditAccountComponent implements OnInit, OnDestroy {
   private _propertySubscribtion: Subscription;
+  msgs: Message[] = [];
   account: ClientAccount = {};
-  accountId: number;
-  clientId: number; 
+  client: Client = {}; 
+  years: string;
 
   constructor(private service: ClientService, 
+              private utilService: UtilService,
               private router: Router,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
+    let accountId: number;
+    this._propertySubscribtion = this.service.property$
+      .subscribe(
+        p => this.client = p
+      );
     this.route.params
       .subscribe(
         (params: Params) => {
-          this.accountId = +params['id'];
+          accountId = +params['id'];
+          this.getClientAccountById(accountId, this.client);
         }
-      )
-    this._propertySubscribtion = this.service.property$
-      .subscribe(p => {
-        this.clientId = p;
-      }
-    );
-    this.getClientAccountById(this.accountId, this.clientId);
+      );
+    this.years = this.utilService.getYears();
   }
-
-  delete() {
-    if (confirm("Удалить текущий счет?")) {
-      this.service.deleteAccount(this.accountId, this.clientId)
-        .subscribe(response => {
-          this.goBackToAccounts();
-      });
-    }; 
-  }  
-
+  
   ngOnDestroy(): void {
     this._propertySubscribtion.unsubscribe();
   }
-
+  
   onSubmit() {
     this.update();
+    this.goBackToAccounts();
   }
+
+  confirmDeleting() {
+    let msg  = 'Банковский счет клиента ' + this.client.alias + ' был успешно удален (ID=' + this.account.id + ')';
+    this.confirmationService.confirm({
+      message: 'Действительно удалить банк. счет?',
+      header: 'Удаление банк. счета',
+      icon: 'fa fa-trash',
+      accept: () => {
+        this.delete(msg);
+        this.goBackToAccounts();
+      },
+      reject: () => {}
+    });
+  }
+
+  private delete(msg: string) {
+    this.service.deleteAccount(this.account.id, this.client)
+      .subscribe(
+        response => {
+          this.msgs = [{severity:'success', summary:'Успешно', detail: msg}];
+        }
+      );
+  }  
 
   private update(): void {
-    this.service.updateAccount(this.account, this.clientId)
-      .subscribe(response => {
-        this.goBackToAccounts();
-      })
+    let msg  = 'Банковский счет клиента ' + this.client.alias + ' успешно обновлен (ID=' + this.account.id + ')';
+    this.service.updateAccount(this.account, this.client)
+      .subscribe(
+        response => {
+          this.msgs = [{severity:'success', summary:'Успешно', detail: msg}];
+        }
+      );
   }
 
-  private getClientAccountById(accountId: number, clientId: number) {
-    this.service.getAccountById(accountId, clientId)
-      .subscribe(account => this.account = account);
+  private getClientAccountById(accountId: number, client: Client) {
+    this.service.getAccountById(accountId, client)
+      .subscribe(
+        account => {
+          this.account = account;
+          this.account.dateStart = new Date(this.account.dateStart);
+        }
+      );
   }
 
   private goBackToAccounts() {
-    this.router.navigate(['/clients', this.clientId, 'accounts']);
+    setTimeout(
+      (router) => {
+        this.router.navigate([this.client.url, 'accounts']);
+      }, 1500);
   } 
 
 }

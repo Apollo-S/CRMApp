@@ -1,74 +1,54 @@
-<p>
-    
-<form (ngSubmit)="onSubmit()">
+<p-growl [value]="msgs"></p-growl>
 
-  <div class="row">
+<p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425" #cd>
+    <p-footer>
+        <button type="button" pButton icon="fa-check" 
+          class="ui-button-primary" label="Ок" (click)="cd.accept()"></button>
+        <button type="button" pButton icon="fa-close" 
+          class="ui-button-secondary" label="Отмена" (click)="cd.reject()"></button>
+    </p-footer>
+</p-confirmDialog>
 
-    <div class="col-md-10">
-
-      <div class="card">
-        <div class="card-body"> 
-
-          <div class="form-group row">
-            <label 
-              for="presentation"
-              class="col-md-3 col-form-label">
-              <strong>Банк. счет</strong>
-            </label> 
-            <div class="col-md">
-              <input 
-                type="text" 
-                class="form-control"
-                [(ngModel)]="account.presentation" 
-                name="presentation" 
-                #accountPresentation="ngModel" 
-                minlength="2" 
-                required>
+<div class="ui-g-12">
+  <form form (ngSubmit)="onSubmit()">
+    <div class="ui-g-10">
+      <p-card>
+        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-3">
+              <b>Банк. счет:</b>
+            </div>
+            <div class="ui-grid-col-6">
+              <input pInputText type="text" name="presentation" placeholder="Введите банковский счет"
+                [(ngModel)]="account&&account.presentation">
             </div>
           </div>
-
-          <div class="form-group row">
-            <label 
-              for="dateStart"
-              class="col-md-3 col-form-label">
-              <strong>Действует с</strong>
-            </label>
-            <div class="col-md-3">
-              <input 
-                type="text" 
-                class="form-control"
-                [(ngModel)]="account.dateStart" 
-                name="dateStart"
-                #accountDateStart="ngModel" 
-                minlength="2" 
-                required>
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-3">
+              <b>Действует с:</b>
+            </div>
+            <div class="ui-grid-col-3">
+              <p-calendar [(ngModel)]="account&&account.dateStart" name="dateStart" 
+                [monthNavigator]="true" [yearNavigator]="true" yearRange="{{years}}"
+                showButtonBar="true" [showIcon]="true" dateFormat="dd.mm.yy">
+              </p-calendar>
             </div>
           </div>
-
         </div>
-      </div>
-
+      </p-card>
     </div>
-
-    <div class="col-md-2">
-      <a class="btn btn-info btn-block"
+    <div class="ui-g-2">
+      <button pButton type="button" label="Назад к клиенту" 
+        class="ui-button-info btn-block" icon="fa-arrow-circle-o-left"
         [routerLink]="['../']">
-        <i class="fa fa-arrow-circle-o-left">
-          </i> Вернуться
-      </a>
-      <button 
-        type="submit" 
-        class="btn btn-success btn-block">
-        <i class="fa fa-check-square-o"></i> Записать
       </button>
-      <button type="button" class="btn btn-danger btn-block" (click)="delete()">
-        <i class="fa fa-trash-o"></i> Удалить
+      <button pButton type="submit" label="Сохранить"
+        class="ui-button-success btn-block" icon="fa-check-square-o">
+      </button>
+      <button pButton type="button" label="Удалить" 
+        class="ui-button-danger btn-block" icon="fa-trash-o"
+        (click)="confirmDeleting()">
       </button>
     </div>
-
-  </div>
-
-</form>
-    
-    
-
+  </form>
+</div>
