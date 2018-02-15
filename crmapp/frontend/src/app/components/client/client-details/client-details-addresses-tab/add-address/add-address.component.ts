@@ -28,7 +28,7 @@ export class AddAddressComponent implements OnInit, OnDestroy {
       .subscribe(
         p => this.client = p
       );
-      this.years = this.utilService.getYears();
+    this.years = this.utilService.getYears();
   }
 
   onSubmit() {
