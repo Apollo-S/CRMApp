@@ -51,12 +51,12 @@ export class EditAddressComponent implements OnInit, OnDestroy {
   }
 
   confirmDeleting() {
-    let msg  = 'Адрес успешно удален (ID=' + this.address.id + ')';
     this.confirmationService.confirm({
       message: 'Действительно удалить адрес?',
       header: 'Удаление адреса',
       icon: 'fa fa-trash',
       accept: () => {
+        let msg  = 'Адрес успешно удален (ID=' + this.address.id + ')';
         this.delete(msg);
         this.goBackToAddresses();
       },
@@ -74,11 +74,10 @@ export class EditAddressComponent implements OnInit, OnDestroy {
   }  
 
   private update(): void {
-    let msg  = '';
     this.service.updateAddress(this.address, this.client)
       .subscribe(
         response => {
-          msg = 'Адрес для ' + this.client.alias +  ' успешно обновлен (ID=' + response.id + ')';
+          let msg = 'Адрес для ' + this.client.alias +  ' успешно обновлен (ID=' + response.id + ')';
           this.msgs = [{severity:'success', summary:'Успешно', detail: msg}];
         }
       );
