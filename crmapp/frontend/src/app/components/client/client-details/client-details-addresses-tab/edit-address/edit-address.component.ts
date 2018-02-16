@@ -3,7 +3,9 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ClientAddress } from '../../../../../models/ClientAddress';
 import { ClientService } from '../../../../../services/client.service';
+import { UtilService } from '../../../../../services/util.service';
 import { ConfirmationService, Message } from 'primeng/api';
+import { Client } from '../../../../../models/Client';
 
 @Component({
   selector: 'app-edit-address',
@@ -14,79 +16,89 @@ export class EditAddressComponent implements OnInit, OnDestroy {
   private _propertySubscribtion: Subscription;
   msgs: Message[] = [];
   address: ClientAddress = {};
-  addressId: number;
-  clientId: number;  
+  client: Client = {};  
+  years: string;
 
   constructor(private service: ClientService, 
+              private utilService: UtilService,
               private router: Router,
               private route: ActivatedRoute,
               private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
-    this.route.params
-    .subscribe(
-      (params: Params) => {
-        this.addressId = +params['id'];
-        }
-      )
+    let addressId: number;
     this._propertySubscribtion = this.service.property$
-      .subscribe(p => {
-        this.clientId = p;
+      .subscribe(
+        p => this.client = p
+      );
+    this.route.params
+      .subscribe(
+        (params: Params) => {
+          addressId = +params['id'];
+          this.getClientAddressById(addressId, this.client);
         }
       );
-    this.getClientAddressById(this.addressId, this.clientId);
+    this.years = this.utilService.getYears();
   }
-
+  
+  ngOnDestroy(): void {
+    this._propertySubscribtion.unsubscribe();
+  }
+  
   onSubmit() {
     this.update();
     this.goBackToAddresses();
   }
 
-  ngOnDestroy(): void {
-    this._propertySubscribtion.unsubscribe();
-  }
-
   confirmDeleting() {
-    let msg  = 'Адрес успешно удален (ID=' + this.addressId + ')';
+    let msg  = 'Адрес успешно удален (ID=' + this.address.id + ')';
     this.confirmationService.confirm({
-        message: 'Действительно удалить адрес?',
-        header: 'Удаление адреса',
-        icon: 'fa fa-trash',
-        accept: () => {
-          this.delete(msg);
-          this.goBackToAddresses();
-        },
-        reject: () => {}
+      message: 'Действительно удалить адрес?',
+      header: 'Удаление адреса',
+      icon: 'fa fa-trash',
+      accept: () => {
+        this.delete(msg);
+        this.goBackToAddresses();
+      },
+      reject: () => {}
     });
   }
 
   private delete(msg: string) {
-    this.service.deleteAddress(this.addressId, this.clientId)
-      .subscribe(response => {
-        this.msgs = [{severity:'success', summary:'Успешно', detail: msg}];
-      })
+    this.service.deleteAddress(this.address.id, this.client)
+      .subscribe(
+        response => {
+          this.msgs = [{severity:'success', summary:'Успешно', detail: msg}];
+        }
+      );
   }  
 
   private update(): void {
-    let msg  = 'Адрес успешно обновлен (ID=' + this.addressId + ')';
-    this.service.updateAddress(this.address, this.clientId)
-      .subscribe(response => {
-        this.msgs = [{severity:'success', summary:'Успешно', detail: msg}];
-      })
+    let msg  = '';
+    this.service.updateAddress(this.address, this.client)
+      .subscribe(
+        response => {
+          msg = 'Адрес для ' + this.client.alias +  ' успешно обновлен (ID=' + response.id + ')';
+          this.msgs = [{severity:'success', summary:'Успешно', detail: msg}];
+        }
+      );
   }
 
-  private getClientAddressById(addressId: number, clientId: number) {
-    this.service.getAddressById(addressId, clientId)
-      .subscribe(address => {
-        this.address = address;
-        this.address.dateStart = new Date(this.address.dateStart);
-      })
+  private getClientAddressById(addressId: number, client: Client) {
+    this.service.getAddressById(addressId, client)
+      .subscribe(
+        address => {
+          this.address = address;
+          this.address.dateStart = new Date(this.address.dateStart);
+        }
+      );
   }
   
   private goBackToAddresses() {
-    setTimeout((router) => {
-      this.router.navigate(['/clients', this.clientId, 'addresses']);
-    }, 1500);
+    setTimeout(
+      (router) => {
+        this.router.navigate([this.client.url, 'addresses']);
+      }, 1500);
   } 
 
 }
