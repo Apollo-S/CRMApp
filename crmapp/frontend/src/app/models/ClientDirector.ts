@@ -6,5 +6,5 @@ export class ClientDirector {
     public clientId?: number;
     public fullName?: string;
     public shortName?: string;
-    public dateStart?: string;
+    public dateStart?: Date;
 }
