@@ -58,7 +58,7 @@ public class ClientController extends BaseController {
 	}
 
 	@PutMapping(value = "/{id}", headers = HEADER_JSON)
-	public ResponseEntity<Void> updateClient(@PathVariable(PARAM_ID) int id, @RequestBody Client client) {
+	public ResponseEntity<Client> updateClient(@PathVariable(PARAM_ID) int id, @RequestBody Client client) {
 		logger.info("<==/////////// Entering to the updateClient() method ... ///////////==>");
 		client.setId(id);
 		logger.info("<==/////////// Id is setted to " + client.getId() + "///////////==>");
@@ -66,7 +66,7 @@ public class ClientController extends BaseController {
 		logger.info("<==/////////// Printing client: " + client + "///////////==>");
 		client = clientRepository.save(client);
 		HttpHeaders header = new HttpHeaders();
-		return new ResponseEntity<Void>(header, HttpStatus.OK);
+		return new ResponseEntity<Client>(client, header, HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = "/{id}", headers = HEADER_JSON)
