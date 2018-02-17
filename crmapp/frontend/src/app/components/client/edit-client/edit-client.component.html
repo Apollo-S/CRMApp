@@ -1,3 +1,5 @@
+<p-growl [value]="msgs"></p-growl>
+
 <div class="ui-g-12">
   <form form (ngSubmit)="onSubmit()">
     <div class="ui-g-10">
@@ -9,7 +11,7 @@
             </div>
             <div class="ui-grid-col-6">
               <input pInputText type="text" name="title" placeholder="Введите полное название"
-                [(ngModel)]="client && client.title" >
+                [(ngModel)]="client&&client.title" >
             </div>
             <div class="ui-grid-col-3">
               
@@ -17,10 +19,10 @@
           </div>
           <div class="ui-grid-row">
             <div class="ui-grid-col-3">
-              <b>Псевдоним:</b>
+              <b>Псевдоним: *</b>
             </div>
             <div class="ui-grid-col-6">
-              <input pInputText type="text" name="alias" placeholder="Required"
+              <input pInputText type="text" name="alias" placeholder="Введите псевдоним"
                 [(ngModel)]="client&&client.alias" >
             </div>
           </div>
@@ -29,7 +31,7 @@
               <b>ЕДРПОУ: *</b>
             </div>
             <div class="ui-grid-col-6">
-              <input pInputText type="text" name="edrpou" placeholder="Введите ЕДРПОУ (не менее 8 цифр)"
+              <input pInputText type="text" name="edrpou" placeholder="Введите ЕДРПОУ (не менее 6 цифр)"
                 [(ngModel)]="client&&client.edrpou" >
             </div>
           </div>
@@ -57,7 +59,7 @@
     <div class="ui-g-2">
       <button pButton type="button" label="Назад к клиенту" 
         class="ui-button-info btn-block" icon="fa-arrow-circle-o-left"
-        [routerLink]="['../']">
+        (click)="goBackToClient(0)">
       </button>
       <button pButton type="submit" label="Записать"
         class="ui-button-success btn-block" icon="fa-check-square-o">
