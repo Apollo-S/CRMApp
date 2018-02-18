@@ -17,6 +17,7 @@ import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { GrowlModule } from 'primeng/growl';
 import { InputTextModule } from 'primeng/inputtext';
+import { KeyFilterModule } from 'primeng/keyfilter';
 import { MenubarModule } from 'primeng/menubar';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { PanelModule } from 'primeng/panel';
@@ -229,6 +230,7 @@ const appRoutes: Routes = [
     DropdownModule,
     GrowlModule,
     InputTextModule, 
+    KeyFilterModule,
     MenubarModule,
     PaginatorModule,
     PanelMenuModule,
