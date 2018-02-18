@@ -1,7 +1,7 @@
 <p-growl [value]="msgs"></p-growl>
 
 <div class="ui-g-12">
-  <form form (ngSubmit)="onSubmit()">
+  <form [formGroup]="userform" (ngSubmit)="onSubmit()">
     <div class="ui-g-10">
       <p-card>
         <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
@@ -10,11 +10,15 @@
               <b>Полное название: *</b>
             </div>
             <div class="ui-grid-col-6">
-              <input pInputText type="text" name="title" placeholder="Введите полное название"
-                [(ngModel)]="client&&client.title" >
+              <input pInputText type="text" formControlName="title" placeholder="Обязательное поле"
+                [(ngModel)]="client&&client.title">
             </div>
             <div class="ui-grid-col-3">
-              
+              <div class="ui-message ui-messages-error ui-corner-all" 
+                *ngIf="!userform.controls['title'].valid&&userform.controls['title'].dirty">
+                  <i class="fa fa-close"></i>
+                  Введите полное название (не менее 2 символов)!
+              </div>            
             </div>
           </div>
           <div class="ui-grid-row">
@@ -22,8 +26,15 @@
               <b>Псевдоним: *</b>
             </div>
             <div class="ui-grid-col-6">
-              <input pInputText type="text" name="alias" placeholder="Введите псевдоним"
-                [(ngModel)]="client&&client.alias" >
+              <input pInputText type="text" formControlName="alias" placeholder="Обязательное поле"
+                [(ngModel)]="client&&client.alias">
+            </div>
+            <div class="ui-grid-col-3">
+              <div class="ui-message ui-messages-error ui-corner-all" 
+                *ngIf="!userform.controls['alias'].valid&&userform.controls['alias'].dirty">
+                  <i class="fa fa-close"></i>
+                  Введите псевдоним (не менее 2 символов)!
+              </div>            
             </div>
           </div>
           <div class="ui-grid-row">
@@ -31,8 +42,16 @@
               <b>ЕДРПОУ: *</b>
             </div>
             <div class="ui-grid-col-6">
-              <input pInputText type="text" name="edrpou" placeholder="Введите ЕДРПОУ (не менее 6 цифр)"
-                [(ngModel)]="client&&client.edrpou" >
+              <input pInputText type="text" formControlName="edrpou" 
+                placeholder="Обязательное поле" pKeyFilter="num"
+                [(ngModel)]="client&&client.edrpou">
+            </div>
+            <div class="ui-grid-col-3">
+              <div class="ui-message ui-messages-error ui-corner-all" 
+                *ngIf="!userform.controls['edrpou'].valid&&userform.controls['edrpou'].dirty">
+                  <i class="fa fa-close"></i>
+                  Введите ЕДРПОУ (не менее 6 и не более 14 цифр)!
+              </div>            
             </div>
           </div>
           <div class="ui-grid-row">
@@ -40,8 +59,9 @@
               <b>ИНН:</b>
             </div>
             <div class="ui-grid-col-6">
-              <input pInputText type="text" name="inn" placeholder="Введите ИНН (необязательное поле)"
-                [(ngModel)]="client&&client.inn" >
+              <input pInputText type="text" formControlName="inn" 
+                pKeyFilter="num" placeholder="Введите ИНН (необязательное поле)"
+                [(ngModel)]="client&&client.inn">
             </div>
           </div>
           <div class="ui-grid-row">
@@ -49,7 +69,8 @@
               <b>№ свидетельства плат. НДС:</b>
             </div>
             <div class="ui-grid-col-6">
-              <input pInputText type="text" name="vatCertificate" placeholder="Введите № свид. НДС (необязательное поле)"
+              <input pInputText type="text" formControlName="vatCertificate" 
+                pKeyFilter="num" placeholder="Введите № свид. НДС (необязательное поле)"
                 [(ngModel)]="client&&client.vatCertificate" >
             </div>
           </div>
@@ -61,7 +82,7 @@
         class="ui-button-info btn-block" icon="fa-arrow-circle-o-left"
         (click)="goBackToClient(0)">
       </button>
-      <button pButton type="submit" label="Записать"
+      <button pButton type="submit" label="Записать" [disabled]="!userform.valid"
         class="ui-button-success btn-block" icon="fa-check-square-o">
       </button>
     </div>

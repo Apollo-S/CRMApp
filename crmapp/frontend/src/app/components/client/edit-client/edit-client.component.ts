@@ -29,11 +29,19 @@ export class EditClientComponent implements OnInit, OnDestroy {
       .subscribe(
         p => this.client = p
       );
-    // this.userform = this.fb.group(
-    //   {
-    //     'title': new FormControl('', Validators.required),
-    //     'alias': new FormControl('', Validators.required),
-    //   });
+    this.userform = this.fb.group(
+      {
+        'title': new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
+        'alias': new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
+        'edrpou': new FormControl('', Validators.compose(
+          [
+            Validators.required, 
+            Validators.minLength(6),
+            Validators.maxLength(14)
+          ])),
+        'inn': new FormControl(''),
+        'vatCertificate': new FormControl('')
+      });
   }
   
   ngOnDestroy() {
