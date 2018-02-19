@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 @Table(name = "client_agreement")
 @JsonIgnoreProperties(ignoreUnknown = true, 
-	value = { "hibernateLazyInitializer", "handler" })
+	value = { "hibernateLazyInitializer", "handler", "documents" })
 public class ClientAgreement extends UrlBaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -105,6 +105,11 @@ public class ClientAgreement extends UrlBaseEntity implements Serializable {
 
 	public void setDocuments(Set<Document> documents) {
 		this.documents = documents;
+	}
+
+	@Override
+	public String getUrl() {
+		return "agreements/" + this.getId();
 	}
 
 	@Override
