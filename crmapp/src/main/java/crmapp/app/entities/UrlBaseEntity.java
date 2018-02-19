@@ -5,10 +5,14 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public class UrlBaseEntity extends BaseEntity {
 	
-	private static final String ID_SEPARATOR = "/";
+	private static final String ID_SEPARATOR = "s/";
 
 	public String getUrl() {
-		return getClass().getSimpleName().toLowerCase() + "s" + ID_SEPARATOR + getId();
+		StringBuilder urlBuilder = new StringBuilder();
+		urlBuilder.append(getClass().getSimpleName().toLowerCase());
+		urlBuilder.append(ID_SEPARATOR);
+		urlBuilder.append(getId());
+		return urlBuilder.toString();
 	}
 
 	@Override
