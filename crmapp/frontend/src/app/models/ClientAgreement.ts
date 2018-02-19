@@ -7,4 +7,5 @@ export class ClientAgreement {
     public dateStart?: string;
     public documents?: Document[];
     public comment?: string;
+    public url?: string;
 }
