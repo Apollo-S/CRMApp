@@ -15,8 +15,6 @@ export class EditClientComponent implements OnInit, OnDestroy {
   private _propertySubscribtion: Subscription;
   msgs: Message[] = [];
   userform: FormGroup;
-  submitted: boolean;
-
   client: Client = {};
 
   constructor(private fb: FormBuilder,
@@ -31,8 +29,16 @@ export class EditClientComponent implements OnInit, OnDestroy {
       );
     this.userform = this.fb.group(
       {
-        'title': new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
-        'alias': new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
+        'title': new FormControl('', Validators.compose(
+          [
+            Validators.required, 
+            Validators.minLength(2)
+          ])),
+        'alias': new FormControl('', Validators.compose(
+          [
+            Validators.required, 
+            Validators.minLength(2)
+          ])),
         'edrpou': new FormControl('', Validators.compose(
           [
             Validators.required, 
