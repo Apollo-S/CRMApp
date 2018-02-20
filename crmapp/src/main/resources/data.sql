@@ -52,12 +52,19 @@ VALUES
 	(2, 'Java Developer', 0),
 	(3, 'Администратор', 0);
 	
-TRUNCATE `employee`;
-INSERT INTO `employee` (`id`, `surname`, `firstname`, `lastname`, `short_name`, `inn`, `birth_date`, `is_entrepreneur`, `hire_date`, `fired_date`, `post_id`, `optlock`)
+TRUNCATE `person`;
+INSERT INTO `person` (`id`, `surname`, `firstname`, `lastname`, `short_name`, `inn`, `birth_date`, `optlock`)
 VALUES
-	(1, 'Иванов', 'Александр', 'Владимирович', 'Иванов А.В.', '2344566541', '1972-03-24', b'0', '2012-01-01', null, 1, 0),
-	(2, 'Петров', 'Иван', 'Федорович', 'Петров И.Ф.', '3045679871', '1984-06-15', b'1', '2013-06-01', null, 2, 0),
-	(3, 'Сидоров', 'Петр', 'Валерьевич', 'Сидоров П.В.', '2874526548', '1978-09-20', b'0', '2012-01-01', null, 3, 0);
+	(1, 'Иванов', 'Александр', 'Владимирович', 'Иванов А.В.', '2344566541', '1972-03-24', 0),
+	(2, 'Петров', 'Иван', 'Федорович', 'Петров И.Ф.', '3045679871', '1984-06-15', 0),
+	(3, 'Сидоров', 'Петр', 'Валерьевич', 'Сидоров П.В.', '2874526548', '1978-09-20', 0);
+	
+TRUNCATE `employee`;
+INSERT INTO `employee` (`id`, `person_id`, `is_entrepreneur`, `hire_date`, `fired_date`, `post_id`, `optlock`)
+VALUES
+	(1, 1, b'0', '2012-01-01', null, 1, 0),
+	(2, 2, b'1', '2013-06-01', null, 2, 0),
+	(3, 3, b'0', '2012-01-01', null, 3, 0);
 
 TRUNCATE `employee_address`;
 INSERT INTO `employee_address` (`id`, `employee_id`, `presentation`, `date_start`, `optlock`)
