@@ -114,7 +114,7 @@ public class SickList extends UrlBaseEntity implements Serializable {
 
 	@JsonInclude
 	public String getEmployeeShortName() {
-		return this.employee.getShortName();
+		return this.employee.getPerson().getShortName();
 	}
 
 }
