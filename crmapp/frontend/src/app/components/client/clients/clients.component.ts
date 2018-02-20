@@ -9,7 +9,6 @@ import { Client } from '../../../models/Client';
   styleUrls: ['./clients.component.css']
 })
 export class ClientsComponent implements OnInit {
- 
   clients: Client[];
   columns: any[];
   
@@ -19,7 +18,9 @@ export class ClientsComponent implements OnInit {
 
   ngOnInit() {
     this.clientService.getClients()
-      .subscribe(clients => this.clients = clients);
+      .subscribe(
+        clients => this.clients = clients
+      );
     this.columns = [
       { field: 'alias', header: 'Наименование' },
       { field: 'title', header: 'Полное наименование' },
