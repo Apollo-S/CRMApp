@@ -1,10 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Employee } from '../../../models/Employee';
-import { EmployeeService } from '../../../services/employee.service';
-import { EmployeeAddress } from '../../../models/EmployeeAddress';
-import { EmployeeAccount } from '../../../models/EmployeeAccount';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { EmployeeService } from '../../../services/employee.service';
+import { Employee } from '../../../models/Employee';
 
 @Component({
   selector: 'app-employee-details',
@@ -14,42 +12,37 @@ import { Subscription } from 'rxjs';
 export class EmployeeDetailsComponent implements OnInit, OnDestroy {
   private _propertySubscribtion: Subscription;
   employee: Employee = {};
-  employeeId: number;
 
   constructor(private service: EmployeeService,
-              private router: Router,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
+    let employeeId: number;
     this.route.params
       .subscribe(
         (params: Params) => {
-          this.employeeId = +params['id'];
-        }
-      )
-    this.service.property = this.employeeId;
-    this._propertySubscribtion = this.service.property$
-      .subscribe(
-        p => {
-        this.employeeId = p;
+          employeeId = +params['id'];
+          this.getEmployeeById(employeeId);
         }
       );
-    this.getEmployeeById(this.employeeId);
   }
 
   ngOnDestroy() {
     this._propertySubscribtion.unsubscribe();
   }
   
-  getEmployeeById(id: number) {
+  private getEmployeeById(id: number) {
     this.service.getEmployeeById(id)
-      .subscribe(employee => this.employee = employee);
-  }
-
-  delete(id: number): void {
-    this.service.delete(this.employeeId);
-    this.router.navigateByUrl("/employees");
-    location.reload();
+      .subscribe(
+        employee => {
+          this.employee = employee;
+          this.service.property = this.employee;
+          this._propertySubscribtion = this.service.property$
+            .subscribe(
+              p => this.employee = p
+            );
+        }
+      );
   }
 
 }
