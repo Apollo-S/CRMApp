@@ -90,4 +90,13 @@ public class Person extends UrlBaseEntity implements Serializable {
 		this.birthDate = birthDate;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder personBuilder = new StringBuilder();
+		personBuilder.append(surname).append(" ");
+		personBuilder.append(firstname).append(" ");
+		personBuilder.append(lastname);
+		return personBuilder.toString();
+	}
+
 }

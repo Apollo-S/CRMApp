@@ -18,12 +18,14 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "employee")
 @JsonIgnoreProperties(ignoreUnknown = true, 
-	value = { "hibernateLazyInitializer", "handler" })
+	value = { "hibernateLazyInitializer", "handler",
+			"vacations", "sickLists", "addresses", "accounts", "person", "post" })
 public class Employee extends UrlBaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -140,6 +142,32 @@ public class Employee extends UrlBaseEntity implements Serializable {
 
 	public void setAccounts(Set<EmployeeAccount> accounts) {
 		this.accounts = accounts;
+	}
+	
+	@JsonInclude
+	public Integer getPersonId() {
+		return person.getId();
+	}
+	
+	@JsonInclude
+	public String getPersonShortName() {
+		return person.getShortName();
+	}
+	
+	
+	@JsonInclude
+	public String getPersonInn() {
+		return person.getInn();
+	}
+	
+	@JsonInclude
+	public Integer getPostId() {
+		return post.getId();
+	}
+	
+	@JsonInclude
+	public String getPostTitle() {
+		return post.getTitle();
 	}
 
 }
