@@ -1,78 +1,45 @@
-<div class="card">
-    <h5 class="card-header text-center">
-        <strong>
-            <i class="fa fa-users"></i> Сотрудники
-        </strong>
-    </h5>
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-10">
-
-                <div class="card">
-                    <div class="card-body"> 
-
-                        <table class="table table-sm"
-                            *ngIf="employees?.length > 0; else noEmployees">
-                        
-                            <thead class="thead-default">
-                                <tr>
-                                    <th class="text-center">ФИО</th>
-                                    <th class="text-center">ИНН</th>
-                                    <th class="text-center"></th>
-                                </tr>
-                            </thead>
-                        
-                            <tr *ngFor="let employee of employees">
-                                <td class="text-center">
-                                    {{employee?.surname}} {{employee?.firstname}} {{employee?.lastname}}
-                                </td>
-                                <td class="text-center">
-                                    {{employee?.inn}}
-                                </td>
-                                <td class="text-right">
-                                    <div class="btn-group">
-                                        <a class="btn btn-info btn-sm"
-                                            [routerLink]="['/employees', employee?.id]">
-                                            <i class="fa fa-arrow-circle-o-right"></i> Подробнее
-                                        </a>
-                                        <button type="button" class="btn btn-info btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="sr-only"></span>
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" 
-                                                [routerLink]="['/employees', employee?.id, 'addresses']">Адресы
-                                            </a>
-                                            <a class="dropdown-item" 
-                                                [routerLink]="['/employees', employee?.id, 'accounts']">Банковские реквизиты
-                                            </a>
-                                            <a class="dropdown-item" 
-                                                [routerLink]="['/employees', employee?.id, 'vacations-sicks']">Отпуски / Больничные листы
-                                            </a>
-                                            <a class="dropdown-item" 
-                                                [routerLink]="['/employees', employee?.id, 'agreements']">Договоры
-                                            </a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                                
-                        </table>
-
-                    </div>
-                </div>
-            
-                <ng-template #noEmployees>
-                    <div class="alert alert-light" role="alert">
-                        <h6 class="lead text-center">
-                            <b>Отсутствуют сотрудники в системе...</b>
-                        </h6>
-                    </div>
-                </ng-template>
-
-            </div>
-            <div class="col-md-2">
-                <app-sidebar [url] = "['/employees/add']" [title] = "['Добавить']"></app-sidebar>
-            </div>
-        </div>
+<p-toolbar>
+    <div class="ui-toolbar-group-left">
+        <button pButton type="button" label="Добавить" 
+            [routerLink]="['add']" icon="fa-plus">
+        </button>
     </div>
-</div>
+    <div class="ui-toolbar-group-right">
+        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+        <input type="text" pInputText size="50" placeholder="Фильтр" style="width:auto"
+            (input)="dt.filterGlobal($event.target.value, 'contains')">
+    </div>
+</p-toolbar>
+<p>
+<p>
+<p-table #dt [columns]="columns" [responsive]="true" 
+    [value]="employees" [reorderableColumns]="true" 
+    [paginator]="true" [rows]="10">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let column of columns" style="text-align:center"
+                [pSortableColumn]="column.field" pReorderableColumn>
+                {{column.header}}
+                <p-sortIcon [field]="column.field"></p-sortIcon>
+            </th>
+            <th></th> 
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-employee let-rowData let-columns="columns">
+        <tr>
+            <td *ngFor="let column of columns" style="text-align:center">
+                <span class="ui-column-title">{{column.header}}</span>
+                {{rowData[column.field]}}
+            </td>
+            <td class="text-center">
+                <button pButton type="button" class="ui-button-info" 
+                    icon="fa-arrow-circle-o-right" label="Подробнее" 
+                    [routerLink]="['/employees', employee?.id]">
+                </button>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        Кол-во записей: {{employees?.length}}
+    </ng-template>
+</p-table>

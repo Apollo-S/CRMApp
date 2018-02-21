@@ -9,16 +9,28 @@ import { Employee } from '../../../models/Employee';
 })
 export class EmployeesComponent implements OnInit {
   employees: Array<Employee> = [];
+  columns: any[];
   
-  constructor(private employeeService: EmployeeService) { }
+  constructor(private service: EmployeeService) { }
   
   ngOnInit() {
     this.getEmployees();
+    this.initColumns();
   }
   
   private getEmployees() {
-    this.employeeService.getEmployees()
-      .subscribe(employees => this.employees = employees);
+    this.service.getEmployees()
+      .subscribe(
+        employees => this.employees = employees
+      );
+  }
+
+  private initColumns(): any {
+    this.columns = [
+      { field: 'personShortName', header: 'ФИО' },
+      { field: 'personInn', header: 'ИНН' },
+      { field: 'postTitle', header: 'Должность' }
+    ];
   }
 
 }
