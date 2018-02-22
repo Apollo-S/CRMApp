@@ -54,12 +54,12 @@ public class EmployeeController extends BaseController {
 	}
 
 	@PutMapping(value = "/{id}", headers = HEADER_JSON)
-	public ResponseEntity<Void> updateEmployee(@PathVariable(PARAM_ID) int id, @RequestBody Employee employee) {
+	public ResponseEntity<Employee> updateEmployee(@PathVariable(PARAM_ID) int id, @RequestBody Employee employee) {
 		employee.setId(id);
 		employee.setVersion(employeeRepository.getOne(id).getVersion());
 		employee = employeeRepository.save(employee);
 		HttpHeaders header = new HttpHeaders();
-		return new ResponseEntity<Void>(header, HttpStatus.OK);
+		return new ResponseEntity<Employee>(employee, header, HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = "/{id}", headers = HEADER_JSON)
