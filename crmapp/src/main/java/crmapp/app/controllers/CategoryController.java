@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import crmapp.app.entities.Category;
 import crmapp.app.entities.Client;
-import crmapp.app.entities.MenuItemClient;
 import crmapp.app.entities.TreeNode;
 import crmapp.app.repositories.CategoryRepository;
 import crmapp.app.repositories.ClientRepository;
