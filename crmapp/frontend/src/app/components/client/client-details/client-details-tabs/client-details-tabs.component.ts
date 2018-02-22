@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Client } from '../../../../models/Client';
 import { MenuItem } from 'primeng/api';
 
@@ -8,13 +8,16 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./client-details-tabs.component.css']
 })
 export class ClientDetailsTabsComponent implements OnInit {
-
-  items: MenuItem[];
+  tabs: MenuItem[];
 
   constructor() { }
 
   ngOnInit() {
-    this.items = [
+    this.initTabs();
+  }
+
+  private initTabs(): any {
+    this.tabs = [
       {label: 'Основные данные', icon: 'fa-address-card-o', routerLink: 'main'},
       {label: 'Адресы', icon: 'fa-building-o', routerLink: 'addresses'},
       {label: 'Банковские реквизиты', icon: 'fa-bank', routerLink: 'accounts'},
