@@ -155,13 +155,14 @@ const appRoutes: Routes = [
     ]
   },
   {path: 'agreements/:id/edit', component: EditAgreementComponent},
+
   {path: 'employees/add', component: AddEmployeeComponent},
-  {path: 'employees/:id/edit', component: EditEmployeeComponent},
   {path: 'employees/:id', component: EmployeeDetailsComponent, 
     children: 
     [
       {path:  '', redirectTo: 'main', pathMatch: 'full'},
       {path: 'main', component: EmployeeDetailsMainTabComponent},
+      {path: 'main/edit', component: EditEmployeeComponent},
       {path: 'addresses', component: EmployeeDetailsAddressesTabComponent},
       {path: 'accounts', component: EmployeeDetailsAccountsTabComponent}
     ]

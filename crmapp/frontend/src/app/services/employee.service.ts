@@ -13,13 +13,13 @@ export class EmployeeService {
   private employeesUrl = '/api/employees';
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
  
-  private _property$: BehaviorSubject<number> = new BehaviorSubject(1);
+  private _property$: BehaviorSubject<Employee> = new BehaviorSubject({});
 
-  set property(value: number) {
+  set property(value: Employee) {
     this._property$.next(value);
   }
 
-  get property$(): Observable<number> {
+  get property$(): Observable<Employee> {
       return this._property$.asObservable();
   }
 
@@ -29,28 +29,37 @@ export class EmployeeService {
     const url = `${this.employeesUrl}`;
     return this.http
       .get<Employee[]>(url, { headers: this.headers })
-      // .catch(this.handleError);
+      .pipe(
+        catchError(this.handleError('getEmployees', []))
+      )
   }
 
   getEmployeeById(id: number): Observable<Employee> {
     const url = `${this.employeesUrl}/${id}`;
     return this.http
       .get<Employee>(url, { headers: this.headers })
-      // .catch(this.handleError); 
+      .pipe(
+        tap(_ => console.log(`obtained employee ID=${id}`)),
+        catchError(this.handleError<Employee>('getEmployeeById'))
+      )  
   }
 
-  getAddressesByEmployeeId(employeeId: number): Observable<EmployeeAddress[]> {
-    const url = `${this.employeesUrl}/${employeeId}/addresses`;
+  getAddressesByEmployeeId(id: number): Observable<EmployeeAddress[]> {
+    const url = `${this.employeesUrl}/${id}/addresses`;
     return this.http
       .get<EmployeeAddress[]>(url, { headers: this.headers })
-      // .catch(this.handleError);
+      .pipe(
+        catchError(this.handleError<EmployeeAddress[]>('getAddressesByEmployeeId'))
+      )
   }
   
   getAccountsByEmployeeId(employeeId: number): Observable<EmployeeAccount[]> {
     const url = `${this.employeesUrl}/${employeeId}/accounts`;
     return this.http
       .get<EmployeeAccount[]>(url, { headers: this.headers })
-      // .catch(this.handleError);
+      .pipe(
+        catchError(this.handleError<EmployeeAccount[]>('getAccountsByEmployeeId'))
+      )
   }
 
   addEmployee(employee: Employee): Observable<Employee> {
@@ -58,7 +67,7 @@ export class EmployeeService {
     return this.http
       .post<Employee>(url, employee, { headers: this.headers })
       .pipe(
-        tap(_ => console.log(`added employee shortName=${employee.shortName}`)),
+        tap(_ => console.log(`added employee shortName=${employee.personShortName}`)),
         catchError(this.handleError<Employee>('addEmployee'))
       )  
     }
@@ -73,13 +82,13 @@ export class EmployeeService {
       );
   }
 
-  delete(id: number) {
-    const url = `${this.employeesUrl}/${id}`;
+  deleteEmployee(employee: Employee) {
+    const url = `${this.employeesUrl}/${employee.id}`;
     return this.http
       .delete(url, { headers: this.headers })
       .pipe(
-        tap(_ => console.log(`deleted employee id=${id}`)),
-        catchError(this.handleError<any>(`delete id=${id}`))
+        tap(_ => console.log(`deleted employee ${employee.personShortName} (ID=${employee.id})`)),
+        catchError(this.handleError<any>(`deleteEmployee`))
       );
   }
 
