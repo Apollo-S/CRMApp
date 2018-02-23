@@ -39,7 +39,7 @@ export class ClientDetailsMainTabComponent implements OnInit, OnDestroy {
       icon: 'fa fa-trash',
       accept: () => {
         this.delete();
-        this.msgs = [{severity:'success', summary:'Confirmed', detail: msg}];
+        this.msgs = [{severity:'success', summary:'Успешно', detail: msg}];
       },
       reject: () => {}
     });

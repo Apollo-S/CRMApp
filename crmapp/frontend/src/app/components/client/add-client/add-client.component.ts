@@ -11,7 +11,7 @@ import { Message, MenuItem } from 'primeng/api';
   styleUrls: ['./add-client.component.css']
 })
 export class AddClientComponent implements OnInit {
-  items: MenuItem[];
+  tabs: MenuItem[];
   msgs: Message[] = [];
   userform: FormGroup;
   client: Client = {};
@@ -53,7 +53,7 @@ export class AddClientComponent implements OnInit {
   }
 
   private initItems() {
-    this.items = [
+    this.tabs = [
       {label: 'Основные данные', icon: 'fa-address-card-o', disabled: true},
       {label: 'Адресы', icon: 'fa-building-o', disabled: true},
       {label: 'Банковские реквизиты', icon: 'fa-bank', disabled: true},
