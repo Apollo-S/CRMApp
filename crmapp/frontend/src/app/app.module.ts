@@ -1,9 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppRoutingModule } from './app-routing.module';
 
 // PrimeNG
 import { BreadcrumbModule } from 'primeng/breadcrumb';
@@ -31,19 +31,21 @@ import { TabViewModule } from 'primeng/tabview';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TreeModule }  from 'primeng/tree';
 
+import { ConfirmationService } from 'primeng/api';
+import { MessageService } from 'primeng/components/common/messageservice';
+
 // Custom Service Imports
+import { AgreementService } from './services/agreement.service';
 import { CategoryService } from './services/category.service';
 import { ClientService } from './services/client.service';
-import { EmployeeService } from './services/employee.service';
-import { AgreementService } from './services/agreement.service';
-import { VacationService } from './services/vacation.service';
-import { PostService } from './services/post.service';
 import { DocumentService } from './services/document.service';
-import { DocumentTypeService } from './services/document-type.service';
 import { DocumentStatusService } from './services/document-status.service';
+import { DocumentTypeService } from './services/document-type.service';
+import { EmployeeService } from './services/employee.service';
+import { PersonService } from './services/person.service';
+import { PostService } from './services/post.service';
+import { VacationService } from './services/vacation.service';
 import { UtilService } from './services/util.service';
-import { MessageService } from 'primeng/components/common/messageservice';
-import { ConfirmationService } from 'primeng/api';
 
 // Component Imports 
 import { AppComponent } from './app.component';
@@ -92,91 +94,15 @@ import { EmployeeDetailsAccountsTabComponent } from './components/employee/emplo
 import { VacationsComponent } from './components/vacation/vacations/vacations.component';
 import { VacationDetailsComponent } from './components/vacation/vacation-details/vacation-details.component';
 
-const appRoutes: Routes = [
-  {path: 'about', component:AboutComponent},
-  {path: '', component:DashboardComponent, 
-    children: 
-    [
-      {path:  '', redirectTo: 'clients', pathMatch: 'full'},
-      {path: 'clients', component:ClientsComponent},
-      {path: 'employees', component:EmployeesComponent},
-      {path: 'documents', component:DocumentsComponent},
-      {path: 'vacations', component:VacationsComponent},
-      {path: 'agreements', component:AgreementsComponent},
-    ]
-  },
-  {path: 'clients/add', component:AddClientComponent},
-  {path: 'clients/:id', component:ClientDetailsComponent,
-    children:
-    [
-      {path:  '', redirectTo: 'main', pathMatch: 'full'},
-      {path: 'main', component: ClientDetailsMainTabComponent},
-      {path: 'main/edit', component:EditClientComponent},
-      {path: 'addresses', component: ClientDetailsAddressesTabComponent},
-      {path: 'addresses/add', component:AddAddressComponent},
-      {path: 'addresses/:id', component:EditAddressComponent,
-        children: 
-        [
-          {path:  '', redirectTo: 'edit', pathMatch: 'full'},
-          {path: 'edit', component:EditAddressComponent},
-        ]
-      },
-      {path: 'accounts', component: ClientDetailsAccountsTabComponent},
-      {path: 'accounts/add', component: AddAccountComponent},
-      {path: 'accounts/:id', component: EditAccountComponent,
-      children: 
-        [
-          {path:  '', redirectTo: 'edit', pathMatch: 'full'},
-          {path: 'edit', component:EditAccountComponent},
-        ]
-      },
-      {path: 'directors', component: ClientDetailsDirectorsTabComponent},
-      {path: 'directors/add', component: AddDirectorComponent},
-      {path: 'directors/:id', component: EditDirectorComponent,
-        children: 
-        [
-          {path:  '', redirectTo: 'edit', pathMatch: 'full'},
-          {path: 'edit', component:EditDirectorComponent},
-        ]
-      },
-      {path: 'agreements', component: ClientDetailsAgreementsTabComponent},
-      {path: 'agreements/add', component: AddAgreementComponent},
-      {path: 'agreements/:id', component: AgreementDetailsComponent},
-    ]
-  },
-  {path: 'agreements/add', component: AddAgreementComponent},
-  {path: 'agreements/:id', component: AgreementDetailsComponent,
-    children: 
-    [
-      {path:  '', redirectTo: 'main', pathMatch: 'full'},
-      {path: 'main', component: EditAgreementComponent},
-      {path: 'edit', component: EditAgreementComponent},
-      {path: 'documents', component: AgreementDetailsDocumentsTabComponent}
-    ]
-  },
-  {path: 'agreements/:id/edit', component: EditAgreementComponent},
-
-  {path: 'employees/add', component: AddEmployeeComponent},
-  {path: 'employees/:id', component: EmployeeDetailsComponent, 
-    children: 
-    [
-      {path:  '', redirectTo: 'main', pathMatch: 'full'},
-      {path: 'main', component: EmployeeDetailsMainTabComponent},
-      {path: 'main/edit', component: EditEmployeeComponent},
-      {path: 'addresses', component: EmployeeDetailsAddressesTabComponent},
-      {path: 'accounts', component: EmployeeDetailsAccountsTabComponent}
-    ]
-  },
-]
-
 @NgModule({
   declarations: [
     AppComponent,
     AboutComponent,
-    NavbarComponent,
-    NavbarBottomComponent,
     ClientsComponent,
     AddClientComponent,
+    AgreementsComponent,
+    NavbarComponent,
+    NavbarBottomComponent,
     ClientDetailsComponent,
     EditClientComponent,
     SidebarComponent,
@@ -184,7 +110,6 @@ const appRoutes: Routes = [
     DashboardMenuComponent,
     PageNotFoundComponent,
     EmployeesComponent,
-    AgreementsComponent,
     DocumentsComponent,
     ClientDetailsAgreementsTabComponent,
     ClientDetailsAddressesTabComponent,
@@ -213,15 +138,15 @@ const appRoutes: Routes = [
     AgreementDetailsDocumentsTabComponent
   ],
   imports: [
+    AppRoutingModule, 
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    ReactiveFormsModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes),
+    ReactiveFormsModule,
 
-    ButtonModule, 
     BreadcrumbModule,
+    ButtonModule, 
     CalendarModule,
     CardModule,
     ConfirmDialogModule,
@@ -255,6 +180,7 @@ const appRoutes: Routes = [
     DocumentService,
     DocumentTypeService,
     DocumentStatusService,
+    PersonService,
     UtilService,
     MessageService, 
     ConfirmationService
