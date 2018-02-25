@@ -10,10 +10,11 @@ VALUES
   (1, 'Клиенты', 'fa-users', '/clients', '', 0),
   (2, 'Договорные отношения', 'fa-file-o', '/agreements', '', 0),
   (3, 'Документооборот', 'fa-file-o', '/documents', '', 0),
-  (4, 'Сотрудники', 'fa-users', '/employees', '', 0),
-  (5, 'Отпуски', 'fa-file-o', '/vacations', '', 0),
-  (6, 'Больничные листы', 'fa-file-o', '/sicklists', '', 0),
-  (7, 'Исходящий номер', 'fa-file-o', '/outputs', '', 0);
+  (4, 'Физические лица', 'fa-users', '/persons', '', 0),
+  (5, 'Сотрудники', 'fa-users', '/employees', '', 0),
+  (6, 'Отпуски', 'fa-file-o', '/vacations', '', 0),
+  (7, 'Больничные листы', 'fa-file-o', '/sicklists', '', 0),
+  (8, 'Исходящий номер', 'fa-file-o', '/outputs', '', 0);
 
 TRUNCATE `client`;
 INSERT INTO `client` (`id`, `alias`, `title`, `edrpou`, `inn`, `vat_certificate`, `optlock`)
