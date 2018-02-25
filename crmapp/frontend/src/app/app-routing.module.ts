@@ -45,6 +45,7 @@ import { EmployeeDetailsAccountsTabComponent } from './components/employee/emplo
 
 import { VacationsComponent } from './components/vacation/vacations/vacations.component';
 import { VacationDetailsComponent } from './components/vacation/vacation-details/vacation-details.component';
+import { PersonsComponent } from "./components/person/persons/persons.component";
 
 const appRoutes: Routes = [
   {path: 'about', component:AboutComponent},
@@ -57,6 +58,7 @@ const appRoutes: Routes = [
       {path: 'documents', component:DocumentsComponent},
       {path: 'vacations', component:VacationsComponent},
       {path: 'agreements', component:AgreementsComponent},
+      {path: 'persons', component:PersonsComponent},
     ]
   },
   {path: 'clients/add', component:AddClientComponent},
