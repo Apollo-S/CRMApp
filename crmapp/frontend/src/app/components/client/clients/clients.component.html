@@ -1,12 +1,13 @@
 <p-toolbar>
     <div class="ui-toolbar-group-left">
         <button pButton type="button" label="Добавить" 
-            [routerLink]="['/clients/add']" icon="fa-plus">
+            [routerLink]="['add']" icon="fa-plus">
         </button>
     </div>
     <div class="ui-toolbar-group-right">
         <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-        <input type="text" pInputText size="50" placeholder="Фильтр" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+        <input type="text" pInputText size="50" placeholder="Фильтр" style="width:auto" 
+            (input)="dt.filterGlobal($event.target.value, 'contains')">
     </div>
 </p-toolbar>
 <p><p>
