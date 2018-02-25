@@ -32,6 +32,36 @@ export class PersonService {
       )  
   }
 
+  addPerson(person: Person): Observable<Person> {
+    const url = `${this.personsUrl}`;
+    return this.http
+      .post<Person>(url, person, { headers: this.headers })
+      .pipe(
+        tap(_ => console.log(`added person (alias=${person.shortName})`)),
+        catchError(this.handleError<Person>('addPerson'))
+      )  
+  }
+
+  updatePerson(person: Person): Observable<Person> {
+    const url = `${this.personsUrl}/${person.id}`;
+    return this.http
+      .put<Person>(url, person, { headers: this.headers })
+      .pipe(
+        tap(_ => console.log(`updated person (ID=${person.id}, alias=${person.shortName})`)),
+        catchError(this.handleError<Person>('updatePerson'))
+      );
+  }
+
+  deletePerson(person: Person): Observable<void> {
+    const url = `${this.personsUrl}/${person.id}`;
+    return this.http
+      .delete(url, { headers: this.headers })
+      .pipe(
+        tap(_ => console.log(`deleted person ${person.shortName} (ID=${person.id})`)),
+        catchError(this.handleError<any>('deletePerson'))
+      )
+  }
+
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       // TODO: send the error to remote logging infrastructure
