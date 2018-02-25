@@ -18,6 +18,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { GrowlModule } from 'primeng/growl';
 import { InputTextModule } from 'primeng/inputtext';
 import { KeyFilterModule } from 'primeng/keyfilter';
+import { ListboxModule } from 'primeng/listbox';
 import { MenubarModule } from 'primeng/menubar';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { PanelModule } from 'primeng/panel';
@@ -93,6 +94,10 @@ import { EmployeeDetailsAccountsTabComponent } from './components/employee/emplo
 
 import { VacationsComponent } from './components/vacation/vacations/vacations.component';
 import { VacationDetailsComponent } from './components/vacation/vacation-details/vacation-details.component';
+import { PersonsComponent } from './components/person/persons/persons.component';
+import { AddPersonComponent } from './components/person/add-person/add-person.component';
+import { EditPersonComponent } from './components/person/edit-person/edit-person.component';
+import { PersonDetailsComponent } from './components/person/person-details/person-details.component';
 
 @NgModule({
   declarations: [
@@ -135,7 +140,11 @@ import { VacationDetailsComponent } from './components/vacation/vacation-details
     EditAccountComponent,
     AddDirectorComponent,
     EditDirectorComponent,
-    AgreementDetailsDocumentsTabComponent
+    AgreementDetailsDocumentsTabComponent,
+    PersonsComponent,
+    AddPersonComponent,
+    EditPersonComponent,
+    PersonDetailsComponent
   ],
   imports: [
     AppRoutingModule, 
@@ -157,6 +166,7 @@ import { VacationDetailsComponent } from './components/vacation/vacation-details
     GrowlModule,
     InputTextModule, 
     KeyFilterModule,
+    ListboxModule,
     MenubarModule,
     PaginatorModule,
     PanelMenuModule,
