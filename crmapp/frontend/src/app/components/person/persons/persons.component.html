@@ -1,3 +1,44 @@
-<p>
-  persons works!
-</p>
+<p-toolbar>
+  <div class="ui-toolbar-group-left">
+      <button pButton type="button" label="Добавить" 
+          [routerLink]="['add']" icon="fa-plus">
+      </button>
+  </div>
+  <div class="ui-toolbar-group-right">
+      <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+      <input type="text" pInputText size="50" placeholder="Фильтр" style="width:auto" 
+        (input)="dt.filterGlobal($event.target.value, 'contains')">
+  </div>
+</p-toolbar>
+<p><p>
+<p-table #dt [columns]="columns" [responsive]="true"
+  [value]="persons" [reorderableColumns]="true" 
+  [paginator]="true" [rows]="10">
+  <ng-template pTemplate="header" let-columns>
+      <tr>
+          <th *ngFor="let column of columns" class="text-center" 
+              [pSortableColumn]="column.field" pReorderableColumn>
+              {{column.header}}
+              <p-sortIcon [field]="column.field"></p-sortIcon>
+          </th>
+          <th></th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-person let-rowData let-columns="columns">
+      <tr>
+          <td *ngFor="let column of columns" class="text-center">
+              <span class="ui-column-title">{{column.header}}</span>
+              {{rowData[column.field]}}
+          </td>
+          <td class="text-center">
+              <button pButton type="button" class="ui-button-info" 
+                  icon="fa-arrow-circle-o-right" label="Подробнее" 
+                  [routerLink]="['/persons', persons?.id]">
+              </button>
+          </td>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="summary">
+      Кол-во записей: {{persons?.length}}
+  </ng-template>
+</p-table>
