@@ -22,7 +22,7 @@ export class AddClientComponent implements OnInit {
 
   ngOnInit() {
     this.initUserForm();
-    this.initItems();
+    this.initTabs();
   }
 
   onSubmit() {
@@ -52,7 +52,7 @@ export class AddClientComponent implements OnInit {
     });
   }
 
-  private initItems() {
+  private initTabs() {
     this.tabs = [
       {label: 'Основные данные', icon: 'fa-address-card-o', disabled: true},
       {label: 'Адресы', icon: 'fa-building-o', disabled: true},

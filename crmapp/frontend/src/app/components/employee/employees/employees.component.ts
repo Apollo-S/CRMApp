@@ -8,7 +8,7 @@ import { Employee } from '../../../models/Employee';
   styleUrls: ['./employees.component.css']
 })
 export class EmployeesComponent implements OnInit {
-  employees: Array<Employee> = [];
+  employees: Employee[] = [];
   columns: any[];
   
   constructor(private service: EmployeeService) { }
