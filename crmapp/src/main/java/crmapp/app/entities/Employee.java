@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Table(name = "employee")
 @JsonIgnoreProperties(ignoreUnknown = true, 
 	value = { "hibernateLazyInitializer", "handler",
-			"vacations", "sickLists", "addresses", "accounts", "person", "post" })
+			"vacations", "sickLists", "addresses", "accounts" })
 public class Employee extends UrlBaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -145,24 +145,13 @@ public class Employee extends UrlBaseEntity implements Serializable {
 	}
 	
 	@JsonInclude
-	public Integer getPersonId() {
-		return person.getId();
-	}
-	
-	@JsonInclude
 	public String getPersonShortName() {
 		return person.getShortName();
 	}
 	
-	
 	@JsonInclude
 	public String getPersonInn() {
 		return person.getInn();
-	}
-	
-	@JsonInclude
-	public Integer getPostId() {
-		return post.getId();
 	}
 	
 	@JsonInclude
