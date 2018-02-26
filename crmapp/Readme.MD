@@ -1,7 +1,7 @@
 Briefing of CRMApp web application
 ==================================
 
-Simple web app for document flow.
+Web app for document flow.
 
 Technologies for back-end: 
 	Spring (Boot, MVC, Data, Security (planning)), Hibernate/JPA, REST WS;
