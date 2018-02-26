@@ -18,6 +18,7 @@ export class EditAccountComponent implements OnInit, OnDestroy {
   account: ClientAccount = {};
   client: Client = {}; 
   years: string;
+  ru: any;
 
   constructor(private service: ClientService, 
               private utilService: UtilService,
@@ -38,7 +39,8 @@ export class EditAccountComponent implements OnInit, OnDestroy {
           this.getClientAccountById(accountId, this.client);
         }
       );
-    this.years = this.utilService.getYears();
+    this.ru = this.utilService.getCalendarLocalSet();
+    this.years = this.utilService.getCalendarYears(5);
   }
   
   ngOnDestroy(): void {

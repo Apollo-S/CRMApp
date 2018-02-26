@@ -21,6 +21,7 @@ export class AddDirectorComponent implements OnInit, OnDestroy {
   posts: Post[] = [];
   client: Client = {};
   years: string;
+  ru: any;
 
   constructor(private service: ClientService, 
               private postService: PostService,
@@ -33,7 +34,8 @@ export class AddDirectorComponent implements OnInit, OnDestroy {
         p => this.client = p
       );
     this.getPosts();
-    this.years = this.utilService.getYears();
+    this.ru = this.utilService.getCalendarLocalSet();
+    this.years = this.utilService.getCalendarYears(5);
   }
 
   ngOnDestroy(): void {

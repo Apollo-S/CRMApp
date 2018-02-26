@@ -18,6 +18,7 @@ export class EditAddressComponent implements OnInit, OnDestroy {
   address: ClientAddress = {};
   client: Client = {};  
   years: string;
+  ru: any;
 
   constructor(private service: ClientService, 
               private utilService: UtilService,
@@ -38,7 +39,8 @@ export class EditAddressComponent implements OnInit, OnDestroy {
           this.getClientAddressById(addressId, this.client);
         }
       );
-    this.years = this.utilService.getYears();
+    this.ru = this.utilService.getCalendarLocalSet();
+    this.years = this.utilService.getCalendarYears(5);
   }
   
   ngOnDestroy(): void {

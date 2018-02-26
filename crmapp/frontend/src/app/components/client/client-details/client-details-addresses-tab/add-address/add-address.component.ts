@@ -18,6 +18,7 @@ export class AddAddressComponent implements OnInit, OnDestroy {
   address: ClientAddress = {};
   client: Client = {};  
   years: string;
+  ru: any;
 
   constructor(private service: ClientService, 
               private utilService: UtilService,
@@ -28,7 +29,8 @@ export class AddAddressComponent implements OnInit, OnDestroy {
       .subscribe(
         p => this.client = p
       );
-    this.years = this.utilService.getYears();
+    this.ru = this.utilService.getCalendarLocalSet();
+    this.years = this.utilService.getCalendarYears(5);
   }
 
   onSubmit() {
