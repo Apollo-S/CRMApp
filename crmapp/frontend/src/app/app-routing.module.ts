@@ -46,6 +46,8 @@ import { EmployeeDetailsAccountsTabComponent } from './components/employee/emplo
 import { VacationsComponent } from './components/vacation/vacations/vacations.component';
 import { VacationDetailsComponent } from './components/vacation/vacation-details/vacation-details.component';
 import { PersonsComponent } from "./components/person/persons/persons.component";
+import { AddPersonComponent } from "./components/person/add-person/add-person.component";
+import { PersonDetailsComponent } from "./components/person/person-details/person-details.component";
 
 const appRoutes: Routes = [
   {path: 'about', component:AboutComponent},
@@ -123,6 +125,8 @@ const appRoutes: Routes = [
       {path: 'accounts', component: EmployeeDetailsAccountsTabComponent}
     ]
   },
+  {path: 'persons/add', component:AddPersonComponent},
+  {path: 'persons/:id', component: PersonDetailsComponent},
 ]
 
 @NgModule({
