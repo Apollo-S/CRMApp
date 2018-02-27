@@ -1,12 +1,13 @@
 package crmapp.app.entities;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @Entity
 @Table(name = "category")
@@ -25,8 +26,12 @@ public class Category extends UrlBaseEntity implements Serializable {
 	@Column(name = "router_link", length = 255)
 	private String routerLink;
 	
-	@Column(name = "comment", length = 255)
-	private String comment;
+	@Column(name = "expanded", length = 255)
+	private boolean expanded = false;
+	
+	@JsonInclude(Include.NON_NULL)
+	@Column(name = "items", length = 255)
+	private String items;
 	
 	public Category() {
 	}
@@ -55,17 +60,25 @@ public class Category extends UrlBaseEntity implements Serializable {
 		this.routerLink = routerLink;
 	}
 
-	public String getComment() {
-		return comment;
+	public boolean isExpanded() {
+		return expanded;
 	}
 
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setExpanded(boolean expanded) {
+		this.expanded = expanded;
 	}
 
 	@Override
 	public String getUrl() {
 		return "categories/" + getId();
+	}
+
+	public String getItems() {
+		return items;
+	}
+
+	public void setItems(String items) {
+		this.items = items;
 	}
 
 }

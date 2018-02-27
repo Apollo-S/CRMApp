@@ -5,16 +5,16 @@ USE `crmapp`;
 SET FOREIGN_KEY_CHECKS=0;
 
 TRUNCATE `category`;
-INSERT INTO `category` (`id`, `label`, `icon`, `router_link`, `comment`, `optlock`)
+INSERT INTO `category` (`id`, `label`, `icon`, `router_link`, `expanded`, `items`, `optlock`)
 VALUES 
-  (1, 'Клиенты', 'fa-users', '/clients', '', 0),
-  (2, 'Договорные отношения', 'fa-file-o', '/agreements', '', 0),
-  (3, 'Документооборот', 'fa-file-o', '/documents', '', 0),
-  (4, 'Физические лица', 'fa-users', '/persons', '', 0),
-  (5, 'Сотрудники', 'fa-users', '/employees', '', 0),
-  (6, 'Отпуски', 'fa-file-o', '/vacations', '', 0),
-  (7, 'Больничные листы', 'fa-file-o', '/sicklists', '', 0),
-  (8, 'Исходящий номер', 'fa-file-o', '/outputs', '', 0);
+  (1, 'Клиенты', 'fa-users', '/clients', b'0', null, 0),
+  (2, 'Договорные отношения', 'fa-file-o', '/agreements', b'0', null, 0),
+  (3, 'Документооборот', 'fa-file-o', '/documents', b'0', null, 0),
+  (4, 'Физические лица', 'fa-users', '/persons', b'0', null, 0),
+  (5, 'Сотрудники', 'fa-users', '/employees', b'0', null, 0),
+  (6, 'Отпуски', 'fa-file-o', '/vacations', b'0', null, 0),
+  (7, 'Больничные листы', 'fa-file-o', '/sicklists', b'0', null, 0),
+  (8, 'Исходящий номер', 'fa-file-o', '/outputs', b'0', null, 0);
 
 TRUNCATE `client`;
 INSERT INTO `client` (`id`, `alias`, `title`, `edrpou`, `inn`, `vat_certificate`, `optlock`)
