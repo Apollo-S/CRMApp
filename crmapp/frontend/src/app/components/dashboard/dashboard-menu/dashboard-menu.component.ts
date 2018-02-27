@@ -13,7 +13,7 @@ export class DashboardMenuComponent implements OnInit {
   constructor(private service: CategoryService) { }
 
   ngOnInit() {
-    this.getCategories();
+    this.initCategories();
   }
 
   private getCategories() {
@@ -21,6 +21,39 @@ export class DashboardMenuComponent implements OnInit {
       .subscribe(
         items => this.items = items
       );
+  }
+
+  private initCategories() {
+    this.items = [
+      {"label": "Клиенты", "icon": "fa-folder", "expanded": false, "items" : 
+        [
+          {"label": "Все клиенты", "icon": "fa-minus", "routerLink": "/clients"},
+        ]
+      },
+      {"label": "Документооборот", "icon": "fa-folder", "expanded": false, "items": 
+        [
+          {"label": "Договоры с клиентами", "icon": "fa-minus", "routerLink": "/agreements"},
+        ]
+      },
+      {"label": "Кадровый учет", "icon": "fa-folder", "expanded": false, "items": 
+        [
+          {"label": "Физические лица", "icon": "fa-minus", "routerLink": "/persons"},
+          {"label": "Сотрудники", "icon": "fa-minus", "routerLink": "/employees"},
+        ]
+      },
+    ];
+  }
+
+  expandAll() {
+    this.items.forEach(
+      (item) => item.expanded = true
+    );
+  }
+
+  collapseAll() {
+    this.items.forEach(
+      (item) => item.expanded = false
+    );
   }
 
 }

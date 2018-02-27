@@ -1,2 +1,18 @@
-<p-panelMenu [model]="items" [multiple]="false"></p-panelMenu>
-    
+<div style="margin-bottom:6px">
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-6">
+            <button pButton type="button" class="ui-button-info" 
+                style="width:98%;float:left" icon="fa-plus-square" 
+                label="Развернуть" (click)="expandAll()">
+            </button>
+        </div>
+        <div class="ui-grid-col-6">
+            <button pButton type="button" class="ui-button-danger" 
+                style="width:98%;float:right" icon="fa-minus-square" 
+                label="Свернуть" (click)="collapseAll()">
+            </button>
+        </div>
+    </div>
+</div>
+
+<p-panelMenu [model]="items" [multiple]="true"></p-panelMenu>     
