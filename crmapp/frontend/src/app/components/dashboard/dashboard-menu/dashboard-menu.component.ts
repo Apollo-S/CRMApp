@@ -25,20 +25,20 @@ export class DashboardMenuComponent implements OnInit {
 
   private initCategories() {
     this.items = [
-      {"label": "Клиенты", "icon": "fa-folder", "expanded": false, "items" : 
+      {"label": "Клиенты", "icon": "fa-folder-o", "expanded": false, "items" : 
         [
-          {"label": "Все клиенты", "icon": "fa-minus", "routerLink": "/clients"},
+          {"label": "Все клиенты", "icon": "fa-asterisk", "routerLink": "/clients"},
         ]
       },
       {"label": "Документооборот", "icon": "fa-folder", "expanded": false, "items": 
         [
-          {"label": "Договоры с клиентами", "icon": "fa-minus", "routerLink": "/agreements"},
+          {"label": "Договоры с клиентами", "icon": "fa-asterisk", "routerLink": "/agreements"},
         ]
       },
-      {"label": "Кадровый учет", "icon": "fa-folder", "expanded": false, "items": 
+      {"label": "Кадровый учет", "icon": "fa-navicon", "expanded": false, "items": 
         [
-          {"label": "Физические лица", "icon": "fa-minus", "routerLink": "/persons"},
-          {"label": "Сотрудники", "icon": "fa-minus", "routerLink": "/employees"},
+          {"label": "Физические лица", "icon": "fa-asterisk", "routerLink": "/persons"},
+          {"label": "Сотрудники", "icon": "fa-asterisk", "routerLink": "/employees"},
         ]
       },
     ];
