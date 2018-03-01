@@ -12,8 +12,9 @@
 </p-toolbar>
 <p>
 <p>
-<p-table #dt [columns]="columns" [responsive]="true" 
-    [value]="employees" [reorderableColumns]="true" 
+
+<p-table #dt [columns]="columns" [responsive]="true" [loading]="loading" 
+    [value]="employees" [reorderableColumns]="true" [rowHover]="true"
     [paginator]="true" [rows]="10">
     <ng-template pTemplate="header" let-columns>
         <tr>
@@ -34,7 +35,11 @@
             <td class="text-center">
                 <button pButton type="button" class="ui-button-info" 
                     icon="fa-arrow-circle-o-right" label="Подробнее" 
-                    [routerLink]="['/employees', employee?.id]">
+                    (click)="goToEmployee(employee?.url)">
+                </button>
+                <p-tieredMenu #menu [model]="items" [popup]="true" appendTo="body"></p-tieredMenu>
+                <button #btn pButton type="button" icon="fa-list" class="ui-button-info" 
+                    (click)="menu.toggle($event)" (mousedown)="initMenu(employee?.id)">
                 </button>
             </td>
         </tr>

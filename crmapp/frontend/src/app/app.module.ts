@@ -29,6 +29,8 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { TableModule } from 'primeng/table';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TabViewModule } from 'primeng/tabview';
+import { TieredMenuModule } from 'primeng/tieredmenu';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TreeModule }  from 'primeng/tree';
 
@@ -177,6 +179,8 @@ import { PersonDetailsComponent } from './components/person/person-details/perso
     TableModule,
     TabMenuModule,
     TabViewModule,
+    TieredMenuModule,
+    ToggleButtonModule,
     ToolbarModule,
     TreeModule,
   ],
