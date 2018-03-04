@@ -1,6 +1,6 @@
 <p-toolbar>
     <div class="ui-toolbar-group-left">
-        <button pButton type="button" label="Добавить" 
+        <button pButton type="button" label="Добавить" style="margin-top:3px" 
             [routerLink]="['add']" icon="fa-plus">
         </button>
     </div>
@@ -18,7 +18,8 @@
 <p-card>
     <p-table #dt [columns]="columns" [responsive]="true" [loading]="loading"
         [value]="agreements" [reorderableColumns]="true" [rowHover]="true" 
-        [paginator]="true" [rows]="10">
+        [paginator]="true" [rows]="10"
+        *ngIf="agreements?.length > 0; else noAgreements">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let column of columns" style="text-align:center" 
@@ -57,7 +58,7 @@
 <ng-template #noAgreements>
     <div class="alert alert-light" role="alert">
         <h6 class="lead text-center">
-            <b>Нет ни одного договора в системе...</b>
+            <b>Нет данных...</b>
         </h6>
     </div>
 </ng-template>
