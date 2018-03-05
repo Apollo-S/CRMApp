@@ -16,10 +16,10 @@
 </div>
 
 <p-card>
-    <p-table #dt [columns]="columns" [responsive]="true" [loading]="loading"
-        [value]="agreements" [reorderableColumns]="true" [rowHover]="true" 
-        [paginator]="true" [rows]="10"
-        *ngIf="agreements?.length > 0; else noAgreements">
+    <p-table #dt [columns]="columns" [responsive]="true" 
+        [value]="agreements" [reorderableColumns]="true" 
+        [rows]="10" [rowHover]="true" [paginator]="true" 
+        *ngIf="agreements?.length > 0; else loadingStatus">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let column of columns" style="text-align:center" 
@@ -55,10 +55,12 @@
     </p-table>
 </p-card>
 
-<ng-template #noAgreements>
-    <div class="alert alert-light" role="alert">
-        <h6 class="lead text-center">
-            <b>Нет данных...</b>
-        </h6>
-    </div>
-</ng-template>
+<ng-template #loadingStatus>
+    <h4 class="text-center">
+        Загрузка таблицы...
+        <p>
+        <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" 
+            fill="#EEEEEE" animationDuration=".5s">
+        </p-progressSpinner>
+    </h4>
+</ng-template> 

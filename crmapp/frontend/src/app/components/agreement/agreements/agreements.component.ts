@@ -12,18 +12,15 @@ import { Router } from '@angular/router';
 export class AgreementsComponent implements OnInit {
   agreements: ClientAgreement[] = [];
   columns: any[];
-  loading: boolean;
   items: MenuItem[];
 
   constructor(private service: AgreementService, 
               private router: Router) { }
 
   ngOnInit() {
-    this.getAgreements();
-    this.initColumns();
-    this.loading = true;
     setTimeout(() => {
-      this.loading = false;
+      this.initColumns();
+      this.getAgreements();
     }, 500);
   }
 
