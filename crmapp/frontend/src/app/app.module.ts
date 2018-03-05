@@ -15,6 +15,7 @@ import { DataListModule } from 'primeng/datalist';
 import { DataTableModule } from 'primeng/datatable'; //deprecated
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
+import { FieldsetModule } from 'primeng/fieldset';
 import { GrowlModule } from 'primeng/growl';
 import { InputTextModule } from 'primeng/inputtext';
 import { KeyFilterModule } from 'primeng/keyfilter';
@@ -146,7 +147,7 @@ import { PersonDetailsComponent } from './components/person/person-details/perso
     PersonsComponent,
     AddPersonComponent,
     EditPersonComponent,
-    PersonDetailsComponent
+    PersonDetailsComponent,
   ],
   imports: [
     AppRoutingModule, 
@@ -166,6 +167,7 @@ import { PersonDetailsComponent } from './components/person/person-details/perso
     DialogModule,
     DropdownModule,
     GrowlModule,
+    FieldsetModule,
     InputTextModule, 
     KeyFilterModule,
     ListboxModule,
