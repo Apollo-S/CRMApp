@@ -12,18 +12,15 @@ import { MenuItem } from 'primeng/api';
 export class ClientsComponent implements OnInit {
   clients: Client[];
   columns: any[];
-  loading: boolean;
   items: MenuItem[];
   
   constructor(private service: ClientService,
               private router: Router) { }
 
   ngOnInit() {
-    this.getClients();
-    this.initColumns();
-    this.loading = true;
     setTimeout(() => {
-      this.loading = false;
+      this.initColumns();
+      this.getClients();
     }, 500);
   } 
 
