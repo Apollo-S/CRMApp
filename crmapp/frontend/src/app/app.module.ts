@@ -59,6 +59,7 @@ import { NavbarBottomComponent } from './components/navbar-bottom/navbar-bottom.
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DashboardMenuComponent } from './components/dashboard/dashboard-menu/dashboard-menu.component';
+import { DashboardTableComponent } from './components/dashboard/dashboard-table/dashboard-table.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 import { ClientsComponent } from './components/client/clients/clients.component';
@@ -116,6 +117,7 @@ import { PersonDetailsComponent } from './components/person/person-details/perso
     SidebarComponent,
     DashboardComponent,
     DashboardMenuComponent,
+    DashboardTableComponent,
     PageNotFoundComponent,
     EmployeesComponent,
     DocumentsComponent,

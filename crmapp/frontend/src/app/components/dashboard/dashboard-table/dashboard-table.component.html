@@ -1,0 +1,66 @@
+<p-toolbar>
+    <div class="ui-toolbar-group-left">
+        <button pButton type="button" label="Добавить" style="margin-top:3px" 
+            [routerLink]="['add']" icon="fa-plus">
+        </button>
+    </div>
+    <div class="ui-toolbar-group-right">
+        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+        <input type="text" pInputText size="50" placeholder="Фильтр" style="width:auto" 
+            (input)="dt.filterGlobal($event.target.value, 'contains')">
+    </div>
+</p-toolbar>
+
+<div class="text-center" style="margin-top:6px">
+    <h4>{{title}}</h4>
+</div>
+
+<p-card>
+    <p-table #dt [columns]="columns" [responsive]="responsive" 
+        [value]="datasource" [reorderableColumns]="reorderableColumns" 
+        [rows]="rows" [rowHover]="rowHover" [paginator]="paginator" 
+        *ngIf="datasource?.length > 0; else loadingStatus">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let column of columns" style="text-align:center" 
+                    [pSortableColumn]="column.field" pReorderableColumn>
+                    {{column.header}}
+                    <p-sortIcon [field]="column.field"></p-sortIcon>
+                </th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-datasource let-rowData let-columns="columns">
+            <tr>
+                <td *ngFor="let column of columns" style="text-align:center"
+                    (click)="goToEntry(datasource?.url)">
+                    <span class="ui-column-title">{{column.header}}</span>
+                    {{rowData[column.field]}}
+                </td>
+                <td style="text-align:center">
+                    <button pButton type="button" class="ui-button-info" 
+                        icon="fa-arrow-circle-o-right" label="Подробнее" 
+                        (click)="goToEntry(datasource?.url)">
+                    </button>
+                    <p-tieredMenu #menu [model]="items" [popup]="true" appendTo="body"></p-tieredMenu>
+                    <button #btn pButton type="button" icon="fa-list" class="ui-button-info" 
+                        (click)="menu.toggle($event)" (mousedown)="initMenu(datasource?.id)">
+                    </button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            Кол-во записей: {{datasource?.length}}
+        </ng-template>
+    </p-table>
+</p-card>
+
+<ng-template #loadingStatus>
+    <h4 class="text-center">
+        Загрузка таблицы...
+        <p>
+        <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" 
+            fill="#EEEEEE" animationDuration=".5s">
+        </p-progressSpinner>
+    </h4>
+</ng-template> 
