@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Employee } from '../../../../models/Employee';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-employee-details-tabs',
@@ -8,13 +8,22 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
   styleUrls: ['./employee-details-tabs.component.css']
 })
 export class EmployeeDetailsTabsComponent implements OnInit {
-
-  @Input ('employee') employee: Employee;
+  tabs: MenuItem[];
   
-  constructor(private router: Router,
-              private route: ActivatedRoute) { }
+  constructor() { }
 
   ngOnInit() {
+    this.initTabs();
+  }
+
+  private initTabs(): any {
+    this.tabs = [
+      {label: 'Основные данные', icon: 'fa-address-card-o', routerLink: 'main'},
+      {label: 'Адресы', icon: 'fa-building-o', routerLink: 'addresses'},
+      {label: 'Банковские реквизиты', icon: 'fa-bank', routerLink: 'accounts'},
+      {label: 'Отпуск / Больничные листы', icon: 'fa-user-o', routerLink: 'vacations-sicks'},
+      {label: 'Договоры', icon: 'fa-file-text-o', routerLink: 'documents'}
+    ];
   }
 
 }
