@@ -14,14 +14,12 @@ export class AgreementsComponent implements OnInit {
   columns: any[];
   items: MenuItem[];
 
-  constructor(private service: AgreementService, 
-              private router: Router) { }
+  constructor(private service: AgreementService) { }
 
   ngOnInit() {
-    setTimeout(() => {
       this.initColumns();
       this.getAgreements();
-    }, 500);
+      this.initMenu();
   }
 
   private getAgreements() {
@@ -33,19 +31,15 @@ export class AgreementsComponent implements OnInit {
 
   private initColumns() {
     this.columns = [
-      { field: 'clientAlias', header: 'Контрагент' },
-      { field: 'number', header: 'Номер' },
-      { field: "dateStart", header: 'Дата' }
+      { field: 'clientAlias', header: 'Контрагент', filterBy: 'contains' },
+      { field: 'number', header: 'Номер', filterBy: 'contains' },
+      { field: "dateStart", header: 'Дата', filterBy: 'contains' }
     ];
   }
 
-  goToAgreement(url: string) {
-    this.router.navigate([url]);
-  }
-
-  initMenu(agreementId: string) {
+  private initMenu() {
     this.items = [
-      { label: 'Связ. документы', icon: 'fa-file-text-o', routerLink: [agreementId, 'documents'] }
+      { label: 'Связ. документы', icon: 'fa-file-text-o', title: 'documents' }
     ];
   }
 

@@ -10,18 +10,16 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./clients.component.css']
 })
 export class ClientsComponent implements OnInit {
-  clients: Client[];
+  clients: Client[] = [];
   columns: any[];
   items: MenuItem[];
   
-  constructor(private service: ClientService,
-              private router: Router) { }
+  constructor(private service: ClientService) { }
 
   ngOnInit() {
-    setTimeout(() => {
       this.initColumns();
       this.getClients();
-    }, 500);
+      this.initMenu();
   } 
 
   private getClients(): any {
@@ -39,16 +37,12 @@ export class ClientsComponent implements OnInit {
     ];
   }
 
-  goToClient(url: string) {
-    this.router.navigate([url]);
-  }
-
-  initMenu(clientId: string) {
+  private initMenu() {
     this.items = [
-      { label: 'Договоры', icon: 'fa-file-text-o', routerLink: [clientId, 'agreements'] },
-      { label: 'Адресы', icon: 'fa-building-o', routerLink: [clientId, 'addresses'] },
-      { label: 'Руководители', icon: 'fa-user-o', routerLink: [clientId, 'directors'] },
-      { label: 'Банк. реквизиты', icon: 'fa-bank', routerLink: [clientId, 'accounts'] }
+      { label: 'Договоры', icon: 'fa-file-text-o', title: 'agreements' },
+      { label: 'Адресы', icon: 'fa-building-o', title: 'addresses' },
+      { label: 'Руководители', icon: 'fa-user-o', title: 'directors' },
+      { label: 'Банк. реквизиты', icon: 'fa-bank', title: 'accounts' }
     ];
   }
 
