@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AgreementService } from '../../../services/agreement.service';
 import { ClientAgreement } from '../../../models/ClientAgreement';
 import { MenuItem } from 'primeng/api';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-agreements',
