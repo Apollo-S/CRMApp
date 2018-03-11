@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PersonService } from '../../../services/person.service';
 import { Person } from '../../../models/Person';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-persons',
@@ -10,12 +11,14 @@ import { Person } from '../../../models/Person';
 export class PersonsComponent implements OnInit {  
   persons: Person[] = [];
   columns: any[];
+  items: MenuItem[];
 
   constructor(private service: PersonService) { }
 
   ngOnInit() {
-    this.getPersons();
     this.initColumns();
+    this.getPersons();
+    this.initMenu();
   }
 
   private getPersons(): any {
@@ -25,12 +28,16 @@ export class PersonsComponent implements OnInit {
       );
   }
 
-  initColumns(): any {
+  private initColumns(): any {
     this.columns = [
       { field: 'surname', header: 'Фамилия' },
       { field: 'firstname', header: 'Имя' },
       { field: 'lastname', header: 'Отчество' }
     ];
+  }
+
+  private initMenu() {
+    this.items = [];
   }
 
 }
