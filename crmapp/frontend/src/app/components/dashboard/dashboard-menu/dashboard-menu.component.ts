@@ -39,6 +39,7 @@ export class DashboardMenuComponent implements OnInit {
         [
           {"label": "Физические лица", "icon": "fa-asterisk", "routerLink": "/persons"},
           {"label": "Сотрудники", "icon": "fa-asterisk", "routerLink": "/employees"},
+          {"label": "Отпуски", "icon": "fa-asterisk", "routerLink": "/vacations"},
         ]
       },
     ];
