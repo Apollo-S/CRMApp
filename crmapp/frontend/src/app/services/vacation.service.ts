@@ -9,7 +9,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class VacationService {
 
   private employeesUrl = '/api/employees';
-  private vacationsUrl = this.employeesUrl + '/vacations';
+  private vacationsUrl = '/api/vacations';
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   constructor(private http: HttpClient) { }
