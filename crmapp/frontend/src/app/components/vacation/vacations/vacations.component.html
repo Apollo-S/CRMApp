@@ -1,68 +1,60 @@
-<div class="card">
-  <h5 class="card-header text-center">
-      <strong>
-          <i class="fa fa-users"></i> Отпуски
-      </strong>
-  </h5>
-  <div class="card-body">
-
-      <div class="row">
-            <div class="col-md-10">
-
-                <div class="card">
-                    <div class="card-body"> 
-
-                        <table *ngIf="vacations?.length > 0; else noVacations" 
-                            class="table table-sm">
-                        
-                            <thead class="thead-default">
-                                <tr>
-                                
-                                <th class="text-center">Сотрудник</th>
-                                <th class="text-center">Описание</th>
-                                <th class="text-center">Период</th>
-                                <th class="text-center"></th>
-                                </tr>
-                            </thead>
-                        
-                            <tr *ngFor="let vacation of vacations">
-                                
-                                <td class="text-center">
-                                    <a [routerLink]="['/employee', vacation.employeeId]" href="">
-                                    <i class="fa fa-arrow-circle-o-right"></i> {{vacation.employeeShortName}}
-                                    </a>
-                                </td>
-                                <td class="text-center">
-                                    {{vacation.description}}
-                                </td>
-                                <td class="text-center">
-                                    {{vacation.dateStart | date: 'dd.MM.y'}} - {{vacation.dateFinal | date: 'dd.MM.y'}}
-                                </td>
-                                <td class="text-right">
-                                    <a [routerLink]="['/vacation', vacation.id]" href="" class="btn btn-info btn-sm">
-                                        <i class="fa fa-arrow-circle-o-right"></i> Подробнее
-                                    </a>
-                                </td>
-                            </tr>
-                                
-                        </table>
-
-                    </div>
-                </div>
-          
-              <ng-template #noVacations>
-                <div class="alert alert-light" role="alert">
-                    <h6 class="lead text-center">
-                        <b>Отсутствуют отпуски в системе...</b>
-                    </h6>
-                </div>
-              </ng-template>
-
-          </div>
-          <div class="col-md-2">
-              <app-sidebar [url] = "['/add-employee']" [title] = "['Добавить']"></app-sidebar>
-          </div>
-      </div>
-  </div>
+<div class="text-center"> 
+    <h4>Отпуски</h4>
 </div>
 
+<p-card>
+    <p-table #dt [columns]="columns" [responsive]="responsive" 
+        [value]="vacations" [reorderableColumns]="true" 
+        [rows]="0" [rowHover]="true" [paginator]="false" 
+        *ngIf="vacations?.length > 0; else loadingStatus" >
+        <ng-template pTemplate="caption">
+            <div style="float: left"> 
+                <button pButton type="button" label="Добавить" style="margin-top:3px" 
+                    [routerLink]="['add']" icon="fa-plus">
+                </button>
+            </div>
+            <div style="text-align: right">
+                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                <input type="text" pInputText size="50" placeholder="Фильтр" style="width:auto" 
+                    (input)="dt.filterGlobal($event.target.value, 'contains')">
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let column of columns" style="text-align:center" 
+                    [pSortableColumn]="column.field" pReorderableColumn>
+                    {{column.header}}
+                    <p-sortIcon [field]="column.field"></p-sortIcon>
+                </th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-vacation let-rowData let-columns="columns">
+            <tr>
+                <td *ngFor="let column of columns" style="text-align:center"
+                    (click)="goToEntry(vacation?.url)">
+                    {{rowData[column.field]}}
+                </td>
+                <td style="text-align:center">
+                    <button pButton type="button" class="ui-button-info" 
+                        icon="fa-arrow-circle-o-right" label="Подробнее" 
+                        (click)="goToEntry(vacation?.url)">
+                    </button>
+                    <p-tieredMenu #menu [model]="items" [popup]="true" 
+                        appendTo="body">
+                    </p-tieredMenu>
+                    <button #btn pButton type="button" icon="fa-list" class="ui-button-info" 
+                        (click)="menu.toggle($event)" (mousedown)="initMenu(vacation?.employeeId)">
+                    </button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            Кол-во записей: {{vacations?.length}}
+        </ng-template>
+    </p-table>
+</p-card>
+
+<ng-template #loadingStatus>
+    <app-loading-status></app-loading-status>
+</ng-template> 
