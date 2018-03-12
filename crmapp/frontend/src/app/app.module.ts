@@ -102,6 +102,7 @@ import { PersonsComponent } from './components/person/persons/persons.component'
 import { AddPersonComponent } from './components/person/add-person/add-person.component';
 import { EditPersonComponent } from './components/person/edit-person/edit-person.component';
 import { PersonDetailsComponent } from './components/person/person-details/person-details.component';
+import { LoadingStatusComponent } from './components/dashboard/loading-status/loading-status.component';
 
 @NgModule({
   declarations: [
@@ -150,6 +151,7 @@ import { PersonDetailsComponent } from './components/person/person-details/perso
     AddPersonComponent,
     EditPersonComponent,
     PersonDetailsComponent,
+    LoadingStatusComponent,
   ],
   imports: [
     AppRoutingModule, 
