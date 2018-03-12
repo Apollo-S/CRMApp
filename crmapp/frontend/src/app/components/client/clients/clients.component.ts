@@ -16,9 +16,9 @@ export class ClientsComponent implements OnInit {
   constructor(private service: ClientService) { }
 
   ngOnInit() {
-      this.initColumns();
-      this.getClients();
-      this.initMenu();
+    this.initColumns();
+    this.getClients();
+    this.initMenu();
   } 
 
   private getClients(): any {

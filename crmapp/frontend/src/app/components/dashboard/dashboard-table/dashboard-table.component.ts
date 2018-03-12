@@ -8,7 +8,7 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./dashboard-table.component.css']
 })
 export class DashboardTableComponent implements OnInit {
-
+  
   @Input ('title') title: string;
   @Input ('columns') columns: any[];
   @Input ('datasource') datasource: any[];
@@ -31,9 +31,9 @@ export class DashboardTableComponent implements OnInit {
     this.router.navigate([url]);
   }
 
-  initMenu(datasourceId: string) {
+  initMenu(routerLinkUrl: any) {
     this.menuModel.forEach(
-      (menu) => menu.routerLink = [datasourceId, menu.title]
+      (menu) => menu.routerLink = [routerLinkUrl, menu.title]
     );
   }
 
