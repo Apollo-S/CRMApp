@@ -45,7 +45,8 @@
                     <p-tieredMenu #menu [model]="menuModel" [popup]="true" 
                         appendTo="body">
                     </p-tieredMenu>
-                    <button #btn pButton type="button" icon="fa-list" class="ui-button-info" 
+                    <button *ngIf="menuModel?.length > 0"
+                        #btn pButton type="button" icon="fa-list" class="ui-button-info" 
                         (click)="menu.toggle($event)" (mousedown)="initMenu(datasource?.id)">
                     </button>
                 </td>
