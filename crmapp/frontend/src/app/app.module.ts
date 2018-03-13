@@ -12,7 +12,6 @@ import { CalendarModule } from 'primeng/calendar';
 import { CardModule } from 'primeng/card';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DataListModule } from 'primeng/datalist';
-import { DataTableModule } from 'primeng/datatable'; //deprecated
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { FieldsetModule } from 'primeng/fieldset';
@@ -167,7 +166,6 @@ import { LoadingStatusComponent } from './components/dashboard/loading-status/lo
     CardModule,
     ConfirmDialogModule,
     DataListModule,
-    DataTableModule, 
     DialogModule,
     DropdownModule,
     GrowlModule,
