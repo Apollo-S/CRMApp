@@ -25,21 +25,28 @@ export class DashboardMenuComponent implements OnInit {
 
   private initCategories() {
     this.items = [
-      {"label": "Клиенты", "icon": "fa-folder-o", "expanded": false, "items" : 
+      {"label": "Клиенты", "icon": "fa-folder-o", "expanded": false, "visible": true, "items": 
         [
-          {"label": "Все клиенты", "icon": "fa-asterisk", "routerLink": "/clients"},
+          {"label": "Все клиенты", "icon": "fa-asterisk", "routerLink": "/clients", "visible": true },
         ]
       },
-      {"label": "Документооборот", "icon": "fa-folder", "expanded": false, "items": 
+      {"label": "Документооборот", "icon": "fa-folder", "expanded": false, "visible": true, "items": 
         [
-          {"label": "Договоры с клиентами", "icon": "fa-asterisk", "routerLink": "/agreements"},
+          {"label": "Договоры с клиентами", "icon": "fa-asterisk", "routerLink": "/agreements", "visible": true },
         ]
       },
-      {"label": "Кадровый учет", "icon": "fa-navicon", "expanded": false, "items": 
+      {"label": "Кадровый учет", "icon": "fa-navicon", "expanded": false, "visible": true, "items": 
         [
-          {"label": "Физические лица", "icon": "fa-asterisk", "routerLink": "/persons"},
-          {"label": "Сотрудники", "icon": "fa-asterisk", "routerLink": "/employees"},
-          {"label": "Отпуски", "icon": "fa-asterisk", "routerLink": "/vacations"},
+          {"label": "Физические лица", "icon": "fa-asterisk", "routerLink": "/persons", "visible": true },
+          {"label": "Сотрудники", "icon": "fa-asterisk", "routerLink": "/employees", "visible": true },
+          {"label": "Отпуски", "icon": "fa-asterisk", "routerLink": "/vacations", "visible": true },
+          {"label": "Больничные листы", "icon": "fa-asterisk", "routerLink": "/sick-lists", "visible": true },
+        ]
+      },
+      {"label": "Корреспонденция", "icon": "fa-navicon", "expanded": false, "visible": true, "items": 
+        [
+          {"label": "Исходящие номера", "icon": "fa-asterisk", "routerLink": "/output", "visible": true },
+          {"label": "Входящие номера", "icon": "fa-asterisk", "routerLink": "/input", "visible": true },
         ]
       },
     ];
