@@ -3,6 +3,7 @@ import { EmployeeService } from '../../../../services/employee.service';
 import { EmployeeAccount } from '../../../../models/EmployeeAccount';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
+import { Employee } from '../../../../models/Employee';
 
 @Component({
   selector: 'app-employee-details-accounts-tab',
@@ -11,33 +12,30 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class EmployeeDetailsAccountsTabComponent implements OnInit, OnDestroy {
   private _propertySubscribtion: Subscription;
+  employee: Employee = {};
   accounts: EmployeeAccount[];
-  employeeId: number;
   
   constructor(private service: EmployeeService,
     private router: Router,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.getPropertySubscribtion();
-    this.getAccountsByEmployeeId(this.employeeId);
+    this._propertySubscribtion = this.service.property$
+      .subscribe(
+        p => this.employee = p
+      );
+    this.getAccountsByEmployeeId(this.employee.id);
   }
 
   ngOnDestroy(): void {
     this._propertySubscribtion.unsubscribe();
   }
 
-  private getPropertySubscribtion() {
-    this._propertySubscribtion = this.service.property$
-      .subscribe(p => {
-        this.employeeId = p;
-        console.log("account tab property = " + this.employeeId);
-    });
-  }
-
-  getAccountsByEmployeeId(employeeId: number) {
-    this.service.getAccountsByEmployeeId(employeeId)
-      .subscribe(accounts => this.accounts = accounts);
+  getAccountsByEmployeeId(id: number) {
+    this.service.getAccountsByEmployeeId(id)
+      .subscribe(
+        accounts => this.accounts = accounts
+      );
   }
 
 }

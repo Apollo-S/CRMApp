@@ -1,8 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Employee } from '../../../../models/Employee';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { EmployeeService } from '../../../../services/employee.service';
 import { Subscription } from 'rxjs/Subscription';
+import { Router } from '@angular/router';
+import { EmployeeService } from '../../../../services/employee.service';
+import { MessageService } from 'primeng/components/common/messageservice';
+import { ConfirmationService, Message } from 'primeng/api';
 
 @Component({
   selector: 'app-employee-details-main-tab',
@@ -11,40 +13,50 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class EmployeeDetailsMainTabComponent implements OnInit, OnDestroy {
   private _propertySubscribtion: Subscription;
+  msgs: Message[] = [];
   employee: Employee = {};
-  employeeId: number;
   
   constructor(private service: EmployeeService,
               private router: Router,
-              private route: ActivatedRoute) { }
+              private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
     this._propertySubscribtion = this.service.property$
-      .subscribe(p => {
-        this.employeeId = p;
-        console.log("main tab property = " + this.employeeId);
-      });
-    this.getEmployeeById(this.employeeId);
+      .subscribe(
+        p => this.employee = p
+      );
   }
 
   ngOnDestroy() {
     this._propertySubscribtion.unsubscribe();
   }
 
-  getEmployeeById(id: number) {
-    this.service.getEmployeeById(id)
-      .subscribe(employee => this.employee = employee);
+  confirmDeleting() {
+    let msg  = 'Сотрудник \"' + this.employee.personShortName + '(ID=' + this.employee.id + ')\" успешно удален';
+    this.confirmationService.confirm({
+      message: 'Действительно удалить сотрудника?',
+      header: 'Удаление объекта',
+      icon: 'fa fa-trash',
+      accept: () => {
+        this.delete();
+        this.msgs = [{severity:'success', summary:'Успешно', detail: msg}];
+      },
+      reject: () => {}
+    });
   }
 
-  delete(): void {
-    if (confirm("Удалить работника?")) {
-      this.service.delete(this.employeeId)
-        .subscribe(() => this.goBackToEmpoloyees());
-    }
+  private delete(): void {
+    this.service.deleteEmployee(this.employee)
+      .subscribe(
+        () => this.goBackToEmpoloyees()
+      );
   }
 
   private goBackToEmpoloyees(): void {
-    this.router.navigate(['/employees']);
-}
+    setTimeout(
+      () => {
+        this.router.navigate(['/employees']);
+      }, 1500);
+  }
 
 }

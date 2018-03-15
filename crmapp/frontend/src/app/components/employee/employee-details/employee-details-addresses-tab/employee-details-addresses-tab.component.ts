@@ -3,6 +3,7 @@ import { EmployeeAddress } from '../../../../models/EmployeeAddress';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { EmployeeService } from '../../../../services/employee.service';
+import { Employee } from '../../../../models/Employee';
 
 @Component({
   selector: 'app-employee-details-addresses-tab',
@@ -11,8 +12,8 @@ import { EmployeeService } from '../../../../services/employee.service';
 })
 export class EmployeeDetailsAddressesTabComponent implements OnInit, OnDestroy {
   private _propertySubscribtion: Subscription;
-  addresses: EmployeeAddress[];
-  employeeId: number;
+  addresses: EmployeeAddress[] = [];
+  employee: Employee = {};
 
   constructor(private service: EmployeeService,
               private router: Router,
@@ -20,20 +21,21 @@ export class EmployeeDetailsAddressesTabComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._propertySubscribtion = this.service.property$
-      .subscribe(p => {
-        this.employeeId = p;
-        console.log("address tab property = " + this.employeeId);
-    });
-    this.getAddressesByEmployeeId(this.employeeId);
+      .subscribe(
+        p => this.employee = p
+      );
+    this.getAddressesByEmployeeId(this.employee.id);
   }
 
   ngOnDestroy() {
     this._propertySubscribtion.unsubscribe();
   }
 
-  getAddressesByEmployeeId(employeeId: number) {
-    this.service.getAddressesByEmployeeId(employeeId)
-      .subscribe(addresses => this.addresses = addresses);
+  getAddressesByEmployeeId(id: number) {
+    this.service.getAddressesByEmployeeId(id)
+      .subscribe(
+        addresses => this.addresses = addresses
+      );
   }
 
 }

@@ -1,4 +1,48 @@
-<p>
+<p-growl [value]="msgs"></p-growl>
+
+<p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425" #cd>
+  <p-footer>
+    <button type="button" pButton icon="fa-check" 
+      class="ui-button-primary" label="Ок" (click)="cd.accept()">
+    </button>
+    <button type="button" pButton icon="fa-close" 
+      class="ui-button-secondary" label="Отмена" (click)="cd.reject()">
+    </button>
+  </p-footer>
+</p-confirmDialog>
+
+<div class="ui-g-12">
+  <div class="ui-g-10">
+    <p-card>
+      <div class="ui-g">
+          <div class="ui-g-4 ui-sm-6"><b>ФИО:</b></div>
+          <div class="ui-g-8 ui-sm-6">{{employee?.personShortName}}</div>
+          <div class="ui-g-4 ui-sm-6"><b>Псевдоним:</b></div>
+          <div class="ui-g-8 ui-sm-6">{{employee?.id}}</div>
+          <div class="ui-g-4 ui-sm-6"><b>ИНН:</b></div>
+          <div class="ui-g-8 ui-sm-6">{{employee?.personInn}}</div>
+          <!-- <div class="ui-g-4 ui-sm-6"><b>Дата рождения:</b></div>
+          <div class="ui-g-8 ui-sm-6">{{employee?.birthDate | date: 'dd.MM.y'}}</div> -->
+          <div class="ui-g-4 ui-sm-6"><b>Дата трудоустройства:</b></div>
+          <div class="ui-g-8 ui-sm-6">{{employee?.hireDate | date: 'dd.MM.y'}}</div>
+          <div class="ui-g-4 ui-sm-6"><b>Должность:</b></div>
+          <div class="ui-g-8 ui-sm-6">{{employee?.postTitle}}</div>
+        </div>
+    </p-card>
+  </div>
+  <div class="ui-g-2">
+      <button pButton type="button" label="Изменить" 
+        class="ui-button-success btn-block" icon="fa fa-edit"
+        [routerLink]="['edit']">
+      </button>
+      <button pButton type="button" label="Удалить" 
+        class="ui-button-danger btn-block" icon="fa fa-trash-o"
+        (click)="confirmDeleting()">
+      </button>
+  </div>
+</div>
+
+<!-- <p>
   
 <div class="row">
     
@@ -98,7 +142,7 @@
     </a>
     
     <!-- Button trigger modal -->
-    <button 
+    <!-- <button 
       type="button" 
       class="btn btn-danger btn-block" 
       (click)="delete()">
@@ -108,6 +152,6 @@
 
   </div>
 
-</div>
+</div> -->
 
-
+ -->
