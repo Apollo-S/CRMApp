@@ -1,10 +1,33 @@
-<p-menubar [model]="items">
-  <div>
-      <button pButton label="Вход" icon="fa-sign-in" routerLink="/login"></button>
-      <button pButton label="Регистрация" icon="fa-user-plus" routerLink="/register"></button>
+<div class="ui-g">
+  <div *ngIf="isShown" class="ui-g-12 ui-md-3">
+    <div style="margin-bottom:6px">
+      <p-toolbar>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-6">
+            <button pButton type="button" class="ui-button-info" 
+              style="width:98%;float:left" icon="fa-plus-square" 
+              label="Развернуть" (click)="expandAll()">
+            </button>
+          </div>
+          <div class="ui-grid-col-6">
+            <button pButton type="button" class="ui-button-danger" 
+              style="width:98%;float:right" icon="fa-minus-square" 
+              label="Свернуть" (click)="collapseAll()">
+            </button>
+          </div>
+        </div>
+      </p-toolbar>
+    </div>
+    <p-panelMenu [model]="panelMenuItems" [multiple]="true"></p-panelMenu>    
   </div>
-</p-menubar>
-
-<p>
-
-
+  
+  <div class="ui-g-12 ui-md-{{gridWidth}} ui-g-nopad">
+    <div class="ui-g-12">
+      <app-navbar-menu-bar [model]="menubarItems"></app-navbar-menu-bar>
+    </div>
+  
+    <div class="ui-g-12 ui-g-nopad">
+      <router-outlet></router-outlet> 
+    </div>
+  </div>
+</div>

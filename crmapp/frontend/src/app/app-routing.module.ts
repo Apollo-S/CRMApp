@@ -52,81 +52,73 @@ import { PersonDetailsComponent } from "./components/person/person-details/perso
 const appRoutes: Routes = [
   {path: 'about', component:AboutComponent},
   {path: '', component:DashboardComponent, 
-    children: 
-    [
+    children: [
       {path:  '', redirectTo: 'clients', pathMatch: 'full'},
       {path: 'clients', component:ClientsComponent},
+      {path: 'clients/add', component:AddClientComponent},
+      {path: 'clients/:id', component:ClientDetailsComponent,
+        children: [
+          {path:  '', redirectTo: 'main', pathMatch: 'full'},
+          {path: 'main', component: ClientDetailsMainTabComponent},
+          {path: 'main/edit', component:EditClientComponent},
+          {path: 'addresses', component: ClientDetailsAddressesTabComponent},
+          {path: 'addresses/add', component:AddAddressComponent},
+          {path: 'addresses/:id', component:EditAddressComponent,
+            children: [
+              {path:  '', redirectTo: 'edit', pathMatch: 'full'},
+              {path: 'edit', component:EditAddressComponent},
+            ]
+          },
+          {path: 'accounts', component: ClientDetailsAccountsTabComponent},
+          {path: 'accounts/add', component: AddAccountComponent},
+          {path: 'accounts/:id', component: EditAccountComponent,
+          children: [
+              {path:  '', redirectTo: 'edit', pathMatch: 'full'},
+              {path: 'edit', component:EditAccountComponent},
+            ]
+          },
+          {path: 'directors', component: ClientDetailsDirectorsTabComponent},
+          {path: 'directors/add', component: AddDirectorComponent},
+          {path: 'directors/:id', component: EditDirectorComponent,
+            children: [
+              {path:  '', redirectTo: 'edit', pathMatch: 'full'},
+              {path: 'edit', component:EditDirectorComponent},
+            ]
+          },
+          {path: 'agreements', component: ClientDetailsAgreementsTabComponent},
+          {path: 'agreements/add', component: AddAgreementComponent},
+          {path: 'agreements/:id', component: AgreementDetailsComponent},
+        ]
+      },
       {path: 'employees', component:EmployeesComponent},
+      {path: 'employees/add', component: AddEmployeeComponent},
+      {path: 'employees/:id', component: EmployeeDetailsComponent, 
+        children: [
+          {path:  '', redirectTo: 'main', pathMatch: 'full'},
+          {path: 'main', component: EmployeeDetailsMainTabComponent},
+          {path: 'main/edit', component: EditEmployeeComponent},
+          {path: 'addresses', component: EmployeeDetailsAddressesTabComponent},
+          {path: 'accounts', component: EmployeeDetailsAccountsTabComponent}
+        ]
+      },
       {path: 'documents', component:DocumentsComponent},
       {path: 'vacations', component:VacationsComponent},
       {path: 'agreements', component:AgreementsComponent},
-      {path: 'persons', component:PersonsComponent},
-    ]
-  },
-  {path: 'clients/add', component:AddClientComponent},
-  {path: 'clients/:id', component:ClientDetailsComponent,
-    children:
-    [
-      {path:  '', redirectTo: 'main', pathMatch: 'full'},
-      {path: 'main', component: ClientDetailsMainTabComponent},
-      {path: 'main/edit', component:EditClientComponent},
-      {path: 'addresses', component: ClientDetailsAddressesTabComponent},
-      {path: 'addresses/add', component:AddAddressComponent},
-      {path: 'addresses/:id', component:EditAddressComponent,
-        children: 
-        [
-          {path:  '', redirectTo: 'edit', pathMatch: 'full'},
-          {path: 'edit', component:EditAddressComponent},
-        ]
-      },
-      {path: 'accounts', component: ClientDetailsAccountsTabComponent},
-      {path: 'accounts/add', component: AddAccountComponent},
-      {path: 'accounts/:id', component: EditAccountComponent,
-      children: 
-        [
-          {path:  '', redirectTo: 'edit', pathMatch: 'full'},
-          {path: 'edit', component:EditAccountComponent},
-        ]
-      },
-      {path: 'directors', component: ClientDetailsDirectorsTabComponent},
-      {path: 'directors/add', component: AddDirectorComponent},
-      {path: 'directors/:id', component: EditDirectorComponent,
-        children: 
-        [
-          {path:  '', redirectTo: 'edit', pathMatch: 'full'},
-          {path: 'edit', component:EditDirectorComponent},
-        ]
-      },
-      {path: 'agreements', component: ClientDetailsAgreementsTabComponent},
       {path: 'agreements/add', component: AddAgreementComponent},
-      {path: 'agreements/:id', component: AgreementDetailsComponent},
+      {path: 'agreements/:id', component: AgreementDetailsComponent,
+        children: [
+          {path:  '', redirectTo: 'main', pathMatch: 'full'},
+          {path: 'main', component: EditAgreementComponent},
+          {path: 'edit', component: EditAgreementComponent},
+          {path: 'documents', component: AgreementDetailsDocumentsTabComponent}
+        ]
+      },
+      {path: 'agreements/:id/edit', component: EditAgreementComponent},
+      {path: 'persons', component:PersonsComponent},
+      {path: 'persons/add', component:AddPersonComponent},
+      {path: 'persons/:id', component: PersonDetailsComponent},
     ]
-  },
-  {path: 'agreements/add', component: AddAgreementComponent},
-  {path: 'agreements/:id', component: AgreementDetailsComponent,
-    children: 
-    [
-      {path:  '', redirectTo: 'main', pathMatch: 'full'},
-      {path: 'main', component: EditAgreementComponent},
-      {path: 'edit', component: EditAgreementComponent},
-      {path: 'documents', component: AgreementDetailsDocumentsTabComponent}
-    ]
-  },
-  {path: 'agreements/:id/edit', component: EditAgreementComponent},
-
-  {path: 'employees/add', component: AddEmployeeComponent},
-  {path: 'employees/:id', component: EmployeeDetailsComponent, 
-    children: 
-    [
-      {path:  '', redirectTo: 'main', pathMatch: 'full'},
-      {path: 'main', component: EmployeeDetailsMainTabComponent},
-      {path: 'main/edit', component: EditEmployeeComponent},
-      {path: 'addresses', component: EmployeeDetailsAddressesTabComponent},
-      {path: 'accounts', component: EmployeeDetailsAccountsTabComponent}
-    ]
-  },
-  {path: 'persons/add', component:AddPersonComponent},
-  {path: 'persons/:id', component: PersonDetailsComponent},
+  }
 ]
 
 @NgModule({
@@ -138,6 +130,4 @@ const appRoutes: Routes = [
     RouterModule
   ]
 })
-export class AppRoutingModule {
-
-}
+export class AppRoutingModule {}
