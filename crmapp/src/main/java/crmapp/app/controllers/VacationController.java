@@ -2,6 +2,8 @@ package crmapp.app.controllers;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,8 @@ import crmapp.app.repositories.VacationRepository;
 @Transactional
 @RequestMapping(value = "/api")
 public class VacationController extends BaseController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(VacationController.class);
 	
 	@Autowired
 	private VacationRepository vacationRepository;
@@ -42,10 +46,13 @@ public class VacationController extends BaseController {
 
 	@GetMapping(value = "/vacations/{id}", headers = HEADER_JSON)
 	public ResponseEntity<Vacation> getVacationById(@PathVariable(PARAM_ID) int id) {
+		logger.info("<==/////////// Entering to the getVacationById() method ... ///////////==>");
 		Vacation vacation = vacationRepository.findOne(id);
 		if (vacation == null) {
 			return new ResponseEntity<Vacation>(vacation, HttpStatus.NOT_FOUND);
 		}
+		logger.info("<==/////////// Getting the vacation with ID = " + vacation.getId() + " ///////////==>");
+		logger.info("<==/////////// Printing vacation: " + vacation + "///////////==>");
 		return new ResponseEntity<Vacation>(vacation, HttpStatus.OK);
 	}
 
