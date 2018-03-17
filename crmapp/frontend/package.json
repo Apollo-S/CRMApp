@@ -35,7 +35,7 @@
     "font-awesome": "^4.7.0",
     "jquery": "^3.3.1",
     "popper.js": "^1.12.9",
-    "primeng": "^5.2.2",
+    "primeng": "^5.2.3",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.20"
   },
