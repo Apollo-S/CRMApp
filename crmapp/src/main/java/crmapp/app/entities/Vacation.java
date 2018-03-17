@@ -1,6 +1,7 @@
 package crmapp.app.entities;
 
-import java.io.Serializable;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -20,9 +21,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @Table(name = "vacation")
 @JsonIgnoreProperties(ignoreUnknown = true, 
 	value = { "hibernateLazyInitializer", "handler" })
-public class Vacation extends UrlBaseEntity implements Serializable {
+public class Vacation extends UrlBaseEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final String DATE_FORMAT = "dd.MM.yyyy";
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "employee_id")
@@ -118,6 +119,14 @@ public class Vacation extends UrlBaseEntity implements Serializable {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
+	
+	@JsonInclude
+	public String getFullPeriod() {
+		Format formatter = new SimpleDateFormat(DATE_FORMAT);
+		String startDate = formatter.format(this.dateStart);
+		String finalDate = formatter.format(this.dateFinal);
+		return startDate + " - " + finalDate;
+	}
 
 	@JsonInclude
 	public Integer getEmployeeId() {
@@ -127,6 +136,19 @@ public class Vacation extends UrlBaseEntity implements Serializable {
 	@JsonInclude
 	public String getEmployeeShortName() {
 		return this.employee.getPerson().getShortName();
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Vacation [employee=" + employee.getPersonShortName()).append(", ");
+		builder.append("description=" + description).append(", ");
+		builder.append("dateStart=" + dateStart).append(", ");
+		builder.append("dateFinal=" + dateFinal).append(", ");
+		builder.append("daysAmount=" + daysAmount).append(", ");
+		builder.append("holidayAmount=" + holidayAmount).append(", ");
+		builder.append("comment=" + comment).append("]");
+		return builder.toString();
 	}
 
 }
