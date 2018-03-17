@@ -5,6 +5,7 @@ export class Vacation {
     public description?: string;
     public dateStart?: Date;
     public dateFinal?: Date;
+    public fullPeriod?: string;
     public daysAmount?: number;
     public holidayAmount?: number;
     public comment?: string;
