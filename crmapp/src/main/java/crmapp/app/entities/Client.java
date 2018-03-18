@@ -1,6 +1,5 @@
 package crmapp.app.entities;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,7 +10,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -20,9 +18,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @JsonIgnoreProperties(ignoreUnknown = true, 
 	value = { "hibernateLazyInitializer", "handler",
 			"agreements", "addresses", "directors", "accounts" })
-public class Client extends UrlBaseEntity implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class Client extends UrlBaseEntity {
 
 	@Column(name = "title", length = 255)
 	private String title;
@@ -143,14 +139,15 @@ public class Client extends UrlBaseEntity implements Serializable {
 	}
 
 	@Override
-	@JsonIgnore
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("title: " + getTitle() + ", ");
-		builder.append("alias: " + getAlias() + ", ");
-		builder.append("edrpou: " + getEdrpou() + ", ");
-		builder.append("inn: " + getInn() + ", ");
-		builder.append("vatCertificate: " + getVatCertificate());
+		builder.append("Client [");
+		builder.append(super.toString()).append(", ");
+		builder.append("title=" + title).append(", ");
+		builder.append("alias=" + alias).append(", ");
+		builder.append("edrpou=" + edrpou).append(", ");
+		builder.append("inn=" + inn).append(", ");
+		builder.append("vatCertificate=" + vatCertificate).append("]");
 		return builder.toString();
 	}
 

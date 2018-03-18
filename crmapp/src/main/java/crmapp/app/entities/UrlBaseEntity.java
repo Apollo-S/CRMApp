@@ -17,7 +17,10 @@ public class UrlBaseEntity extends BaseEntity {
 
 	@Override
 	public String toString() {
-		return "UrlBaseEntity [toString()=" + super.toString() + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append(super.toString()).append(", ");
+		builder.append("url=" + getUrl());
+		return builder.toString();
 	}
 
 }

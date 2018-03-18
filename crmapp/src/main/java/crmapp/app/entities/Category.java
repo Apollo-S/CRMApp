@@ -1,6 +1,5 @@
 package crmapp.app.entities;
 
-import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -13,9 +12,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @Table(name = "category")
 @JsonIgnoreProperties(ignoreUnknown = true, 
 	value = { "hibernateLazyInitializer", "handler" })
-public class Category extends UrlBaseEntity implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class Category extends UrlBaseEntity {
 
 	@Column(name = "label", length = 100)
 	private String label;
@@ -79,6 +76,18 @@ public class Category extends UrlBaseEntity implements Serializable {
 
 	public void setItems(String items) {
 		this.items = items;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Category [");
+		builder.append("label=" + label).append(", ");
+		builder.append("icon=" + icon).append(", ");
+		builder.append("routerLink=" + routerLink).append(", ");
+		builder.append("expanded=" + expanded).append(", ");
+		builder.append("items=" + items).append("]");
+		return builder.toString();
 	}
 
 }

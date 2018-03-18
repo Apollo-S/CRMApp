@@ -1,6 +1,5 @@
 package crmapp.app.entities;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,9 +25,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @JsonIgnoreProperties(ignoreUnknown = true, 
 	value = { "hibernateLazyInitializer", "handler",
 			"vacations", "sickLists", "addresses", "accounts" })
-public class Employee extends UrlBaseEntity implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class Employee extends UrlBaseEntity {
 
 	@OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JoinColumn(name = "person_id")
@@ -157,6 +154,19 @@ public class Employee extends UrlBaseEntity implements Serializable {
 	@JsonInclude
 	public String getPostTitle() {
 		return post.getTitle();
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Employee [");
+		builder.append(super.toString()).append(", ");
+		builder.append("person=" + person).append(", ");
+		builder.append("isEntrepreneur=" + isEntrepreneur).append(", ");
+		builder.append("hireDate=" + hireDate).append(", ");
+		builder.append("firedDate=" + firedDate).append(", ");
+		builder.append("post=" + post.getTitle()).append("]");
+		return builder.toString();
 	}
 
 }

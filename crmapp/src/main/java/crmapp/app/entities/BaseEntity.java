@@ -44,7 +44,10 @@ public abstract class BaseEntity {
 
 	@Override
 	public String toString() {
-		return "BaseEntity [id=" + id + ", version=" + version + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("id=" + id).append(", ");
+		builder.append("version=" + version);
+		return builder.toString();
 	}
 
 }
