@@ -2,6 +2,8 @@ package crmapp.app.controllers;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,8 @@ import crmapp.app.repositories.EmployeeRepository;
 @RequestMapping(value = "/api/employees")
 public class EmployeeController extends BaseController {
 
+	private static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
+
 	@Autowired
 	private EmployeeRepository employeeRepository;
 
@@ -38,33 +42,41 @@ public class EmployeeController extends BaseController {
 
 	@GetMapping(value = "/{id}", headers = HEADER_JSON)
 	public ResponseEntity<Employee> getEmployeeById(@PathVariable(PARAM_ID) int id) {
+		logger.info("<==/////////// Entering to the getEmployeeById() method ... ///////////==>");
 		Employee employee = employeeRepository.findOne(id);
 		if (employee == null) {
 			return new ResponseEntity<Employee>(employee, HttpStatus.NOT_FOUND);
 		}
+		logger.info("<==/////////// Printing employee: " + employee + "///////////==>");
 		return new ResponseEntity<Employee>(employee, HttpStatus.OK);
 	}
 
 	@PostMapping(value = "", headers = HEADER_JSON)
 	public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee) {
+		logger.info("<==/////////// Entering to the addEmployee() method ... ///////////==>");
 		employee.setVersion(0);
 		employee = employeeRepository.save(employee);
+		logger.info("<==/////////// Printing new employee: " + employee + "///////////==>");
 		HttpHeaders header = new HttpHeaders();
 		return new ResponseEntity<Employee>(employee, header, HttpStatus.CREATED);
 	}
 
 	@PutMapping(value = "/{id}", headers = HEADER_JSON)
 	public ResponseEntity<Employee> updateEmployee(@PathVariable(PARAM_ID) int id, @RequestBody Employee employee) {
+		logger.info("<==/////////// Entering to the updateEmployee() method ... ///////////==>");
 		employee.setId(id);
 		employee.setVersion(employeeRepository.getOne(id).getVersion());
 		employee = employeeRepository.save(employee);
+		logger.info("<==/////////// Printing updated employee: " + employee + "///////////==>");
 		HttpHeaders header = new HttpHeaders();
 		return new ResponseEntity<Employee>(employee, header, HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = "/{id}", headers = HEADER_JSON)
 	public ResponseEntity<Void> deleteEmployee(@PathVariable(PARAM_ID) int id) {
+		logger.info("<==/////////// Entering to the deleteEmployee() method ... ///////////==>");
 		employeeRepository.delete(id);
+		logger.info("<==/////////// Deleted employee with ID=" + id + " ///////////==>");
 		HttpHeaders header = new HttpHeaders();
 		return new ResponseEntity<Void>(header, HttpStatus.NO_CONTENT);
 	}

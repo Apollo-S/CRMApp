@@ -48,10 +48,12 @@ public class ClientAccountController extends BaseController {
 
 	@GetMapping(value = "/{id}", headers = HEADER_JSON)
 	public ResponseEntity<ClientAccount> getClientAccountById(@PathVariable(PARAM_ID) int id) {
+		logger.info("<==/////////// Entering to the getClientAccountById() method ... ///////////==>");
 		ClientAccount account = accountRepository.findOne(id);
 		if (account == null) {
 			return new ResponseEntity<ClientAccount>(account, HttpStatus.NOT_FOUND);
 		}
+		logger.info("<==/////////// Printing ClientAccount: " + account + "///////////==>");
 		return new ResponseEntity<ClientAccount>(account, HttpStatus.OK);
 	}
 

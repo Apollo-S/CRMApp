@@ -47,10 +47,12 @@ public class ClientDirectorController extends BaseController {
 
 	@GetMapping(value = "/{id}", headers = HEADER_JSON)
 	public ResponseEntity<ClientDirector> getClientDirectorById(@PathVariable(PARAM_ID) int id) {
+		logger.info("<==/////////// Entering to the getClientDirectorById() method ... ///////////==>");
 		ClientDirector director = directorRepository.findOne(id);
 		if (director == null) {
 			return new ResponseEntity<ClientDirector>(director, HttpStatus.NOT_FOUND);
 		}
+		logger.info("<==/////////// Printing ClientDirector: " + director + "///////////==>");
 		return new ResponseEntity<ClientDirector>(director, HttpStatus.OK);
 	}
 

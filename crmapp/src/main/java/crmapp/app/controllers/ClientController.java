@@ -42,10 +42,12 @@ public class ClientController extends BaseController {
 
 	@GetMapping(value = "/{id}", headers = HEADER_JSON)
 	public ResponseEntity<Client> getClientById(@PathVariable(PARAM_ID) int id) {
+		logger.info("<==/////////// Entering to the getClientById() method ... ///////////==>");
 		Client client = clientRepository.findOne(id);
 		if (client == null) {
 			return new ResponseEntity<Client>(client, HttpStatus.NOT_FOUND);
 		}
+		logger.info("<==/////////// Printing client: " + client + "///////////==>");
 		return new ResponseEntity<Client>(client, HttpStatus.OK);
 	}
 

@@ -56,10 +56,12 @@ public class ClientAgreementController extends BaseController {
 	
 	@GetMapping(value = { "/agreements/{id}", "/clients/{clientId}/agreements/{id}" }, headers = HEADER_JSON)
 	public ResponseEntity<ClientAgreement> getAgreementById(@PathVariable(PARAM_ID) int id) {
+		logger.info("<==/////////// Entering to the getAgreementById() method ... ///////////==>");
 		ClientAgreement agreement = agreementRepository.findOne(id);
 		if (agreement == null) {
 			return new ResponseEntity<ClientAgreement>(agreement, HttpStatus.NOT_FOUND);
 		}
+		logger.info("<==/////////// Printing agreement: " + agreement + "///////////==>");
 		return new ResponseEntity<ClientAgreement>(agreement, HttpStatus.OK);
 	}
 	

@@ -47,10 +47,12 @@ public class ClientAddressController extends BaseController {
 
 	@GetMapping(value = "/{id}", headers = HEADER_JSON)
 	public ResponseEntity<ClientAddress> getClientAddressById(@PathVariable(PARAM_ID) int id) {
+		logger.info("<==/////////// Entering to the getClientAddressById() method ... ///////////==>");
 		ClientAddress address = addressRepository.findOne(id);
 		if (address == null) {
 			return new ResponseEntity<ClientAddress>(address, HttpStatus.NOT_FOUND);
 		}
+		logger.info("<==/////////// Printing ClientAddress: " + address + "///////////==>");
 		return new ResponseEntity<ClientAddress>(address, HttpStatus.OK);
 	}
 
