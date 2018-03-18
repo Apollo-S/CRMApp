@@ -1,6 +1,5 @@
 package crmapp.app.entities;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -24,9 +23,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Table(name = "client_agreement")
 @JsonIgnoreProperties(ignoreUnknown = true, 
 	value = { "hibernateLazyInitializer", "handler", "documents" })
-public class ClientAgreement extends UrlBaseEntity implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class ClientAgreement extends UrlBaseEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "client_id")
@@ -116,10 +113,10 @@ public class ClientAgreement extends UrlBaseEntity implements Serializable {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("ClientAgreement [");
-		builder.append("client=" + client);
-		builder.append("number=" + number);
+		builder.append(super.toString()).append(", ");
+		builder.append("client=" + client).append(", ");
+		builder.append("number=" + number).append(", ");
 		builder.append("dateStart=" + dateStart).append("]");
-		builder.append("]");
 		return builder.toString();
 	}
 

@@ -66,9 +66,15 @@ public class ClientAccount extends UrlBaseEntity {
 	}
 
 	@Override
+	public String getUrl() {
+		return client.getUrl() + "/accounts/" + this.getId();
+	}
+
+	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("ClientAccount [");
+		builder.append(super.toString()).append(", ");
 		builder.append("client=" + client).append(", ");
 		builder.append("presentation=" + presentation).append(", ");
 		builder.append("dateStart=" + dateStart).append("]");

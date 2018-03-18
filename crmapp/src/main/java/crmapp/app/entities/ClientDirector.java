@@ -1,6 +1,5 @@
 package crmapp.app.entities;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -21,9 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Table(name = "client_director")
 @JsonIgnoreProperties(ignoreUnknown = true, 
 	value = { "hibernateLazyInitializer", "handler" })
-public class ClientDirector extends UrlBaseEntity implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class ClientDirector extends UrlBaseEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "client_id")
@@ -93,6 +90,24 @@ public class ClientDirector extends UrlBaseEntity implements Serializable {
 
 	public void setPost(Post post) {
 		this.post = post;
+	}
+
+	@Override
+	public String getUrl() {
+		return client.getUrl() + "/directors/" + this.getId();
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("ClientDirector [");
+		builder.append(super.toString()).append(", ");
+		builder.append("client=" + client).append(", ");
+		builder.append("post=" + post.getTitle()).append(", ");
+		builder.append("fullName=" + fullName).append(", ");
+		builder.append("shortName=" + shortName).append(", ");
+		builder.append("dateStart=" + dateStart).append("]");
+		return builder.toString();
 	}
 
 }
