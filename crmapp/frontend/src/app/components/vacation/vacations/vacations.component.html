@@ -1,18 +1,19 @@
-<div class="text-center"> 
-    <h4>Отпуски</h4>
-</div>
-
-<p-card>
+<p-panel>
+    <p-header>
+        <div class="ui-helper-clearfix">
+            <span class="ui-panel-title" style="display:inline-block;margin-top:6px">
+                <h4><b>Отпуски</b></h4>
+            </span>  
+            <button pButton type="button" label="Добавить" style="margin-top:6px;float:right" 
+                [routerLink]="['add']" icon="fa-plus">
+            </button>
+        </div>
+    </p-header>
     <p-table #dt [columns]="columns" [responsive]="responsive" 
         [value]="vacations" [reorderableColumns]="true" 
         [rows]="0" [rowHover]="true" [paginator]="false" 
         *ngIf="vacations?.length > 0; else loadingStatus" >
         <ng-template pTemplate="caption">
-            <div style="float: left"> 
-                <button pButton type="button" label="Добавить" style="margin-top:3px" 
-                    [routerLink]="['add']" icon="fa-plus">
-                </button>
-            </div>
             <div style="text-align: right">
                 <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
                 <input type="text" pInputText size="50" placeholder="Фильтр" style="width:auto" 
@@ -53,7 +54,7 @@
             Кол-во записей: {{vacations?.length}}
         </ng-template>
     </p-table>
-</p-card>
+</p-panel>
 
 <ng-template #loadingStatus>
     <app-loading-status></app-loading-status>

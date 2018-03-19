@@ -33,8 +33,7 @@ export class VacationsComponent implements OnInit {
     this.columns = [
       { field: 'employeeShortName', header: 'Сотрудник' },
       { field: 'description', header: 'Описание' },
-      { field: 'dateStart', header: 'Период c' },
-      { field: 'dateFinal', header: 'Период по' }
+      { field: 'fullPeriod', header: 'Период' }
     ];
   }
 
