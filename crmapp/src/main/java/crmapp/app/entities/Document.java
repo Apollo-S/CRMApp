@@ -145,5 +145,30 @@ public class Document extends UrlBaseEntity {
 	public String getAgreementNumber() {
 		return agreement.getNumber();
 	}
+	
+	@JsonInclude
+	public String getDocTypeTitle() {
+		return docType.getTitle();
+	}
+	
+	@JsonInclude
+	public String getDocStatus() {
+		return status.getStatus();
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Document [");
+		builder.append(super.toString()).append(", ");
+		builder.append("docType=" + docType.getTitle()).append(", ");
+		builder.append("number=" + number).append(", ");
+		builder.append("amount=" + amount).append(", ");
+		builder.append("dated=" + dated).append(", ");
+		builder.append("paymentDate=" + paymentDate).append(", ");
+		builder.append("status=" + status.getStatus()).append(", ");
+		builder.append("agreement=" + agreement).append("]");
+		return builder.toString();
+	}
 
 }

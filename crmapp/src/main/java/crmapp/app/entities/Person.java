@@ -1,6 +1,5 @@
 package crmapp.app.entities;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -16,9 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(
 		ignoreUnknown = true, 
 		value = { "hibernateLazyInitializer", "handler" })
-public class Person extends UrlBaseEntity implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class Person extends UrlBaseEntity {
 
 	@Column(name = "surname", length = 50)
 	private String surname;
@@ -92,11 +89,16 @@ public class Person extends UrlBaseEntity implements Serializable {
 
 	@Override
 	public String toString() {
-		StringBuilder personBuilder = new StringBuilder();
-		personBuilder.append(surname).append(" ");
-		personBuilder.append(firstname).append(" ");
-		personBuilder.append(lastname);
-		return personBuilder.toString();
+		StringBuilder builder = new StringBuilder();
+		builder.append("Person [");
+		builder.append(super.toString()).append(", ");
+		builder.append("surname=" + surname).append(", ");
+		builder.append("firstname=" + firstname).append(", ");
+		builder.append("lastname=" + lastname).append(", ");
+		builder.append("shortName=" + shortName).append(", ");
+		builder.append("inn=" + inn).append(", ");
+		builder.append("birthDate=" + birthDate).append("]");
+		return builder.toString();
 	}
 
 }
