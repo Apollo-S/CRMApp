@@ -33,7 +33,7 @@ export class ClientService {
       .get<Client[]>(url, { headers: this.headers })
       .pipe(
         catchError(this.handleError('getClients', []))
-      )
+      );
   }
   
   getClientById(id: number): Observable<Client> {
@@ -43,7 +43,7 @@ export class ClientService {
       .pipe(
         tap(_ => console.log(`obtained client ID=${id}`)),
         catchError(this.handleError<Client>('getClientById'))
-      )  
+      ); 
   }
   
   addClient(client: Client): Observable<Client> {
@@ -53,7 +53,7 @@ export class ClientService {
       .pipe(
         tap(_ => console.log(`added client (alias=${client.alias})`)),
         catchError(this.handleError<Client>('addClient'))
-      )  
+      ); 
   }
 
   updateClient(client: Client): Observable<Client> {
@@ -73,7 +73,7 @@ export class ClientService {
       .pipe(
         tap(_ => console.log(`deleted client ${client.alias} (ID=${client.id})`)),
         catchError(this.handleError<any>('deleteClient'))
-      )
+      );
   }
 
   // Addresses
@@ -83,7 +83,7 @@ export class ClientService {
       .get<ClientAddress[]>(url, { headers: this.headers })
       .pipe(
         catchError(this.handleError<ClientAddress[]>('getAddressesByClientId'))
-      )
+      );
   }
 
   getAddressById(id: number, client: Client): Observable<ClientAddress> {
@@ -93,7 +93,7 @@ export class ClientService {
       .pipe(
         tap(_ => console.log(`obtained address ID=${id} for client ${client.alias}`)),
         catchError(this.handleError<ClientAddress>('getAddressById'))
-      )
+      );
   }
 
   addAddress(address: ClientAddress, client: Client): Observable<ClientAddress> {
@@ -103,7 +103,7 @@ export class ClientService {
       .pipe(
         tap(_ => console.log(`added address for client ${client.alias}`)),
         catchError(this.handleError<ClientAddress>('addAddress'))
-      )  
+      );
   }
 
   updateAddress(address: ClientAddress, client: Client): Observable<ClientAddress>  {
@@ -113,7 +113,7 @@ export class ClientService {
       .pipe(
         tap(_ => console.log(`updated address ID=${address.id} for client=${client.alias}`)),
         catchError(this.handleError<ClientAddress>('updateAddress'))
-      )
+      );
   }
   
   deleteAddress(id: number, client: Client) {
@@ -123,7 +123,7 @@ export class ClientService {
       .pipe(
         tap(_ => console.log(`deleted address ID=${id} for client=${client.alias}`)),
         catchError(this.handleError<any>('deleteAddress'))
-      )
+      );
   }
   
   // Accounts
@@ -133,7 +133,7 @@ export class ClientService {
       .get<ClientAccount[]>(url, { headers: this.headers })
       .pipe(
         catchError(this.handleError<ClientAccount[]>('getAccountsByClientId'))
-      )
+      );
   }
 
   getAccountById(id: number, client: Client): Observable<ClientAccount> {
@@ -143,7 +143,7 @@ export class ClientService {
       .pipe(
         tap(_ => console.log(`obtained account ID=${id} for client ${client.alias}`)),
         catchError(this.handleError<ClientAccount>('getAccountById'))
-      )
+      );
   }
 
   addAccount(account: ClientAccount, client: Client): Observable<ClientAccount> {
@@ -153,7 +153,7 @@ export class ClientService {
       .pipe(
         tap(_ => console.log(`added account for client ${client.alias}`)),
         catchError(this.handleError<ClientAccount>('addAccount'))
-      )  
+      );
   }
 
   updateAccount(account: ClientAccount, client: Client): Observable<ClientAccount>  {
@@ -163,7 +163,7 @@ export class ClientService {
       .pipe(
         tap(_ => console.log(`updated account ID=${account.id} for client ${client.alias}`)),
         catchError(this.handleError<ClientAccount>('updateAccount'))
-      )
+      );
   }
 
   deleteAccount(id: number, client: Client) {
@@ -173,7 +173,7 @@ export class ClientService {
       .pipe(
         tap(_ => console.log(`deleted account ID=${id} for client ${client.alias}`)),
         catchError(this.handleError<any>('deleteAccount'))
-      )
+      );
   }
 
   // Directors
@@ -183,7 +183,7 @@ export class ClientService {
       .get<ClientDirector[]>(url, { headers: this.headers })
       .pipe(
         catchError(this.handleError<ClientDirector[]>('getDirectorsByClientId'))
-      )
+      );
   }
 
   getDirectorById(id: number, client: Client): Observable<ClientDirector> {
@@ -193,7 +193,7 @@ export class ClientService {
       .pipe(
         tap(_ => console.log(`obtained director ID=${id} for client ${client.alias}`)),
         catchError(this.handleError<ClientDirector>('getDirectorById'))
-      )
+      );
   }
 
   addDirector(director: ClientDirector, client: Client): Observable<ClientDirector> {
@@ -203,7 +203,7 @@ export class ClientService {
       .pipe(
         tap(_ => console.log(`added director for client ${client.alias}`)),
         catchError(this.handleError<ClientDirector>('addDirector'))
-      )  
+      ); 
   }
 
   updateDirector(director: ClientDirector, client: Client): Observable<ClientDirector>  {
@@ -213,7 +213,7 @@ export class ClientService {
       .pipe(
         tap(_ => console.log(`updated director ID=${director.id} for client ${client.alias}`)),
         catchError(this.handleError<ClientDirector>('updateDirector'))
-      )
+      );
   }
 
   deleteDirector(id: number, client: Client) {
@@ -223,7 +223,7 @@ export class ClientService {
       .pipe(
         tap(_ => console.log(`deleted director ID=${id} for client ${client.alias}`)),
         catchError(this.handleError<any>('deleteDirector'))
-      )
+      );
   }
 
   // Agreements
@@ -233,7 +233,7 @@ export class ClientService {
       .get<ClientAgreement[]>(url, { headers: this.headers })
       .pipe(
         catchError(this.handleError<ClientAgreement[]>('getAgreementsByClientId'))
-      )
+      );
   }
 
   private handleError<T> (operation = 'operation', result?: T) {
@@ -244,7 +244,7 @@ export class ClientService {
       console.log(`${operation} failed: ${error.message}`);
       // Let the app keep running by returning an empty result.
       return of(result as T);
-    };
+    }
   }
   
 }
