@@ -49,6 +49,7 @@ export class NavbarComponent implements OnInit {
         { "label": "Документооборот", "icon": "fa-folder", "expanded": false, "visible": true, "items": 
             [
                 { "label": "Договоры с клиентами", "icon": "fa-asterisk", "routerLink": "/agreements", "visible": true },
+                { "label": "Документы", "icon": "fa-asterisk", "routerLink": "/documents", "visible": true },
             ]
         },
         { "label": "Кадровый учет", "icon": "fa-navicon", "expanded": false, "visible": true, "items": 
