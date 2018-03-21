@@ -5,7 +5,9 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public class UrlBaseEntity extends BaseEntity {
 	
-	private static final String ID_SEPARATOR = "s/";
+	static final String ID_SEPARATOR = "s/";
+	static final String PERIOD_SEPARATOR = " - ";
+	static final String DATE_FORMAT = "dd.MM.yyyy";
 
 	public String getUrl() {
 		StringBuilder urlBuilder = new StringBuilder();

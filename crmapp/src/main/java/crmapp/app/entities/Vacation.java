@@ -23,8 +23,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 	value = { "hibernateLazyInitializer", "handler" })
 public class Vacation extends UrlBaseEntity {
 
-	private static final String DATE_FORMAT = "dd.MM.yyyy";
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "employee_id")
 	@JsonBackReference(value = "employee-vacation")
@@ -124,8 +122,8 @@ public class Vacation extends UrlBaseEntity {
 	public String getFullPeriod() {
 		Format formatter = new SimpleDateFormat(DATE_FORMAT);
 		String startDate = formatter.format(this.dateStart);
-		String finalDate = formatter.format(this.dateFinal);
-		return startDate + " - " + finalDate;
+		String dateFinal = formatter.format(this.dateFinal);
+		return startDate + PERIOD_SEPARATOR + dateFinal;
 	}
 
 	@JsonInclude
@@ -141,10 +139,11 @@ public class Vacation extends UrlBaseEntity {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Vacation [employee=" + employee.getPersonShortName()).append(", ");
+		builder.append("Vacation [");
+		builder.append(super.toString()).append(", ");
+		builder.append("employee=" + employee.getPersonShortName()).append(", ");
 		builder.append("description=" + description).append(", ");
-		builder.append("dateStart=" + dateStart).append(", ");
-		builder.append("dateFinal=" + dateFinal).append(", ");
+		builder.append("period=" + this.getFullPeriod()).append(", ");
 		builder.append("daysAmount=" + daysAmount).append(", ");
 		builder.append("holidayAmount=" + holidayAmount).append(", ");
 		builder.append("comment=" + comment).append("]");

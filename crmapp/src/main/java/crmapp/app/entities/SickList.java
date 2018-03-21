@@ -1,6 +1,7 @@
 package crmapp.app.entities;
 
-import java.io.Serializable;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -20,9 +21,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @Table(name = "sick_list")
 @JsonIgnoreProperties(ignoreUnknown = true, 
 	value = { "hibernateLazyInitializer", "handler" })
-public class SickList extends UrlBaseEntity implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class SickList extends UrlBaseEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "employee_id")
@@ -115,6 +114,27 @@ public class SickList extends UrlBaseEntity implements Serializable {
 	@JsonInclude
 	public String getEmployeeShortName() {
 		return this.employee.getPerson().getShortName();
+	}
+	
+	@JsonInclude
+	public String getFullPeriod() {
+		Format formatter = new SimpleDateFormat(DATE_FORMAT);
+		String dateStart = formatter.format(this.dateStart);
+		String dateFinal = formatter.format(this.dateFinal);
+		return dateStart + PERIOD_SEPARATOR + dateFinal;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("SickList [");
+		builder.append(super.toString()).append(", ");
+		builder.append("employee=" + employee).append(", ");
+		builder.append("description=" + description).append(", ");
+		builder.append("period=" + this.getFullPeriod()).append(", ");
+		builder.append("daysAmount=" + daysAmount).append(", ");
+		builder.append("comment=" + comment).append("]");
+		return builder.toString();
 	}
 
 }
