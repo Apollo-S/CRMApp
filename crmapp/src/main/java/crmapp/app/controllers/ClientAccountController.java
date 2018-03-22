@@ -39,58 +39,68 @@ public class ClientAccountController extends BaseController {
 	@GetMapping(value = "", headers = HEADER_JSON)
 	public ResponseEntity<List<ClientAccount>> getAllClientAccountsByClientId(
 			@PathVariable("clientId") Integer clientId) {
+		logger.info(LOG_ENTER_METHOD + "getAllClientAccountsByClientId()" + LOG_CLOSE);
 		List<ClientAccount> accounts = accountRepository.findAllByClientId(clientId);
 		if (accounts.size() == 0) {
+			logger.info(LOG_ERROR + "ClientAccounts were not found" + LOG_CLOSE);
 			return new ResponseEntity<List<ClientAccount>>(HttpStatus.NO_CONTENT);
 		}
+		logger.info(LOG_TEXT + "Count of ClientAccounts: " + accounts.size() + LOG_CLOSE);
+		logger.info(LOG_OUT_OF_METHOD + "getAllClientAccountsByClientId()" + LOG_CLOSE);
 		return new ResponseEntity<List<ClientAccount>>(accounts, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/{id}", headers = HEADER_JSON)
 	public ResponseEntity<ClientAccount> getClientAccountById(@PathVariable(PARAM_ID) int id) {
-		logger.info("<==/////////// Entering to the getClientAccountById() method ... ///////////==>");
+		logger.info(LOG_ENTER_METHOD + "getClientAccountById()" + LOG_CLOSE);
 		ClientAccount account = accountRepository.findOne(id);
 		if (account == null) {
+			logger.info(LOG_ERROR + "ClientAccount with ID=" + id + "wasn't found" + LOG_CLOSE);
 			return new ResponseEntity<ClientAccount>(account, HttpStatus.NOT_FOUND);
 		}
-		logger.info("<==/////////// Printing ClientAccount: " + account + "///////////==>");
+		logger.info(LOG_TEXT + "ClientAccount with ID=" + id + " was found: " + account + LOG_CLOSE);
+		logger.info(LOG_OUT_OF_METHOD + "getClientAccountById()" + LOG_CLOSE);
 		return new ResponseEntity<ClientAccount>(account, HttpStatus.OK);
 	}
 
 	@PostMapping(value = "", headers = HEADER_JSON)
 	public ResponseEntity<ClientAccount> addClientAccount(@PathVariable("clientId") int clientId,
 			@RequestBody ClientAccount account) {
-		logger.info("<==/////////// Entering to the addClientAccount() method ... ///////////==>");
+		logger.info(LOG_ENTER_METHOD + "addClientAccount()" + LOG_CLOSE);
 		Client client = clientRepository.findOne(clientId);
-		logger.info("<==/////////// Getting the client with ID = " + client.getId() + " ///////////==>");
+		logger.info(LOG_TEXT + "Obtained Client with ID = " + client.getId() + LOG_CLOSE);
 		account.setClient(client);
 		account.setVersion(0);
 		account = accountRepository.save(account);
-		logger.info("<==/////////// Saving of ClientAccount with ID = " + account.getId()
-				+ " was successfull ... ///////////==>");
+		logger.info(LOG_TEXT + "ClientAccount added with ID=" + account.getId() + LOG_CLOSE);
 		HttpHeaders header = new HttpHeaders();
+		logger.info(LOG_OUT_OF_METHOD + "addClientAccount()" + LOG_CLOSE);
 		return new ResponseEntity<ClientAccount>(account, header, HttpStatus.CREATED);
 	}
 	
 	@PutMapping(value = "/{id}", headers = HEADER_JSON)
 	public ResponseEntity<ClientAccount> updateClientAccount(@PathVariable("clientId") int clientId,
 			@RequestBody ClientAccount account) {
-		logger.info("<==/////////// Entering to the updateClientAccount() method ... ///////////==>");
+		logger.info(LOG_ENTER_METHOD + "updateClientAccount()" + LOG_CLOSE);
 		Client client = clientRepository.findOne(clientId);
 		account.setClient(client);
-		logger.info("<==/////////// Client is setted to " + client + "///////////==>");
+		logger.info(LOG_TEXT + "Client is setted to " + client + LOG_CLOSE);
 		int actualVersionNumber = accountRepository.getOne(account.getId()).getVersion();
 		account.setVersion(actualVersionNumber);
-		logger.info("<==/////////// Printing account: " + account + "///////////==>");
 		account = accountRepository.save(account);
+		logger.info(LOG_TEXT + "ClientAccount was updated: " + account + LOG_CLOSE);
 		HttpHeaders header = new HttpHeaders();
+		logger.info(LOG_OUT_OF_METHOD + "updateClientAccount()" + LOG_CLOSE);
 		return new ResponseEntity<ClientAccount>(account, header, HttpStatus.OK);
 	}
 	
 	@DeleteMapping(value = "/{id}", headers = HEADER_JSON)
-	public ResponseEntity<Void> deleteClient(@PathVariable(PARAM_ID) int id) {
+	public ResponseEntity<Void> deleteClientAccount(@PathVariable(PARAM_ID) int id) {
+		logger.info(LOG_ENTER_METHOD + "deleteClientAccount()" + LOG_CLOSE);
 		accountRepository.delete(id);
+		logger.info(LOG_TEXT + "ClientAccount with ID=" + id + " was deleted" + LOG_CLOSE);
 		HttpHeaders header = new HttpHeaders();
+		logger.info(LOG_OUT_OF_METHOD + "deleteClientAccount()" + LOG_CLOSE);
 		return new ResponseEntity<Void>(header, HttpStatus.NO_CONTENT);
 	}
 
