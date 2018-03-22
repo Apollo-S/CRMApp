@@ -39,6 +39,6 @@ public abstract class BaseController {
 	public static final String LOG_OUT_OF_METHOD = ANSI_YELLOW + NUMBER_SIGNS + " Out of ";
 	public static final String LOG_TEXT = ANSI_GREEN + NUMBER_SIGNS + " ";
 	public static final String LOG_ERROR = ANSI_RED + NUMBER_SIGNS + " ";
-	public static final String LOG_CLOSE = " " + NUMBER_SIGNS + ANSI_RESET;
+	public static final String LOG_CLOSE = " " + ANSI_RESET;
 	
 }
