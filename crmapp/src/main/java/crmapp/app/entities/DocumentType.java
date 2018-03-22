@@ -11,8 +11,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class DocumentType extends UrlBaseEntity {
 
-	@Column(name = "title")
+	@Column(name = "title", length = 75)
 	private String title;
+
+	@Column(name = "short_title", length = 20)
+	private String shortTitle;
 
 	public DocumentType() {
 	}
@@ -29,9 +32,28 @@ public class DocumentType extends UrlBaseEntity {
 		this.title = title;
 	}
 
+	public String getShortTitle() {
+		return shortTitle;
+	}
+
+	public void setShortTitle(String shortTitle) {
+		this.shortTitle = shortTitle;
+	}
+
+	@Override
+	public String getUrl() {
+		return "document-types/" + this.getId();
+	}
+
 	@Override
 	public String toString() {
-		return "DocumentType [title=" + title + ", toString()=" + super.toString() + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("DocumentType [");
+		builder.append(super.toString()).append(", ");
+		builder.append("title=" + title).append(", ");
+		builder.append("shortTitle=" + shortTitle).append(", ");
+		builder.append("url=" + this.getUrl()).append("]");
+		return builder.toString();
 	}
 
 }

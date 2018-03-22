@@ -109,11 +109,12 @@ VALUES
   (4, 3, '2017-07-01/4578/7709', '2017-09-01', '', 0);
 
 TRUNCATE `document_type`;
-INSERT INTO `document_type` (`id`, `title`, `optlock`)
+INSERT INTO `document_type` (`id`, `title`, `short-title`, `optlock`)
 VALUES 
-  (1, 'Акт выполненных работ', 0),
-  (2, 'Счет-фактура', 0),
-  (3, 'Доп. соглашение', 0);
+  (1, 'Акт выполненных работ', 'акт вып. раб.', 0),
+  (2, 'Счет-фактура', 'сч/ф', 0),
+  (3, 'Доп. соглашение', 'ДС', 0),
+  (4, 'Акт передачи лицензий', 'акт пер. лиц.', 0);
   
 TRUNCATE `document_status`;
 INSERT INTO `document_status` (`id`, `status`, `optlock`)
