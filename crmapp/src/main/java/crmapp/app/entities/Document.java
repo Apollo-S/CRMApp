@@ -147,8 +147,8 @@ public class Document extends UrlBaseEntity {
 	}
 	
 	@JsonInclude
-	public String getDocTypeTitle() {
-		return docType.getTitle();
+	public String getDocTypeShortTitle() {
+		return docType.getShortTitle();
 	}
 	
 	@JsonInclude
@@ -161,7 +161,7 @@ public class Document extends UrlBaseEntity {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Document [");
 		builder.append(super.toString()).append(", ");
-		builder.append("docType=" + docType.getTitle()).append(", ");
+		builder.append("docType=" + docType.getShortTitle()).append(", ");
 		builder.append("number=" + number).append(", ");
 		builder.append("amount=" + amount).append(", ");
 		builder.append("dated=" + dated).append(", ");
