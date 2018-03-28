@@ -74,20 +74,16 @@ export class NavbarComponent implements OnInit {
             { title: 'Open/Hide', label: '', icon: 'fa-bars', disabled: false,
                 command: (event) => this.showHideMenu(this.isShown)
             },
-            { label: 'Файл', icon: 'fa-home', items: 
-                [
-                    { label: 'Новый клиент', routerLink: ['clients/add'] },
-                    { label: 'Новый сотрудник', routerLink: ['employees/add'] }
-                ]
+            { label: 'Главная', icon: 'fa-home', routerLink: [''] },
+            { label: 'Добавить', icon: 'fa-plus', items: [
+                { label: 'Новый клиент', routerLink: ['clients/add'] },
+                { label: 'Новый сотрудник', routerLink: ['employees/add'] },
+                { label: 'Новый договор', routerLink: ['agreements/add'] } ]
             },
-            { label: 'Справочники', icon: 'fa-list', items: 
-                [
-                    { label: 'Отпуски', routerLink: ['vacations'] },
-                    { label: 'empty', routerLink: [''] }
-                ]
+            { label: 'Справочники', icon: 'fa-list', items: [
+                { label: 'Отпуски', routerLink: ['vacations'] },
+                { label: 'empty', routerLink: [''] } ]
             },
-            { label: 'Клиенты', icon: 'fa-users', routerLink: ['clients'] },
-            { label: 'Сотрудники', icon: 'fa-users', routerLink: ['employees'] },
             { label: 'Инфо', icon: 'fa-info-circle', routerLink: ['about'] }
         ]
     }

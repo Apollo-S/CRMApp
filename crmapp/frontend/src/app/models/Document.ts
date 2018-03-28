@@ -4,9 +4,9 @@ import { DocumentStatus } from "./DocumentStatus";
 export class Document {
     public id?: number;
     public docType?: DocumentType;
-    public docTypeTitle?: string;
+    public docTypeShortTitle?: string;
     public number?: number;
-    public amount?: Number;
+    public amount?: number;
     public dated?: string;
     public paymentDate?: string;
     public comment?: string;
