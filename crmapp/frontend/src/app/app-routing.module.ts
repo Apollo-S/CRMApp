@@ -48,12 +48,13 @@ import { VacationDetailsComponent } from './components/vacation/vacation-details
 import { PersonsComponent } from "./components/person/persons/persons.component";
 import { AddPersonComponent } from "./components/person/add-person/add-person.component";
 import { PersonDetailsComponent } from "./components/person/person-details/person-details.component";
+import { MainPageComponent } from "./components/main-page/main-page.component";
 
 const appRoutes: Routes = [
-  {path: 'about', component:AboutComponent},
+  
   {path: '', component:DashboardComponent, 
     children: [
-      {path:  '', redirectTo: 'clients', pathMatch: 'full'},
+      {path: '', component:MainPageComponent},
       {path: 'clients', component:ClientsComponent},
       {path: 'clients/add', component:AddClientComponent},
       {path: 'clients/:id', component:ClientDetailsComponent,
@@ -117,6 +118,7 @@ const appRoutes: Routes = [
       {path: 'persons', component:PersonsComponent},
       {path: 'persons/add', component:AddPersonComponent},
       {path: 'persons/:id', component: PersonDetailsComponent},
+      {path: 'about', component:AboutComponent},
     ]
   }
 ]

@@ -12,6 +12,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { CardModule } from 'primeng/card';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DataListModule } from 'primeng/datalist';
+import { DataViewModule } from 'primeng/dataview';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { FieldsetModule } from 'primeng/fieldset';
@@ -20,6 +21,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { ListboxModule } from 'primeng/listbox';
 import { MenubarModule } from 'primeng/menubar';
+import { MultiSelectModule } from 'primeng/multiselect';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { PanelModule } from 'primeng/panel';
 import { PaginatorModule } from 'primeng/paginator';
@@ -103,6 +105,7 @@ import { EditPersonComponent } from './components/person/edit-person/edit-person
 import { PersonDetailsComponent } from './components/person/person-details/person-details.component';
 import { LoadingStatusComponent } from './components/dashboard/loading-status/loading-status.component';
 import { NavbarMenuBarComponent } from './components/navbar/navbar-menu-bar/navbar-menu-bar.component';
+import { MainPageComponent } from './components/main-page/main-page.component';
 
 @NgModule({
   declarations: [
@@ -153,6 +156,7 @@ import { NavbarMenuBarComponent } from './components/navbar/navbar-menu-bar/navb
     PersonDetailsComponent,
     LoadingStatusComponent,
     NavbarMenuBarComponent,
+    MainPageComponent,
   ],
   imports: [
     AppRoutingModule, 
@@ -168,6 +172,7 @@ import { NavbarMenuBarComponent } from './components/navbar/navbar-menu-bar/navb
     CardModule,
     ConfirmDialogModule,
     DataListModule,
+    DataViewModule,
     DialogModule,
     DropdownModule,
     GrowlModule,
@@ -176,6 +181,7 @@ import { NavbarMenuBarComponent } from './components/navbar/navbar-menu-bar/navb
     KeyFilterModule,
     ListboxModule,
     MenubarModule,
+    MultiSelectModule,
     PaginatorModule,
     PanelMenuModule,
     PanelModule,
