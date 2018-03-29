@@ -6,6 +6,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
@@ -15,10 +17,16 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "client")
+@NamedQueries({
+	@NamedQuery(name = Client.FIND_ALL_CLIENT_IDS, 
+		query = "select c.id from Client c")
+})
 @JsonIgnoreProperties(ignoreUnknown = true, 
 	value = { "hibernateLazyInitializer", "handler",
 			"agreements", "addresses", "directors", "accounts" })
 public class Client extends UrlBaseEntity {
+
+	static final String FIND_ALL_CLIENT_IDS = "Client.findAllClientIds";
 
 	@Column(name = "title", length = 255)
 	private String title;
