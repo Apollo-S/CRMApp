@@ -20,17 +20,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import crmapp.app.entities.Document;
+import crmapp.app.repositories.ClientRepository;
 import crmapp.app.repositories.DocumentRepository;
+import crmapp.app.repositories.DocumentStatusRepository;
+import crmapp.app.repositories.DocumentTypeRepository;
 
 @RestController
 @Transactional
 @RequestMapping(value = "/api")
 public class DocumentController extends BaseController {
 
-	private static final Logger logger = LoggerFactory.getLogger(ClientAgreementController.class);
+	private static final Logger logger = LoggerFactory.getLogger(DocumentController.class);
 
 	@Autowired
 	private DocumentRepository documentRepository;
+	
+	@Autowired
+	private ClientRepository clientRepository;
+	
+	@Autowired
+	private DocumentTypeRepository docTypeRepository;
+	
+	@Autowired
+	private DocumentStatusRepository docStatusRepository;
 
 	@GetMapping(value = "/documents", headers = HEADER_JSON)
 	public ResponseEntity<List<Document>> getAllDocuments() {
@@ -42,6 +54,29 @@ public class DocumentController extends BaseController {
 		}
 		logger.info(LOG_TEXT + "Count of documents: " + documents.size() + LOG_CLOSE);
 		logger.info(LOG_OUT_OF_METHOD + "getAllDocuments()" + LOG_CLOSE);
+		return new ResponseEntity<List<Document>>(documents, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/documents/filter/docTypes=[{docTypes}]&docStatuses=[{docStatuses}]&clients=[{clients}]", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Document>> getAllDocumentsByFilter(@PathVariable("docTypes") List<Integer> docTypes, 
+			@PathVariable("docStatuses") List<Integer> docStatuses, @PathVariable("clients") List<Integer> clients) {
+		logger.info(LOG_ENTER_METHOD + "getAllDocumentsByFilter()" + LOG_CLOSE);
+		if (docTypes.get(0) == 0 || docTypes.isEmpty()) {
+			docTypes = docTypeRepository.findAllDocumentTypeIds();
+		}
+		if (docStatuses.get(0) == 0 || docStatuses.isEmpty()) {
+			docStatuses = docStatusRepository.findAllDocumentStatusIds();
+		}
+		if (clients.get(0) == 0 || clients.isEmpty()) {
+			clients = clientRepository.findAllClientIds();
+		}
+		List<Document> documents = documentRepository.findAllDocumentsByFilter(docTypes, docStatuses, clients);
+		if (documents.size() == 0) {
+			logger.info(LOG_ERROR + "Documents were not found" + LOG_CLOSE);
+			return new ResponseEntity<List<Document>>(HttpStatus.NO_CONTENT);
+		}
+		logger.info(LOG_TEXT + "Count of documents equals " + documents.size() + LOG_CLOSE);
+		logger.info(LOG_OUT_OF_METHOD + "getAllDocumentsByFilter()" + LOG_CLOSE);
 		return new ResponseEntity<List<Document>>(documents, HttpStatus.OK);
 	}
 

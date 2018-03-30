@@ -23,21 +23,16 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @NamedQueries({
 	@NamedQuery(name = Document.FIND_ALL_DOCUMENTS_BY_AGREEMENT_ID, 
 		query = "SELECT doc FROM Document doc WHERE doc.agreement.id = :agreementId"),
-	@NamedQuery(name = Document.FIND_ALL_DOCUMENTS_BY_TYPES,
-		query = "SELECT doc FROM Document doc WHERE doc.docType.id in (:docTypes)"),
-	@NamedQuery(name = Document.FIND_ALL_DOCUMENTS_BY_STATUSES,
-		query = "SELECT doc FROM Document doc WHERE doc.status.id in (:docStatuses)"),
-	@NamedQuery(name = Document.FIND_ALL_DOCUMENTS_BY_TYPES_AND_STATUSES,
-		query = "SELECT doc FROM Document doc WHERE doc.docType.id in (:docTypes) AND doc.status.id in (:docStatuses)")
+	@NamedQuery(name = Document.FIND_ALL_DOCUMENTS_BY_FILTER,
+		query = "select doc from Document doc where doc.docType.id in (:docTypes) " +
+				"and doc.status.id in (:docStatuses) and doc.agreement.client.id in (:clients)")
 })
 @JsonIgnoreProperties(ignoreUnknown = true,
 	value = { "hibernateLazyInitializer", "handler" })
 public class Document extends UrlBaseEntity {
 
 	static final String FIND_ALL_DOCUMENTS_BY_AGREEMENT_ID = "Document.findAllDocumentsByAgreementId";
-	static final String FIND_ALL_DOCUMENTS_BY_TYPES = "Document.findAllDocumentsByTypes";
-	static final String FIND_ALL_DOCUMENTS_BY_STATUSES = "Document.findAllDocumentsByStatuses";
-	static final String FIND_ALL_DOCUMENTS_BY_TYPES_AND_STATUSES = "Document.findAllDocumentsByTypesAndStatuses";
+	static final String FIND_ALL_DOCUMENTS_BY_FILTER = "Document.findAllDocumentsByFilter";
 
 	@OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JoinColumn(name = "doc_type_id")
