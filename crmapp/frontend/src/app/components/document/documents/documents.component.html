@@ -1,155 +1,181 @@
-<div class="card">
-  <h5 class="card-header text-center">
-    <div class="row">
-      <div class="col-md-2">
-        <app-sidebar 
-          [url] = "['/documents/add']" 
-          [title] = "['Добавить']">
-        </app-sidebar>
-      </div>
-      <div class="col-md-2">
-        <a class="btn btn-primary btn-block" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-          <i class="fa fa-filter"></i> Фильтр
-        </a>
-      </div>
-      <div class="col-md">
-        <div class="input-group">
-          <span class="input-group-addon">
-            <i class="fa fa-search"></i>
-          </span> 
-          <input class="form-control" placeholder="Поиск" type="search" name="search" [(ngModel)]="filter">
-        </div>
-      </div>
-    </div>
-
-
-
-  </h5>
-
-  <div class="card-body">
-
-      <form (ngSubmit)="onSubmit()">
-        <div class="collapse" id="collapseExample">
-         
-          <div class="card card-body">
-
-            <div class="row">
-
-              <div class="col-md-3 input-group-sm">
-                <input class="form-control" placeholder="ДОГОВОР" type="text" name="agreementSearch">
-              </div>
-
-              <div class="col-md-3 input-group-sm">
-                <select class="form-control" name="docTypeSearch">
-                  <option [ngValue]="undefined" disabled>ТИП ДОКУМЕНТА</option>
-                  <option *ngFor="let docType of docTypes" [ngValue]="docType">
-                      {{docType.title}}
-                  </option>
-                </select>
-              </div>
-              
-              <div class="col-md-2 input-group-sm">
-                <input class="form-control" placeholder="№ ДОКУМЕНТА" type="text" name="numberSearch">
-              </div>
-              
-              <div class="col-md-2 input-group-sm">
-                <input class="form-control" placeholder="СУММА" type="text" name="sumSearch">
-              </div>
-
-              <div class="col-md-2 input-group-sm">
-                <select class="form-control" name="docStatusSearch">
-                  <option [ngValue]="undefined" disabled>СТАТУС</option>
-                  <option *ngFor="let docStatus of docStatuses" [ngValue]="docStatus">
-                      {{docStatus.status}}
-                  </option>
-                </select>
-              </div>
-              
-            </div>
-            <p>
-            <div class="row">
-              <div class="col-md-2 input-group">
-                <button 
-                  type="submit" 
-                  class="btn btn-success btn-sm btn-block">
-                    <i class="fa fa-check-square-o"></i> Отобрать
-                </button>
-              </div>
-              <div class="col-md-2 input-group">
-                <a class="btn btn-danger btn-sm btn-block"
-                  [routerLink]="['../']">
-                  <i class="fa fa-arrow-circle-o-left">
-                    </i> Сброс
-                </a>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </form>
-
-    <p-dataTable [value]="documents" expandableRows="true"
-      [sortField]="sortF" [sortOrder]="sortO" (onSort)="changeSort($event)">
-      <p-column expander="true" styleClass="col-icon"></p-column>
-      <p-column field="agreementNumber" header="Договор" [sortable]="true"></p-column>
-      <p-column field="docType.title" header="Тип документа" [sortable]="true"></p-column>
-      <p-column field="number" header="№" [sortable]="true"></p-column>
-      <p-column field="amount" header="Сумма" [sortable]="true" >
-        <ng-template let-row="rowData" pTemplate="body" style="text-align:center">
-          {{row.amount | number: '1.2-2'}}
-        </ng-template>  
-      </p-column>
-      <p-column field="dated" header="Дата" [sortable]="true">
-        <ng-template let-row="rowData" pTemplate="body">
-          {{row.dated | date: 'dd.MM.y'}}
-        </ng-template> 
-      </p-column>
-      <p-column field="paymentDate" header="Дата оплаты" [sortable]="true">
-        <ng-template let-row="rowData" pTemplate="body">
-          {{row.paymentDate | date: 'dd.MM.y'}}
-        </ng-template> 
-      </p-column>
-      <p-column field="status.status" header="Статус" [sortable]="true"></p-column>
-      <p-column field="" header="" [sortable]="false">
-        <ng-template let-car="rowData" pTemplate="body">
-          <button type="button" pButton [routerLink]="['/clients']" icon="fa-arrow-circle-o-right"></button>
-        </ng-template>
-      </p-column>
-      <ng-template let-row pTemplate="rowexpansion">
-        <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px">
+<p *ngIf="showFilter">
+    <p-card>
+        <div class="ui-grid">
             <div class="ui-grid-row">
-                <div class="ui-grid-col-3" style="text-align:center">
-                    <i class="fa fa-search" (click)="showCar(car)" style="cursor:pointer;float:left;margin-top:40px"></i>
-                    <img src="">
+                <div class="ui-grid-col-3">
+                    <b>Клиент:</b>
                 </div>
-                <div class="ui-grid-col-9">
-                    <div class="ui-grid ui-grid-responsive ui-grid-pad">
-                        <div class="ui-grid-row">
-                            <div class="ui-grid-col-2 label">Договор </div>
-                            <div class="ui-grid-col-10">
-                              <button type="button" 
-                                class="btn btn-link btn-sm" 
-                                [routerLink]="['/agreements', row.agreementId, 'documents']">
-                                {{row.agreementNumber}}
-                              </button>
-                            </div>
-                        </div>
-                        
-                    </div>
+                <div class="ui-grid-col-7">
+                    <p-multiSelect [options]="clients" optionLabel="title" selectedItemsLabel="{0} эл. выбрано"
+                        maxSelectedLabels="1" [resetFilterOnHide]="true" [panelStyle]="{minWidth:'12em'}"
+                        [style]="{width:'300px'}"
+                        defaultLabel="Не выбрано" [(ngModel)]="selectedClients">
+                    </p-multiSelect>
                 </div>
-            </div>
+                <div class="ui-grid-col-2">
+                    <button pButton type="button" icon="fa-trash" label="Фильтровать" style="float:right"
+                        class="ui-button-info btn-block" (click)="getDocumentsAccordingFilter()" >
+                    </button>
+                </div>
+            </div>    
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-3">
+                    <b>Тип документа:</b>
+                </div>
+                <div class="ui-grid-col-7">
+                    <p-multiSelect [options]="docTypes" optionLabel="title" selectedItemsLabel="{0} эл. выбрано"
+                        maxSelectedLabels="1" [resetFilterOnHide]="true" [panelStyle]="{minWidth:'12em'}"
+                        [style]="{width:'300px'}"
+                        defaultLabel="Не выбрано" [(ngModel)]="selectedDocTypes">
+                    </p-multiSelect>
+                </div>
+            </div>     
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-3">
+                    <b>Статус:</b>
+                </div>
+                <div class="ui-grid-col-7">
+                    <p-multiSelect [options]="docStatuses" optionLabel="status" selectedItemsLabel="{0} эл. выбрано"
+                        maxSelectedLabels="1" [resetFilterOnHide]="true" [panelStyle]="{minWidth:'12em'}"
+                        [style]="{width:'300px'}"
+                        defaultLabel="Не выбрано" [(ngModel)]="selectedDocStatuses">
+                    </p-multiSelect>
+                </div>
+                <div class="ui-grid-col-2">
+                    <button pButton type="button" icon="fa-times" label="Закрыть"
+                        (click)="showFilter=false" class="ui-button-danger btn-block" style="float:right">
+                    </button>
+                </div>
+            </div>           
         </div>
-    </ng-template>
-      <p-footer>
-        <button type="button" label="Сортировка по дате" (click)="changeSort($event)" pButton></button>
-      </p-footer>
-    </p-dataTable>
+    </p-card>
+</p>
 
-    
+<p>
 
-    
+<p-panel>
+  <p-header>
+      <div class="ui-helper-clearfix">
+        <span class="ui-panel-title" style="display:inline-block;margin-top:6px">
+            <h4><b>Документы</b></h4>
+        </span> 
+        <button pButton type="button" label="Добавить" style="margin-top:6px;float:right" 
+            [routerLink]="['add']" icon="fa-plus">
+        </button>
+        <button pButton type="button" icon="fa-filter" label="Фильтр"
+            (click)="showFilter=true" class="ui-button-info" style="margin-top:6px;margin-right:4px;float:right">
+        </button> 
+      </div>
+  </p-header>
+  
+  <p-table #dt [columns]="columns" [responsive]="true" [dataKey]="id"
+      [value]="documents" [reorderableColumns]="true" [columnResizeMode]="expand"
+      [rows]="null" [rowHover]="true" [paginator]="false" 
+      *ngIf="documents?.length > 0; else loadingStatus" >
+      <ng-template pTemplate="caption">
+          <div style="text-align: right">
+              <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+              <input type="text" pInputText size="50" placeholder="Фильтр" style="width:auto" 
+                  (input)="dt.filterGlobal($event.target.value, 'contains')">
+          </div>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th style="width: 2.25em"></th>
+                <th *ngFor="let column of columns" style="text-align:center" 
+                    [pSortableColumn]="column.field" pReorderableColumn>
+                    {{column.header}}
+                    <p-sortIcon [field]="column.field"></p-sortIcon>
+                </th>
+                <th></th>
+            </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-document let-rowData let-expanded="expanded" let-columns="columns">
+          <tr [ngClass]="rowData.status.status == 'Оплачен' ? 'paid' : null" >
+              <td>
+                <a href="#" [pRowToggler]="rowData">
+                  <i [ngClass]="expanded ? 'fa fa-fw fa-chevron-circle-down' : 'fa fa-fw fa-chevron-circle-right'"></i>
+                </a>
+              </td>
+              
+              <td style="text-align:left" (click)="goToEntry(document?.url)">
+                  {{rowData.docTypeShortTitle}}
+              </td>
+              <td style="text-align:center" (click)="goToEntry(document?.url)">
+                  {{document.number}}
+              </td>
+              <td style="text-align:center" (click)="goToEntry(document?.url)">
+                  {{document.amount | number: '3.2-2'}}
+              </td>
+              <td style="text-align:center" (click)="goToEntry(document?.url)">
+                  {{document.dated == null ? '-' : document.dated | date: 'dd.MM.y'}}
+              </td>
+              <td style="text-align:center" (click)="goToEntry(document?.url)">
+                  {{document.paymentDate == null ? '-' : document.paymentDate | date: 'dd.MM.y'}}
+              </td>
+              <td style="text-align:center" (click)="goToEntry(document?.url)">
+                  {{document.status.status}}
+              </td>
+              
+              <!-- <td *ngFor="let column of columns" style="text-align:center"
+                  (click)="goToEntry(document?.url)">
+                  {{rowData[column.field]}} 
+              </td> -->
 
-  </div>
+              <td style="text-align:center">
+                  <button pButton type="button" class="ui-button-info" 
+                      icon="fa-arrow-circle-o-right"  
+                      (click)="goToEntry(document?.url)">
+                  </button>
+                  <p-tieredMenu #menu [model]="items" [popup]="true" 
+                      appendTo="body">
+                  </p-tieredMenu>
+                  <!-- <button #btn pButton type="button" icon="fa-list" class="ui-button-info" 
+                      (click)="menu.toggle($event)" (mousedown)="initMenu(document?.id)">
+                  </button> -->
+              </td>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
+          <tr>
+              <td [attr.colspan]="columns.length + 2">
+                  <div class="ui-g-12 ui-md-12" >
+                      <!-- <div class="ui-g-12 ui-md-12"> -->
+                          <p-card>
+                            <!-- <div class="ui-grid-row"> -->
+                                <div class="ui-helper-clearfix">
+                                    <span class="ui-panel-title" style="display:inline-block;margin-top:4px">
+                                        <h5><b>Договор:</b> {{rowData.agreementNumber}}</h5>
+                                    </span>  
+                                    <button pButton type="button" class="ui-button-info" 
+                                        icon="fa-arrow-circle-o-right" label="Перейти"
+                                        [routerLink]="['/agreements', rowData.agreementId]">
+                                    </button>
+                                </div>
+                                <!-- <div class="ui-grid-col-10" style="display:inline-block;margin-top:6px">
+                                    <b>Договор:</b> 
+                                    {{rowData.agreementNumber}}
+                                    
+                                </div>
+                                <div class="ui-grid-col-2">
+                                    <button pButton type="button" class="ui-button-info" 
+                                        icon="fa-arrow-circle-o-right" label="Перейти"
+                                        [routerLink]="['/agreements', rowData.agreementId]">
+                                    </button>
+                                </div> -->
+                              <!-- </div> -->
+                            </p-card>
+                      <!-- </div> -->
+                  </div>
+              </td>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+          Кол-во записей: {{documents?.length}}
+      </ng-template>
+  </p-table>
+</p-panel>
 
-</div>
+<ng-template #loadingStatus>
+  <app-loading-status></app-loading-status>
+</ng-template>

@@ -1,0 +1,9 @@
+.paid {
+    background-color: rgb(95, 218, 177) !important;
+    color: #ffffff !important;
+}
+
+.not-paid {
+    background-color: rgb(255, 118, 118) !important;
+    color: #ffffff !important;
+}

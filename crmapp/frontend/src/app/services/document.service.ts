@@ -5,6 +5,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { Document } from '../models/Document';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs';
+import { DocumentType } from '../models/DocumentType';
 
 @Injectable()
 export class DocumentService {
@@ -30,6 +31,16 @@ export class DocumentService {
       .get<Document[]>(url, { headers: this.headers })
       .pipe(
         catchError(this.handleError('getDocuments', []))
+      );
+  }
+
+  getDocumentsAccordingFilter(docTypes: number[], docStatuses: number[], 
+    clients: number[]) : Observable<Document[]>  {
+    const url = `${this.documentsUrl}/filter/docTypes=[${docTypes}]&docStatuses=[${docStatuses}]&clients=[${clients}]`;
+    return this.http
+      .get<Document[]>(url, { headers: this.headers })
+      .pipe(
+        catchError(this.handleError('getDocumentsAccordingFilter', []))
       );
   }
 
