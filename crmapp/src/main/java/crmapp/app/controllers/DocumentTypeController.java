@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import crmapp.app.entities.ClientDirector;
 import crmapp.app.entities.DocumentType;
 import crmapp.app.repositories.DocumentTypeRepository;
 
@@ -21,32 +20,36 @@ import crmapp.app.repositories.DocumentTypeRepository;
 @Transactional
 @RequestMapping(value = "/api/document-types")
 public class DocumentTypeController extends BaseController {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(DocumentTypeController.class);
-	
+
 	@Autowired
 	private DocumentTypeRepository docTypeRepository;
-	
+
 	@GetMapping(value = "", headers = HEADER_JSON)
 	public ResponseEntity<List<DocumentType>> getAllDocumentTypes() {
+		logger.info(LOG_ENTER_METHOD + "getAllDocumentTypes()" + LOG_CLOSE);
 		List<DocumentType> docTypes = docTypeRepository.findAll();
 		if (docTypes.size() == 0) {
-			logger.info("<==/////////// There are no any docType... ///////////==>");
+			logger.info(LOG_ERROR + "docTypes were not found" + LOG_CLOSE);
 			return new ResponseEntity<List<DocumentType>>(HttpStatus.NO_CONTENT);
 		}
-		logger.info("<==/////////// Printing docTypes: " + docTypes + " ///////////==>");
+		logger.info(LOG_TEXT + "Count of docTypes equals " + docTypes.size() + LOG_CLOSE);
+		logger.info(LOG_OUT_OF_METHOD + "getAllDocumentTypes()" + LOG_CLOSE);
 		return new ResponseEntity<List<DocumentType>>(docTypes, HttpStatus.OK);
 	}
-	
+
 	@GetMapping(value = "/{id}", headers = HEADER_JSON)
 	public ResponseEntity<DocumentType> getDocumentTypeById(@PathVariable(PARAM_ID) int id) {
+		logger.info(LOG_ENTER_METHOD + "getDocumentTypeById()" + LOG_CLOSE);
 		DocumentType docType = docTypeRepository.findOne(id);
 		if (docType == null) {
-			logger.info("<==/////////// docType with ID=" + id + " not found! ///////////==>");
+			logger.info(LOG_ERROR + "DocumentType with ID=" + id + "wasn't found" + LOG_CLOSE);
 			return new ResponseEntity<DocumentType>(docType, HttpStatus.NOT_FOUND);
 		}
-		logger.info("<==/////////// docType with ID=" + id + " found! ///////////==>");
+		logger.info(LOG_TEXT + "DocumentType with ID=" + id + " was found: " + docType + LOG_CLOSE);
+		logger.info(LOG_OUT_OF_METHOD + "getDocumentTypeById()" + LOG_CLOSE);
 		return new ResponseEntity<DocumentType>(docType, HttpStatus.OK);
 	}
-	
+
 }
