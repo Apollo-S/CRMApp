@@ -34,13 +34,13 @@ public class DocumentController extends BaseController {
 
 	@Autowired
 	private DocumentRepository documentRepository;
-	
+
 	@Autowired
 	private ClientRepository clientRepository;
-	
+
 	@Autowired
 	private DocumentTypeRepository docTypeRepository;
-	
+
 	@Autowired
 	private DocumentStatusRepository docStatusRepository;
 
@@ -56,19 +56,19 @@ public class DocumentController extends BaseController {
 		logger.info(LOG_OUT_OF_METHOD + "getAllDocuments()" + LOG_CLOSE);
 		return new ResponseEntity<List<Document>>(documents, HttpStatus.OK);
 	}
-	
+
 	@GetMapping(value = "/documents/filter/docTypes=[{docTypes}]&docStatuses=[{docStatuses}]&clients=[{clients}]", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Document>> getAllDocumentsByFilter(@PathVariable("docTypes") List<Integer> docTypes, 
 			@PathVariable("docStatuses") List<Integer> docStatuses, @PathVariable("clients") List<Integer> clients) {
 		logger.info(LOG_ENTER_METHOD + "getAllDocumentsByFilter()" + LOG_CLOSE);
 		if (docTypes.get(0) == 0 || docTypes.isEmpty()) {
-			docTypes = docTypeRepository.findAllDocumentTypeIds();
+			docTypes = docTypeRepository.findAllEntityIds();
 		}
 		if (docStatuses.get(0) == 0 || docStatuses.isEmpty()) {
-			docStatuses = docStatusRepository.findAllDocumentStatusIds();
+			docStatuses = docStatusRepository.findAllEntityIds();
 		}
 		if (clients.get(0) == 0 || clients.isEmpty()) {
-			clients = clientRepository.findAllClientIds();
+			clients = clientRepository.findAllEntityIds();
 		}
 		List<Document> documents = documentRepository.findAllDocumentsByFilter(docTypes, docStatuses, clients);
 		if (documents.size() == 0) {
@@ -135,7 +135,7 @@ public class DocumentController extends BaseController {
 		documentRepository.delete(document);
 		logger.info(LOG_TEXT + "Document with ID=" + id + " was deleted: " + document + LOG_CLOSE);
 		HttpHeaders header = new HttpHeaders();
-		logger.info(LOG_OUT_OF_METHOD + "updateDocument()" + LOG_CLOSE);
+		logger.info(LOG_OUT_OF_METHOD + "deleteDocument()" + LOG_CLOSE);
 		return new ResponseEntity<Void>(header, HttpStatus.NO_CONTENT);
 	}
 
