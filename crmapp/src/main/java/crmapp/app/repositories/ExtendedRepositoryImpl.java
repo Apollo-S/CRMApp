@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
+@SuppressWarnings("unchecked")
 public class ExtendedRepositoryImpl<T, ID extends Serializable> extends SimpleJpaRepository<T, ID>
 		implements BaseRepository<T, ID> {
 
@@ -22,7 +23,7 @@ public class ExtendedRepositoryImpl<T, ID extends Serializable> extends SimpleJp
 		this.entityManager = entityManager;
 	}
 
-	@SuppressWarnings("unchecked")
+//	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> findByIds(ID... ids) {
 		String qlString = "select e from " + this.entityInformation.getEntityName() + 
@@ -32,10 +33,11 @@ public class ExtendedRepositoryImpl<T, ID extends Serializable> extends SimpleJp
 		return (List<T>) query.getResultList();
 	}
 
-	@Override
-	public List<Integer> findAllIds() {
-		// TODO Auto-generated method stub
-		return null;
+	@Override 
+	public List<Integer> findAllEntityIds() {
+		String qlString = "select e.id from " + this.entityInformation.getEntityName() + " e";
+		Query query = this.entityManager.createQuery(qlString);
+		return (List<Integer>) query.getResultList();
 	}
 
 }
