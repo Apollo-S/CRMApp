@@ -12,6 +12,6 @@ public interface BaseRepository<T, ID extends Serializable> extends JpaRepositor
 	@SuppressWarnings("unchecked")
 	public List<T> findByIds(ID...ids);
 	
-	public List<Integer> findAllIds();
+	public List<Integer> findAllEntityIds();
 	
 }
