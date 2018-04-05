@@ -23,7 +23,6 @@ public class ExtendedRepositoryImpl<T, ID extends Serializable> extends SimpleJp
 		this.entityManager = entityManager;
 	}
 
-//	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> findByIds(ID... ids) {
 		String qlString = "select e from " + this.entityInformation.getEntityName() + 

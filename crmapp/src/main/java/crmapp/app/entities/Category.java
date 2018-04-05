@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @Table(name = "category")
 @JsonIgnoreProperties(ignoreUnknown = true, 
 	value = { "hibernateLazyInitializer", "handler" })
-public class Category extends UrlBaseEntity {
+public class Category extends BaseEntity {
 
 	@Column(name = "label", length = 100)
 	private String label;

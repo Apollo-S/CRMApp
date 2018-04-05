@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @JsonIgnoreProperties(ignoreUnknown = true, 
 	value = { "hibernateLazyInitializer", "handler",
 			"agreements", "addresses", "directors", "accounts" })
-public class Client extends UrlBaseEntity {
+public class Client extends BaseEntity {
 
 	@Column(name = "title", length = 255)
 	private String title;

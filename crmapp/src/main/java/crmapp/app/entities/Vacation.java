@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @Table(name = "vacation")
 @JsonIgnoreProperties(ignoreUnknown = true, 
 	value = { "hibernateLazyInitializer", "handler" })
-public class Vacation extends UrlBaseEntity {
+public class Vacation extends BaseEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "employee_id")

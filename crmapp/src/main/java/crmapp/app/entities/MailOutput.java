@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Table(name = "mail_output")
 @JsonIgnoreProperties(ignoreUnknown = true, 
 	value = { "hibernateLazyInitializer", "handler" })
-public class MailOutput extends UrlBaseEntity {
+public class MailOutput extends BaseEntity {
 
 	@Column(name = "number", length = 15)
 	private String number;

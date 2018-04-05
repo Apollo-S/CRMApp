@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 })
 @JsonIgnoreProperties(ignoreUnknown = true,
 	value = { "hibernateLazyInitializer", "handler" })
-public class Document extends UrlBaseEntity {
+public class Document extends BaseEntity {
 
 	static final String FIND_ALL_DOCUMENTS_BY_AGREEMENT_ID = "Document.findAllDocumentsByAgreementId";
 	static final String FIND_ALL_DOCUMENTS_BY_FILTER = "Document.findAllDocumentsByFilter";

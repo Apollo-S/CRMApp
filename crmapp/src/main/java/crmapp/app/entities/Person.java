@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(
 		ignoreUnknown = true, 
 		value = { "hibernateLazyInitializer", "handler" })
-public class Person extends UrlBaseEntity {
+public class Person extends BaseEntity {
 
 	@Column(name = "surname", length = 50)
 	private String surname;

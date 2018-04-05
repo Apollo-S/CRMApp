@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Table(name = "document_status")
 @JsonIgnoreProperties(ignoreUnknown = true, 
 	value = { "hibernateLazyInitializer", "handler" })
-public class DocumentStatus extends UrlBaseEntity {
+public class DocumentStatus extends BaseEntity {
 
 	@Column(name = "status")
 	private String status;

@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @MappedSuperclass
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public abstract class AbstractDocumentType extends UrlBaseEntity {
+public abstract class AbstractDocumentType extends BaseEntity {
 
 	@Column(name = "title", length = 75)
 	private String title;

@@ -14,6 +14,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public abstract class BaseEntity {
 
+	static final String ID_SEPARATOR = "s/";
+	static final String PERIOD_SEPARATOR = " - ";
+	static final String DATE_FORMAT = "dd.MM.yyyy";
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "id")
@@ -40,13 +44,20 @@ public abstract class BaseEntity {
 		this.version = version;
 	}
 
-	public abstract String getUrl();
+	public String getUrl() {
+		StringBuilder urlBuilder = new StringBuilder();
+		urlBuilder.append(getClass().getSimpleName().toLowerCase());
+		urlBuilder.append(ID_SEPARATOR);
+		urlBuilder.append(getId());
+		return urlBuilder.toString();
+	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("id=" + id).append(", ");
 		builder.append("version=" + version);
+		builder.append("url=" + getUrl());
 		return builder.toString();
 	}
 

@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @MappedSuperclass
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public abstract class AbstractAgreement extends UrlBaseEntity {
+public abstract class AbstractAgreement extends BaseEntity {
 
 	@Column(name = "number", length = 255)
 	private String number;
