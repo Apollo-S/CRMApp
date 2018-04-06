@@ -47,6 +47,8 @@ import { DocumentService } from './services/document.service';
 import { DocumentStatusService } from './services/document-status.service';
 import { DocumentTypeService } from './services/document-type.service';
 import { EmployeeService } from './services/employee.service';
+import { MailDocumentTypeService } from './services/mail-document-type.service';
+import { MailOutputService } from './services/mail-output.service';
 import { PersonService } from './services/person.service';
 import { PostService } from './services/post.service';
 import { VacationService } from './services/vacation.service';
@@ -106,6 +108,9 @@ import { PersonDetailsComponent } from './components/person/person-details/perso
 import { LoadingStatusComponent } from './components/dashboard/loading-status/loading-status.component';
 import { NavbarMenuBarComponent } from './components/navbar/navbar-menu-bar/navbar-menu-bar.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
+import { MailOutputsComponent } from './components/mail-output/mail-outputs/mail-outputs.component';
+import { EditMailOutputComponent } from './components/mail-output/edit-mail-output/edit-mail-output.component';
+import { MailInputsComponent } from './components/mail-input/mail-inputs/mail-inputs.component';
 
 @NgModule({
   declarations: [
@@ -157,6 +162,9 @@ import { MainPageComponent } from './components/main-page/main-page.component';
     LoadingStatusComponent,
     NavbarMenuBarComponent,
     MainPageComponent,
+    MailOutputsComponent,
+    MailInputsComponent,
+    EditMailOutputComponent,
   ],
   imports: [
     AppRoutingModule, 
@@ -197,19 +205,21 @@ import { MainPageComponent } from './components/main-page/main-page.component';
     TreeModule,
   ],
   providers: [
+    AgreementService,
     CategoryService,
     ClientService,
-    EmployeeService,
-    AgreementService,
-    VacationService,
-    PostService,
+    ConfirmationService,
     DocumentService,
-    DocumentTypeService,
     DocumentStatusService,
-    PersonService,
-    UtilService,
+    DocumentTypeService,
+    EmployeeService,
+    MailDocumentTypeService,
+    MailOutputService,
     MessageService, 
-    ConfirmationService
+    PersonService,
+    PostService,
+    VacationService,
+    UtilService,
   ],
   bootstrap: [AppComponent]
 })

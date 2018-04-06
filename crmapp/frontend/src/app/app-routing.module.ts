@@ -49,6 +49,8 @@ import { PersonsComponent } from "./components/person/persons/persons.component"
 import { AddPersonComponent } from "./components/person/add-person/add-person.component";
 import { PersonDetailsComponent } from "./components/person/person-details/person-details.component";
 import { MainPageComponent } from "./components/main-page/main-page.component";
+import { MailOutputsComponent } from "./components/mail-output/mail-outputs/mail-outputs.component";
+import { EditMailOutputComponent } from "./components/mail-output/edit-mail-output/edit-mail-output.component";
 
 const appRoutes: Routes = [
   
@@ -119,6 +121,8 @@ const appRoutes: Routes = [
       {path: 'persons/add', component:AddPersonComponent},
       {path: 'persons/:id', component: PersonDetailsComponent},
       {path: 'about', component:AboutComponent},
+      {path: 'mail-outputs', component:MailOutputsComponent},
+      {path: 'mail-outputs/:id', component:EditMailOutputComponent},
     ]
   }
 ]
