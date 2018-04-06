@@ -13,6 +13,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
 @Table(name = "mail_output")
@@ -78,6 +79,11 @@ public class MailOutput extends BaseEntity {
 
 	public void setDocType(MailDocumentType docType) {
 		this.docType = docType;
+	}
+
+	@JsonInclude
+	public String getDocTypeTitle() {
+		return this.docType.getTitle();
 	}
 
 	@Override
