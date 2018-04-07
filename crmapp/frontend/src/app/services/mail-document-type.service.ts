@@ -8,7 +8,7 @@ import { of } from 'rxjs/observable/of';
 @Injectable()
 export class MailDocumentTypeService {
 
-  private mailDocTypeUrl = '/api/document-types';
+  private mailDocTypeUrl = '/api/mail-document-types';
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   
   constructor(private http: HttpClient) { }
