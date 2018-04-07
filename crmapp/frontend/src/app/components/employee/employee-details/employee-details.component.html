@@ -1,15 +1,5 @@
-<p-sidebar [(visible)]="display" [baseZIndex]="10000">
-	<h4 style="font-weight:normal">
-		Главное меню
-	</h4>
-	<app-dashboard-menu></app-dashboard-menu>
-</p-sidebar>
-
 <div class="ui-g">
 	<div class="ui-g-4">
-		<button pButton type="button" (click)="display = true" 
-			icon="fa-bars">
-		</button>
 		<button pButton type="button" label="Вернуться" class="ui-button-info"
 			icon="fa-arrow-circle-o-left" routerLink="../">
 		</button>
