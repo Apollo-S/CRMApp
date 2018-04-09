@@ -13,8 +13,8 @@
                     </p-multiSelect>
                 </div>
                 <div class="ui-grid-col-2">
-                    <button pButton type="button" icon="fa-trash" label="Фильтровать" style="float:right"
-                        class="ui-button-info btn-block" (click)="getDocumentsAccordingFilter()" >
+                    <button pButton type="button" icon="fa-filter" label="Фильтровать" style="float:right"
+                        class="ui-button-info btn-block" (click)="useFilter()" >
                     </button>
                 </div>
             </div>    
@@ -28,6 +28,11 @@
                         [style]="{width:'300px'}"
                         defaultLabel="Не выбрано" [(ngModel)]="selectedDocTypes">
                     </p-multiSelect>
+                </div>
+                <div class="ui-grid-col-2">
+                    <button pButton type="button" icon="fa-trash" label="Очистить"
+                        (click)="clearFilter()" class="ui-button-success btn-block" style="float:right">
+                    </button>
                 </div>
             </div>     
             <div class="ui-grid-row">
@@ -71,7 +76,7 @@
   <p-table #dt [columns]="columns" [responsive]="true" [dataKey]="id"
       [value]="documents" [reorderableColumns]="true" [columnResizeMode]="expand"
       [rows]="null" [rowHover]="true" [paginator]="false" 
-      *ngIf="documents?.length > 0; else loadingStatus" >
+      *ngIf="documents?.length > 0; else loadingStatus">
       <ng-template pTemplate="caption">
           <div style="text-align: right">
               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
@@ -177,5 +182,5 @@
 </p-panel>
 
 <ng-template #loadingStatus>
-  <app-loading-status></app-loading-status>
+  <app-loading-status enabled="true"></app-loading-status>
 </ng-template>

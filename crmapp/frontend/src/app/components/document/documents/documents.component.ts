@@ -26,6 +26,7 @@ export class DocumentsComponent implements OnInit {
   selectedDocTypes: DocumentType[] = [];
   selectedDocStatuses: DocumentStatus[] = [];
   selectedClients: Client[] = [];
+  loadingCheck: boolean = false;
 
   constructor(private docService: DocumentService,
               private docTypeService: DocumentTypeService,
@@ -34,11 +35,13 @@ export class DocumentsComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
+    this.loadingCheck = true;
     this.initColumns();
     this.getDocumentTypes();
     this.getDocumentStatuses();
     this.getClients();
     this.getDocuments();
+    this.loadingCheck = true;
   }
 
   private getDocuments() {
@@ -48,7 +51,7 @@ export class DocumentsComponent implements OnInit {
       );
   }
 
-  getDocumentsAccordingFilter() {
+  useFilter() {
     if (this.selectedDocTypes.length == 0 && this.selectedDocStatuses.length == 0 && this.selectedClients.length == 0) {
       this.getDocuments();
     } else {
@@ -110,6 +113,12 @@ export class DocumentsComponent implements OnInit {
 
   goToEntry(url: string) {
     this.router.navigate([url]);
+  }
+
+  clearFilter() {
+    this.selectedClients = [];
+    this.selectedDocTypes = [];
+    this.selectedDocStatuses = [];
   }
 
 }

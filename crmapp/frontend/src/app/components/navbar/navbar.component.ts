@@ -62,8 +62,8 @@ export class NavbarComponent implements OnInit {
         },
         { "label": "Корреспонденция", "icon": "fa-navicon", "expanded": false, "visible": true, "items": 
             [
-                { "label": "Исходящие номера", "icon": "fa-asterisk", "routerLink": "/output", "visible": true },
-                { "label": "Входящие номера", "icon": "fa-asterisk", "routerLink": "/input", "visible": true },
+                { "label": "Исходящие номера", "icon": "fa-asterisk", "routerLink": "/mail-outputs", "visible": true },
+                { "label": "Входящие номера", "icon": "fa-asterisk", "routerLink": "/mail-inputs", "visible": true },
             ]
         },
         ];
