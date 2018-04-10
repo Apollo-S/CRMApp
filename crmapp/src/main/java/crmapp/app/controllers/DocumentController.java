@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -57,9 +58,10 @@ public class DocumentController extends BaseController {
 		return new ResponseEntity<List<Document>>(documents, HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/documents/filter/docTypes=[{docTypes}]&docStatuses=[{docStatuses}]&clients=[{clients}]", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/documents/filter/docTypes=[{docTypes}]&docStatuses=[{docStatuses}]&clients=[{clients}]&sortField={sortField}&sortType={sortType}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Document>> getAllDocumentsByFilter(@PathVariable("docTypes") List<Integer> docTypes, 
-			@PathVariable("docStatuses") List<Integer> docStatuses, @PathVariable("clients") List<Integer> clients) {
+			@PathVariable("docStatuses") List<Integer> docStatuses, @PathVariable("clients") List<Integer> clients,
+			@PathVariable("sortField") String sortField, @PathVariable("sortType") String sortType) {
 		logger.info(LOG_ENTER_METHOD + "getAllDocumentsByFilter()" + LOG_CLOSE);
 		if (docTypes.get(0) == 0 || docTypes.isEmpty()) {
 			docTypes = docTypeRepository.findAllEntityIds();
@@ -70,7 +72,8 @@ public class DocumentController extends BaseController {
 		if (clients.get(0) == 0 || clients.isEmpty()) {
 			clients = clientRepository.findAllEntityIds();
 		}
-		List<Document> documents = documentRepository.findAllDocumentsByFilter(docTypes, docStatuses, clients);
+		List<Document> documents = documentRepository.findAllDocumentsByFilterAndSort(docTypes, docStatuses, clients,
+				new Sort(Sort.Direction.fromString(sortType), sortField));
 		if (documents.size() == 0) {
 			logger.info(LOG_ERROR + "Documents were not found" + LOG_CLOSE);
 			return new ResponseEntity<List<Document>>(HttpStatus.NO_CONTENT);
