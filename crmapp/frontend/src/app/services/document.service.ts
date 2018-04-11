@@ -35,8 +35,9 @@ export class DocumentService {
   }
 
   getDocumentsAccordingFilter(docTypes: number[], docStatuses: number[], 
-    clients: number[]) : Observable<Document[]>  {
-    const url = `${this.documentsUrl}/filter/docTypes=[${docTypes}]&docStatuses=[${docStatuses}]&clients=[${clients}]`;
+    clients: number[], sortField: string, sortType: string) : Observable<Document[]>  {
+    const url = `${this.documentsUrl}/filter/docTypes=[${docTypes}]&docStatuses=[${docStatuses}]` + 
+      `&clients=[${clients}]&sortField=${sortField}&sortType=${sortType}`;
     return this.http
       .get<Document[]>(url, { headers: this.headers })
       .pipe(

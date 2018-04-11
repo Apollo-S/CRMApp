@@ -40,7 +40,8 @@ export class DocumentsComponent implements OnInit {
     this.getDocumentTypes();
     this.getDocumentStatuses();
     this.getClients();
-    this.getDocuments();
+    // this.getDocuments();
+    this.useFilter();
     this.loadingCheck = true;
   }
 
@@ -52,17 +53,13 @@ export class DocumentsComponent implements OnInit {
   }
 
   useFilter() {
-    if (this.selectedDocTypes.length == 0 && this.selectedDocStatuses.length == 0 && this.selectedClients.length == 0) {
-      this.getDocuments();
-    } else {
       var docTypeIDs: number[] = this.getIDs(this.selectedDocTypes);
       var docStatusIDs: number[] = this.getIDs(this.selectedDocStatuses);
       var clientIDs: number[] = this.getIDs(this.selectedClients);
-      this.docService.getDocumentsAccordingFilter(docTypeIDs, docStatusIDs, clientIDs)
+      this.docService.getDocumentsAccordingFilter(docTypeIDs, docStatusIDs, clientIDs, "number", "desc")
         .subscribe(
           documents => this.documents = documents
         );
-    }
   }
 
   private getIDs(sourceArray: any[]): number[] {
