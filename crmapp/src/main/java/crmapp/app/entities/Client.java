@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -21,22 +20,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @JsonIgnoreProperties(ignoreUnknown = true, 
 	value = { "hibernateLazyInitializer", "handler",
 			"agreements", "addresses", "directors", "accounts" })
-public class Client extends BaseEntity {
-
-	@Column(name = "title", length = 255)
-	private String title;
-
-	@Column(name = "alias", length = 100)
-	private String alias;
-
-	@Column(name = "edrpou", length = 12)
-	private String edrpou;
-
-	@Column(name = "inn", length = 15)
-	private String inn;
-
-	@Column(name = "vat_certificate", length = 20)
-	private String vatCertificate;
+public class Client extends AbstractCompany {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "client", orphanRemoval = true)
 	@OrderBy("id ASC")
@@ -62,51 +46,11 @@ public class Client extends BaseEntity {
 	}
 
 	public Client(String title, String alias, String edrpou, String inn, String vatCertificate) {
-		this.title = title;
-		this.alias = alias;
-		this.edrpou = edrpou;
-		this.inn = inn;
-		this.vatCertificate = vatCertificate;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getAlias() {
-		return alias;
-	}
-
-	public void setAlias(String alias) {
-		this.alias = alias;
-	}
-
-	public String getEdrpou() {
-		return edrpou;
-	}
-
-	public void setEdrpou(String edrpou) {
-		this.edrpou = edrpou;
-	}
-
-	public String getInn() {
-		return inn;
-	}
-
-	public void setInn(String inn) {
-		this.inn = inn;
-	}
-
-	public String getVatCertificate() {
-		return vatCertificate;
-	}
-
-	public void setVatCertificate(String vatCertificate) {
-		this.vatCertificate = vatCertificate;
+		this.setTitle(title);
+		this.setAlias(alias);
+		this.setEdrpou(edrpou);
+		this.setInn(inn);
+		this.setVatCertificate(vatCertificate);
 	}
 
 	public Set<ClientAgreement> getAgreements() {
@@ -142,8 +86,8 @@ public class Client extends BaseEntity {
 	}
 
 	@Override
-	public int hashCode(){
-		return Objects.hash(this.getId(), this.title, this.edrpou);
+	public int hashCode() {
+		return Objects.hash(this.getId(), this.getTitle(), this.getEdrpou());
 	}
 
 	@Override
@@ -161,22 +105,20 @@ public class Client extends BaseEntity {
 		return new EqualsBuilder()
 			.appendSuper(super.equals(obj))
 			.append(this.getId(), that.getId())
-			.append(this.title, that.title)
-			.append(this.edrpou, that.edrpou)
+			.append(this.getTitle(), that.getTitle())
+			.append(this.getEdrpou(), that.getEdrpou())
 			.isEquals();
 	}
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Client [");
-		builder.append(super.toString()).append(", ");
-		builder.append("title=" + title).append(", ");
-		builder.append("alias=" + alias).append(", ");
-		builder.append("edrpou=" + edrpou).append(", ");
-		builder.append("inn=" + inn).append(", ");
-		builder.append("vatCertificate=" + vatCertificate).append("]");
-		return builder.toString();
+		return new StringBuilder("Client [")
+			.append(super.toString()).append(", ")
+			.append("agreements=" + agreements.size()).append(", ")
+			.append("addresses=" + addresses.size()).append(", ")
+			.append("directors=" + directors.size()).append(", ")
+			.append("accounts=" + accounts.size()).append("]")
+			.toString();
 	}
 
 }

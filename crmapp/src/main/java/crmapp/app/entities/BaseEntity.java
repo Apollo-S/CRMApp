@@ -56,7 +56,7 @@ public abstract class BaseEntity {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("id=" + id).append(", ");
-		builder.append("version=" + version);
+		builder.append("version=" + version).append(", ");
 		builder.append("url=" + getUrl());
 		return builder.toString();
 	}

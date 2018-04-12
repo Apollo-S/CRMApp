@@ -35,8 +35,6 @@ public class ClientController extends BaseController {
 	public ResponseEntity<List<Client>> getAllClients() {
 		logger.info(LOG_ENTER_METHOD + "getAllClients()" + LOG_CLOSE);
 		List<Client> clients = clientRepository.findAll();
-		List<Integer> clientsAll = clientRepository.findAllEntityIds();
-		logger.info(LOG_TEXT + clientsAll + LOG_CLOSE);
 		if (clients.size() == 0) {
 			logger.info(LOG_ERROR + "Clients were not found" + LOG_CLOSE);
 			return new ResponseEntity<List<Client>>(HttpStatus.NO_CONTENT);
