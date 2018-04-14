@@ -20,36 +20,22 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Table(name = "client_director")
 @JsonIgnoreProperties(ignoreUnknown = true, 
 	value = { "hibernateLazyInitializer", "handler" })
-public class ClientDirector extends BaseEntity {
+public class ClientDirector extends AbstractDirector {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "client_id")
 	@JsonBackReference(value = "client-director")
 	private Client client;
 
-	@OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-	@JoinColumn(name = "post_id")
-	private Post post;
-
-	@Column(name = "full_name", length = 255)
-	private String fullName;
-
-	@Column(name = "short_name", length = 100)
-	private String shortName;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_start")
-	private Date dateStart;
-
 	public ClientDirector() {
 	}
 
 	public ClientDirector(Client client, Post post, String fullName, String shortName, Date dateStart) {
 		this.client = client;
-		this.post = post;
-		this.fullName = fullName;
-		this.shortName = shortName;
-		this.dateStart = dateStart;
+		this.setPost(post);
+		this.setFullName(fullName);
+		this.setShortName(shortName);
+		this.setDateStart(dateStart);
 	}
 
 	public Client getClient() {
@@ -58,38 +44,6 @@ public class ClientDirector extends BaseEntity {
 
 	public void setClient(Client client) {
 		this.client = client;
-	}
-
-	public String getFullName() {
-		return fullName;
-	}
-
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
-	}
-
-	public String getShortName() {
-		return shortName;
-	}
-
-	public void setShortName(String shortName) {
-		this.shortName = shortName;
-	}
-
-	public Date getDateStart() {
-		return dateStart;
-	}
-
-	public void setDateStart(Date dateStart) {
-		this.dateStart = dateStart;
-	}
-
-	public Post getPost() {
-		return post;
-	}
-
-	public void setPost(Post post) {
-		this.post = post;
 	}
 
 	@Override
@@ -102,11 +56,11 @@ public class ClientDirector extends BaseEntity {
 		StringBuilder builder = new StringBuilder();
 		builder.append("ClientDirector [");
 		builder.append(super.toString()).append(", ");
-		builder.append("client=" + client).append(", ");
-		builder.append("post=" + post.getTitle()).append(", ");
-		builder.append("fullName=" + fullName).append(", ");
-		builder.append("shortName=" + shortName).append(", ");
-		builder.append("dateStart=" + dateStart).append("]");
+		builder.append("client=" + client.getTitle()).append(", ");
+//		builder.append("post=" + post.getTitle()).append(", ");
+//		builder.append("fullName=" + fullName).append(", ");
+//		builder.append("shortName=" + shortName).append(", ");
+//		builder.append("dateStart=" + dateStart).append("]");
 		return builder.toString();
 	}
 
