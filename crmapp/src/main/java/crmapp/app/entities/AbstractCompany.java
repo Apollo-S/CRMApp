@@ -1,5 +1,7 @@
 package crmapp.app.entities;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
@@ -65,6 +67,25 @@ public abstract class AbstractCompany extends BaseEntity {
 
 	public void setVatCertificate(String vatCertificate) {
 		this.vatCertificate = vatCertificate;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.getId(), this.getTitle(), this.getEdrpou());
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AbstractCompany that = (AbstractCompany) obj;
+		return Objects.equals(this.getId(), that.getId()) && 
+				Objects.equals(this.getTitle(), that.getTitle()) && 
+				Objects.equals(this.getEdrpou(), that.getEdrpou());
 	}
 
 	@Override
