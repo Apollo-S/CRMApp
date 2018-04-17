@@ -1,6 +1,7 @@
 package crmapp.app.entities;
 
 import java.util.Date;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -35,14 +36,33 @@ public abstract class AbstractAddress extends BaseEntity {
 	public void setDateStart(Date dateStart) {
 		this.dateStart = dateStart;
 	}
-	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.getId(), this.getPresentation(), this.getDateStart());
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AbstractAddress that = (AbstractAddress) obj;
+		return Objects.equals(this.getId(), that.getId()) && 
+				Objects.equals(this.getPresentation(), that.getPresentation()) && 
+				Objects.equals(this.getDateStart(), that.getDateStart());
+	}
+
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append(super.toString()).append(", ");
-		builder.append("presentation=" + presentation).append(", ");
-		builder.append("dateStart=" + dateStart);
-		return builder.toString();
+		return new StringBuilder()
+			.append(super.toString()).append(", ")
+			.append("presentation=" + presentation).append(", ")
+			.append("dateStart=" + dateStart)
+			.toString();
 	}
 
 }

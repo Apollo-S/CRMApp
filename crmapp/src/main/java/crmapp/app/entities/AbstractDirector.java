@@ -1,6 +1,7 @@
 package crmapp.app.entities;
 
 import java.util.Date;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -62,6 +63,37 @@ public abstract class AbstractDirector extends BaseEntity {
 
 	public void setDateStart(Date dateStart) {
 		this.dateStart = dateStart;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.getId(), this.getFullName(), this.getShortName(), this.getDateStart());
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AbstractDirector that = (AbstractDirector) obj;
+		return Objects.equals(this.getId(), that.getId()) && 
+				Objects.equals(this.getFullName(), that.getFullName()) && 
+				Objects.equals(this.getShortName(), that.getShortName()) && 
+				Objects.equals(this.getDateStart(), that.getDateStart());
+	}
+
+	@Override
+	public String toString() {
+		return new StringBuilder()
+			.append(super.toString()).append(", ")
+			.append("post=" + post.getTitle()).append(", ")
+			.append("fullName=" + fullName).append(", ")
+			.append("shortName=" + shortName).append(", ")
+			.append("dateStart=" + dateStart)
+			.toString();
 	}
 
 }
