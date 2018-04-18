@@ -1,7 +1,6 @@
 package crmapp.app.entities;
 
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -9,8 +8,6 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
-
-import org.apache.commons.lang3.builder.EqualsBuilder;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -84,24 +81,6 @@ public class Client extends AbstractCompany {
 	public void setAccounts(Set<ClientAccount> accounts) {
 		this.accounts = accounts;
 	}
-
-//	@Override
-//	public int hashCode() {
-//		return Objects.hash(this.getId(), this.getTitle(), this.getEdrpou());
-//	}
-//
-//	@Override
-//	public boolean equals(Object obj) {
-//		if (this == obj)
-//			return true;
-//		if (obj == null)
-//			return false;
-//		if (getClass() != obj.getClass())
-//			return false;
-//		Client that = (Client) obj;
-//		return Objects.equals(this.getId(), that.getId()) && Objects.equals(this.getTitle(), that.getTitle()) && 
-//				Objects.equals(this.getEdrpou(), that.getEdrpou());
-//	}
 
 	@Override
 	public String toString() {
