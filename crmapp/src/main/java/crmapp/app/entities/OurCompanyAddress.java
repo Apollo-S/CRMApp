@@ -1,7 +1,5 @@
 package crmapp.app.entities;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -20,14 +18,14 @@ public class OurCompanyAddress extends AbstractAddress {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "our_company_id")
 	@JsonBackReference(value = "our-company-address")
-	private OurCompany company;
+	private OurCompany ourCompany;
 
 	public OurCompanyAddress() {
 	}
 
 	@Override
 	public String getUrl() {
-		return company.getUrl() + "/addresses/" + this.getId();
+		return ourCompany.getUrl() + "/addresses/" + this.getId();
 	}
 
 	@Override
@@ -35,7 +33,7 @@ public class OurCompanyAddress extends AbstractAddress {
 		return new StringBuilder()
 		.append("OurCompanyAddress [")
 		.append(super.toString()).append(", ")
-		.append("company=" + company).append("]")
+		.append("company=" + ourCompany.getTitle()).append("]")
 		.toString();
 	}
 

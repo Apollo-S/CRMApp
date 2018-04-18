@@ -2,17 +2,11 @@ package crmapp.app.entities;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -53,15 +47,11 @@ public class ClientDirector extends AbstractDirector {
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("ClientDirector [");
-		builder.append(super.toString()).append(", ");
-		builder.append("client=" + client.getTitle()).append(", ");
-//		builder.append("post=" + post.getTitle()).append(", ");
-//		builder.append("fullName=" + fullName).append(", ");
-//		builder.append("shortName=" + shortName).append(", ");
-//		builder.append("dateStart=" + dateStart).append("]");
-		return builder.toString();
+		return new StringBuilder()
+			.append("ClientDirector [")
+			.append(super.toString()).append(", ")
+			.append("client=" + client.getTitle()).append("]")
+			.toString();
 	}
 
 }

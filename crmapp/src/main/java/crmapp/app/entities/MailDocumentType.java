@@ -15,7 +15,5 @@ public class MailDocumentType extends AbstractDocumentType {
 	public String getUrl() {
 		return "mail-document-types/" + this.getId();
 	}
-	
-	
 
 }

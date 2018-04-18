@@ -1,5 +1,7 @@
 package crmapp.app.entities;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -21,6 +23,14 @@ public class OurCompanyDirector extends AbstractDirector {
 	private OurCompany ourCompany;
 
 	public OurCompanyDirector() {
+	}
+
+	public OurCompanyDirector(OurCompany company, Post post, String fullName, String shortName, Date dateStart) {
+		this.ourCompany = company;
+		this.setPost(post);
+		this.setFullName(fullName);
+		this.setShortName(shortName);
+		this.setDateStart(dateStart);
 	}
 
 	public OurCompany getOurCompany() {
