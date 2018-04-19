@@ -19,6 +19,8 @@ export class DashboardTableComponent implements OnInit {
   @Input ('rows') rows: number; 
   @Input ('loading') loading: boolean; 
   @Input ('menuModel') menuModel: MenuItem[]; 
+  @Input ('sortField') sortField: string;
+  @Input ('autoLayout') autoLayout: boolean;
   constructor(private router: Router) { }
 
   ngOnInit() {

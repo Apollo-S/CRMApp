@@ -9,9 +9,9 @@
             </button>
         </div>
     </p-header>
-    <p-table #dt [columns]="columns" [responsive]="responsive" 
-        [value]="datasource" [reorderableColumns]="reorderableColumns" 
-        [rows]="rows" [rowHover]="rowHover" [paginator]="paginator" 
+    <p-table #dt [columns]="columns" [responsive]="responsive" [sortField]="sortField" [sortOrder]="1"
+        [value]="datasource" [reorderableColumns]="reorderableColumns" [autoLayout]="autoLayout"
+        [rows]="rows" [rowHover]="rowHover" [paginator]="paginator"
         [loading]="loading"
         *ngIf="datasource?.length>0&&loading===false; else loadingStatus" >
         <ng-template pTemplate="caption">
@@ -23,7 +23,7 @@
         </ng-template>
         <ng-template pTemplate="header" let-columns>
             <tr>
-                <th *ngFor="let column of columns" style="text-align:center" 
+                <th *ngFor="let column of columns" style="text-align:center"  
                     [pSortableColumn]="column.field" pReorderableColumn>
                     {{column.header}}
                     <p-sortIcon [field]="column.field"></p-sortIcon>
