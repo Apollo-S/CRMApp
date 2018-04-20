@@ -152,8 +152,24 @@ VALUES
 TRUNCATE `mail_output`;
 INSERT INTO `mail_output` (`id`, `mail_doc_type_id`, `number`, `dated`, `receiver`, `comment`, `optlock`)
 VALUES 
-	(1, 1, '401/04-2018', '2017-06-30', 'Тестовый Получатель', '', 0),
-	(2, 2, '402/04-2018', '2017-07-01', 'Тестовый Получатель', '', 0),
-	(3, 3, '402/04-2018', '2017-06-30', 'Тестовый Получатель', '', 0);
+	(1, 1, '401/04-2018', '2017-04-30', 'Тестовый Получатель', '', 0),
+	(2, 2, '402/05-2018', '2017-05-01', 'Тестовый Получатель', '', 0),
+	(3, 3, '403/06-2018', '2017-06-02', 'Тестовый Получатель', '', 0);
+
+RUNCATE `our_company`;
+INSERT INTO `our_company` (`id`, `alias`, `title`, `edrpou`, `inn`, `vat_certificate`, `optlock`)
+VALUES 
+	(1, 'geosap', 'ТОВ "ГЕОСАП"', '36483010', '', '', 0);
+
+TRUNCATE `our_company_address`;
+INSERT INTO `our_company_address` (`id`, `our_company_id`, `presentation`, `date_start`, `optlock`)
+VALUES 
+	(1, 1, 'Україна, 03150, м.Київ, вул. Горького, буд. 172, офіс 1020', '2009-01-01', 0),
+	(2, 2, 'Україна, 03022, м. Киев, вул. Козацька, 120/4, літ. Б', '2015-07-01', 0);
+
+TRUNCATE `our_company_director`;
+INSERT INTO `our_company_director` (`id`, `our_company_id`, `post_id`, `full_name`, `short_name`, `date_start`, `optlock`)
+VALUES
+	(1, 1, 1, 'Стоян Олександр Володимирович', 'Стоян О.В.', '2015-01-01', 0);
 
 SET FOREIGN_KEY_CHECKS=1;
