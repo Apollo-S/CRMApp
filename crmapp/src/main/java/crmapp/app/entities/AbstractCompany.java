@@ -29,6 +29,14 @@ public abstract class AbstractCompany extends BaseEntity {
 	public AbstractCompany() {
 	}
 
+	public AbstractCompany(String title, String alias, String edrpou, String inn, String vatCertificate) {
+		this.title = title;
+		this.alias = alias;
+		this.edrpou = edrpou;
+		this.inn = inn;
+		this.vatCertificate = vatCertificate;
+	}
+
 	public String getTitle() {
 		return title;
 	}

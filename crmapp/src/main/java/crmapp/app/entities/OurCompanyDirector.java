@@ -19,7 +19,7 @@ public class OurCompanyDirector extends AbstractDirector {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "our_company_id")
-	@JsonBackReference(value = "client-director")
+	@JsonBackReference(value = "our-company-director")
 	private OurCompany ourCompany;
 
 	public OurCompanyDirector() {

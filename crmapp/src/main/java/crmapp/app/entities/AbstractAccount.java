@@ -21,6 +21,14 @@ public abstract class AbstractAccount extends BaseEntity {
 	@Column(name = "date_start")
 	private Date dateStart;
 
+	public AbstractAccount() {
+	}
+
+	public AbstractAccount(String presentation, Date dateStart) {
+		this.presentation = presentation;
+		this.dateStart = dateStart;
+	}
+
 	public String getPresentation() {
 		return presentation;
 	}

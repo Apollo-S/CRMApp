@@ -26,9 +26,8 @@ public class ClientAccount extends AbstractAccount {
 	}
 
 	public ClientAccount(Client client, String presentation, Date dateStart) {
+		super(presentation, dateStart);
 		this.client = client;
-		this.setPresentation(presentation);
-		this.setDateStart(dateStart);
 	}
 
 	public Client getClient() {
