@@ -23,8 +23,8 @@
   
 </p-table>
 
-<p-dialog header="MailOutput Details" [(visible)]="displayDialog" [responsive]="true" 
-  showEffect="fade" [modal]="true" [width]="600" [autoAlign]="true" [height]="500">
+<p-dialog header="MailOutput Details" [(visible)]="displayDialog" [responsive]="true" [contentStyle]="{'overflow':'visible'}"
+  showEffect="fade" [modal]="true" [width]="800" [autoAlign]="true">
   <div class="ui-g ui-fluid" *ngIf="mailOutput">
       <div class="ui-g-12">
           <div class="ui-g-4">
@@ -42,28 +42,22 @@
               <input pInputText id="receiver" [(ngModel)]="mailOutput.receiver" />
           </div>
       </div>
-    <!-- <ng-template pTemplate="date"> -->
         <div class="ui-g-12">
             <div class="ui-g-4">
                 <label for="dated">Дата</label>
             </div>
             <div class="ui-g-5">
-                    <!-- <ng-template pTemplate="date"> -->
-                    <p-calendar [(ngModel)]="date10">
+                    <p-calendar [(ngModel)]="mailOutput.dated" name="dated" placeholder="Дата" id="dated">
                             <ng-template pTemplate="date" let-date>
                                 <span [ngStyle]="{backgroundColor: (date.day < 21 && date.day > 10) ? '#7cc67c' : 'inherit'}" style="border-radius:50%">{{date.day}}</span>
                             </ng-template>
                         </p-calendar>
-                    <!-- <p-calendar [(ngModel)]="mailOutput.dated" name="dated" placeholder="Дата"
+                    <!-- <p-calendar [(ngModel)]="mailOutput.dated" placeholder="Дата"
                         [monthNavigator]="true" [yearNavigator]="true" yearRange="{{years}}" [locale]="ru"
-                        showButtonBar="true" [showIcon]="true" dateFormat="dd.mm.yy" id="dated" [appendTo]="date">
-                        
+                        showButtonBar="true" [showIcon]="true" dateFormat="dd.mm.yy" id="dated">
                     </p-calendar> -->
-                <!-- <input pInputText id="dated" [(ngModel)]="mailOutput.dated" /> -->
-            <!-- </ng-template> -->
             </div>
-        </div>
-      <!-- </ng-template> -->
+        </div> 
       <div class="ui-g-12">
           <div class="ui-g-4">
               <label for="docTypeTitle">Документ</label>
@@ -76,7 +70,7 @@
           </div>
       </div>
   </div>
-  <!-- <p-footer> -->
+  <p-footer>
       <div class="ui-dialog-buttonpane ui-helper-clearfix">
         <button type="button" pButton icon="fa-trash" class="ui-button-danger" 
             (click)="delete()" label="Удалить">
@@ -88,13 +82,5 @@
             (click)="save()" label="Сохранить">
         </button>
       </div>
-  <!-- </p-footer> -->
+  </p-footer>
 </p-dialog>
-
-<!-- <app-dashboard-table [title]="['Исходящие номера']" 
-    [columns]="columns" [datasource]="outputs" 
-    [responsive]="true" [reorderableColumns]="true" 
-    [rows]="0" [paginator]="false" [rowHover]="true" 
-    [loading]="false" [menuModel]="items" 
-    >
-</app-dashboard-table> -->

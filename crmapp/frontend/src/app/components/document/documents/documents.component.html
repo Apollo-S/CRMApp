@@ -14,7 +14,7 @@
                 </div>
                 <div class="ui-grid-col-2">
                     <button pButton type="button" icon="fa-filter" label="Фильтровать" style="float:right"
-                        class="ui-button-info btn-block" (click)="useFilter()" >
+                        class="ui-button-info btn-block" (click)="useFilter('id', 'asc')" >
                     </button>
                 </div>
             </div>    
@@ -73,10 +73,10 @@
       </div>
   </p-header>
   
-  <p-table #dt [columns]="columns" [responsive]="true" [dataKey]="id"
-      [value]="documents" [reorderableColumns]="true" [columnResizeMode]="expand"
-      [rows]="null" [rowHover]="true" [paginator]="false" 
-      *ngIf="documents?.length > 0; else loadingStatus">
+  <p-table #dt [columns]="columns" [responsive]="true" (sortFunction)="customSort($event)" [customSort]="false"
+      [value]="documents" [reorderableColumns]="true" [columnResizeMode]="expand" [autoLayout]="true"
+      [rows]="null" [rowHover]="true" [paginator]="false" [dataKey]="id" 
+      >
       <ng-template pTemplate="caption">
           <div style="text-align: right">
               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
@@ -103,8 +103,11 @@
                 </a>
               </td>
               
+              <td style="text-align:center" (click)="goToEntry(document?.url)">
+                    {{document.id}}
+                </td>
               <td style="text-align:left" (click)="goToEntry(document?.url)">
-                  {{rowData.docTypeShortTitle}}
+                  {{document.docType.shortTitle}}
               </td>
               <td style="text-align:center" (click)="goToEntry(document?.url)">
                   {{document.number}}
@@ -175,6 +178,13 @@
               </td>
           </tr>
       </ng-template>
+      <ng-template pTemplate="emptymessage" let-columns>
+        <tr>
+            <td [attr.colspan]="columns.length + 2" style="text-align:center">
+                No records found
+            </td>
+        </tr>
+    </ng-template>
       <ng-template pTemplate="summary">
           Кол-во записей: {{documents?.length}}
       </ng-template>
@@ -182,5 +192,5 @@
 </p-panel>
 
 <ng-template #loadingStatus>
-  <app-loading-status enabled="true"></app-loading-status>
+  <!-- <app-loading-status enabled="true"></app-loading-status> -->
 </ng-template>
