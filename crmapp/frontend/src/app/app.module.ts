@@ -10,6 +10,7 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ButtonModule } from 'primeng/button'; 
 import { CalendarModule } from 'primeng/calendar';
 import { CardModule } from 'primeng/card';
+import { CheckboxModule } from 'primeng/checkbox';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DataListModule } from 'primeng/datalist';
 import { DataViewModule } from 'primeng/dataview';
@@ -18,6 +19,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { FieldsetModule } from 'primeng/fieldset';
 import { GrowlModule } from 'primeng/growl';
 import { InputTextModule } from 'primeng/inputtext';
+import { InputSwitchModule } from 'primeng/inputswitch';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { ListboxModule } from 'primeng/listbox';
 import { MenubarModule } from 'primeng/menubar';
@@ -178,6 +180,7 @@ import { MailInputsComponent } from './components/mail-input/mail-inputs/mail-in
     ButtonModule, 
     CalendarModule,
     CardModule,
+    CheckboxModule,
     ConfirmDialogModule,
     DataListModule,
     DataViewModule,
@@ -186,6 +189,7 @@ import { MailInputsComponent } from './components/mail-input/mail-inputs/mail-in
     GrowlModule,
     FieldsetModule,
     InputTextModule, 
+    InputSwitchModule,
     KeyFilterModule,
     ListboxModule,
     MenubarModule,
