@@ -22,6 +22,7 @@ export class MailOutputsComponent implements OnInit {
   displayDialog: boolean = false;
   years: string;
   ru: any;
+  disabledMailOutputNumber: boolean = false;
 
   constructor(private outputService: MailOutputService,
               private docTypeService: MailDocumentTypeService,
@@ -52,6 +53,7 @@ export class MailOutputsComponent implements OnInit {
 
   private initColumns() {
     this.columns = [
+      { field: 'id', header: 'ID' },
       { field: 'number', header: 'Номер' },
       { field: 'docTypeTitle', header: 'Тип' },
       { field: 'receiver', header: 'Получатель' },
@@ -65,7 +67,9 @@ export class MailOutputsComponent implements OnInit {
 
   onRowSelect(event) {
     this.newMailOutput = false;
+    this.disabledMailOutputNumber = false;
     this.mailOutput = this.cloneMailOutput(event.data);
+    this.mailOutput.dated = new Date(this.mailOutput.dated);
     this.displayDialog = true;
   } 
 
