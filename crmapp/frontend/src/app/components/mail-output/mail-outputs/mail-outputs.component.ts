@@ -81,4 +81,10 @@ export class MailOutputsComponent implements OnInit {
     return mailOutput;
   }
 
+  showDialogToAdd() {
+    this.newMailOutput = true;
+    this.mailOutput = {};
+    this.displayDialog = true;
+  }
+
 }
