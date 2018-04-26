@@ -26,12 +26,12 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="summary" let-rowData>
-            
+            Кол-во записей: {{outputs?.length}}
         </ng-template>
         <ng-template pTemplate="emptymessage" let-columns>
             <tr>
                 <td [attr.colspan]="columns.length" style="text-align:center">
-                    No records found
+                    Данные отсутствуют...
                 </td>
             </tr>
         </ng-template>
@@ -41,9 +41,7 @@
 <p-dialog [(visible)]="displayDialog" [contentStyle]="{'overflow':'visible'}"
   showEffect="fade" [modal]="true" [width]="600" [autoAlign]="true" [responsive]="true">
     <p-header>
-        Исх. документ № 
-        {{mailOutput.number}} от 
-        {{mailOutput.dated == null ? '-' : mailOutput.dated | date: 'dd.MM.y'}}
+        {{headerText}}
     </p-header>
     <div class="ui-g ui-fluid" *ngIf="mailOutput">
         <div class="ui-g-12">
@@ -55,7 +53,7 @@
             <div class="ui-g-4">
                 <label for="dated"><b>Дата</b></label>
                 <p-calendar [(ngModel)]="mailOutput.dated" placeholder="Дата" name="dated" 
-                    [monthNavigator]="true" [yearNavigator]="true" yearRange="{{years}}" [locale]="ru"
+                    [monthNavigator]="true" [yearNavigator]="true" yearRange="years" [locale]="ru"
                     showButtonBar="true" [showIcon]="true" dateFormat="dd.mm.yy" id="dated" 
                     [disabled]="!disabledMailOutputNumber">
                 </p-calendar>
