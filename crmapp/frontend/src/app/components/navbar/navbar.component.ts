@@ -11,13 +11,14 @@ export class NavbarComponent implements OnInit {
     isShown: boolean = true;
     menubarItems: MenuItem[];
     panelMenuItems: MenuItem[];
-    gridWidth: string = '9';
+    menuItems: MenuItem[];
+    navbarWidth: string = 'navbar-collapsed';
 
     constructor(private service: CategoryService) { }
 
     ngOnInit() {
         this.initCategories();
-        this.initMenubar();
+        this.initMenues();
     }
   
     expandAll() {
@@ -69,7 +70,7 @@ export class NavbarComponent implements OnInit {
         ];
     }
 
-    private initMenubar() {
+    private initMenues() {
         this.menubarItems = [
             { title: 'Open/Hide', label: '', icon: 'fa-bars', disabled: false,
                 command: (event) => this.showHideMenu(this.isShown)
@@ -85,12 +86,20 @@ export class NavbarComponent implements OnInit {
                 { label: 'empty', routerLink: [''] } ]
             },
             { label: 'Инфо', icon: 'fa-info-circle', routerLink: ['about'] }
+        ];
+        this.menuItems = [
+            { label: 'Развернуть', icon: 'fa-plus-square', 
+                command: (event) => this.expandAll()
+            },
+            { label: 'Свернуть', icon: 'fa-minus-square', 
+                command: (event) => this.collapseAll()
+            }
         ]
     }
 
     private showHideMenu(value: boolean): any {
         this.isShown = value ? false : true;
-        this.gridWidth = (this.isShown) ? '9' : '12';
+        this.navbarWidth = (this.isShown) ? 'navbar-collapsed' : 'navbar-expanded';
     }
 
 }

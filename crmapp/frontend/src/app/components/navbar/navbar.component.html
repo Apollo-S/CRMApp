@@ -1,33 +1,40 @@
 <div class="ui-g">
-  <div *ngIf="isShown" class="ui-g-12 ui-md-3">
-    <div style="margin-bottom:6px">
-      <p-toolbar>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-6">
-            <button pButton type="button" class="ui-button-info" 
-              style="width:98%;float:left" icon="fa-plus-square" 
-              label="Развернуть" (click)="expandAll()">
-            </button>
-          </div>
-          <div class="ui-grid-col-6">
-            <button pButton type="button" class="ui-button-danger" 
-              style="width:98%;float:right" icon="fa-minus-square" 
-              label="Свернуть" (click)="collapseAll()">
-            </button>
-          </div>
-        </div>
-      </p-toolbar>
-    </div>
-    <p-panelMenu [model]="panelMenuItems" [multiple]="true"></p-panelMenu>    
+
+  <div *ngIf="isShown" class="ui-g-12">
+    <div style="position:fixed;width:290px;left:5px;right:295px;top:0">
+      <p-menubar [model]="menuItems" [autoDisplay]="false"></p-menubar>
+      <p-panelMenu [model]="panelMenuItems" [multiple]="true"></p-panelMenu>  
+    </div>  
   </div>
-  
-  <div class="ui-g-12 ui-md-{{gridWidth}} ui-g-nopad">
-    <div class="ui-g-12">
-      <app-navbar-menu-bar [model]="menubarItems" [autoDisplay]="false"></app-navbar-menu-bar>
+
+  <div class="ui-g-12">
+    <div class="ui-g-12 ui-g-nopad {{navbarWidth}}-fixed" >
+        <app-navbar-menu-bar [model]="menubarItems" [autoDisplay]="false" baseZIndex="101"></app-navbar-menu-bar>
     </div>
+    <div class="ui-g-12 ui-g-nopad {{navbarWidth}}" >
+        <router-outlet></router-outlet> 
+    </div>
+  </div>
+
+  <!-- <div *ngIf="isShown" class="ui-g-12 ui-md-3">
+    <div style="position:fixed;width:24%;margin-top:55px;">
+      <p-menubar [model]="menuItems" [autoDisplay]="false"></p-menubar>
+      <p-panelMenu [model]="panelMenuItems" [multiple]="true"></p-panelMenu>  
+    </div>  
+  </div> -->
   
-    <div class="ui-g-12 ui-g-nopad">
+  <!-- <nav class="navbar fixed-top navbar-light bg-light">
+    <a class="navbar-brand" href="#">Fixed top</a> 
+  </nav> -->
+
+  <!-- <div class="ui-g-12 ui-md-{{gridWidth}} ui-g-nopad">
+    <div class="ui-g-12" style="position:fixed;z-index:1000">
+      <app-navbar-menu-bar [model]="menubarItems" [autoDisplay]="false" baseZIndex="1000"></app-navbar-menu-bar>
+    </div>
+    <div class="ui-g-12 ui-g-nopad" style="margin-top:55px;">
       <router-outlet></router-outlet> 
     </div>
-  </div>
+  </div> -->
+
 </div>
+
