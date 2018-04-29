@@ -7,7 +7,7 @@ import { DocumentStatus } from '../../../models/DocumentStatus';
 import { DocumentType } from '../../../models/DocumentType';
 import { DocumentStatusService } from '../../../services/document-status.service';
 import { ClientService } from '../../../services/client.service';
-import { MenuItem, SortEvent } from 'primeng/api';
+import { MenuItem, SortEvent, SelectItem } from 'primeng/api';
 import { Client } from '../../../models/Client';
 
 @Component({
@@ -27,6 +27,11 @@ export class DocumentsComponent implements OnInit {
   selectedDocStatuses: DocumentStatus[] = [];
   selectedClients: Client[] = [];
   loadingCheck: boolean = false;
+  defaultSortField: string = "id";
+  defaultSortType: string = "asc";
+  sortTypes: SelectItem[] = [];
+  selectedSortType: string;
+  selectedSortField: any;
 
   constructor(private docService: DocumentService,
               private docTypeService: DocumentTypeService,
@@ -41,8 +46,9 @@ export class DocumentsComponent implements OnInit {
     this.getDocumentStatuses();
     this.getClients();
     // this.getDocuments();
-    this.useFilter("id", "desc");
+    this.useFilter(this.defaultSortField, this.defaultSortType);
     this.loadingCheck = true;
+    this.initSortTypes();
   }
 
   private getDocuments() {
@@ -56,8 +62,19 @@ export class DocumentsComponent implements OnInit {
       var docTypeIDs: number[] = this.getIDs(this.selectedDocTypes);
       var docStatusIDs: number[] = this.getIDs(this.selectedDocStatuses);
       var clientIDs: number[] = this.getIDs(this.selectedClients);
-
       this.docService.getDocumentsAccordingFilter(docTypeIDs, docStatusIDs, clientIDs, sortField, sortType)
+        .subscribe(
+          documents => this.documents = documents
+        );
+  }
+
+  useSorting() {
+    var docTypeIDs: number[] = this.getIDs(this.selectedDocTypes);
+      var docStatusIDs: number[] = this.getIDs(this.selectedDocStatuses);
+      var clientIDs: number[] = this.getIDs(this.selectedClients);
+      console.log("this.selectedSortField = " + this.selectedSortField.field);
+      console.log("this.selectedSortType = " + this.selectedSortType);
+      this.docService.getDocumentsAccordingFilter(docTypeIDs, docStatusIDs, clientIDs, this.selectedSortField.field, this.selectedSortType)
         .subscribe(
           documents => this.documents = documents
         );
@@ -130,8 +147,17 @@ export class DocumentsComponent implements OnInit {
       { field: 'paymentDate', header: 'Дата оплаты', colStyle: 'paid' },
       { field: 'status.status', header: 'Статус', colStyle: 'text-align:center' }
     ];
+    this.selectedSortField = this.columns[0];
   }
 
+  private initSortTypes() {
+    this.sortTypes = [
+      { label:'Возрастание', value: 'asc'},
+      { label:'Убывание', value: 'desc'}
+    ];
+    this.selectedSortType = 'asc';
+  }
+  
   private initMenu(id: any) {
     this.items = [];
   }

@@ -64,11 +64,24 @@
         <span class="ui-panel-title" style="display:inline-block;margin-top:6px">
             <h4><b>Документы</b></h4>
         </span> 
+
         <button pButton type="button" label="Добавить" style="margin-top:6px;float:right" 
             [routerLink]="['add']" icon="fa-plus">
         </button>
         <button pButton type="button" icon="fa-filter" label="Фильтр"
             (click)="showFilter=true" class="ui-button-info" style="margin-top:6px;margin-right:4px;float:right">
+        </button> 
+        <p-dropdown [options]="columns" [(ngModel)]="selectedSortField" optionLabel="header" [autoWidth]="false"
+             [showClear]="false" [style]="{'min-width':'10em'}">
+        </p-dropdown>
+        <span>
+            Сортировка по:
+        </span>
+        <p-dropdown [options]="sortTypes" [(ngModel)]="selectedSortType" [autoWidth]="false"
+             [showClear]="false" [style]="{'min-width':'10em'}">
+        </p-dropdown>
+        <button pButton type="button" icon="fa-sort" label="Сортировать"
+            (click)="useSorting()" class="ui-button-info" style="margin-top:6px;margin-right:4px;float:right">
         </button> 
       </div>
   </p-header>
