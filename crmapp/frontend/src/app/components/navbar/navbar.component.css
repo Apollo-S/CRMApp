@@ -1,37 +1,35 @@
 .navbar-collapsed {
-    /* position:fixed; */
     left:300px;
-    right:5px;
-    top:55px;
-    width:auto; 
-    /* z-index:101; */
-    /* margin-top:55px; */
+    margin-left:255px;
+    margin-top:35px;
+    margin-right:0px;
+}
+
+.navbar-expanded {
+    margin-top:35px;
 }
 
 .navbar-collapsed-fixed {
     position:fixed;
-    left:300px;
-    right:5px;
+    left:257px;
+    right:0px;
     top:0;
     width:auto;
     z-index:101;
 }
 
-.navbar-expanded {
-    /* position:fixed; */
-    left:5px;
-    right:5px;
-    top:55px;
-    width:auto;
-    /* z-index:101; */
-}
-
 .navbar-expanded-fixed {
     position:fixed;
-    left:5px;
-    right:5px;
+    left:0px;
+    right:0px;
     top:0;
     width:auto;
+    z-index:101;
+}
+
+.menu-set {
+    position:fixed; 
+    height:100%;
     z-index:101;
 }
 

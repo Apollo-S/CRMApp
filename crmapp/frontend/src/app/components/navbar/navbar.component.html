@@ -1,40 +1,20 @@
 <div class="ui-g">
-
-  <div *ngIf="isShown" class="ui-g-12">
-    <div style="position:fixed;width:290px;left:5px;right:295px;top:0">
-      <p-menubar [model]="menuItems" [autoDisplay]="false"></p-menubar>
-      <p-panelMenu [model]="panelMenuItems" [multiple]="true"></p-panelMenu>  
-    </div>  
-  </div>
-
-  <div class="ui-g-12">
-    <div class="ui-g-12 ui-g-nopad {{navbarWidth}}-fixed" >
-        <app-navbar-menu-bar [model]="menubarItems" [autoDisplay]="false" baseZIndex="101"></app-navbar-menu-bar>
-    </div>
-    <div class="ui-g-12 ui-g-nopad {{navbarWidth}}" >
-        <router-outlet></router-outlet> 
+  <div class="ui-g-12 ui-md-12" >
+    <div *ngIf="isShown" class="menu-set">
+        <p-menubar [model]="menuItems" [autoDisplay]="false"></p-menubar>
+        <p-panelMenu [model]="panelMenuItems" [multiple]="true"></p-panelMenu>  
     </div>
   </div>
-
-  <!-- <div *ngIf="isShown" class="ui-g-12 ui-md-3">
-    <div style="position:fixed;width:24%;margin-top:55px;">
-      <p-menubar [model]="menuItems" [autoDisplay]="false"></p-menubar>
-      <p-panelMenu [model]="panelMenuItems" [multiple]="true"></p-panelMenu>  
-    </div>  
-  </div> -->
-  
-  <!-- <nav class="navbar fixed-top navbar-light bg-light">
-    <a class="navbar-brand" href="#">Fixed top</a> 
-  </nav> -->
-
-  <!-- <div class="ui-g-12 ui-md-{{gridWidth}} ui-g-nopad">
-    <div class="ui-g-12" style="position:fixed;z-index:1000">
-      <app-navbar-menu-bar [model]="menubarItems" [autoDisplay]="false" baseZIndex="1000"></app-navbar-menu-bar>
+  <div class="ui-g-12 ui-md-12 ui-g-nopad">
+    <div class="ui-g-12 {{navbarWidth}}-fixed" >
+      <app-navbar-menu-bar [model]="menubarItems" [autoDisplay]="false" baseZIndex="101"></app-navbar-menu-bar>
     </div>
-    <div class="ui-g-12 ui-g-nopad" style="margin-top:55px;">
-      <router-outlet></router-outlet> 
+    <div class="ui-g-12 ui-g-nopad">
+      <div class="ui-g">
+        <div class="ui-g-12 ui-md-12 {{navbarWidth}}">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
     </div>
-  </div> -->
-
+  </div>
 </div>
-
