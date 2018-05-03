@@ -23,6 +23,14 @@ public class OurCompanyAddress extends AbstractAddress {
 	public OurCompanyAddress() {
 	}
 
+	public OurCompany getOurCompany() {
+		return ourCompany;
+	}
+
+	public void setOurCompany(OurCompany ourCompany) {
+		this.ourCompany = ourCompany;
+	}
+
 	@Override
 	public String getUrl() {
 		return ourCompany.getUrl() + "/addresses/" + this.getId();
