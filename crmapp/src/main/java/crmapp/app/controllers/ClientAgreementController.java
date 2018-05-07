@@ -68,10 +68,11 @@ public class ClientAgreementController extends BaseController {
 		logger.info(LOG_OUT_OF_METHOD + "getAgreementById()" + LOG_CLOSE);
 		return new ResponseEntity<ClientAgreement>(agreement, HttpStatus.OK);
 	}
-	
+
 	@PostMapping(value = "/agreements", headers = HEADER_JSON)
 	public ResponseEntity<ClientAgreement> addAgreement(@RequestBody ClientAgreement agreement) {
 		logger.info(LOG_ENTER_METHOD + "addAgreement()" + LOG_CLOSE);
+		agreement.setVersion(0);
 		agreement = agreementRepository.save(agreement);
 		logger.info(LOG_TEXT + "ClientAgreement added with ID=" + agreement.getId() + LOG_CLOSE);
 		logger.info(LOG_OUT_OF_METHOD + "addAgreement()" + LOG_CLOSE);
@@ -79,21 +80,25 @@ public class ClientAgreementController extends BaseController {
 	}
 
 	@PutMapping(value = "/agreements/{id}", headers = HEADER_JSON)
-	public ResponseEntity<Void> updateAgreement(@PathVariable(PARAM_ID) int id, @RequestBody ClientAgreement agreement) {
+	public ResponseEntity<ClientAgreement> updateAgreement(@PathVariable(PARAM_ID) int id,
+			@RequestBody ClientAgreement agreement) {
+		logger.info(LOG_ENTER_METHOD + "updateAgreement()" + LOG_CLOSE);
 		agreement.setId(id);
-		agreement.setVersion(agreementRepository.getOne(id).getVersion());
+		int actualVersionNumber = agreementRepository.getOne(id).getVersion();
+		agreement.setVersion(actualVersionNumber);
 		agreement = agreementRepository.save(agreement);
-		HttpHeaders header = new HttpHeaders();
-		return new ResponseEntity<Void>(header, HttpStatus.OK);
+		logger.info(LOG_TEXT + "ClientAgreement with ID=" + id + " was updated: " + agreement + LOG_CLOSE);
+		logger.info(LOG_OUT_OF_METHOD + "updateAgreement()" + LOG_CLOSE);
+		return new ResponseEntity<ClientAgreement>(new HttpHeaders(), HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = { "/agreements/{id}", "/clients/{clientId}/agreements/{id}" }, headers = HEADER_JSON)
-	public ResponseEntity<Void> deleteAgreement(@PathVariable(PARAM_ID) int id, @RequestBody ClientAgreement agreement) {
-		agreement.setId(id);
-		agreement.setVersion(agreementRepository.getOne(id).getVersion());
-		agreementRepository.delete(agreement);
-		HttpHeaders header = new HttpHeaders();
-		return new ResponseEntity<Void>(header, HttpStatus.NO_CONTENT);
+	public ResponseEntity<Void> deleteAgreement(@PathVariable(PARAM_ID) int id) {
+		logger.info(LOG_ENTER_METHOD + "deleteAgreement()" + LOG_CLOSE);
+		agreementRepository.delete(id);
+		logger.info(LOG_TEXT + "ClientAgreement with ID=" + id + " was deleted" + LOG_CLOSE);
+		logger.info(LOG_OUT_OF_METHOD + "deleteAgreement()" + LOG_CLOSE);
+		return new ResponseEntity<Void>(new HttpHeaders(), HttpStatus.NO_CONTENT);
 	}
 
 }
