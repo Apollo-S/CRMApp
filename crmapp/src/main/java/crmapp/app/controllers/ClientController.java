@@ -1,7 +1,6 @@
 package crmapp.app.controllers;
 
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import crmapp.app.entities.Client;
 import crmapp.app.repositories.ClientRepository;
 
@@ -63,9 +61,8 @@ public class ClientController extends BaseController {
 		client.setVersion(0);
 		client = clientRepository.save(client);
 		logger.info(LOG_TEXT + "Client added with ID=" + client.getId() + LOG_CLOSE);
-		HttpHeaders header = new HttpHeaders();
 		logger.info(LOG_OUT_OF_METHOD + "addClient()" + LOG_CLOSE);
-		return new ResponseEntity<Client>(client, header, HttpStatus.CREATED);
+		return new ResponseEntity<Client>(client, new HttpHeaders(), HttpStatus.CREATED);
 	}
 
 	@PutMapping(value = "/{id}", headers = HEADER_JSON)
@@ -76,9 +73,8 @@ public class ClientController extends BaseController {
 		client.setVersion(actualVersionNumber);
 		client = clientRepository.save(client);
 		logger.info(LOG_TEXT + "Client with ID=" + id + " was updated: " + client + LOG_CLOSE);
-		HttpHeaders header = new HttpHeaders();
 		logger.info(LOG_OUT_OF_METHOD + "updateClient()" + LOG_CLOSE);
-		return new ResponseEntity<Client>(client, header, HttpStatus.OK);
+		return new ResponseEntity<Client>(client, new HttpHeaders(), HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = "/{id}", headers = HEADER_JSON)
@@ -86,9 +82,8 @@ public class ClientController extends BaseController {
 		logger.info(LOG_ENTER_METHOD + "deleteClient()" + LOG_CLOSE);
 		clientRepository.delete(id);
 		logger.info(LOG_TEXT + "Client with ID=" + id + " was deleted" + LOG_CLOSE);
-		HttpHeaders header = new HttpHeaders();
 		logger.info(LOG_OUT_OF_METHOD + "deleteClient()" + LOG_CLOSE);
-		return new ResponseEntity<Void>(header, HttpStatus.NO_CONTENT);
+		return new ResponseEntity<Void>(new HttpHeaders(), HttpStatus.NO_CONTENT);
 	}
 
 }
