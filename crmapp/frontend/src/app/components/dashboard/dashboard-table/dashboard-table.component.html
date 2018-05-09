@@ -12,8 +12,7 @@
     <p-table #dt [columns]="columns" [responsive]="responsive" [sortField]="sortField" [sortOrder]="1"
         [value]="datasource" [reorderableColumns]="reorderableColumns" [autoLayout]="autoLayout"
         [rows]="rows" [rowHover]="rowHover" [paginator]="paginator"
-        [loading]="loading"
-        *ngIf="datasource?.length>0&&loading===false; else loadingStatus" >
+        [loading]="loading">
         <ng-template pTemplate="caption">
             <div style="text-align: right">
                 <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
@@ -53,12 +52,15 @@
                 </td>
             </tr>
         </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+                <td [attr.colspan]="columns.length + 2" style="text-align:center">
+                    Записи не найдены
+                </td>
+            </tr>
+        </ng-template>
         <ng-template pTemplate="summary">
             Кол-во записей: {{datasource?.length}}
         </ng-template>
     </p-table>
 </p-panel>
-
-<ng-template #loadingStatus>
-    <app-loading-status enabled="true"></app-loading-status>
-</ng-template> 
