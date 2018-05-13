@@ -1,7 +1,6 @@
 package crmapp.app.controllers;
 
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import crmapp.app.entities.OurCompany;
 import crmapp.app.repositories.OurCompanyRepository;
 
@@ -63,9 +61,8 @@ public class OurCompanyController extends BaseController {
 		company.setVersion(0);
 		company = companyRepository.save(company);
 		logger.info(LOG_TEXT + "OurCompany added with ID=" + company.getId() + LOG_CLOSE);
-		HttpHeaders header = new HttpHeaders();
 		logger.info(LOG_OUT_OF_METHOD + "addOurCompany()" + LOG_CLOSE);
-		return new ResponseEntity<OurCompany>(company, header, HttpStatus.CREATED);
+		return new ResponseEntity<OurCompany>(company, new HttpHeaders(), HttpStatus.CREATED);
 	}
 
 	@PutMapping(value = "/{id}", headers = HEADER_JSON)
@@ -77,9 +74,8 @@ public class OurCompanyController extends BaseController {
 		company.setVersion(actualVersionNumber);
 		company = companyRepository.save(company);
 		logger.info(LOG_TEXT + "OurCompany with ID=" + id + " was updated: " + company + LOG_CLOSE);
-		HttpHeaders header = new HttpHeaders();
 		logger.info(LOG_OUT_OF_METHOD + "updateOurCompany()" + LOG_CLOSE);
-		return new ResponseEntity<OurCompany>(company, header, HttpStatus.OK);
+		return new ResponseEntity<OurCompany>(company, new HttpHeaders(), HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = "/{id}", headers = HEADER_JSON)
@@ -87,9 +83,8 @@ public class OurCompanyController extends BaseController {
 		logger.info(LOG_ENTER_METHOD + "deleteOurCompany()" + LOG_CLOSE);
 		companyRepository.delete(id);
 		logger.info(LOG_TEXT + "OurCompany with ID=" + id + " was deleted" + LOG_CLOSE);
-		HttpHeaders header = new HttpHeaders();
 		logger.info(LOG_OUT_OF_METHOD + "deleteOurCompany()" + LOG_CLOSE);
-		return new ResponseEntity<Void>(header, HttpStatus.NO_CONTENT);
+		return new ResponseEntity<Void>(new HttpHeaders(), HttpStatus.NO_CONTENT);
 	}
 
 }
