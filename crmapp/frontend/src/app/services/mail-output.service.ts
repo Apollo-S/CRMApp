@@ -32,6 +32,16 @@ export class MailOutputService {
       );
   }
 
+  deleteMailOutput(mailOutput: MailOutput): Observable<void> {
+    const url = `${this.mailOutputsUrl}/${mailOutput.id}`;
+    return this.http
+      .delete(url, { headers: this.headers })
+      .pipe(
+        tap(_ => console.log(`deleted mailOutput ${mailOutput.number} (ID=${mailOutput.id})`)),
+        catchError(this.handleError<any>('deleteMailOutput'))
+      );
+  }
+
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       // TODO: send the error to remote logging infrastructure
