@@ -1,7 +1,6 @@
 package crmapp.app.controllers;
 
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import crmapp.app.entities.MailOutput;
 import crmapp.app.repositories.MailOutputRepository;
 
@@ -53,7 +54,30 @@ public class MailOutputController extends BaseController {
 		logger.info(LOG_OUT_OF_METHOD + "getMailOutputById()" + LOG_CLOSE);
 		return new ResponseEntity<MailOutput>(output, HttpStatus.OK);
 	}
-	
+
+	@PostMapping(value = "", headers = HEADER_JSON)
+	public ResponseEntity<MailOutput> addMailOutput(@RequestBody MailOutput output) {
+		logger.info(LOG_ENTER_METHOD + "addMailOutput()" + LOG_CLOSE);
+		output.setVersion(0);
+		output = mailRepository.save(output);
+		logger.info(LOG_TEXT + "MailOutput added with ID=" + output.getId() + LOG_CLOSE);
+		logger.info(LOG_OUT_OF_METHOD + "addMailOutput()" + LOG_CLOSE);
+		return new ResponseEntity<MailOutput>(output, new HttpHeaders(), HttpStatus.CREATED);
+	}
+
+	@PutMapping(value = "/{id}", headers = HEADER_JSON)
+	public ResponseEntity<MailOutput> updateMailOutput(@PathVariable(PARAM_ID) int id,
+			@RequestBody MailOutput output) {
+		logger.info(LOG_ENTER_METHOD + "updateMailOutput()" + LOG_CLOSE);
+		output.setId(id);
+		int actualVersionNumber = mailRepository.getOne(id).getVersion();
+		output.setVersion(actualVersionNumber);
+		output = mailRepository.save(output);
+		logger.info(LOG_TEXT + "updateMailOutput with ID=" + id + " was updated: " + output + LOG_CLOSE);
+		logger.info(LOG_OUT_OF_METHOD + "updateMailOutput()" + LOG_CLOSE);
+		return new ResponseEntity<MailOutput>(output, new HttpHeaders(), HttpStatus.OK);
+	}
+
 	@DeleteMapping(value = "/{id}", headers = HEADER_JSON)
 	public ResponseEntity<Void> deleteMailOutput(@PathVariable(PARAM_ID) int id) {
 		logger.info(LOG_ENTER_METHOD + "deleteMailOutput()" + LOG_CLOSE);
