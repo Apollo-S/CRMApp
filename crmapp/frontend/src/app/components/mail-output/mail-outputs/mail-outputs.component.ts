@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { MailOutputService } from '../../../services/mail-output.service';
 import { MailOutput } from '../../../models/MailOutput';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, ConfirmationService, Message } from 'primeng/api';
 import { MailDocumentTypeService } from '../../../services/mail-document-type.service';
 import { MailDocumentType } from '../../../models/MailDocumentType';
 import { UtilService } from '../../../services/util.service';
-import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-mail-outputs',
@@ -24,10 +24,12 @@ export class MailOutputsComponent implements OnInit {
   years: string;
   ru: any;
   disabledMailOutputNumber: boolean = false;
-  headerText: string = "";
+  headerText: string;
+  msgs: Message[] = [];
 
   constructor(private outputService: MailOutputService,
               private docTypeService: MailDocumentTypeService,
+              private confirmationService: ConfirmationService,
               private utilService: UtilService) { }
 
   ngOnInit() {
@@ -95,6 +97,51 @@ export class MailOutputsComponent implements OnInit {
     this.mailOutput = {};
     this.mailOutput.dated = new Date();
     this.displayDialog = true;
+  }
+
+  saveOrUpdate() {
+    let msg = "Исх. документ " + this.mailOutput.number + " ";
+    if (this.newMailOutput) {
+      msg = msg + "введен";
+      this.outputService.addMailOutput(this.mailOutput)
+        .subscribe(() => {
+          this.getOutputs();
+        }
+      );
+    } else {
+      msg = msg + "обновлен";
+      this.outputService.updateMailOutput(this.mailOutput)
+        .subscribe(() => {
+          this.getOutputs();
+        }
+      );
+    }
+    this.displayDialog = false;
+    this.msgs = [{severity:'success', summary:'Успешно', detail: msg}];
+  }
+
+  confirmDeleting() {
+    let msg  = 'Исх. документ \"' + this.mailOutput.number + '(ID=' + this.mailOutput.id + ')\" успешно удален';
+    this.confirmationService.confirm({
+      message: 'Действительно удалить исх. документ?',
+      header: 'Удаление объекта',
+      icon: 'fa fa-trash',
+      accept: () => {
+        this.delete();
+        this.msgs = [{severity:'success', summary:'Успешно', detail: msg}];
+      },
+      reject: () => {}
+    });
+  }
+
+  private delete(): void {
+    this.outputService.deleteMailOutput(this.mailOutput)
+      .subscribe(
+        () => {
+          this.getOutputs();
+          this.displayDialog = false;
+        }
+      );
   }
 
 }

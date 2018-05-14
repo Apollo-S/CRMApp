@@ -1,3 +1,16 @@
+<p-growl [value]="msgs"></p-growl>
+
+<p-confirmDialog header="Внимание" icon="fa fa-question-circle" width="425" #cd>
+    <p-footer>
+        <button type="button" pButton icon="fa-check" 
+          class="ui-button-primary" label="Ок" (click)="cd.accept()">
+        </button>
+        <button type="button" pButton icon="fa-close" 
+          class="ui-button-secondary" label="Отмена" (click)="cd.reject()">
+        </button>
+    </p-footer>
+</p-confirmDialog>
+
 <p-panel>
     <p-header>
         <div class="ui-helper-clearfix">
@@ -13,15 +26,27 @@
         (onRowSelect)="onRowSelect($event)" [paginator]="false" [rows]="15">
         <ng-template pTemplate="header" let-columns>
             <tr>
-                <th *ngFor="let col of columns">
+                <th *ngFor="let col of columns" style="text-align:center">
                     {{col.header}}
                 </th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr [pSelectableRow]="rowData">
-                <td *ngFor="let col of columns">
-                    {{rowData[col.field]}}
+                <td style="text-align:center">
+                    {{rowData.id}}
+                </td>
+                <td style="text-align:center">
+                    {{rowData.number}}/{{rowData.dated | date: 'MM'}}-{{rowData.dated | date: 'y'}}
+                </td>
+                <td style="text-align:center">
+                    {{rowData.docType.title}}
+                </td>
+                <td style="text-align:center">
+                    {{rowData.receiver}}
+                </td>
+                <td style="text-align:center">
+                    {{rowData.dated == null ? '-' : rowData.dated | date: 'dd.MM.y'}}
                 </td>
             </tr>
         </ng-template>
@@ -84,13 +109,13 @@
     <p-footer>
         <div class="ui-dialog-buttonpane ui-helper-clearfix">
             <button type="button" pButton icon="fa-trash" class="ui-button-danger" 
-                (click)="delete()" label="Удалить">
+                (click)="confirmDeleting()" label="Удалить">
             </button>
             <button type="button" pButton icon="fa-close" class="ui-button-secondary" 
                 (click)="displayDialog=false" label="Закрыть">
             </button>
             <button type="button" pButton icon="fa-check" class="ui-button-success" 
-                (click)="save()" label="Сохранить">
+                (click)="saveOrUpdate()" label="Сохранить">
             </button>
         </div>
     </p-footer>
