@@ -32,6 +32,26 @@ export class MailOutputService {
       );
   }
 
+  addMailOutput(mailOutput: MailOutput): Observable<MailOutput> {
+    const url = `${this.mailOutputsUrl}`;
+    return this.http
+      .post<MailOutput>(url, mailOutput, { headers: this.headers })
+      .pipe(
+        tap(_ => console.log(`added mailOutput (number=${mailOutput.number})`)),
+        catchError(this.handleError<MailOutput>('addMailOutput'))
+      ); 
+  }
+
+  updateMailOutput(mailOutput: MailOutput): Observable<MailOutput> {
+    const url = `${this.mailOutputsUrl}/${mailOutput.id}`;
+    return this.http
+      .put<MailOutput>(url, mailOutput, { headers: this.headers })
+      .pipe(
+        tap(_ => console.log(`updated MailOutput (ID=${mailOutput.id}, number=${mailOutput.number})`)),
+        catchError(this.handleError<MailOutput>('updateMailOutput'))
+      );
+  }
+
   deleteMailOutput(mailOutput: MailOutput): Observable<void> {
     const url = `${this.mailOutputsUrl}/${mailOutput.id}`;
     return this.http
