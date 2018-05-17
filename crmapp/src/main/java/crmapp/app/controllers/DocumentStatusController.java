@@ -20,32 +20,36 @@ import crmapp.app.repositories.DocumentStatusRepository;
 @Transactional
 @RequestMapping(value = "/api/document-statuses")
 public class DocumentStatusController extends BaseController {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(DocumentStatusController.class);
-	
+
 	@Autowired
 	private DocumentStatusRepository docStatusRepository;
-	
+
 	@GetMapping(value = "", headers = HEADER_JSON)
 	public ResponseEntity<List<DocumentStatus>> getAllDocumentStatuses() {
+		logger.info(LOG_ENTER_METHOD + "getAllDocumentStatuses()" + LOG_CLOSE);
 		List<DocumentStatus> docStatuses = docStatusRepository.findAll();
 		if (docStatuses.size() == 0) {
-			logger.info("<==/////////// There are no any docStatuses ... ///////////==>");
+			logger.info(LOG_ERROR + "DocumentStatuses were not found" + LOG_CLOSE);
 			return new ResponseEntity<List<DocumentStatus>>(HttpStatus.NO_CONTENT);
 		}
-		logger.info("<==/////////// Printing docStatuses: " + docStatuses + " ///////////==>");
+		logger.info(LOG_TEXT + "Count of DocumentStatuses: " + docStatuses.size() + LOG_CLOSE);
+		logger.info(LOG_OUT_OF_METHOD + "getAllDocumentStatuses()" + LOG_CLOSE);
 		return new ResponseEntity<List<DocumentStatus>>(docStatuses, HttpStatus.OK);
 	}
-	
+
 	@GetMapping(value = "/{id}", headers = HEADER_JSON)
 	public ResponseEntity<DocumentStatus> getDocumentStatusById(@PathVariable(PARAM_ID) int id) {
-		DocumentStatus docType = docStatusRepository.findOne(id);
-		if (docType == null) {
-			logger.info("<==/////////// docStatus with ID=" + id + " not found! ///////////==>");
-			return new ResponseEntity<DocumentStatus>(docType, HttpStatus.NOT_FOUND);
+		logger.info(LOG_ENTER_METHOD + "getDocumentStatusById()" + LOG_CLOSE);
+		DocumentStatus docStatus = docStatusRepository.findOne(id);
+		if (docStatus == null) {
+			logger.info(LOG_ERROR + "DocumentStatus with ID=" + id + "wasn't found" + LOG_CLOSE);
+			return new ResponseEntity<DocumentStatus>(docStatus, HttpStatus.NOT_FOUND);
 		}
-		logger.info("<==/////////// docStatus with ID=" + id + " found! ///////////==>");
-		return new ResponseEntity<DocumentStatus>(docType, HttpStatus.OK);
+		logger.info(LOG_TEXT + "DocumentStatus with ID=" + id + " was found: " + docStatus + LOG_CLOSE);
+		logger.info(LOG_OUT_OF_METHOD + "getDocumentStatusById()" + LOG_CLOSE);
+		return new ResponseEntity<DocumentStatus>(docStatus, HttpStatus.OK);
 	}
-	
+
 }
