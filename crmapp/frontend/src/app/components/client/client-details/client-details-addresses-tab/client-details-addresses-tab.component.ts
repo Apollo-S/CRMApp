@@ -11,7 +11,7 @@ import { Client } from '../../../../models/Client';
 })
 export class ClientDetailsAddressesTabComponent implements OnInit, OnDestroy {
   private _propertySubscribtion: Subscription;
-  columns: any[];
+  columns: any[] = [];
   addresses: ClientAddress[] = [];
   client: Client = {};
   
@@ -41,9 +41,9 @@ export class ClientDetailsAddressesTabComponent implements OnInit, OnDestroy {
 
   private initColumns(): void {
     this.columns = [
-      { field: '', header: 'ID' },
-      { field: '', header: 'Адрес' },
-      { field: '', header: 'Действует с' }      
+      { field: 'id', header: 'ID' },
+      { field: 'presentation', header: 'Адрес' },
+      { field: 'dateStart', header: 'Действует с' }      
     ];
   }
 

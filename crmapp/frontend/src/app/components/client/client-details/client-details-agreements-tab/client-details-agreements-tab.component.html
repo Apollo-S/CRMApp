@@ -1,7 +1,16 @@
-<div class="ui-g-12">
+<app-client-details-template-table [addButtonTitle]="['Новый договор']"
+  [columns]="columns" [datasource]="agreements" 
+  [responsive]="true" [reorderableColumns]="true" 
+  [rows]="0" [paginator]="false" [rowHover]="true" 
+  [loading]="true" [sortField]="id" 
+  [autoLayout]="true">
+</app-client-details-template-table>
+
+<!-- <div class="ui-g-12">
   <div class="ui-g-10">
     <p-card>
-      <p-table [value]="agreements" [columns]="columns" [responsive]="true">
+      <p-table [value]="agreements" [columns]="columns" [responsive]="true" [reorderableColumns]="true"
+        [rowHover]="true" [autoLayout]="true" [loading]="false">
         <ng-template pTemplate="header">
           <tr>
             <th style="width:7%;text-align:center">ID</th>
@@ -35,4 +44,4 @@
       [routerLink]="['add']">
     </button>
   </div>
-</div>
+</div> -->

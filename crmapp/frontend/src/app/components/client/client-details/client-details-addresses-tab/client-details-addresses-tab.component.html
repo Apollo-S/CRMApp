@@ -1,38 +1,7 @@
-<div class="ui-g-12">
-  <div class="ui-g-10">
-    <p-card>
-      <p-table [value]="addresses" [columns]="columns" [responsive]="true">
-        <ng-template pTemplate="header">
-          <tr>
-            <th style="width:7%;text-align:center">ID</th>
-            <th style="text-align:center">Адрес</th>
-            <th style="width:15%;text-align:center">Действует с</th>
-            <th style="width:15%;text-align:center"></th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-address let-columns="columns">
-          <tr>
-            <td style="text-align:center">{{address.id}}</td>
-            <td style="text-align:start">{{address.presentation}}</td>
-            <td style="text-align:center">{{address.dateStart  | date: 'dd.MM.y'}}</td>
-            <td style="text-align:center">
-              <button pButton type="button" label="Изменить" 
-                class="ui-button-success btn-block" icon="fa fa-edit"
-                [routerLink]="[address?.id, 'edit']">
-              </button>
-            </td>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="summary">
-            Кол-во записей: {{addresses?.length}}
-        </ng-template>
-      </p-table>
-    </p-card>
-  </div>
-  <div class="ui-g-2">
-    <button pButton type="button" label="Новый адрес" 
-      class="ui-button-primary btn-block" icon="fa fa-plus-circle"
-      [routerLink]="['add']">
-    </button>
-  </div>
-</div>
+<app-client-details-template-table [addButtonTitle]="['Новый адрес']"
+  [columns]="columns" [datasource]="addresses" 
+  [responsive]="true" [reorderableColumns]="true" 
+  [rows]="0" [paginator]="false" [rowHover]="true" 
+  [loading]="true" [sortField]="id" 
+  [autoLayout]="true">
+</app-client-details-template-table>

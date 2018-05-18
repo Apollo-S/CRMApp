@@ -41,9 +41,9 @@ export class ClientDetailsAccountsTabComponent implements OnInit, OnDestroy {
 
   private initColumns(): void {
     this.columns = [
-      { field: '', header: 'ID' },
-      { field: '', header: 'Представление' },
-      { field: '', header: 'Действует с' }      
+      { field: 'id', header: 'ID' },
+      { field: 'presentation', header: 'Представление' },
+      { field: 'dateStart', header: 'Действует с' }      
     ];
   }
 
