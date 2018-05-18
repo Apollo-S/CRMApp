@@ -13,6 +13,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @MappedSuperclass
 @JsonIgnoreProperties(ignoreUnknown = true, 
@@ -94,6 +95,11 @@ public abstract class AbstractDirector extends BaseEntity {
 			.append("shortName=" + shortName).append(", ")
 			.append("dateStart=" + dateStart)
 			.toString();
+	}
+
+	@JsonInclude
+	public String getPostTitle() {
+		return this.getPost().getTitle();
 	}
 
 }
