@@ -1,0 +1,52 @@
+<div class="ui-g-12">
+  <div class="ui-g-10">
+    <p-card>
+      <p-table [columns]="columns" [responsive]="responsive" [sortField]="sortField" [sortOrder]="1"
+        [value]="datasource" [reorderableColumns]="reorderableColumns" [autoLayout]="autoLayout"
+        [rows]="rows" [rowHover]="rowHover" [paginator]="paginator"
+        [loading]="loading">
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+              <th *ngFor="let column of columns" style="text-align:center"  
+                  [pSortableColumn]="column.field" pReorderableColumn>
+                  {{column.header}}
+                  <p-sortIcon [field]="column.field"></p-sortIcon>
+              </th>
+              <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-datasource let-rowData let-columns="columns">
+          <tr>
+              <td *ngFor="let column of columns" style="text-align:center"
+                  (click)="goToEntry(datasource?.url)">
+                  <span class="ui-column-title">{{column.header}}</span>
+                  {{rowData[column.field]}}
+              </td>
+              <td style="text-align:center">
+                  <button pButton type="button" class="ui-button-success" 
+                      icon="fa-edit" label="Изменить" 
+                      (click)="goToEntry(datasource?.url)">
+                  </button>
+              </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+          <tr>
+              <td [attr.colspan]="columns.length + 1" style="text-align:center">
+                  Записи не найдены
+              </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            Кол-во записей: {{datasource?.length}}
+        </ng-template>
+      </p-table>
+    </p-card>
+  </div>
+  <div class="ui-g-2">
+    <button pButton type="button" label="{{addButtonTitle}}" 
+      class="ui-button-primary btn-block" icon="fa fa-plus-circle"
+      [routerLink]="['add']">
+    </button>
+  </div>
+</div>

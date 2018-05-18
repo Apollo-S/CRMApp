@@ -113,6 +113,7 @@ import { MainPageComponent } from './components/main-page/main-page.component';
 import { MailOutputsComponent } from './components/mail-output/mail-outputs/mail-outputs.component';
 import { EditMailOutputComponent } from './components/mail-output/edit-mail-output/edit-mail-output.component';
 import { MailInputsComponent } from './components/mail-input/mail-inputs/mail-inputs.component';
+import { ClientDetailsTemplateTableComponent } from './components/client/client-details/client-details-template-table/client-details-template-table.component';
 
 @NgModule({
   declarations: [
@@ -167,6 +168,7 @@ import { MailInputsComponent } from './components/mail-input/mail-inputs/mail-in
     MailOutputsComponent,
     MailInputsComponent,
     EditMailOutputComponent,
+    ClientDetailsTemplateTableComponent,
   ],
   imports: [
     AppRoutingModule, 
