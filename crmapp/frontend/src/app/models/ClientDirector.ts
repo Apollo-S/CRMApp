@@ -7,4 +7,5 @@ export class ClientDirector {
     public fullName?: string;
     public shortName?: string;
     public dateStart?: Date;
+    public postTitle?: string;
 }
