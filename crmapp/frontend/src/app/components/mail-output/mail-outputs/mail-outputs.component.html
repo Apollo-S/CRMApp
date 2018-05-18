@@ -92,17 +92,17 @@
         </div>
         <div class="ui-g-12">
             <div class="ui-g-12">
-                <label for="receiver"><b>Получатель</b></label>
-                <input pInputText id="receiver" [(ngModel)]="mailOutput.receiver" />
-            </div>
-        </div>
-        <div class="ui-g-12">
-            <div class="ui-g-12">
                 <label for="docTypeTitle"><b>Тип документа</b></label>
                 <p-dropdown [options]="docTypes" [(ngModel)]="mailOutput.docType" 
                     name="docType" filter="false" optionLabel="title" 
                     [autoWidth]="false" placeholder="Выберите тип документа">
                 </p-dropdown>
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-12">
+                <label for="receiver"><b>Получатель</b></label>
+                <input pInputText id="receiver" [(ngModel)]="mailOutput.receiver" />
             </div>
         </div>
     </div>
