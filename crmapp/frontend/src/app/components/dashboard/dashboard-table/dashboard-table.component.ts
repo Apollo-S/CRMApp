@@ -21,6 +21,7 @@ export class DashboardTableComponent implements OnInit {
   @Input ('menuModel') menuModel: MenuItem[]; 
   @Input ('sortField') sortField: string;
   @Input ('autoLayout') autoLayout: boolean;
+  selectedItem: any;
   constructor(private router: Router) { }
 
   ngOnInit() {

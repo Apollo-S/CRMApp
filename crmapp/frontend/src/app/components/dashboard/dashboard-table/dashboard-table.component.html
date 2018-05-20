@@ -11,7 +11,7 @@
     </p-header>
     <p-table #dt [columns]="columns" [responsive]="responsive" [sortField]="sortField" [sortOrder]="1"
         [value]="datasource" [reorderableColumns]="reorderableColumns" [autoLayout]="autoLayout"
-        [rows]="rows" [rowHover]="rowHover" [paginator]="paginator"
+        [rows]="rows" [rowHover]="rowHover" [paginator]="paginator" selectionMode="single" dataKey="id" [(selection)]="selectedItem"
         [loading]="loading">
         <ng-template pTemplate="caption">
             <div style="text-align: right">
@@ -31,15 +31,15 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-datasource let-rowData let-columns="columns">
-            <tr>
+            <tr [pSelectableRow]="rowData">
                 <td *ngFor="let column of columns" style="text-align:center"
-                    (click)="goToEntry(datasource?.url)">
+                    (dblclick)="goToEntry(datasource?.url)">
                     <span class="ui-column-title">{{column.header}}</span>
                     {{rowData[column.field]}}
                 </td>
                 <td style="text-align:center">
                     <button pButton type="button" class="ui-button-info" 
-                        icon="fa-arrow-circle-o-right" label="Подробнее" 
+                        icon="fa-arrow-circle-o-right"
                         (click)="goToEntry(datasource?.url)">
                     </button>
                     <p-tieredMenu #menu [model]="menuModel" [popup]="true" 
