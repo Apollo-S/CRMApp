@@ -13,13 +13,13 @@ export class AgreementService {
   private agreementsUrl = '/api/agreements';
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  private _property$: BehaviorSubject<number> = new BehaviorSubject(1);
+  private _property$: BehaviorSubject<ClientAgreement> = new BehaviorSubject({});
   
-  set property(value: number) {
+  set property(value: ClientAgreement) {
     this._property$.next(value);
   }
 
-  get property$(): Observable<number> {
+  get property$(): Observable<ClientAgreement> {
       return this._property$.asObservable();
   }
 
