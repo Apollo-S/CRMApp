@@ -114,6 +114,7 @@ import { MailOutputsComponent } from './components/mail-output/mail-outputs/mail
 import { EditMailOutputComponent } from './components/mail-output/edit-mail-output/edit-mail-output.component';
 import { MailInputsComponent } from './components/mail-input/mail-inputs/mail-inputs.component';
 import { ClientDetailsTemplateTableComponent } from './components/client/client-details/client-details-template-table/client-details-template-table.component';
+import { AgreementDetailsTabsComponent } from './components/agreement/agreement-details/agreement-details-tabs/agreement-details-tabs.component';
 
 @NgModule({
   declarations: [
@@ -169,6 +170,7 @@ import { ClientDetailsTemplateTableComponent } from './components/client/client-
     MailInputsComponent,
     EditMailOutputComponent,
     ClientDetailsTemplateTableComponent,
+    AgreementDetailsTabsComponent,
   ],
   imports: [
     AppRoutingModule, 
