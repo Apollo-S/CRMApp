@@ -1,91 +1,71 @@
-<p>  
-    
-<div class="row">
-  
-  <div class="col-md-10">
-
-    <div class="card">
-      <div class="card-body"> 
-
-        <table class="table table-sm"
-            *ngIf="documents?.length > 0; else noDocuments">
-    
-          <thead class="thead-default">
-              <tr>
-              
-                <th class="text-center">Тип документа</th>
-                <th class="text-center">Номер</th>
-                <th class="text-center">Дата</th>
-                <th class="text-center">Сумма</th>
-                <th class="text-center">Дата оплаты</th>
-                <th class="text-center">Статус документа</th>
-                <th class="text-center">Примечание</th>
-                <th class="text-center"></th>
-              </tr>
-          </thead>
-  
-          <tr *ngFor="let document of documents">
-            <td class="text-center text-success">
-              {{document.docType.title}}
-            </td>
-            <td class="text-center">
-              {{document.number}}
-            </td>
-            <td class="text-center">
-              {{document.dated | date: 'dd.MM.y'}}
-            </td>
-            <td class="text-center">
-              {{document.amount | number: '1.2-2'}}
-            </td>
-            <td class="text-center">
-              {{document.paymentDate | date: 'dd.MM.y'}}
-            </td>
-            <td class="text-center">
-              {{document.status.status}}
-            </td>
-            <td class="text-center">
-              <em>{{document.comment}}</em>
-            </td>
-            <td>
-              <div class="d-flex justify-content-end">
-                <div class="btn-toolbar">
-                  <div class="btn-group mr-2">
-                    <a class="btn btn-success btn-sm" 
-                      [routerLink]="['/documents', document.id, 'edit']">
-                      <i class="fa fa-edit"></i> Изменить
-                    </a>
-                  </div>
+<div class="ui-g-12">
+    <p-card>
+        <p-table #dt [columns]="columns" [responsive]="true" (sortFunction)="customSort($event)" [customSort]="false"
+            [value]="documents" [reorderableColumns]="true" [columnResizeMode]="expand" [autoLayout]="true"
+            [rows]="null" [rowHover]="true" [paginator]="false" [dataKey]="id" [loading]="false">
+            <ng-template pTemplate="caption">
+                <div style="float:left">
+                    <button pButton type="button" label="Добавить" style="margin-top:2px" 
+                        [routerLink]="['add']" icon="fa-plus">
+                    </button>
                 </div>
-              </div>
-            </td>
-          </tr>
-
-        </table>
-
-      </div>
-    </div>
-
-    <ng-template #noDocuments>
-        <div class="alert alert-light" role="alert">
-            <h6 class="lead text-center">
-                <b>Отсутствуют документы в системе...</b>
-            </h6>
-        </div>
-    </ng-template>
-
-  </div>
-
-  <div class="col-md-2">
-      <app-sidebar 
-          [url] = "['/documents/add']" 
-          [title] = "['Новый']">
-      </app-sidebar>
-  </div>
-
+                <div style="text-align:right">
+                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                    <input type="text" pInputText size="50" placeholder="Фильтр" style="width:auto" 
+                        (input)="dt.filterGlobal($event.target.value, 'contains')">
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let column of columns" style="text-align:center" 
+                        [pSortableColumn]="column.field" pReorderableColumn>
+                        {{column.header}}
+                        <p-sortIcon [field]="column.field"></p-sortIcon>
+                    </th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-document let-rowData let-expanded="expanded" let-columns="columns">
+                <tr>
+                    <td style="text-align:center" (click)="goToEntry(document?.url)">
+                        {{document.id}}
+                    </td>
+                    <td style="text-align:left" (click)="goToEntry(document?.url)">
+                        {{document.docType.shortTitle}}
+                    </td>
+                    <td style="text-align:center" (click)="goToEntry(document?.url)">
+                        {{document.number}}
+                    </td>
+                    <td style="text-align:center" (click)="goToEntry(document?.url)">
+                        {{document.amount | number: '3.2-2'}}
+                    </td>
+                    <td style="text-align:center" (click)="goToEntry(document?.url)">
+                        {{document.dated == null ? '-' : document.dated | date: 'dd.MM.y'}}
+                    </td>
+                    <td style="text-align:center" (click)="goToEntry(document?.url)">
+                        {{document.paymentDate == null ? '-' : document.paymentDate | date: 'dd.MM.y'}}
+                    </td>
+                    <td style="text-align:center" (click)="goToEntry(document?.url)">
+                        {{document.status.status}}
+                    </td>
+                    <td style="text-align:center">
+                        <button pButton type="button" class="ui-button-info" 
+                            icon="fa-arrow-circle-o-right"  
+                            (click)="goToEntry(document?.url)">
+                        </button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="columns.length + 2" style="text-align:center">
+                        No records found
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+                Кол-во записей: {{documents?.length}}
+            </ng-template>
+        </p-table>
+    </p-card>
 </div>
-
-
-    
-
-    
-    

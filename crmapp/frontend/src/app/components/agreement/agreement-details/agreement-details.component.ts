@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ClientAgreement } from '../../../models/ClientAgreement';
 import { AgreementService } from '../../../services/agreement.service';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
   selector: 'app-agreement-details',
@@ -11,38 +10,39 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
   styleUrls: ['./agreement-details.component.css']
 })
 export class AgreementDetailsComponent implements OnInit, OnDestroy {
-  private _agreementIdSubscribtion: Subscription;
+  private _agreementSubscribtion: Subscription;
   agreement: ClientAgreement = {};
-  agreementId: number;
 
   constructor(private service: AgreementService,
-              private router: Router,
               private route: ActivatedRoute)  { }
 
   ngOnInit() {
+    let agreementId: number;
     this.route.params
       .subscribe(
         (params: Params) => {
-          this.agreementId = +params['id'];
+          agreementId = +params['id'];
+          this.getAgreementById(agreementId);
         }
-      )
-    this.service.property = this.agreementId;
-    this._agreementIdSubscribtion = this.service.property$
-      .subscribe(
-        p => {
-        this.agreementId = p;
-        }
-      )
-    this.getAgreementById(this.agreementId);
+      );
   }
 
   private getAgreementById(id: number) {
     this.service.getAgreementById(id)
-      .subscribe(agreement => this.agreement = agreement);
+      .subscribe(
+        agreement => {
+          this.agreement = agreement;
+          this.service.property = this.agreement;
+          this._agreementSubscribtion = this.service.property$
+            .subscribe(
+              p => this.agreement = p
+            );
+        }
+      );
   }
 
   ngOnDestroy() {
-    this._agreementIdSubscribtion.unsubscribe();
+    this._agreementSubscribtion.unsubscribe();
   }
 
 }
