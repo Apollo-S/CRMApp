@@ -3,30 +3,27 @@
     <p-card>
       <p-table [columns]="columns" [responsive]="responsive" [sortField]="sortField" [sortOrder]="1"
         [value]="datasource" [reorderableColumns]="reorderableColumns" [autoLayout]="autoLayout"
-        [rows]="rows" [rowHover]="rowHover" [paginator]="paginator"
+        [rows]="rows" [rowHover]="rowHover" [paginator]="paginator" selectionMode="single" dataKey="id" [(selection)]="selectedItem"
         [loading]="loading">
         <ng-template pTemplate="header" let-columns>
           <tr>
+              <th style="width: 2.25em"></th>
               <th *ngFor="let column of columns" style="text-align:center"  
                   [pSortableColumn]="column.field" pReorderableColumn>
                   {{column.header}}
                   <p-sortIcon [field]="column.field"></p-sortIcon>
               </th>
-              <th></th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-datasource let-rowData let-columns="columns">
-          <tr>
+          <tr [pSelectableRow]="rowData">
+              <td>
+                  <p-tableRadioButton [value]="rowData"></p-tableRadioButton>
+              </td>
               <td *ngFor="let column of columns" style="text-align:center"
-                  (click)="goToEntry(datasource?.url)">
+                  (dblclick)="goToEntry(datasource?.url)">
                   <span class="ui-column-title">{{column.header}}</span>
                   {{rowData[column.field]}}
-              </td>
-              <td style="text-align:center">
-                  <button pButton type="button" class="ui-button-success" 
-                      icon="fa-edit" label="Изменить" 
-                      (click)="goToEntry(datasource?.url)">
-                  </button>
               </td>
           </tr>
         </ng-template>
@@ -47,6 +44,10 @@
     <button pButton type="button" label="{{addButtonTitle}}" 
       class="ui-button-primary btn-block" icon="fa fa-plus-circle"
       [routerLink]="['add']">
+    </button>
+    <button pButton type="button" label="Изменить" 
+      class="ui-button-success btn-block" icon="fa fa-edit" [disabled]="!selectedItem"
+      (click)="goToEntry(selectedItem?.url)">
     </button>
   </div>
 </div>

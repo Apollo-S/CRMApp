@@ -19,6 +19,7 @@ export class ClientDetailsTemplateTableComponent implements OnInit {
   @Input ('loading') loading: boolean; 
   @Input ('sortField') sortField: string;
   @Input ('autoLayout') autoLayout: boolean;
+  selectedItem: any;
   constructor(private router: Router) { }
 
   ngOnInit() {
