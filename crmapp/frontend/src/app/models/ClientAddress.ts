@@ -3,5 +3,4 @@ export class ClientAddress {
     public clientId?: number;
     public presentation?: string;
     public dateStart?: Date;
-    
 }

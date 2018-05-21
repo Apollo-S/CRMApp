@@ -3,5 +3,4 @@ export class EmployeeAccount {
     public employeeId: number;
     public presentation: string;
     public dateStart: string;
-    
 }

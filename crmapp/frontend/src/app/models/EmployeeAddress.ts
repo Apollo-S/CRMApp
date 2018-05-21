@@ -3,5 +3,4 @@ export class EmployeeAddress {
     public employeeId: number;
     public presentation: string;
     public dateStart: string;
-    
 }
