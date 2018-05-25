@@ -18,6 +18,8 @@ import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { FieldsetModule } from 'primeng/fieldset';
 import { GrowlModule } from 'primeng/growl';
+import { InplaceModule } from 'primeng/inplace';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { KeyFilterModule } from 'primeng/keyfilter';
@@ -115,6 +117,7 @@ import { EditMailOutputComponent } from './components/mail-output/edit-mail-outp
 import { MailInputsComponent } from './components/mail-input/mail-inputs/mail-inputs.component';
 import { ClientDetailsTemplateTableComponent } from './components/client/client-details/client-details-template-table/client-details-template-table.component';
 import { AgreementDetailsTabsComponent } from './components/agreement/agreement-details/agreement-details-tabs/agreement-details-tabs.component';
+import { AgreementDetailsMainTabComponent } from './components/agreement/agreement-details/agreement-details-main-tab/agreement-details-main-tab.component';
 
 @NgModule({
   declarations: [
@@ -171,6 +174,7 @@ import { AgreementDetailsTabsComponent } from './components/agreement/agreement-
     EditMailOutputComponent,
     ClientDetailsTemplateTableComponent,
     AgreementDetailsTabsComponent,
+    AgreementDetailsMainTabComponent,
   ],
   imports: [
     AppRoutingModule, 
@@ -192,6 +196,8 @@ import { AgreementDetailsTabsComponent } from './components/agreement/agreement-
     DropdownModule,
     GrowlModule,
     FieldsetModule,
+    InplaceModule,
+    InputTextareaModule,
     InputTextModule, 
     InputSwitchModule,
     KeyFilterModule,
