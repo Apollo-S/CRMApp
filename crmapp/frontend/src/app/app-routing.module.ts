@@ -51,6 +51,7 @@ import { PersonDetailsComponent } from "./components/person/person-details/perso
 import { MainPageComponent } from "./components/main-page/main-page.component";
 import { MailOutputsComponent } from "./components/mail-output/mail-outputs/mail-outputs.component";
 import { EditMailOutputComponent } from "./components/mail-output/edit-mail-output/edit-mail-output.component";
+import { AgreementDetailsMainTabComponent } from "./components/agreement/agreement-details/agreement-details-main-tab/agreement-details-main-tab.component";
 
 const appRoutes: Routes = [
   
@@ -111,12 +112,11 @@ const appRoutes: Routes = [
       {path: 'agreements/:id', component: AgreementDetailsComponent,
         children: [
           {path:  '', redirectTo: 'main', pathMatch: 'full'},
-          {path: 'main', component: EditAgreementComponent},
-          {path: 'edit', component: EditAgreementComponent},
+          {path: 'main', component: AgreementDetailsMainTabComponent},
+          {path: 'main/edit', component: EditAgreementComponent},
           {path: 'documents', component: AgreementDetailsDocumentsTabComponent}
         ]
       },
-      {path: 'agreements/:id/edit', component: EditAgreementComponent},
       {path: 'persons', component:PersonsComponent},
       {path: 'persons/add', component:AddPersonComponent},
       {path: 'persons/:id', component: PersonDetailsComponent},
