@@ -45,7 +45,7 @@
       class="ui-button-primary btn-block" icon="fa fa-plus-circle"
       [routerLink]="['add']">
     </button>
-    <button pButton type="button" label="Изменить" 
+    <button pButton type="button" label="{{editButtonTitle}}" 
       class="ui-button-success btn-block" icon="fa fa-edit" [disabled]="!selectedItem"
       (click)="goToEntry(selectedItem?.url)">
     </button>

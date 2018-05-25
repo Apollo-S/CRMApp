@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class ClientDetailsTemplateTableComponent implements OnInit {
 
   @Input ('addButtonTitle') addButtonTitle: string;
+  @Input ('editButtonTitle') editButtonTitle: string;
   @Input ('columns') columns: any[];
   @Input ('datasource') datasource: any[];
   @Input ('responsive') responsive: boolean;
