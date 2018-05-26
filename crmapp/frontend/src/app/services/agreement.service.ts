@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { of } from 'rxjs/observable/of';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs';
 import { ClientAgreement } from '../models/ClientAgreement';
@@ -50,6 +50,26 @@ export class AgreementService {
       .pipe(
         catchError(this.handleError('getDocumentsByAgreementId', []))
       )
+  }
+
+  updateAgreement(agreement: ClientAgreement): Observable<ClientAgreement> {
+    const url = `${this.agreementsUrl}/${agreement.id}`;
+    return this.http
+      .put<ClientAgreement>(url, agreement, { headers: this.headers })
+      .pipe(
+        tap(_ => console.log(`updated ClientAgreement (ID=${agreement.id}, alias=${agreement.number})`)),
+        catchError(this.handleError<ClientAgreement>('updateAgreement'))
+      );
+  }
+
+  deleteAgreement(agreement: ClientAgreement): Observable<void> {
+    const url = `${this.agreementsUrl}/${agreement.id}`;
+    return this.http
+      .delete(url, { headers: this.headers })
+      .pipe(
+        tap(_ => console.log(`deleted ClientAgreement ${agreement.number} (ID=${agreement.id})`)),
+        catchError(this.handleError<any>('deleteAgreement'))
+      );
   }
 
   private handleError<T> (operation = 'operation', result?: T) {
