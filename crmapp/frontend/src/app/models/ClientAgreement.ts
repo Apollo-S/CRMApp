@@ -1,7 +1,9 @@
 import { Document } from "./Document";
+import { Client } from "./Client";
 
 export class ClientAgreement {
     public id?: number;
+    public client?: Client;
     public clientId?: number;
     public clientAlias?: string;
     public number?: string;
