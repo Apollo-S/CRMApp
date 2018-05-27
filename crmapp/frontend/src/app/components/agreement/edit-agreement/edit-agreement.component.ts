@@ -1,10 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ClientAgreement } from '../../../models/ClientAgreement';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Message } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { AgreementService } from '../../../services/agreement.service';
 import { Router } from '@angular/router';
+import { ClientService } from '../../../services/client.service';
+import { UtilService } from '../../../services/util.service';
+import { Client } from '../../../models/Client';
 
 @Component({
   selector: 'app-edit-agreement',
@@ -14,43 +16,46 @@ import { Router } from '@angular/router';
 export class EditAgreementComponent implements OnInit , OnDestroy {
   private _propertySubscribtion: Subscription;
   msgs: Message[] = [];
-  userform: FormGroup;
+  clients: Client[] = [];
   agreement: ClientAgreement = {};
+  years: string;
+  ru: any;
 
-  constructor(private fb: FormBuilder,
-              private service: AgreementService,
+  constructor(private utilService: UtilService,
+              private clientService: ClientService,
+              private agreementService: AgreementService,
               private router: Router) { }
 
   ngOnInit() {
-    this._propertySubscribtion = this.service.property$
+    this._propertySubscribtion = this.agreementService.property$
       .subscribe(
-        p => this.agreement = p
+        p => {
+          this.agreement = p;
+          this.agreement.dateStart = new Date(this.agreement.dateStart);
+          this.clientService.getClientById(this.agreement.clientId)
+            .subscribe(
+              client => this.agreement.client = client
+            );
+        }
       );
-      this.userform = this.fb.group(
-        {
-          'title': new FormControl('', Validators.compose(
-            [
-              Validators.required, 
-              Validators.minLength(2)
-            ])),
-          'alias': new FormControl('', Validators.compose(
-            [
-              Validators.required, 
-              Validators.minLength(2)
-            ])),
-          'edrpou': new FormControl('', Validators.compose(
-            [
-              Validators.required, 
-              Validators.minLength(6),
-              Validators.maxLength(14)
-            ])),
-          'inn': new FormControl(''),
-          'vatCertificate': new FormControl('')
-        });
+    this.getClients();
+    this.initCalendarSettings();
   }
 
   ngOnDestroy() {
     this._propertySubscribtion.unsubscribe();
+  }
+
+  private getClients() {
+    this.clientService.getClients()
+      .subscribe(
+        clients => this.clients = clients
+      );
+  }
+
+  private initCalendarSettings() {
+    this.ru = this.utilService.getCalendarLocalSet();
+    this.years = this.utilService.getCalendarYears(5);
   }
 
 }
