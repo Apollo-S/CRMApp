@@ -27,11 +27,7 @@ export class AgreementDetailsMainTabComponent implements OnInit, OnDestroy {
       .subscribe(
         p => {
           this.agreement = p;
-          this.agreement.dateStart = new Date(this.agreement.dateStart);
-          this.clientService.getClientById(this.agreement.clientId)
-            .subscribe(
-              client => this.agreement.client = client
-            );
+          this.getClientById(p.clientId);
         }
       );
   }
@@ -54,12 +50,18 @@ export class AgreementDetailsMainTabComponent implements OnInit, OnDestroy {
     });
   }
 
+  private getClientById(clientId: number) {
+    this.clientService.getClientById(clientId)
+      .subscribe(
+        client => this.agreement.client = client
+      );
+  }
+
   private delete(): void {
-    // TODO
-    // this.service.deleteAgreement(this.agreement)
-    //   .subscribe(
-    //     () => this.goBackToAgreements()
-    //   );
+    this.service.deleteAgreement(this.agreement)
+      .subscribe(
+        () => this.goBackToAgreements()
+      );
   }
 
   private goBackToAgreements(): void {
