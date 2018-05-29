@@ -4,6 +4,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +34,7 @@ public class MailOutputController extends BaseController {
 	@GetMapping(value = "", headers = HEADER_JSON)
 	public ResponseEntity<List<MailOutput>> getAllMailOutputs() {
 		logger.info(LOG_ENTER_METHOD + "getAllMailOutputs()" + LOG_CLOSE);
-		List<MailOutput> outputs = mailRepository.findAll();
+		List<MailOutput> outputs = mailRepository.findAll(new Sort(Direction.DESC, "number"));
 		if (outputs.size() == 0) {
 			logger.info(LOG_ERROR + "MailOutputs were not found" + LOG_CLOSE);
 			return new ResponseEntity<List<MailOutput>>(HttpStatus.NO_CONTENT);
@@ -58,6 +60,8 @@ public class MailOutputController extends BaseController {
 	@PostMapping(value = "", headers = HEADER_JSON)
 	public ResponseEntity<MailOutput> addMailOutput(@RequestBody MailOutput output) {
 		logger.info(LOG_ENTER_METHOD + "addMailOutput()" + LOG_CLOSE);
+		int maxMailOutputNumber = mailRepository.getMaxMailOutputNumber();
+		output.setNumber(Integer.toString(++maxMailOutputNumber));
 		output.setVersion(0);
 		output = mailRepository.save(output);
 		logger.info(LOG_TEXT + "MailOutput added with ID=" + output.getId() + LOG_CLOSE);
