@@ -4,9 +4,6 @@
             <span class="ui-panel-title" style="display:inline-block;margin-top:6px">
                 <h4><b>{{title}}</b></h4>
             </span>  
-            <!-- <button pButton type="button" label="Добавить" style="margin-top:6px;float:right" 
-                [routerLink]="['add']" icon="fa-plus">
-            </button> -->
         </div>
     </p-header>
     <p-table #dt [columns]="columns" [responsive]="responsive" [sortField]="sortField" [sortOrder]="1"
@@ -21,13 +18,20 @@
                 <button pButton type="button" label="Редакт." style="margin-left:2px;margin-top:2px;float:left" 
                     (click)="goToEntry(selectedItem?.url)" icon="fa-edit" class="ui-button-success" [disabled]="!selectedItem">
                 </button>
+                <p-tieredMenu #menu [model]="menuModel" [popup]="true" 
+                    appendTo="body">
+                </p-tieredMenu>
+                <button *ngIf="menuModel?.length > 0"
+                    #btn pButton type="button" icon="fa-list" class="ui-button-info" 
+                    style="margin-left:2px;margin-top:2px;float:left" label="Прочее"
+                    (click)="menu.toggle($event)" (mousedown)="initMenu(selectedItem?.id)" [disabled]="!selectedItem">
+                </button>
             </div>
             <div style="text-align: right">
                 <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
                 <input type="text" pInputText size="50" placeholder="Фильтр" style="width:auto" 
                     (input)="dt.filterGlobal($event.target.value, 'contains')">
             </div>
-            
         </ng-template>
         <ng-template pTemplate="header" let-columns>
             <tr>
@@ -36,7 +40,6 @@
                     {{column.header}}
                     <p-sortIcon [field]="column.field"></p-sortIcon>
                 </th>
-                <th></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-datasource let-rowData let-columns="columns">
@@ -45,15 +48,6 @@
                     (dblclick)="goToEntry(datasource?.url)">
                     <span class="ui-column-title">{{column.header}}</span>
                     {{rowData[column.field]}}
-                </td>
-                <td style="text-align:center">
-                    <p-tieredMenu #menu [model]="menuModel" [popup]="true" 
-                        appendTo="body">
-                    </p-tieredMenu>
-                    <button *ngIf="menuModel?.length > 0"
-                        #btn pButton type="button" icon="fa-list" class="ui-button-info" 
-                        (click)="menu.toggle($event)" (mousedown)="initMenu(datasource?.id)">
-                    </button>
                 </td>
             </tr>
         </ng-template>
