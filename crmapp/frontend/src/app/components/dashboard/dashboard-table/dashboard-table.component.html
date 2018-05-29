@@ -4,21 +4,30 @@
             <span class="ui-panel-title" style="display:inline-block;margin-top:6px">
                 <h4><b>{{title}}</b></h4>
             </span>  
-            <button pButton type="button" label="Добавить" style="margin-top:6px;float:right" 
+            <!-- <button pButton type="button" label="Добавить" style="margin-top:6px;float:right" 
                 [routerLink]="['add']" icon="fa-plus">
-            </button>
+            </button> -->
         </div>
     </p-header>
     <p-table #dt [columns]="columns" [responsive]="responsive" [sortField]="sortField" [sortOrder]="1"
         [value]="datasource" [reorderableColumns]="reorderableColumns" [autoLayout]="autoLayout"
-        [rows]="rows" [rowHover]="rowHover" [paginator]="paginator" selectionMode="single" dataKey="id" [(selection)]="selectedItem"
-        [loading]="loading">
+        [rows]="rows" [rowHover]="rowHover" [paginator]="paginator" selectionMode="single" [(selection)]="selectedItem"
+        [loading]="loading" dataKey="id">
         <ng-template pTemplate="caption">
+            <div>
+                <button pButton type="button" label="Новый" style="margin-top:2px;float:left" 
+                    [routerLink]="['add']" icon="fa-plus">
+                </button>
+                <button pButton type="button" label="Редакт." style="margin-left:2px;margin-top:2px;float:left" 
+                    (click)="goToEntry(selectedItem?.url)" icon="fa-edit" class="ui-button-success" [disabled]="!selectedItem">
+                </button>
+            </div>
             <div style="text-align: right">
                 <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
                 <input type="text" pInputText size="50" placeholder="Фильтр" style="width:auto" 
                     (input)="dt.filterGlobal($event.target.value, 'contains')">
             </div>
+            
         </ng-template>
         <ng-template pTemplate="header" let-columns>
             <tr>
@@ -38,10 +47,6 @@
                     {{rowData[column.field]}}
                 </td>
                 <td style="text-align:center">
-                    <button pButton type="button" class="ui-button-info" 
-                        icon="fa-arrow-circle-o-right"
-                        (click)="goToEntry(datasource?.url)">
-                    </button>
                     <p-tieredMenu #menu [model]="menuModel" [popup]="true" 
                         appendTo="body">
                     </p-tieredMenu>
