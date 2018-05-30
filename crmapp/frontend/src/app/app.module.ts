@@ -113,7 +113,6 @@ import { LoadingStatusComponent } from './components/dashboard/loading-status/lo
 import { NavbarMenuBarComponent } from './components/navbar/navbar-menu-bar/navbar-menu-bar.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { MailOutputsComponent } from './components/mail-output/mail-outputs/mail-outputs.component';
-import { EditMailOutputComponent } from './components/mail-output/edit-mail-output/edit-mail-output.component';
 import { MailInputsComponent } from './components/mail-input/mail-inputs/mail-inputs.component';
 import { ClientDetailsTemplateTableComponent } from './components/client/client-details/client-details-template-table/client-details-template-table.component';
 import { AgreementDetailsTabsComponent } from './components/agreement/agreement-details/agreement-details-tabs/agreement-details-tabs.component';
@@ -171,7 +170,6 @@ import { AgreementDetailsMainTabComponent } from './components/agreement/agreeme
     MainPageComponent,
     MailOutputsComponent,
     MailInputsComponent,
-    EditMailOutputComponent,
     ClientDetailsTemplateTableComponent,
     AgreementDetailsTabsComponent,
     AgreementDetailsMainTabComponent,

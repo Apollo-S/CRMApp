@@ -50,8 +50,8 @@ import { AddPersonComponent } from "./components/person/add-person/add-person.co
 import { PersonDetailsComponent } from "./components/person/person-details/person-details.component";
 import { MainPageComponent } from "./components/main-page/main-page.component";
 import { MailOutputsComponent } from "./components/mail-output/mail-outputs/mail-outputs.component";
-import { EditMailOutputComponent } from "./components/mail-output/edit-mail-output/edit-mail-output.component";
 import { AgreementDetailsMainTabComponent } from "./components/agreement/agreement-details/agreement-details-main-tab/agreement-details-main-tab.component";
+import { MailInputsComponent } from "./components/mail-input/mail-inputs/mail-inputs.component";
 
 const appRoutes: Routes = [
   
@@ -122,7 +122,7 @@ const appRoutes: Routes = [
       {path: 'persons/:id', component: PersonDetailsComponent},
       {path: 'about', component:AboutComponent},
       {path: 'mail-outputs', component:MailOutputsComponent},
-      {path: 'mail-outputs/:id', component:EditMailOutputComponent},
+      {path: 'mail-inputs', component:MailInputsComponent},
     ]
   }
 ]
