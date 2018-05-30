@@ -159,6 +159,16 @@ VALUES
 	(5, 1, '405', '2017-07-03', 'Тестовый Получатель', '', 0),
 	(6, 2, '406', '2017-09-06', 'Тестовый Получатель', '', 0);
 
+TRUNCATE `mail_input`;
+INSERT INTO `mail_input` (`id`, `mail_doc_type_id`, `number`, `dated`, `sender`, `comment`, `optlock`)
+VALUES 
+	(1, 1, '1', '2017-04-30', 'ГНИ', '', 0),
+	(2, 2, '2', '2017-05-01', 'ГНИ', '', 0),
+	(3, 3, '3', '2017-06-02', 'Фарлеп', '', 0),
+	(4, 1, '4', '2017-06-02', 'ГНИ', '', 0),
+	(5, 1, '5', '2017-07-03', 'ГНИ', '', 0),
+	(6, 2, '6', '2017-09-06', 'ГНИ', '', 0);
+
 RUNCATE `our_company`;
 INSERT INTO `our_company` (`id`, `alias`, `title`, `edrpou`, `inn`, `vat_certificate`, `optlock`)
 VALUES 
