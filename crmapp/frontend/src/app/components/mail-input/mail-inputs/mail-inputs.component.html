@@ -1,3 +1,139 @@
-<p>
-  mail-inputs works!
-</p>
+<p-growl [value]="msgs"></p-growl>
+
+<p-confirmDialog header="Внимание" icon="fa fa-question-circle" width="425" #cd>
+    <p-footer>
+        <button type="button" pButton icon="fa-check" 
+          class="ui-button-primary" label="Ок" (click)="cd.accept()">
+        </button>
+        <button type="button" pButton icon="fa-close" 
+          class="ui-button-secondary" label="Отмена" (click)="cd.reject()">
+        </button>
+    </p-footer>
+</p-confirmDialog>
+
+<p-panel>
+    <p-header>
+        <div class="ui-helper-clearfix">
+            <span class="ui-panel-title" style="display:inline-block;margin-top:6px">
+                <h4><b>Входящие документы</b></h4>
+            </span> 
+        </div>
+    </p-header>
+    <p-table #dt [columns]="columns" [value]="inputs" selectionMode="single" [(selection)]="selectedMailInput" 
+        (onRowSelect)="onRowSelect($event)" [paginator]="false" [rows]="15">
+        <ng-template pTemplate="caption">
+            <div>
+                <button pButton type="button" label="Новый" style="margin-top:2px;float:left" 
+                    (click)="showDialogToAdd()" icon="fa-plus">
+                </button>
+                <button pButton type="button" label="Редакт." style="margin-left:2px;margin-top:2px;float:left" 
+                    (click)="goToEntry(selectedMailInput?.url)" icon="fa-edit" class="ui-button-success" [disabled]="!selectedItem">
+                </button>
+            </div>
+            <div style="text-align: right">
+                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                <input type="text" pInputText size="50" placeholder="Фильтр" style="width:auto" 
+                    (input)="dt.filterGlobal($event.target.value, 'contains')">
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns" style="text-align:center">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pSelectableRow]="rowData">
+                <td style="text-align:center">
+                    {{rowData.id}}
+                </td>
+                <td style="text-align:center">
+                    {{rowData.number}}/{{rowData.dated | date: 'MM'}}-{{rowData.dated | date: 'y'}}
+                </td>
+                <td style="text-align:center">
+                    {{rowData.docType.title}}
+                </td>
+                <td style="text-align:center">
+                    {{rowData.sender}}
+                </td>
+                <td style="text-align:center">
+                    {{rowData.dated == null ? '-' : rowData.dated | date: 'dd.MM.y'}}
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary" let-rowData>
+            Кол-во записей: {{inputs?.length}}
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+                <td [attr.colspan]="columns.length" style="text-align:center">
+                    Данные отсутствуют...
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-panel>
+
+<p-dialog [(visible)]="displayDialog" [contentStyle]="{'overflow':'visible'}"
+  showEffect="fade" [modal]="true" [width]="600" [autoAlign]="true" [responsive]="true">
+    <p-header>
+        {{headerText}}
+    </p-header>
+    <div class="ui-g ui-fluid" *ngIf="mailInput">
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="number"><b>Номер</b></label>
+                <div class="ui-inputgroup">
+                    <input pInputText id="number" [(ngModel)]="mailInput.number" 
+                        [disabled]="!disabledMailInputNumber"/>
+                    <!-- <span style="width: 100%" class="ui-inputgroup-addon">
+                        {{numberSecondPart}}
+                    </span>  -->
+                </div>
+            </div>
+            <div class="ui-g-4">
+                <label for="dated"><b>Дата</b></label>
+                <p-calendar [(ngModel)]="mailInput.dated" placeholder="Дата" name="dated" 
+                    [monthNavigator]="true" [yearNavigator]="true" yearRange="years" [locale]="ru"
+                    showButtonBar="true" [showIcon]="true" dateFormat="dd.mm.yy" id="dated" 
+                    [disabled]="!disabledMailInputNumber">
+                </p-calendar>
+            </div>
+            <div class="ui-g-4">
+                <label for="disabled-btn"></label>
+                <p-toggleButton [(ngModel)]="disabledMailInputNumber" [style]="{'margin-top':'10px'}"
+                    offIcon="fa-edit" onIcon="fa-save" onLabel="Сохранить" offLabel="Редактир.">
+                </p-toggleButton>
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-12">
+                <label for="docTypeTitle"><b>Тип документа</b></label>
+                <p-dropdown [options]="docTypes" [(ngModel)]="mailInput.docType" 
+                    name="docType" filter="false" optionLabel="title" 
+                    [autoWidth]="false" placeholder="Выберите тип документа">
+                </p-dropdown>
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-12">
+                <label for="sender"><b>Отправитель</b></label>
+                <input pInputText id="sender" [(ngModel)]="mailInput.sender" />
+            </div>
+        </div>
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton icon="fa-trash" class="ui-button-danger" 
+                (click)="confirmDeleting()" label="Удалить">
+            </button>
+            <button type="button" pButton icon="fa-close" class="ui-button-secondary" 
+                (click)="displayDialog=false" label="Закрыть">
+            </button>
+            <button type="button" pButton icon="fa-check" class="ui-button-success" 
+                (click)="saveOrUpdate()" label="Сохранить">
+            </button>
+        </div>
+    </p-footer>
+</p-dialog>
