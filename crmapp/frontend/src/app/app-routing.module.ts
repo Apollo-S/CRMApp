@@ -52,6 +52,7 @@ import { MainPageComponent } from "./components/main-page/main-page.component";
 import { MailOutputsComponent } from "./components/mail-output/mail-outputs/mail-outputs.component";
 import { AgreementDetailsMainTabComponent } from "./components/agreement/agreement-details/agreement-details-main-tab/agreement-details-main-tab.component";
 import { MailInputsComponent } from "./components/mail-input/mail-inputs/mail-inputs.component";
+import { DocumentTypesComponent } from "./components/document-type/document-types/document-types.component";
 
 const appRoutes: Routes = [
   
@@ -123,6 +124,7 @@ const appRoutes: Routes = [
       {path: 'about', component:AboutComponent},
       {path: 'mail-outputs', component:MailOutputsComponent},
       {path: 'mail-inputs', component:MailInputsComponent},
+      {path: 'document-types', component:DocumentTypesComponent},
     ]
   }
 ]
