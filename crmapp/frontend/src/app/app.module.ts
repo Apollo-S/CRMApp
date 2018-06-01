@@ -52,6 +52,7 @@ import { DocumentStatusService } from './services/document-status.service';
 import { DocumentTypeService } from './services/document-type.service';
 import { EmployeeService } from './services/employee.service';
 import { MailDocumentTypeService } from './services/mail-document-type.service';
+import { MailInputService } from './services/mail-input.service';
 import { MailOutputService } from './services/mail-output.service';
 import { PersonService } from './services/person.service';
 import { PostService } from './services/post.service';
@@ -117,6 +118,7 @@ import { MailInputsComponent } from './components/mail-input/mail-inputs/mail-in
 import { ClientDetailsTemplateTableComponent } from './components/client/client-details/client-details-template-table/client-details-template-table.component';
 import { AgreementDetailsTabsComponent } from './components/agreement/agreement-details/agreement-details-tabs/agreement-details-tabs.component';
 import { AgreementDetailsMainTabComponent } from './components/agreement/agreement-details/agreement-details-main-tab/agreement-details-main-tab.component';
+import { DocumentTypesComponent } from './components/document-type/document-types/document-types.component';
 
 @NgModule({
   declarations: [
@@ -173,6 +175,7 @@ import { AgreementDetailsMainTabComponent } from './components/agreement/agreeme
     ClientDetailsTemplateTableComponent,
     AgreementDetailsTabsComponent,
     AgreementDetailsMainTabComponent,
+    DocumentTypesComponent,
   ],
   imports: [
     AppRoutingModule, 
@@ -226,6 +229,7 @@ import { AgreementDetailsMainTabComponent } from './components/agreement/agreeme
     DocumentTypeService,
     EmployeeService,
     MailDocumentTypeService,
+    MailInputService,
     MailOutputService,
     MessageService, 
     PersonService,
