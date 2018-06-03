@@ -2,12 +2,12 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-client-details-template-table',
-  templateUrl: './client-details-template-table.component.html',
-  styleUrls: ['./client-details-template-table.component.css']
+  selector: 'app-client-employee-details-template-table',
+  templateUrl: './client-employee-details-template-table.component.html',
+  styleUrls: ['./client-employee-details-template-table.component.css']
 })
-export class ClientDetailsTemplateTableComponent implements OnInit {
-
+export class ClientEmployeeDetailsTemplateTableComponent implements OnInit {
+  
   @Input ('addButtonTitle') addButtonTitle: string;
   @Input ('editButtonTitle') editButtonTitle: string;
   @Input ('columns') columns: any[];
