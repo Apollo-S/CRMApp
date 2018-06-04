@@ -12,30 +12,44 @@ import { Employee } from '../../../../models/Employee';
 })
 export class EmployeeDetailsAccountsTabComponent implements OnInit, OnDestroy {
   private _propertySubscribtion: Subscription;
+  columns: any[];
   employee: Employee = {};
   accounts: EmployeeAccount[];
   
-  constructor(private service: EmployeeService,
-    private router: Router,
-    private route: ActivatedRoute) { }
+  constructor(private service: EmployeeService) { }
 
   ngOnInit() {
-    this._propertySubscribtion = this.service.property$
-      .subscribe(
-        p => this.employee = p
-      );
-    this.getAccountsByEmployeeId(this.employee.id);
+    this.initSubscription();
+    this.initColumns();
   }
 
   ngOnDestroy(): void {
     this._propertySubscribtion.unsubscribe();
   }
+  
+  private initSubscription() {
+    this._propertySubscribtion = this.service.property$
+      .subscribe(
+        p => {
+          this.employee = p;
+          this.getAccountsByEmployeeId(p.id);
+        }
+      );
+  }
 
-  getAccountsByEmployeeId(id: number) {
+  private getAccountsByEmployeeId(id: number) {
     this.service.getAccountsByEmployeeId(id)
       .subscribe(
         accounts => this.accounts = accounts
       );
+  }
+
+  private initColumns(): void {
+    this.columns = [
+      { field: 'id', header: 'ID' },
+      { field: 'presentation', header: 'Представление' },
+      { field: 'dateStart', header: 'Действует с' }      
+    ];
   }
 
 }
