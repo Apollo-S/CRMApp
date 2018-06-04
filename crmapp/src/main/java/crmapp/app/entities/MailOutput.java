@@ -19,34 +19,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @Table(name = "mail_output")
 @JsonIgnoreProperties(ignoreUnknown = true, 
 	value = { "hibernateLazyInitializer", "handler" })
-public class MailOutput extends BaseEntity {
+public class MailOutput extends AbstractMailDocument {
 
-	@Column(name = "number", length = 15)
-	private String number;
-	
 	@Column(name = "receiver", length = 55)
 	private String receiver;
-	
-	@Temporal(TemporalType.DATE)
-	@Column(name = "dated")
-	private Date dated;
-	
-	@Column(name = "comment", length = 255)
-	private String comment;
-	
-	@OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-	@JoinColumn(name = "mail_doc_type_id")
-	private MailDocumentType docType;
 
 	public MailOutput() {
-	}
-
-	public String getNumber() {
-		return number;
-	}
-
-	public void setNumber(String number) {
-		this.number = number;
 	}
 
 	public String getReceiver() {
@@ -55,35 +33,6 @@ public class MailOutput extends BaseEntity {
 
 	public void setReceiver(String receiver) {
 		this.receiver = receiver;
-	}
-
-	public Date getDated() {
-		return dated;
-	}
-
-	public void setDated(Date dated) {
-		this.dated = dated;
-	}
-
-	public String getComment() {
-		return comment;
-	}
-
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
-
-	public MailDocumentType getDocType() {
-		return docType;
-	}
-
-	public void setDocType(MailDocumentType docType) {
-		this.docType = docType;
-	}
-
-	@JsonInclude
-	public String getDocTypeTitle() {
-		return this.docType.getTitle();
 	}
 
 	@Override
@@ -96,11 +45,7 @@ public class MailOutput extends BaseEntity {
 		return new StringBuilder()
 			.append("OutputMail [")
 			.append(super.toString()).append(", ")
-			.append("docType=" + docType.getTitle()).append(", ")
-			.append("number=" + number).append(", ")
-			.append("receiver=" + receiver).append(", ")
-			.append("dated=" + dated).append(", ")
-			.append("comment=" + comment).append("]")
+			.append("receiver=" + receiver).append("]")
 			.toString();
 	}
 
