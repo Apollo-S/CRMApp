@@ -115,10 +115,10 @@ import { NavbarMenuBarComponent } from './components/navbar/navbar-menu-bar/navb
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { MailOutputsComponent } from './components/mail-output/mail-outputs/mail-outputs.component';
 import { MailInputsComponent } from './components/mail-input/mail-inputs/mail-inputs.component';
-import { ClientDetailsTemplateTableComponent } from './components/client/client-details/client-details-template-table/client-details-template-table.component';
 import { AgreementDetailsTabsComponent } from './components/agreement/agreement-details/agreement-details-tabs/agreement-details-tabs.component';
 import { AgreementDetailsMainTabComponent } from './components/agreement/agreement-details/agreement-details-main-tab/agreement-details-main-tab.component';
 import { DocumentTypesComponent } from './components/document-type/document-types/document-types.component';
+import { ClientEmployeeDetailsTemplateTableComponent } from './templates/client-employee-details-template-table/client-employee-details-template-table.component';
 
 @NgModule({
   declarations: [
@@ -172,10 +172,10 @@ import { DocumentTypesComponent } from './components/document-type/document-type
     MainPageComponent,
     MailOutputsComponent,
     MailInputsComponent,
-    ClientDetailsTemplateTableComponent,
     AgreementDetailsTabsComponent,
     AgreementDetailsMainTabComponent,
     DocumentTypesComponent,
+    ClientEmployeeDetailsTemplateTableComponent,
   ],
   imports: [
     AppRoutingModule, 
