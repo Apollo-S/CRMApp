@@ -26,6 +26,7 @@ export class MailOutputsComponent implements OnInit {
   disabledMailOutputNumber: boolean = false;
   headerText: string;
   msgs: Message[] = [];
+  numberSecondPart: string;
 
   constructor(private outputService: MailOutputService,
               private docTypeService: MailDocumentTypeService,
@@ -78,12 +79,14 @@ export class MailOutputsComponent implements OnInit {
     this.disabledMailOutputNumber = false;
     this.mailOutput = this.cloneMailOutput(event.data);
     this.mailOutput.dated = new Date(this.mailOutput.dated);
-    this.headerText = "Исх. документ № " + this.mailOutput.number + " от " + 
+    this.numberSecondPart = "/" + new DatePipe('en-US').transform(this.mailOutput.dated, 'MM') + "-" + 
+      new DatePipe('en-US').transform(this.mailOutput.dated, 'y');
+    this.headerText = "Исх. документ № " + this.mailOutput.number + this.numberSecondPart + " от " + 
       (this.mailOutput.dated == null ? '-' : new DatePipe('en-US').transform(this.mailOutput.dated, 'dd.MM.y'));
     this.displayDialog = true;
   } 
 
-  cloneMailOutput(mailOut: MailOutput): MailOutput {
+  private cloneMailOutput(mailOut: MailOutput): MailOutput {
     let mailOutput = {};
     for (let prop in mailOut) {
         mailOutput[prop] = mailOut[prop];
@@ -100,16 +103,16 @@ export class MailOutputsComponent implements OnInit {
   }
 
   saveOrUpdate() {
-    let msg = "Исх. документ " + this.mailOutput.number + " ";
+    let msg = "Исх. документ ";
     if (this.newMailOutput) {
-      msg = msg + "введен";
+      msg = msg + " введен";
       this.outputService.addMailOutput(this.mailOutput)
         .subscribe(() => {
           this.getOutputs();
         }
       );
     } else {
-      msg = msg + "обновлен";
+      msg = msg + this.mailOutput.number + this.numberSecondPart + " обновлен";
       this.outputService.updateMailOutput(this.mailOutput)
         .subscribe(() => {
           this.getOutputs();
@@ -121,7 +124,8 @@ export class MailOutputsComponent implements OnInit {
   }
 
   confirmDeleting() {
-    let msg  = 'Исх. документ \"' + this.mailOutput.number + '(ID=' + this.mailOutput.id + ')\" успешно удален';
+    let msg  = 'Исх. документ \"' + this.mailOutput.number + this.numberSecondPart + 
+      '(ID=' + this.mailOutput.id + ')\" успешно удален';
     this.confirmationService.confirm({
       message: 'Действительно удалить исх. документ?',
       header: 'Удаление объекта',

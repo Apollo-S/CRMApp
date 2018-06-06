@@ -17,13 +17,33 @@
             <span class="ui-panel-title" style="display:inline-block;margin-top:6px">
                 <h4><b>Исходящие документы</b></h4>
             </span> 
-            <button pButton type="button" label="Добавить" style="margin-top:6px;float:right" 
-                (click)="showDialogToAdd()" icon="fa-plus">
-            </button>
         </div>
     </p-header>
-    <p-table [columns]="columns" [value]="outputs" selectionMode="single" [(selection)]="selectedOutput" 
+    <p-table #dt [columns]="columns" [value]="outputs" selectionMode="single" [(selection)]="selectedMailOutput" 
         (onRowSelect)="onRowSelect($event)" [paginator]="false" [rows]="15">
+        <ng-template pTemplate="caption">
+            <div>
+                <button pButton type="button" label="Новый" style="margin-top:2px;float:left" 
+                    (click)="showDialogToAdd()" icon="fa-plus">
+                </button>
+                <button pButton type="button" label="Редакт." style="margin-left:2px;margin-top:2px;float:left" 
+                    (click)="goToEntry(selectedMailOutput?.url)" icon="fa-edit" class="ui-button-success" [disabled]="!selectedItem">
+                </button>
+                <p-tieredMenu #menu [model]="menuModel" [popup]="true" 
+                    appendTo="body">
+                </p-tieredMenu>
+                <button *ngIf="menuModel?.length > 0"
+                    #btn pButton type="button" icon="fa-list" class="ui-button-info" 
+                    style="margin-left:2px;margin-top:2px;float:left" label="Прочее"
+                    (click)="menu.toggle($event)" (mousedown)="initMenu(selectedItem?.id)" [disabled]="!selectedItem">
+                </button>
+            </div>
+            <div style="text-align: right">
+                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                <input type="text" pInputText size="50" placeholder="Фильтр" style="width:auto" 
+                    (input)="dt.filterGlobal($event.target.value, 'contains')">
+            </div>
+        </ng-template>
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns" style="text-align:center">
@@ -72,8 +92,13 @@
         <div class="ui-g-12">
             <div class="ui-g-4">
                 <label for="number"><b>Номер</b></label>
-                <input pInputText id="number" [(ngModel)]="mailOutput.number" 
-                    [disabled]="!disabledMailOutputNumber"/>
+                <div class="ui-inputgroup">
+                    <input pInputText id="number" [(ngModel)]="mailOutput.number" 
+                        [disabled]="!disabledMailOutputNumber"/>
+                    <span style="width: 100%" class="ui-inputgroup-addon">
+                        {{numberSecondPart}}
+                    </span> 
+                </div>
             </div>
             <div class="ui-g-4">
                 <label for="dated"><b>Дата</b></label>

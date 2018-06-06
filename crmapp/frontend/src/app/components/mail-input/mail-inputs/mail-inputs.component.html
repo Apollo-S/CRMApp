@@ -20,14 +20,14 @@
         </div>
     </p-header>
     <p-table #dt [columns]="columns" [value]="inputs" selectionMode="single" [(selection)]="selectedMailInput" 
-        (onRowSelect)="onRowSelect($event)" [paginator]="false" [rows]="15">
+        [paginator]="false" [rows]="15">
         <ng-template pTemplate="caption">
             <div>
                 <button pButton type="button" label="Новый" style="margin-top:2px;float:left" 
                     (click)="showDialogToAdd()" icon="fa-plus">
                 </button>
                 <button pButton type="button" label="Редакт." style="margin-left:2px;margin-top:2px;float:left" 
-                    (click)="goToEntry(selectedMailInput?.url)" icon="fa-edit" class="ui-button-success" [disabled]="!selectedItem">
+                    (click)="showDialog(selectedMailInput)" icon="fa-edit" class="ui-button-success" [disabled]="!selectedMailInput">
                 </button>
             </div>
             <div style="text-align: right">
@@ -45,19 +45,19 @@
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr [pSelectableRow]="rowData">
-                <td style="text-align:center">
+                <td style="text-align:center" (dblclick)="showDialog(selectedMailInput)">
                     {{rowData.id}}
                 </td>
-                <td style="text-align:center">
-                    {{rowData.number}}/{{rowData.dated | date: 'MM'}}-{{rowData.dated | date: 'y'}}
+                <td style="text-align:center" (dblclick)="showDialog(selectedMailInput)">
+                    {{rowData.number}}
                 </td>
-                <td style="text-align:center">
+                <td style="text-align:center" (dblclick)="showDialog(selectedMailInput)">
                     {{rowData.docType.title}}
                 </td>
-                <td style="text-align:center">
+                <td style="text-align:center" (dblclick)="showDialog(selectedMailInput)">
                     {{rowData.sender}}
                 </td>
-                <td style="text-align:center">
+                <td style="text-align:center" (dblclick)="showDialog(selectedMailInput)">
                     {{rowData.dated == null ? '-' : rowData.dated | date: 'dd.MM.y'}}
                 </td>
             </tr>
@@ -87,9 +87,6 @@
                 <div class="ui-inputgroup">
                     <input pInputText id="number" [(ngModel)]="mailInput.number" 
                         [disabled]="!disabledMailInputNumber"/>
-                    <!-- <span style="width: 100%" class="ui-inputgroup-addon">
-                        {{numberSecondPart}}
-                    </span>  -->
                 </div>
             </div>
             <div class="ui-g-4">

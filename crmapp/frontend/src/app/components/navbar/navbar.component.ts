@@ -55,7 +55,6 @@ export class NavbarComponent implements OnInit {
         },
         { "label": "Кадровый учет", "icon": "fa-navicon", "expanded": false, "visible": true, "items": 
             [
-                { "label": "Физические лица", "icon": "fa-asterisk", "routerLink": "/persons", "visible": true },
                 { "label": "Сотрудники", "icon": "fa-asterisk", "routerLink": "/employees", "visible": true },
                 { "label": "Отпуски", "icon": "fa-asterisk", "routerLink": "/vacations", "visible": true },
                 { "label": "Больничные листы", "icon": "fa-asterisk", "routerLink": "/sick-lists", "visible": true },
@@ -82,8 +81,8 @@ export class NavbarComponent implements OnInit {
                 { label: 'Новый договор', routerLink: ['agreements/add'] } ]
             },
             { label: 'Справочники', icon: 'fa-list', items: [
-                { label: 'Типы документов', routerLink: ['document-types'] },
-                { label: 'empty', routerLink: [''] } ]
+                { label: "Физические лица", routerLink: ['persons'] },
+                { label: 'Типы документов', routerLink: ['document-types'] } ]
             },
             { label: 'Инфо', icon: 'fa-info-circle', routerLink: ['about'] }
         ];

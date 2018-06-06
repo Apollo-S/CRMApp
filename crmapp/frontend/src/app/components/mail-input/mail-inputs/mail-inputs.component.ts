@@ -18,7 +18,7 @@ export class MailInputsComponent implements OnInit {
   inputs: MailInput[] = [];
   docTypes: MailDocumentType[] = [];
   mailInput: MailInput = {};
-  selectedMailInput: MailInput = {};
+  selectedMailInput: MailInput;
   newMailInput: boolean = false;
   displayDialog: boolean = false;
   years: string;
@@ -68,22 +68,22 @@ export class MailInputsComponent implements OnInit {
     this.years = this.utilService.getCalendarYears(years);
   }
 
-  onRowSelect(event) {
+  showDialog(mailIn: MailInput) {
     this.newMailInput = false;
     this.disabledMailInputNumber = false;
-    this.mailInput = this.cloneMailOutput(event.data);
+    this.mailInput = this.cloneMailInput(mailIn);
     this.mailInput.dated = new Date(this.mailInput.dated);
     this.headerText = "Вход. документ № " + this.mailInput.number + " от " + 
       (this.mailInput.dated == null ? '-' : new DatePipe('en-US').transform(this.mailInput.dated, 'dd.MM.y'));
     this.displayDialog = true;
-  } 
+  }
 
-  private cloneMailOutput(mailOut: MailInput): MailInput {
-    let mailOutput = {};
-    for (let prop in mailOut) {
-        mailOutput[prop] = mailOut[prop];
+  private cloneMailInput(mailIn: MailInput): MailInput {
+    let mailInput = {};
+    for (let prop in mailIn) {
+        mailInput[prop] = mailIn[prop];
     }
-    return mailOutput;
+    return mailInput;
   }
 
   showDialogToAdd() {
