@@ -1,3 +1,74 @@
-<p>
-  add-agreement works!
-</p>
+<p-growl [value]="msgs"></p-growl>
+
+<div class="ui-g">
+  <div class="ui-g-4">
+    <button pButton type="button" label="Вернуться" class="ui-button-info"
+      icon="fa-arrow-circle-o-left" routerLink="../">
+    </button>
+  </div>
+  <div class="ui-g-8">
+    <h4 style="font-weight:normal">
+      <b><ins>Новый Договор</ins></b>
+    </h4>
+  </div>
+</div>
+
+<p-tabMenu [model]="tabs"></p-tabMenu>
+
+<div class="ui-g-12">
+  <form form (ngSubmit)="onSubmit()">
+    <div class="ui-g-10">
+      <p-card>
+        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-3">
+              <b>Номер договора:</b>
+            </div>
+            <div class="ui-grid-col-6">
+              <input pInputText type="text" name="number" placeholder=""
+                [(ngModel)]="agreement&&agreement.number">
+            </div>
+          </div>
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-3">
+              <b>Клиент:</b>
+            </div>
+            <div class="ui-grid-col-6">
+                <p-dropdown [options]="clients" [(ngModel)]="agreement&&agreement.client" name="client" 
+                  optionLabel="title" [autoWidth]="false" placeholder="Выберите клиента..." [filter]="true">
+                </p-dropdown>
+            </div>
+          </div>
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-3">
+              <b>Дата:</b>
+            </div>
+            <div class="ui-grid-col-3">
+              <p-calendar [(ngModel)]="agreement&&agreement.dateStart" name="dateStart" placeholder="Дата"
+                [monthNavigator]="true" [yearNavigator]="true" yearRange="{{years}}" [locale]="ru" 
+                showButtonBar="true" [showIcon]="true" dateFormat="dd.mm.yy"></p-calendar>
+            </div>
+          </div>
+          <div class="ui-grid-row">
+              <div class="ui-grid-col-3">
+                <b>Примечание:</b>
+              </div>
+              <div class="ui-grid-col-6">
+                <textarea [rows]="3" pInputTextarea [(ngModel)]="agreement&&agreement.comment" name="comment"></textarea>
+              </div>
+            </div>
+        </div>
+      </p-card>
+    </div>
+    <div class="ui-g-2">
+      <button pButton type="submit" label="Записать"
+        class="ui-button-success btn-block" icon="fa-check-square-o">
+      </button>
+      <button pButton type="button" label="Отмена" 
+        class="ui-button-danger btn-block" icon="fa-times-rectangle-o"
+        [routerLink]="['../']">
+      </button>
+    </div>
+  </form>
+</div>
+
