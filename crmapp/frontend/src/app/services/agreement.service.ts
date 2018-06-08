@@ -52,6 +52,16 @@ export class AgreementService {
       )
   }
 
+  addAgreement(agreement: ClientAgreement): Observable<ClientAgreement> {
+    const url = `${this.agreementsUrl}`;
+    return this.http
+      .post<ClientAgreement>(url, agreement, { headers: this.headers })
+      .pipe(
+        tap(_ => console.log(`added ClientAgreement (number=${agreement.number})`)),
+        catchError(this.handleError<ClientAgreement>('addAgreement'))
+      ); 
+  }
+
   updateAgreement(agreement: ClientAgreement): Observable<ClientAgreement> {
     const url = `${this.agreementsUrl}/${agreement.id}`;
     return this.http
