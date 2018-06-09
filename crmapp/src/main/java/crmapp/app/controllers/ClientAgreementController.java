@@ -76,7 +76,7 @@ public class ClientAgreementController extends BaseController {
 		agreement = agreementRepository.save(agreement);
 		logger.info(LOG_TEXT + "ClientAgreement added with ID=" + agreement.getId() + LOG_CLOSE);
 		logger.info(LOG_OUT_OF_METHOD + "addAgreement()" + LOG_CLOSE);
-		return new ResponseEntity<ClientAgreement>(new HttpHeaders(), HttpStatus.CREATED);
+		return new ResponseEntity<ClientAgreement>(agreement, new HttpHeaders(), HttpStatus.CREATED);
 	}
 
 	@PutMapping(value = "/agreements/{id}", headers = HEADER_JSON)
@@ -89,7 +89,7 @@ public class ClientAgreementController extends BaseController {
 		agreement = agreementRepository.save(agreement);
 		logger.info(LOG_TEXT + "ClientAgreement with ID=" + id + " was updated: " + agreement + LOG_CLOSE);
 		logger.info(LOG_OUT_OF_METHOD + "updateAgreement()" + LOG_CLOSE);
-		return new ResponseEntity<ClientAgreement>(new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<ClientAgreement>(agreement, new HttpHeaders(), HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = { "/agreements/{id}", "/clients/{clientId}/agreements/{id}" }, headers = HEADER_JSON)
