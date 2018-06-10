@@ -21,7 +21,6 @@ export class AddAccountComponent implements OnInit, OnDestroy {
   ru: any;
 
   constructor(private service: ClientService, 
-              private utilService: UtilService,
               private router: Router) { }
 
   ngOnInit() {
@@ -29,8 +28,8 @@ export class AddAccountComponent implements OnInit, OnDestroy {
       .subscribe(
         p => this.client = p
     );
-    this.ru = this.utilService.getCalendarLocalSet();
-    this.years = this.utilService.getCalendarYears(5);
+    this.ru = UtilService.getCalendarLocalSet();
+    this.years = UtilService.getCalendarYears(5);
   }
   
   onSubmit() {

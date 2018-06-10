@@ -19,14 +19,13 @@ export class AddPersonComponent implements OnInit {
   ru: any;
 
   constructor(private service: PersonService,
-              private utilService: UtilService,
               private fb: FormBuilder,
               private router: Router) { }
 
   ngOnInit() {
     this.initUserForm();
-    this.ru = this.utilService.getCalendarLocalSet();
-    this.years = this.utilService.getCalendarYears(100);
+    this.ru = UtilService.getCalendarLocalSet();
+    this.years = UtilService.getCalendarYears(100);
   }
 
   onSubmit() {

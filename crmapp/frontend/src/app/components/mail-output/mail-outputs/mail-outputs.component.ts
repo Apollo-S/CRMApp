@@ -30,8 +30,7 @@ export class MailOutputsComponent implements OnInit {
 
   constructor(private outputService: MailOutputService,
               private docTypeService: MailDocumentTypeService,
-              private confirmationService: ConfirmationService,
-              private utilService: UtilService) { }
+              private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
     this.initColumns();
@@ -42,8 +41,8 @@ export class MailOutputsComponent implements OnInit {
   }
 
   private setCalendarSettings(years: number) {
-    this.ru = this.utilService.getCalendarLocalSet();
-    this.years = this.utilService.getCalendarYears(years);
+    this.ru = UtilService.getCalendarLocalSet();
+    this.years = UtilService.getCalendarYears(years);
   }
 
   private getOutputs() {

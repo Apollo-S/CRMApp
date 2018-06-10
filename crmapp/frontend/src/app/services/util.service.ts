@@ -5,12 +5,12 @@ export class UtilService {
 
   constructor() { }
 
-  getCalendarYears(countOfYears: number): string {
+  static getCalendarYears(countOfYears: number): string {
     let currentYear = new Date().getFullYear();
     return ((currentYear - countOfYears).toString()) + ':' + currentYear.toString();
   }
 
-  getCalendarLocalSet(): any  {
+  static getCalendarLocalSet(): any  {
     return {
       firstDayOfWeek: 1,
       dayNames: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],

@@ -26,7 +26,6 @@ export class AddEmployeeComponent implements OnInit {
 
   constructor(private employeeService: EmployeeService, 
               private personService: PersonService,
-              private utilService: UtilService,
               private router: Router,
               private fb: FormBuilder) { }
 
@@ -34,8 +33,8 @@ export class AddEmployeeComponent implements OnInit {
     this.getPersons();
     // this.initUserForm();
     this.initTabs();
-    this.ru = this.utilService.getCalendarLocalSet();
-    this.years = this.utilService.getCalendarYears(5);
+    this.ru = UtilService.getCalendarLocalSet();
+    this.years = UtilService.getCalendarYears(5);
   }
 
   onSubmit() {

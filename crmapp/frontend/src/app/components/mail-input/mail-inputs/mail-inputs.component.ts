@@ -29,8 +29,7 @@ export class MailInputsComponent implements OnInit {
   
   constructor(private inputService: MailInputService,
               private docTypeService: MailDocumentTypeService,
-              private confirmationService: ConfirmationService,
-              private utilService: UtilService) { }
+              private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
     this.initColumns();
@@ -64,8 +63,8 @@ export class MailInputsComponent implements OnInit {
   }
 
   private setCalendarSettings(years: number) {
-    this.ru = this.utilService.getCalendarLocalSet();
-    this.years = this.utilService.getCalendarYears(years);
+    this.ru = UtilService.getCalendarLocalSet();
+    this.years = UtilService.getCalendarYears(years);
   }
 
   showDialog(mailIn: MailInput) {

@@ -22,8 +22,7 @@ export class AddAgreementComponent implements OnInit {
   years: string;
   ru: any;
 
-  constructor(private utilService: UtilService,
-              private clientService: ClientService,
+  constructor(private clientService: ClientService,
               private agreementService: AgreementService,
               private fb: FormBuilder,
               private router: Router) { }
@@ -54,7 +53,6 @@ export class AddAgreementComponent implements OnInit {
       ])),
       'comment': new FormControl('')
     });
-    
   }
 
   private initTabs(): any {
@@ -72,8 +70,8 @@ export class AddAgreementComponent implements OnInit {
   }
 
   private initCalendarSettings() {
-    this.ru = this.utilService.getCalendarLocalSet();
-    this.years = this.utilService.getCalendarYears(5);
+    this.ru = UtilService.getCalendarLocalSet();
+    this.years = UtilService.getCalendarYears(5);
   }
 
   private save(): void {

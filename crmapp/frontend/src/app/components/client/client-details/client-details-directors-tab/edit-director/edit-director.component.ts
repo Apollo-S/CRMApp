@@ -25,7 +25,6 @@ export class EditDirectorComponent implements OnInit, OnDestroy {
   
   constructor(private service: ClientService, 
               private postService: PostService,
-              private utilService: UtilService,
               private router: Router,
               private route: ActivatedRoute,
               private confirmationService: ConfirmationService) { }
@@ -44,8 +43,8 @@ export class EditDirectorComponent implements OnInit, OnDestroy {
         }
       );
     this.getPosts();
-    this.ru = this.utilService.getCalendarLocalSet();
-    this.years = this.utilService.getCalendarYears(5);
+    this.ru = UtilService.getCalendarLocalSet();
+    this.years = UtilService.getCalendarYears(5);
   }
 
   ngOnDestroy(): void {
