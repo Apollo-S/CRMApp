@@ -22,7 +22,7 @@
         <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
           <div class="ui-grid-row">
             <div class="ui-grid-col-3">
-              <b>Номер договора:</b>
+              <b>Номер договора:*</b>
             </div>
             <div class="ui-grid-col-6">
               <input pInputText type="text" placeholder=""
@@ -30,7 +30,7 @@
             </div>
             <div class="ui-grid-col-3">
               <div class="ui-message ui-messages-error ui-corner-all" 
-                *ngIf="userform.controls['number'].invalid&&userform.controls['number'].dirty">
+                *ngIf="userform.controls['number'].invalid">
                   <i class="fa fa-exclamation-circle"></i>
                   Введите название договора (не менее 2 символов)!
               </div>            
@@ -38,28 +38,38 @@
           </div>
           <div class="ui-grid-row">
             <div class="ui-grid-col-3">
-              <b>Клиент:</b>
+              <b>Клиент:*</b>
             </div>
             <div class="ui-grid-col-6">
-                <p-dropdown [options]="clients" [(ngModel)]="agreement.client"  
-                  optionLabel="title" [autoWidth]="false" placeholder="Выберите клиента..." 
-                  [filter]="true" formControlName="client">
-                </p-dropdown>
-                <div class="ui-message ui-messages-error ui-corner-all" 
-                  *ngIf="userform.controls['client'].value === null">
-                    <i class="fa fa-exclamation-circle"></i>
-                    Необходимо выбрать клиента!
-                </div>
+              <p-dropdown [options]="clients" [(ngModel)]="agreement.client"  
+                optionLabel="title" [autoWidth]="false" placeholder="Выберите клиента..." 
+                [filter]="true" formControlName="client">
+              </p-dropdown>
+            </div>
+            <div class="ui-grid-col-3">
+              <div class="ui-message ui-messages-error ui-corner-all" 
+                *ngIf="userform.controls['client'].value == null">
+                  <i class="fa fa-exclamation-circle"></i>
+                  Необходимо выбрать клиента!
+              </div>
             </div>
           </div>
           <div class="ui-grid-row">
             <div class="ui-grid-col-3">
-              <b>Дата:</b>
+              <b>Дата:*</b>
             </div>
             <div class="ui-grid-col-3">
               <p-calendar [(ngModel)]="agreement.dateStart" formControlName="dateStart" placeholder="Дата"
                 [monthNavigator]="true" [yearNavigator]="true" yearRange="{{years}}" [locale]="ru" 
                 showButtonBar="true" [showIcon]="true" dateFormat="dd.mm.yy"></p-calendar>
+            </div>
+            <div class="ui-grid-col-3"></div>
+            <div class="ui-grid-col-3">
+              <div class="ui-message ui-messages-error ui-corner-all" 
+                *ngIf="userform.controls['dateStart'].invalid">
+                  <i class="fa fa-exclamation-circle"></i>
+                  Дата договора не может быть пустой!
+              </div>            
             </div>
           </div>
           <div class="ui-grid-row">
