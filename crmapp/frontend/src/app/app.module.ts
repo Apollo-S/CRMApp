@@ -119,6 +119,7 @@ import { AgreementDetailsTabsComponent } from './components/agreement/agreement-
 import { AgreementDetailsMainTabComponent } from './components/agreement/agreement-details/agreement-details-main-tab/agreement-details-main-tab.component';
 import { DocumentTypesComponent } from './components/document-type/document-types/document-types.component';
 import { ClientEmployeeDetailsTemplateTableComponent } from './templates/client-employee-details-template-table/client-employee-details-template-table.component';
+import { ControlMessagesComponent } from './templates/control-messages/control-messages.component';
 
 @NgModule({
   declarations: [
@@ -176,6 +177,7 @@ import { ClientEmployeeDetailsTemplateTableComponent } from './templates/client-
     AgreementDetailsMainTabComponent,
     DocumentTypesComponent,
     ClientEmployeeDetailsTemplateTableComponent,
+    ControlMessagesComponent,
   ],
   imports: [
     AppRoutingModule, 
