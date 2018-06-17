@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, Params } from '@angular/router';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ClientService } from '../../../services/client.service';
@@ -19,8 +19,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
 
   constructor(private fb: FormBuilder,
               private clientService: ClientService,
-              private router: Router,
-              private route: ActivatedRoute) { }
+              private router: Router) { }
 
   ngOnInit() {
     this._propertySubscribtion = this.clientService.property$
