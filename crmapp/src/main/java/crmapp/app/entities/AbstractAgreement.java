@@ -1,6 +1,8 @@
 package crmapp.app.entities;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -10,7 +12,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -28,12 +29,13 @@ public abstract class AbstractAgreement extends BaseEntity {
 	@Column(name = "comment", length = 255)
 	private String comment;
 
-	@OneToMany(orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "agreement")
-	@OrderBy("id ASC")
-	@JsonManagedReference(value = "agreement-document")
-	private Set<Document> documents;
-
 	public AbstractAgreement() {
+	}
+
+	public AbstractAgreement(String number, Date dateStart, String comment) {
+		this.number = number;
+		this.dateStart = dateStart;
+		this.comment = comment;
 	}
 
 	public String getNumber() {
@@ -60,22 +62,33 @@ public abstract class AbstractAgreement extends BaseEntity {
 		this.comment = comment;
 	}
 
-	public Set<Document> getDocuments() {
-		return documents;
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.getId(), this.getNumber(), this.getDateStart(), this.getVersion());
 	}
 
-	public void setDocuments(Set<Document> documents) {
-		this.documents = documents;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AbstractAgreement that = (AbstractAgreement) obj;
+		return Objects.equals(this.getId(), that.getId()) && 
+				Objects.equals(this.getNumber(), that.getNumber()) && 
+				Objects.equals(this.getDateStart(), that.getDateStart()) && 
+				Objects.equals(this.getVersion(), that.getVersion());
 	}
-	
+
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append(super.toString()).append(", ");
-		builder.append("number=" + number).append(", ");
-		builder.append("dateStart=" + dateStart).append(", ");
-		builder.append("documentsCount=" + documents.size());
-		return builder.toString();
+		return new StringBuilder()
+			.append(super.toString()).append(", ")
+			.append("number=" + number).append(", ")
+			.append("dateStart=" + dateStart)
+			.toString();
 	}
 
 }
