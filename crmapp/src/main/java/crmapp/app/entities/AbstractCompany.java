@@ -104,7 +104,7 @@ public abstract class AbstractCompany extends BaseEntity {
 			.append("alias=" + alias).append(", ")
 			.append("edrpou=" + edrpou).append(", ")
 			.append("inn=" + inn).append(", ")
-			.append("vatCertificate=" + vatCertificate).append("]")
+			.append("vatCertificate=" + vatCertificate)
 			.toString();
 	}
 
