@@ -1,9 +1,8 @@
 package crmapp.app.entities;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -11,8 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,24 +20,14 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Table(name = "client_agreement")
 @JsonIgnoreProperties(ignoreUnknown = true, 
 	value = { "hibernateLazyInitializer", "handler", "documents" })
-public class ClientAgreement extends BaseEntity {
+public class ClientAgreement extends AbstractAgreement {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "client_id")
 	@JsonBackReference(value = "client-agreement")
 	private Client client;
 
-	@Column(name = "number", length = 255)
-	private String number;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_start")
-	private Date dateStart;
-
-	@Column(name = "comment", length = 255)
-	private String comment;
-
-	@OneToMany(orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "agreement")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "agreement", orphanRemoval = true)
 	@OrderBy("id ASC")
 	@JsonManagedReference(value = "agreement-document")
 	private Set<Document> documents = new HashSet<>();
@@ -55,6 +43,14 @@ public class ClientAgreement extends BaseEntity {
 		this.client = client;
 	}
 
+	public Set<Document> getDocuments() {
+		return documents;
+	}
+
+	public void setDocuments(Set<Document> documents) {
+		this.documents = documents;
+	}
+
 	@JsonInclude
 	public Integer getClientId() {
 		return client.getId();
@@ -63,6 +59,11 @@ public class ClientAgreement extends BaseEntity {
 	@JsonInclude
 	public String getClientAlias() {
 		return client.getAlias();
+	}
+	
+	@JsonInclude
+	public String getClientTitle() {
+		return client.getTitle();
 	}
 
 	@Override
@@ -77,38 +78,6 @@ public class ClientAgreement extends BaseEntity {
 		builder.append(super.toString()).append(", ");
 		builder.append("client=" + client).append("]");
 		return builder.toString();
-	}
-
-	public Set<Document> getDocuments() {
-		return documents;
-	}
-
-	public void setDocuments(Set<Document> documents) {
-		this.documents = documents;
-	}
-
-	public String getNumber() {
-		return number;
-	}
-
-	public void setNumber(String number) {
-		this.number = number;
-	}
-
-	public Date getDateStart() {
-		return dateStart;
-	}
-
-	public void setDateStart(Date dateStart) {
-		this.dateStart = dateStart;
-	}
-
-	public String getComment() {
-		return comment;
-	}
-
-	public void setComment(String comment) {
-		this.comment = comment;
 	}
 
 }
