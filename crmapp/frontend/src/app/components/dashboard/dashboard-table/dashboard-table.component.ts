@@ -21,6 +21,9 @@ export class DashboardTableComponent implements OnInit {
   @Input ('menuModel') menuModel: MenuItem[]; 
   @Input ('sortField') sortField: string;
   @Input ('autoLayout') autoLayout: boolean;
+  @Input ('addButtonTitle') addButtonTitle: string;
+  @Input ('editButtonTitle') editButtonTitle: string;
+  @Input ('additionalButtonTitle') additionalButtonTitle: string;
   selectedItem: any;
   constructor(private router: Router) { }
 
