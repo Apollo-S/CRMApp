@@ -23,4 +23,11 @@ export class UtilService {
     };
   }
 
+  static calcDifferenceBetweenDates(dateOne: Date, dateTwo: Date): number {
+    let result: number = 0;
+    result = (new Date(dateOne).getTime() - new Date(dateTwo).getTime());
+    result = result / (1000 * 3600 * 24);
+    return Math.ceil(result);
+  }
+
 }
