@@ -34,6 +34,36 @@ export class VacationService {
       )  
   }
 
+  addVacation(vacation: Vacation): Observable<Vacation> {
+    const url = `${this.vacationsUrl}`;
+    return this.http
+      .post<Vacation>(url, vacation, { headers: this.headers })
+      .pipe(
+        tap(_ => console.log(`added Vacation (employee=${vacation.employeeShortName})`)),
+        catchError(this.handleError<Vacation>('addVacation'))
+      ); 
+  }
+
+  updateVacation(vacation: Vacation): Observable<Vacation> {
+    const url = `${this.vacationsUrl}/${vacation.id}`;
+    return this.http
+      .put<Vacation>(url, vacation, { headers: this.headers })
+      .pipe(
+        tap(_ => console.log(`updated Vacation (ID=${vacation.id}, employee=${vacation.employeeShortName})`)),
+        catchError(this.handleError<Vacation>('updateVacation'))
+      );
+  }
+
+  deleteVacation(vacation: Vacation): Observable<void> {
+    const url = `${this.vacationsUrl}/${vacation.id}`;
+    return this.http
+      .delete(url, { headers: this.headers })
+      .pipe(
+        tap(_ => console.log(`deleted Vacation (ID=${vacation.id})`)),
+        catchError(this.handleError<any>('deleteVacation'))
+      );
+  }
+
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       // TODO: send the error to remote logging infrastructure
