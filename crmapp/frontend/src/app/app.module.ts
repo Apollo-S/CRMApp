@@ -31,6 +31,7 @@ import { PanelModule } from 'primeng/panel';
 import { PaginatorModule } from 'primeng/paginator';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { SidebarModule } from 'primeng/sidebar';
+import { SpinnerModule } from 'primeng/spinner';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { TableModule } from 'primeng/table';
 import { TabMenuModule } from 'primeng/tabmenu';
@@ -212,6 +213,7 @@ import { ControlMessagesComponent } from './templates/control-messages/control-m
     PanelModule,
     ProgressSpinnerModule,
     SidebarModule,
+    SpinnerModule,
     SplitButtonModule,
     TableModule,
     TabMenuModule,
