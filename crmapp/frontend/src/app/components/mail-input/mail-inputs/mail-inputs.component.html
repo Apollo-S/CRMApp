@@ -45,19 +45,19 @@
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr [pSelectableRow]="rowData">
-                <td style="text-align:center" (dblclick)="showDialog(selectedMailInput)">
+                <td style="text-align:center" (dblclick)="showDialog(rowData)">
                     {{rowData.id}}
                 </td>
-                <td style="text-align:center" (dblclick)="showDialog(selectedMailInput)">
+                <td style="text-align:center" (dblclick)="showDialog(rowData)">
                     {{rowData.number}}
                 </td>
-                <td style="text-align:center" (dblclick)="showDialog(selectedMailInput)">
+                <td style="text-align:center" (dblclick)="showDialog(rowData)">
                     {{rowData.docType.title}}
                 </td>
-                <td style="text-align:center" (dblclick)="showDialog(selectedMailInput)">
+                <td style="text-align:center" (dblclick)="showDialog(rowData)">
                     {{rowData.sender}}
                 </td>
-                <td style="text-align:center" (dblclick)="showDialog(selectedMailInput)">
+                <td style="text-align:center" (dblclick)="showDialog(rowData)">
                     {{rowData.dated == null ? '-' : rowData.dated | date: 'dd.MM.y'}}
                 </td>
             </tr>
