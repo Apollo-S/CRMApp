@@ -6,6 +6,7 @@ export class ClientAgreement {
     public client?: Client;
     public clientId?: number;
     public clientAlias?: string;
+    public clientTitle?: string;
     public number?: string;
     public dateStart?: Date;
     public comment?: string;
