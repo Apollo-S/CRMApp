@@ -20,6 +20,7 @@ export class ClientEmployeeDetailsTemplateTableComponent implements OnInit {
   @Input ('loading') loading: boolean; 
   @Input ('sortField') sortField: string;
   @Input ('autoLayout') autoLayout: boolean;
+  @Input ('routerLinkUrl') routerLinkUrl: string[];
   selectedItem: any;
   constructor(private router: Router) { }
 
