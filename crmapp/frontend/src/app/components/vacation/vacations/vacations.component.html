@@ -1,3 +1,16 @@
+<p-growl [value]="msgs"></p-growl>
+
+<p-confirmDialog header="Внимание" icon="fa fa-question-circle" width="425" #cd>
+    <p-footer>
+        <button type="button" pButton icon="fa-check" 
+          class="ui-button-primary" label="Ок" (click)="cd.accept()">
+        </button>
+        <button type="button" pButton icon="fa-close" 
+          class="ui-button-secondary" label="Отмена" (click)="cd.reject()">
+        </button>
+    </p-footer>
+</p-confirmDialog>
+
 <p-panel>
     <p-header>
         <div class="ui-helper-clearfix">
@@ -10,10 +23,25 @@
         </div>
     </p-header>
     <p-table #dt [columns]="columns" [responsive]="responsive" 
-        [value]="vacations" [reorderableColumns]="true" 
-        [rows]="0" [rowHover]="true" [paginator]="false" 
-        *ngIf="vacations?.length > 0; else loadingStatus" >
+        [value]="vacations" [reorderableColumns]="true" [autoLayout]="autoLayout"
+        [rows]="0" [rowHover]="true" [paginator]="false" selectionMode="single" [(selection)]="selectedItem"
+        [loading]="loading" dataKey="id">
         <ng-template pTemplate="caption">
+            <div>
+                <button pButton type="button" label="Новый" style="margin-top:2px;float:left" 
+                    (click)="showDialogToAdd()" icon="fa-plus">
+                </button>
+                <button pButton type="button" label="Редакт." style="margin-left:2px;margin-top:2px;float:left" 
+                    (click)="showDialog(selectedItem)" icon="fa-edit" class="ui-button-success" [disabled]="!selectedItem">
+                </button>
+                <p-tieredMenu #menu [model]="menuModel" [popup]="true" 
+                    appendTo="body">
+                </p-tieredMenu>
+                <button #btn pButton type="button" icon="fa-list" class="ui-button-info" 
+                    style="margin-left:2px;margin-top:2px;float:left" label="Прочее"
+                    (click)="menu.toggle($event)" (mousedown)="initMenu(selectedItem?.id)" [disabled]="!selectedItem">
+                </button>
+            </div>
             <div style="text-align: right">
                 <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
                 <input type="text" pInputText size="50" placeholder="Фильтр" style="width:auto" 
@@ -22,40 +50,100 @@
         </ng-template>
         <ng-template pTemplate="header" let-columns>
             <tr>
+                <th style="width: 2.25em"></th>
                 <th *ngFor="let column of columns" style="text-align:center" 
                     [pSortableColumn]="column.field" pReorderableColumn>
                     {{column.header}}
                     <p-sortIcon [field]="column.field"></p-sortIcon>
                 </th>
-                <th></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-vacation let-rowData let-columns="columns">
-            <tr>
-                <td *ngFor="let column of columns" style="text-align:center"
-                    (click)="goToEntry(vacation?.url)">
-                    {{rowData[column.field]}}
+            <tr [pSelectableRow]="rowData">
+                <td>
+                    <p-tableRadioButton [value]="rowData"></p-tableRadioButton>
                 </td>
-                <td style="text-align:center">
-                    <button pButton type="button" class="ui-button-info" 
-                        icon="fa-arrow-circle-o-right" label="Подробнее" 
-                        (click)="goToEntry(vacation?.url)">
-                    </button>
-                    <p-tieredMenu #menu [model]="items" [popup]="true" 
-                        appendTo="body">
-                    </p-tieredMenu>
-                    <button #btn pButton type="button" icon="fa-list" class="ui-button-info" 
-                        (click)="menu.toggle($event)" (mousedown)="initMenu(vacation?.employeeId)">
-                    </button>
+                <td *ngFor="let column of columns" style="text-align:center"
+                    (dblclick)="showDialog(rowData)">
+                    {{rowData[column.field]}}
                 </td>
             </tr>
         </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+                <td [attr.colspan]="columns.length + 1" style="text-align:center">
+                    Записи не найдены
+                </td>
+            </tr>
+            </ng-template>
         <ng-template pTemplate="summary">
             Кол-во записей: {{vacations?.length}}
         </ng-template>
     </p-table>
 </p-panel>
 
-<ng-template #loadingStatus>
-    <app-loading-status></app-loading-status>
-</ng-template> 
+<p-dialog [(visible)]="displayDialog" [contentStyle]="{'overflow':'visible'}"
+  showEffect="fade" [modal]="true" [width]="800" [autoAlign]="true" [responsive]="true">
+    <p-header>
+        {{headerText}}
+    </p-header>
+    <div class="ui-g ui-fluid" *ngIf="vacation">
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="dateStart"><b>Дата начальная</b></label>
+                <p-calendar [(ngModel)]="vacation.dateStart" placeholder="Дата начала" name="dateStart" 
+                    [monthNavigator]="true" [yearNavigator]="true" yearRange="years" [locale]="ru"
+                    showButtonBar="true" [showIcon]="true" dateFormat="dd.mm.yy" id="dateStart" 
+                    (click)="updateHeaderAndCalcDates()">
+                </p-calendar>
+            </div>
+            <div class="ui-g-4">
+                <label for="dateFinal"><b>Дата конечная</b></label>
+                <p-calendar [(ngModel)]="vacation.dateFinal" placeholder="Дата конечная" name="dateFinal" 
+                    [monthNavigator]="true" [yearNavigator]="true" yearRange="years" [locale]="ru"
+                    showButtonBar="true" [showIcon]="true" dateFormat="dd.mm.yy" id="dateFinal" 
+                    (click)="updateHeaderAndCalcDates()">
+                </p-calendar>
+            </div>
+            <div class="ui-g-4">
+                <label for="daysAmount"><b>Дней колич.</b></label>
+                    <p-spinner size="30" [(ngModel)]="vacation.daysAmount"></p-spinner>
+                    {{daysCount}}
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-12">
+                <label for="employee"><b>Сотрудник</b></label>
+                <p-dropdown [options]="employees" [(ngModel)]="vacation.employee" 
+                    name="employee" filter="false" optionLabel="employeeShortName" 
+                    [autoWidth]="false" placeholder="Выберите сотрудника">
+                </p-dropdown>
+            </div>
+        </div>
+        <div class="ui-g-12">
+                <div class="ui-g-12">
+                    <label for="description"><b>Описание</b></label>
+                    <input pInputText id="description" [(ngModel)]="vacation.description" />
+                </div>
+            </div>
+        <div class="ui-g-12">
+            <div class="ui-g-12">
+                <label for="comment"><b>Примечание</b></label>
+                <textarea rows="3" cols="30" pInputTextarea [(ngModel)]="vacation.comment"></textarea>
+            </div>
+        </div>
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton icon="fa-trash" class="ui-button-danger" 
+                (click)="confirmDeleting()" label="Удалить">
+            </button>
+            <button type="button" pButton icon="fa-close" class="ui-button-secondary" 
+                (click)="displayDialog=false" label="Закрыть">
+            </button>
+            <button type="button" pButton icon="fa-check" class="ui-button-success" 
+                (click)="saveOrUpdate()" label="Сохранить">
+            </button>
+        </div>
+    </p-footer>
+</p-dialog>
