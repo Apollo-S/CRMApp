@@ -1,5 +1,8 @@
+import { Employee } from "./Employee";
+
 export class Vacation {
     public id?: number;
+    public employee?: Employee;
     public employeeId?: number;
     public employeeShortName?: string;
     public description?: string;
