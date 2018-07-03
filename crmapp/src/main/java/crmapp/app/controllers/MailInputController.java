@@ -77,7 +77,7 @@ public class MailInputController extends BaseController {
 		int actualVersionNumber = mailRepository.getOne(id).getVersion();
 		input.setVersion(actualVersionNumber);
 		input = mailRepository.save(input);
-		logger.info(LOG_TEXT + "updateMailInput with ID=" + id + " was updated: " + input + LOG_CLOSE);
+		logger.info(LOG_TEXT + "MailInput with ID=" + id + " was updated: " + input + LOG_CLOSE);
 		logger.info(LOG_OUT_OF_METHOD + "updateMailInput()" + LOG_CLOSE);
 		return new ResponseEntity<MailInput>(input, new HttpHeaders(), HttpStatus.OK);
 	}
