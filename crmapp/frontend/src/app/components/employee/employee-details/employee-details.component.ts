@@ -3,6 +3,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { EmployeeService } from '../../../services/employee.service';
 import { Employee } from '../../../models/Employee';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-employee-details',
@@ -14,7 +15,8 @@ export class EmployeeDetailsComponent implements OnInit, OnDestroy {
   employee: Employee = {};
 
   constructor(private service: EmployeeService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute, 
+              private location: Location) { }
 
   ngOnInit() {
     let employeeId: number;
@@ -29,6 +31,10 @@ export class EmployeeDetailsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this._propertySubscribtion.unsubscribe();
+  }
+
+  goBack() {
+    this.location.back();
   }
   
   private getEmployeeById(id: number) {
