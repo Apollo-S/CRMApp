@@ -21,8 +21,9 @@ export class EmployeeDetailsTabsComponent implements OnInit {
       {label: 'Основные данные', icon: 'fa-address-card-o', routerLink: 'main'},
       {label: 'Адресы', icon: 'fa-building-o', routerLink: 'addresses'},
       {label: 'Банковские реквизиты', icon: 'fa-bank', routerLink: 'accounts'},
-      {label: 'Отпуск / Больничные листы', icon: 'fa-user-o', routerLink: 'vacations-sicks'},
-      {label: 'Договоры', icon: 'fa-file-text-o', routerLink: 'documents'}
+      {label: 'Отпуски', icon: 'fa-user-o', routerLink: 'vacations'},
+      {label: 'Больничные листы', icon: 'fa-user-o', routerLink: 'sicks'},
+      // {label: 'Договоры', icon: 'fa-file-text-o', routerLink: 'documents'}
     ];
   }
 

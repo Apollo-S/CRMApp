@@ -38,9 +38,9 @@ export class EmployeesComponent implements OnInit {
 
   private initMenu() {
     this.items = [
-      { label: 'Договоры', icon: 'fa-file-text-o', title: 'documents' },
+      { label: 'Отпуски', icon: 'fa-user-o', title: 'vacations' },
+      { label: 'Больн. листы', icon: 'fa-user-o', title: 'sicks' },
       { label: 'Адресы', icon: 'fa-building-o', title: 'addresses' },
-      { label: 'Отпуск/Больн. листы', icon: 'fa-user-o', title: 'vacations-sicks' },
       { label: 'Банк. реквизиты', icon: 'fa-bank', title: 'accounts' }
     ];
   }

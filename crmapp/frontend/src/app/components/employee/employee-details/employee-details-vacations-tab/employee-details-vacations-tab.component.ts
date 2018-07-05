@@ -48,7 +48,7 @@ export class EmployeeDetailsVacationsTabComponent implements OnInit, OnDestroy {
   private initColumns(): void {
     this.columns = [
       { field: 'id', header: 'ID' },
-      { field: 'employeeShortName', header: 'Сотрудник' },
+      { field: 'description', header: 'Описание' },
       { field: 'fullPeriod', header: 'Период' },
       { field: 'daysAmount', header: 'Кол-во дней' },
     ];
