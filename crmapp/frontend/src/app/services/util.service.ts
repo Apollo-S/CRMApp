@@ -30,4 +30,10 @@ export class UtilService {
     return Math.ceil(result);
   }
 
+  static addDaysToDate(date: Date, daysQuantity: number): Date {
+    let result: number = daysQuantity * (1000 * 3600 * 24);
+    result = result + new Date(date).getTime();
+    return new Date(result);
+  }
+
 }
