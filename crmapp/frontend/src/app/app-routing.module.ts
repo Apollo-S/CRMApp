@@ -53,6 +53,8 @@ import { MailOutputsComponent } from "./components/mail-output/mail-outputs/mail
 import { AgreementDetailsMainTabComponent } from "./components/agreement/agreement-details/agreement-details-main-tab/agreement-details-main-tab.component";
 import { MailInputsComponent } from "./components/mail-input/mail-inputs/mail-inputs.component";
 import { DocumentTypesComponent } from "./components/document-type/document-types/document-types.component";
+import { EmployeeDetailsVacationsTabComponent } from "./components/employee/employee-details/employee-details-vacations-tab/employee-details-vacations-tab.component";
+import { EmployeeDetailsSicksTabComponent } from "./components/employee/employee-details/employee-details-sicks-tab/employee-details-sicks-tab.component";
 
 const appRoutes: Routes = [
   
@@ -103,7 +105,9 @@ const appRoutes: Routes = [
           {path: 'main', component: EmployeeDetailsMainTabComponent},
           {path: 'main/edit', component: EditEmployeeComponent},
           {path: 'addresses', component: EmployeeDetailsAddressesTabComponent},
-          {path: 'accounts', component: EmployeeDetailsAccountsTabComponent}
+          {path: 'accounts', component: EmployeeDetailsAccountsTabComponent},
+          {path: 'vacations', component:EmployeeDetailsVacationsTabComponent},
+          {path: 'sicks', component:EmployeeDetailsSicksTabComponent},
         ]
       },
       {path: 'documents', component:DocumentsComponent},
