@@ -40,8 +40,8 @@ export class VacationsComponent implements OnInit {
     setTimeout(() => {
       this.loading = false;
     }, 700);
-    this.getVacations();
     this.getEmployees();
+    this.getVacations();
     this.setCalendarSettings(5)
   }
 
@@ -58,6 +58,14 @@ export class VacationsComponent implements OnInit {
         employees => this.employees = employees
       );
   }
+
+  private getEmployeeById(employeeId: number): any {
+    this.employeeService.getEmployeeById(employeeId)
+      .subscribe(
+        employee => this.vacation.employee = employee
+      );
+  }
+
 
   private initColumns() {
     this.columns = [
@@ -84,14 +92,19 @@ export class VacationsComponent implements OnInit {
     this.updateHeaderText();
   }
 
+  updateHeaderAndCalcDatesWithEvent() {
+    this.vacation.dateFinal = UtilService.addDaysToDate(this.vacation.dateStart, this.vacation.daysAmount-1);
+    this.updateHeaderText();
+  }
+
   private calcDifferenceBetweenDates() {
-    this.daysCount = UtilService.calcDifferenceBetweenDates(this.vacation.dateFinal, this.vacation.dateStart);
-    ++this.daysCount;
+    this.vacation.daysAmount = UtilService.calcDifferenceBetweenDates(this.vacation.dateFinal, this.vacation.dateStart);
+    ++this.vacation.daysAmount;
   }
 
   private updateHeaderText() {
     this.headerText = this.vacation.employeeShortName + " | Отпуск за период: " + 
-        this.vacation.fullPeriod + " | " + this.daysCount + "дн.";
+        this.vacation.fullPeriod + " | " + this.vacation.daysAmount + "дн.";
   }
 
   showDialog(vacation: Vacation) {
@@ -99,6 +112,7 @@ export class VacationsComponent implements OnInit {
     this.vacation = this.cloneVacation(vacation);
     this.vacation.dateStart = new Date(this.vacation.dateStart);
     this.vacation.dateFinal = new Date(this.vacation.dateFinal);
+    this.getEmployeeById(this.vacation.employeeId);
     this.updateHeaderAndCalcDates();
     this.displayDialog = true;
   }
@@ -160,7 +174,7 @@ export class VacationsComponent implements OnInit {
     this.vacationService.deleteVacation(this.vacation)
       .subscribe(
         () => {
-          this.getVacations;
+          this.getVacations();
           this.displayDialog = false;
         }
       );

@@ -107,15 +107,16 @@
             </div>
             <div class="ui-g-4">
                 <label for="daysAmount"><b>Дней колич.</b></label>
-                    <p-spinner size="30" [(ngModel)]="vacation.daysAmount"></p-spinner>
-                    {{daysCount}}
+                    <p-spinner size="30" [(ngModel)]="vacation.daysAmount"
+                        (onChange)="updateHeaderAndCalcDatesWithEvent()">
+                    </p-spinner>
             </div>
         </div>
         <div class="ui-g-12">
             <div class="ui-g-12">
                 <label for="employee"><b>Сотрудник</b></label>
                 <p-dropdown [options]="employees" [(ngModel)]="vacation.employee" 
-                    name="employee" filter="false" optionLabel="employeeShortName" 
+                    name="employee" filter="false" optionLabel="personShortName" 
                     [autoWidth]="false" placeholder="Выберите сотрудника">
                 </p-dropdown>
             </div>
