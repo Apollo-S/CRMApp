@@ -8,7 +8,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,22 +17,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import crmapp.app.entities.ClientAgreement;
-import crmapp.app.repositories.ClientAgreementRepository;
+import crmapp.app.services.ClientAgreementService;
 
 @RestController
-@Transactional
 @RequestMapping(value = "/api")
 public class ClientAgreementController extends BaseController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ClientAgreementController.class);
 
 	@Autowired
-	private ClientAgreementRepository agreementRepository;
+	private ClientAgreementService service;
 
 	@GetMapping(value = "/agreements", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ClientAgreement>> getAllAgreements() {
 		logger.info(LOG_ENTER_METHOD + "getAllAgreements()" + LOG_CLOSE);
-		List<ClientAgreement> agreements = agreementRepository.findAll();
+		List<ClientAgreement> agreements = service.getAll();
 		if (agreements.size() == 0) {
 			logger.info(LOG_ERROR + "ClientAgreements were not found" + LOG_CLOSE);
 			return new ResponseEntity<List<ClientAgreement>>(HttpStatus.NO_CONTENT);
@@ -46,7 +44,7 @@ public class ClientAgreementController extends BaseController {
 	@GetMapping(value = "/clients/{clientId}/agreements", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ClientAgreement>> getAllAgreementsByClientId(@PathVariable("clientId") int clientId) {
 		logger.info(LOG_ENTER_METHOD + "getAllAgreementsByClientId()" + LOG_CLOSE);
-		List<ClientAgreement> agreements = agreementRepository.findAllAgreementsByClientId(clientId);
+		List<ClientAgreement> agreements = service.findAllByClientId(clientId);
 		if (agreements.size() == 0) {
 			logger.info(LOG_ERROR + "ClientAgreements by clientIdwere not found" + LOG_CLOSE);
 			return new ResponseEntity<List<ClientAgreement>>(HttpStatus.NO_CONTENT);
@@ -59,7 +57,7 @@ public class ClientAgreementController extends BaseController {
 	@GetMapping(value = { "/agreements/{id}", "/clients/{clientId}/agreements/{id}" }, headers = HEADER_JSON)
 	public ResponseEntity<ClientAgreement> getAgreementById(@PathVariable(PARAM_ID) int id) {
 		logger.info(LOG_ENTER_METHOD + "getAgreementById()" + LOG_CLOSE);
-		ClientAgreement agreement = agreementRepository.findOne(id);
+		ClientAgreement agreement = service.getById(id);
 		if (agreement == null) {
 			logger.info(LOG_ERROR + "ClientAgreement with ID=" + id + "wasn't found" + LOG_CLOSE);
 			return new ResponseEntity<ClientAgreement>(agreement, HttpStatus.NOT_FOUND);
@@ -72,8 +70,7 @@ public class ClientAgreementController extends BaseController {
 	@PostMapping(value = "/agreements", headers = HEADER_JSON)
 	public ResponseEntity<ClientAgreement> addAgreement(@RequestBody ClientAgreement agreement) {
 		logger.info(LOG_ENTER_METHOD + "addAgreement()" + LOG_CLOSE);
-		agreement.setVersion(0);
-		agreement = agreementRepository.save(agreement);
+		agreement = service.save(agreement);
 		logger.info(LOG_TEXT + "ClientAgreement added with ID=" + agreement.getId() + LOG_CLOSE);
 		logger.info(LOG_OUT_OF_METHOD + "addAgreement()" + LOG_CLOSE);
 		return new ResponseEntity<ClientAgreement>(agreement, new HttpHeaders(), HttpStatus.CREATED);
@@ -83,10 +80,7 @@ public class ClientAgreementController extends BaseController {
 	public ResponseEntity<ClientAgreement> updateAgreement(@PathVariable(PARAM_ID) int id,
 			@RequestBody ClientAgreement agreement) {
 		logger.info(LOG_ENTER_METHOD + "updateAgreement()" + LOG_CLOSE);
-		agreement.setId(id);
-		int actualVersionNumber = agreementRepository.getOne(id).getVersion();
-		agreement.setVersion(actualVersionNumber);
-		agreement = agreementRepository.save(agreement);
+		agreement = service.update(id, agreement);
 		logger.info(LOG_TEXT + "ClientAgreement with ID=" + id + " was updated: " + agreement + LOG_CLOSE);
 		logger.info(LOG_OUT_OF_METHOD + "updateAgreement()" + LOG_CLOSE);
 		return new ResponseEntity<ClientAgreement>(agreement, new HttpHeaders(), HttpStatus.OK);
@@ -95,7 +89,7 @@ public class ClientAgreementController extends BaseController {
 	@DeleteMapping(value = { "/agreements/{id}", "/clients/{clientId}/agreements/{id}" }, headers = HEADER_JSON)
 	public ResponseEntity<Void> deleteAgreement(@PathVariable(PARAM_ID) int id) {
 		logger.info(LOG_ENTER_METHOD + "deleteAgreement()" + LOG_CLOSE);
-		agreementRepository.delete(id);
+		service.delete(id);
 		logger.info(LOG_TEXT + "ClientAgreement with ID=" + id + " was deleted" + LOG_CLOSE);
 		logger.info(LOG_OUT_OF_METHOD + "deleteAgreement()" + LOG_CLOSE);
 		return new ResponseEntity<Void>(new HttpHeaders(), HttpStatus.NO_CONTENT);
