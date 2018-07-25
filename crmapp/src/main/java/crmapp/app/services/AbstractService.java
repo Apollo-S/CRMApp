@@ -33,11 +33,17 @@ public abstract class AbstractService<T extends BaseEntity, R extends JpaReposit
 	}
 
 	@Override
-	public T update(int id, T entity) {
-		entity.setId(id);
-		int actualVersionNumber = repository.getOne(id).getVersion();
+	public T update(T entity) {
+		int actualVersionNumber = repository.getOne(entity.getId()).getVersion();
 		entity.setVersion(actualVersionNumber);
 		entity = repository.save(entity);
+		return entity;
+	}
+
+	@Override
+	public T update(int id, T entity) {
+		entity.setId(id);
+		entity = this.update(entity);
 		return entity;
 	}
 
