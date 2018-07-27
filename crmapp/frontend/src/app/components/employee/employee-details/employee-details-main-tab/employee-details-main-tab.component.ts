@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Employee } from '../../../../models/Employee';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { EmployeeService } from '../../../../services/employee.service';
 import { MessageService } from 'primeng/components/common/messageservice';

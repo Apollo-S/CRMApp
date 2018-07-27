@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { of } from 'rxjs/observable/of';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Document } from '../models/Document';
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs';
 import { DocumentType } from '../models/DocumentType';
 
 @Injectable()

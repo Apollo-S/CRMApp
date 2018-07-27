@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { of } from 'rxjs/observable/of';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs';
 import { ClientAgreement } from '../models/ClientAgreement';
 import { Document } from '../models/Document';
 

@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { MailOutput } from '../models/MailOutput';
-import { of } from 'rxjs/observable/of';
+import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { MailOutput } from '../models/MailOutput';
 
 @Injectable()
 export class MailOutputService {

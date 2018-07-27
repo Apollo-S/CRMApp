@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { EmployeeService } from '../../../../services/employee.service';
 import { EmployeeAccount } from '../../../../models/EmployeeAccount';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { Employee } from '../../../../models/Employee';
 
 @Component({

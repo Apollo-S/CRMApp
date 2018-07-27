@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { of } from 'rxjs/observable/of';
+import { Observable, of  } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Vacation } from '../models/Vacation';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
