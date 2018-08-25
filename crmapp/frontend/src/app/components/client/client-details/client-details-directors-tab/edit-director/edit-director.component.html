@@ -2,9 +2,9 @@
 
 <p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425" #cd>
   <p-footer>
-      <button type="button" pButton icon="fa-check" 
+      <button type="button" pButton icon="fa fa-check" 
         class="ui-button-primary" label="Ок" (click)="cd.accept()"></button>
-      <button type="button" pButton icon="fa-close" 
+      <button type="button" pButton icon="fa fa-close" 
         class="ui-button-secondary" label="Отмена" (click)="cd.reject()"></button>
   </p-footer>
 </p-confirmDialog>
@@ -57,14 +57,14 @@
     </div>
     <div class="ui-g-2">
       <button pButton type="button" label="Назад к клиенту" 
-        class="ui-button-info btn-block" icon="fa-arrow-circle-o-left"
+        class="ui-button-info btn-block" icon="fa fa-arrow-circle-o-left"
         [routerLink]="['../']">
       </button>
       <button pButton type="submit" label="Сохранить"
-        class="ui-button-success btn-block" icon="fa-check-square-o">
+        class="ui-button-success btn-block" icon="fa fa-check-square-o">
       </button>
       <button pButton type="button" label="Удалить" 
-        class="ui-button-danger btn-block" icon="fa-trash-o"
+        class="ui-button-danger btn-block" icon="fa fa-trash-o"
         (click)="confirmDeleting()">
       </button>
     </div>

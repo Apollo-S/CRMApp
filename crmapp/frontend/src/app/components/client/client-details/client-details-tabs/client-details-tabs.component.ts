@@ -18,11 +18,11 @@ export class ClientDetailsTabsComponent implements OnInit {
 
   private initTabs(): any {
     this.tabs = [
-      {label: 'Основные данные', icon: 'fa-address-card-o', routerLink: 'main'},
-      {label: 'Адресы', icon: 'fa-building-o', routerLink: 'addresses'},
-      {label: 'Банковские реквизиты', icon: 'fa-bank', routerLink: 'accounts'},
-      {label: 'Руководители', icon: 'fa-user-o', routerLink: 'directors'},
-      {label: 'Договоры', icon: 'fa-file-text-o', routerLink: 'agreements'}
+      {label: 'Основные данные', icon: 'fa fa-address-card-o', routerLink: 'main'},
+      {label: 'Адресы', icon: 'fa fa-building-o', routerLink: 'addresses'},
+      {label: 'Банковские реквизиты', icon: 'fa fa-bank', routerLink: 'accounts'},
+      {label: 'Руководители', icon: 'fa fa-user-o', routerLink: 'directors'},
+      {label: 'Договоры', icon: 'fa fa-file-text-o', routerLink: 'agreements'}
     ];
   }
 

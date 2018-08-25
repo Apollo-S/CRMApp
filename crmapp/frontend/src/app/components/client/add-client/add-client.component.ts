@@ -54,11 +54,11 @@ export class AddClientComponent implements OnInit {
 
   private initTabs() {
     this.tabs = [
-      {label: 'Основные данные', icon: 'fa-address-card-o', disabled: true},
-      {label: 'Адресы', icon: 'fa-building-o', disabled: true},
-      {label: 'Банковские реквизиты', icon: 'fa-bank', disabled: true},
-      {label: 'Руководители', icon: 'fa-user-o', disabled: true},
-      {label: 'Договоры', icon: 'fa-file-text-o', disabled: true}
+      {label: 'Основные данные', icon: 'fa fa-address-card-o', disabled: true},
+      {label: 'Адресы', icon: 'fa fa-building-o', disabled: true},
+      {label: 'Банковские реквизиты', icon: 'fa fa-bank', disabled: true},
+      {label: 'Руководители', icon: 'fa fa-user-o', disabled: true},
+      {label: 'Договоры', icon: 'fa fa-file-text-o', disabled: true}
     ];
   }
 

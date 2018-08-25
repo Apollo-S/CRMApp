@@ -2,10 +2,10 @@
 
 <p-confirmDialog header="Внимание" icon="fa fa-question-circle" width="425" #cd>
     <p-footer>
-        <button type="button" pButton icon="fa-check" 
+        <button type="button" pButton icon="fa fa-check" 
           class="ui-button-primary" label="Ок" (click)="cd.accept()">
         </button>
-        <button type="button" pButton icon="fa-close" 
+        <button type="button" pButton icon="fa fa-close" 
           class="ui-button-secondary" label="Отмена" (click)="cd.reject()">
         </button>
     </p-footer>
@@ -24,10 +24,10 @@
         <ng-template pTemplate="caption">
             <div>
                 <button pButton type="button" label="Новый" style="margin-top:2px;float:left" 
-                    (click)="showDialogToAdd()" icon="fa-plus">
+                    (click)="showDialogToAdd()" icon="fa fa-plus">
                 </button>
                 <button pButton type="button" label="Редакт." style="margin-left:2px;margin-top:2px;float:left" 
-                    (click)="showDialog(selectedMailInput)" icon="fa-edit" class="ui-button-success" [disabled]="!selectedMailInput">
+                    (click)="showDialog(selectedMailInput)" icon="fa fa-edit" class="ui-button-success" [disabled]="!selectedMailInput">
                 </button>
             </div>
             <div style="text-align: right">
@@ -76,7 +76,7 @@
 </p-panel>
 
 <p-dialog [(visible)]="displayDialog" [contentStyle]="{'overflow':'visible'}"
-  showEffect="fade" [modal]="true" [width]="600" [autoAlign]="true" [responsive]="true">
+  showEffect="fade" [modal]="true" [width]="600" [responsive]="true">
     <p-header>
         {{headerText}}
     </p-header>
@@ -100,7 +100,7 @@
             <div class="ui-g-4">
                 <label for="disabled-btn"></label>
                 <p-toggleButton [(ngModel)]="disabledMailInputNumber" [style]="{'margin-top':'10px'}"
-                    offIcon="fa-edit" onIcon="fa-save" onLabel="Сохранить" offLabel="Редактир.">
+                    offIcon="fa fa-edit" onIcon="fa fa-save" onLabel="Сохранить" offLabel="Редактир.">
                 </p-toggleButton>
             </div>
         </div>
@@ -122,13 +122,13 @@
     </div>
     <p-footer>
         <div class="ui-dialog-buttonpane ui-helper-clearfix">
-            <button type="button" pButton icon="fa-trash" class="ui-button-danger" 
+            <button type="button" pButton icon="fa fa-trash" class="ui-button-danger" 
                 (click)="confirmDeleting()" label="Удалить">
             </button>
-            <button type="button" pButton icon="fa-close" class="ui-button-secondary" 
+            <button type="button" pButton icon="fa fa-close" class="ui-button-secondary" 
                 (click)="displayDialog=false" label="Закрыть">
             </button>
-            <button type="button" pButton icon="fa-check" class="ui-button-success" 
+            <button type="button" pButton icon="fa fa-check" class="ui-button-success" 
                 (click)="saveOrUpdate()" label="Сохранить">
             </button>
         </div>

@@ -39,10 +39,10 @@ export class ClientsComponent implements OnInit {
 
   private initMenu() {
     this.items = [
-      { label: 'Договоры', icon: 'fa-file-text-o', title: 'agreements' },
-      { label: 'Адресы', icon: 'fa-building-o', title: 'addresses' },
-      { label: 'Руководители', icon: 'fa-user-o', title: 'directors' },
-      { label: 'Банк. реквизиты', icon: 'fa-bank', title: 'accounts' }
+      { label: 'Договоры', icon: 'fa fa-file-text-o', title: 'agreements' },
+      { label: 'Адресы', icon: 'fa fa-building-o', title: 'addresses' },
+      { label: 'Руководители', icon: 'fa fa-user-o', title: 'directors' },
+      { label: 'Банк. реквизиты', icon: 'fa fa-bank', title: 'accounts' }
     ];
   }
 

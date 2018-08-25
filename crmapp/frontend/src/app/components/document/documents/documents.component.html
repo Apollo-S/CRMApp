@@ -13,7 +13,7 @@
                     </p-multiSelect>
                 </div>
                 <div class="ui-grid-col-2">
-                    <button pButton type="button" icon="fa-filter" label="Фильтровать" style="float:right"
+                    <button pButton type="button" icon="fa fa-filter" label="Фильтровать" style="float:right"
                         class="ui-button-info btn-block" (click)="useFilter('id', 'asc')" >
                     </button>
                 </div>
@@ -30,7 +30,7 @@
                     </p-multiSelect>
                 </div>
                 <div class="ui-grid-col-2">
-                    <button pButton type="button" icon="fa-trash" label="Очистить"
+                    <button pButton type="button" icon="fa fa-trash" label="Очистить"
                         (click)="clearFilter()" class="ui-button-success btn-block" style="float:right">
                     </button>
                 </div>
@@ -47,7 +47,7 @@
                     </p-multiSelect>
                 </div>
                 <div class="ui-grid-col-2">
-                    <button pButton type="button" icon="fa-times" label="Закрыть"
+                    <button pButton type="button" icon="fa fa-times" label="Закрыть"
                         (click)="showFilter=false" class="ui-button-danger btn-block" style="float:right">
                     </button>
                 </div>
@@ -66,9 +66,9 @@
         </span> 
 
         <button pButton type="button" label="Добавить" style="margin-top:6px;float:right" 
-            [routerLink]="['add']" icon="fa-plus">
+            [routerLink]="['add']" icon="fa fa-plus">
         </button>
-        <button pButton type="button" icon="fa-filter" label="Фильтр"
+        <button pButton type="button" icon="fa fa-filter" label="Фильтр"
             (click)="showFilter=true" class="ui-button-info" style="margin-top:6px;margin-right:4px;float:right">
         </button> 
         <p-dropdown [options]="columns" [(ngModel)]="selectedSortField" optionLabel="header" [autoWidth]="false"
@@ -80,7 +80,7 @@
         <p-dropdown [options]="sortTypes" [(ngModel)]="selectedSortType" [autoWidth]="false"
              [showClear]="false" [style]="{'min-width':'10em'}">
         </p-dropdown>
-        <button pButton type="button" icon="fa-sort" label="Сортировать"
+        <button pButton type="button" icon="fa fa-sort" label="Сортировать"
             (click)="useSorting()" class="ui-button-info" style="margin-top:6px;margin-right:4px;float:right">
         </button> 
       </div>
@@ -112,7 +112,7 @@
           <tr [ngClass]="rowData.status.status == 'Оплачен' ? 'paid' : null" >
               <td>
                 <a href="#" [pRowToggler]="rowData">
-                  <i [ngClass]="expanded ? 'fa fa-fw fa-chevron-circle-down' : 'fa fa-fw fa-chevron-circle-right'"></i>
+                  <i [ngClass]="expanded ? 'fa fa-fw fa fa-chevron-circle-down' : 'fa fa-fw fa fa-chevron-circle-right'"></i>
                 </a>
               </td>
               
@@ -145,13 +145,13 @@
 
               <td style="text-align:center">
                   <button pButton type="button" class="ui-button-info" 
-                      icon="fa-arrow-circle-o-right"  
+                      icon="fa fa-arrow-circle-o-right"  
                       (click)="goToEntry(document?.url)">
                   </button>
                   <p-tieredMenu #menu [model]="items" [popup]="true" 
                       appendTo="body">
                   </p-tieredMenu>
-                  <!-- <button #btn pButton type="button" icon="fa-list" class="ui-button-info" 
+                  <!-- <button #btn pButton type="button" icon="fa fa-list" class="ui-button-info" 
                       (click)="menu.toggle($event)" (mousedown)="initMenu(document?.id)">
                   </button> -->
               </td>
@@ -167,7 +167,7 @@
                                         <h5><b>Договор:</b> {{rowData.agreementNumber}}</h5>
                                     </span>  
                                     <button pButton type="button" class="ui-button-info" 
-                                        icon="fa-arrow-circle-o-right" label="Перейти"
+                                        icon="fa fa-arrow-circle-o-right" label="Перейти"
                                         [routerLink]="['/agreements', rowData.agreementId]">
                                     </button>
                                 </div>

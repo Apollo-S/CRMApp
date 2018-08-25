@@ -17,8 +17,8 @@ export class AgreementDetailsTabsComponent implements OnInit {
 
   private initTabs(): any {
     this.tabs = [
-      {label: 'Основные данные', icon: 'fa-address-card-o', routerLink: 'main'},
-      {label: 'Связанные документы', icon: 'fa-file-text-o', routerLink: 'documents'}
+      {label: 'Основные данные', icon: 'fa fa-address-card-o', routerLink: 'main'},
+      {label: 'Связанные документы', icon: 'fa fa-file-text-o', routerLink: 'documents'}
     ];
   }
 

@@ -38,7 +38,7 @@ export class AgreementsComponent implements OnInit {
 
   private initMenu() {
     this.items = [
-      { label: 'Связ. документы', icon: 'fa-file-text-o', title: 'documents' }
+      { label: 'Связ. документы', icon: 'fa fa-file-text-o', title: 'documents' }
     ];
   }
 

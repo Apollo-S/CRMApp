@@ -13,16 +13,16 @@
         <ng-template pTemplate="caption">
             <div>
                 <button pButton type="button" label="{{addButtonTitle}}" style="margin-top:2px;float:left" 
-                    [routerLink]="['add']" icon="fa-plus">
+                    [routerLink]="['add']" icon="fa fa-plus">
                 </button>
                 <button pButton type="button" label="{{editButtonTitle}}" style="margin-left:2px;margin-top:2px;float:left" 
-                    (click)="goToEntry(selectedItem?.url)" icon="fa-edit" class="ui-button-success" [disabled]="!selectedItem">
+                    (click)="goToEntry(selectedItem?.url)" icon="fa fa-edit" class="ui-button-rounded ui-button-success" [disabled]="!selectedItem">
                 </button>
                 <p-tieredMenu #menu [model]="menuModel" [popup]="true" 
                     appendTo="body">
                 </p-tieredMenu>
                 <button *ngIf="menuModel?.length > 0"
-                    #btn pButton type="button" icon="fa-list" class="ui-button-info" 
+                    #btn pButton type="button" icon="fa fa-list" class="ui-button-info" 
                     style="margin-left:2px;margin-top:2px;float:left" label="{{additionalButtonTitle}}"
                     (click)="menu.toggle($event)" (mousedown)="initMenu(selectedItem?.id)" [disabled]="!selectedItem">
                 </button>
