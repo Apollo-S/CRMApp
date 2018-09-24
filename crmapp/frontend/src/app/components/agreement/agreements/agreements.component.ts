@@ -9,20 +9,21 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./agreements.component.css']
 })
 export class AgreementsComponent implements OnInit {
-  agreements: ClientAgreement[] = [];
-  columns: any[];
-  items: MenuItem[];
+  agreements: Array<ClientAgreement> = [];
+  columns: Array<any> = [];
+  items: Array<MenuItem> = [];
 
-  constructor(private service: AgreementService) { }
+  constructor(private agreementService: AgreementService) {
+    this.getAgreements();
+   }
 
   ngOnInit() {
       this.initColumns();
-      this.getAgreements();
       this.initMenu();
   }
 
   private getAgreements() {
-    this.service.getAgreements()
+    this.agreementService.getAgreements()
       .subscribe(
         agreements => this.agreements = agreements
       );
@@ -32,7 +33,7 @@ export class AgreementsComponent implements OnInit {
     this.columns = [
       { field: 'clientAlias', header: 'Контрагент', filterBy: 'contains' },
       { field: 'number', header: 'Номер', filterBy: 'contains' },
-      { field: "dateStart", header: 'Дата', filterBy: 'contains' }
+      { field: 'dateStart', header: 'Дата', filterBy: 'contains' }
     ];
   }
 

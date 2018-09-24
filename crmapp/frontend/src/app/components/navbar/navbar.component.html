@@ -6,12 +6,12 @@
     </div>
   </div>
   <div class="ui-g-12 ui-md-12 ui-g-nopad">
-    <div class="ui-g-12 {{navbarWidth}}-fixed" >
+    <div class="ui-g-12" [class.navbar-collapsed-fixed]="isShown" [class.navbar-expanded-fixed]="!isShown">
       <app-navbar-menu-bar [model]="menubarItems" [autoDisplay]="false" baseZIndex="101"></app-navbar-menu-bar>
     </div>
     <div class="ui-g-12 ui-g-nopad">
       <div class="ui-g">
-        <div class="ui-g-12 ui-md-12 {{navbarWidth}}">
+        <div class="ui-g-12 ui-md-12" [class.navbar-collapsed]="isShown" [class.navbar-expanded]="!isShown">
           <router-outlet></router-outlet>
         </div>
       </div>
