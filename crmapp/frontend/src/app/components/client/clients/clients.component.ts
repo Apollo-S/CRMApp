@@ -11,18 +11,19 @@ import { MenuItem } from 'primeng/api';
 export class ClientsComponent implements OnInit {
   clients: Client[] = [];
   columns: any[];
-  items: MenuItem[];
+  items: MenuItem[] = [];
   
-  constructor(private service: ClientService) { }
+  constructor(private clientService: ClientService) {
+    this.getClients();
+  }
 
   ngOnInit() {
     this.initColumns();
-    this.getClients();
     this.initMenu();
   } 
 
-  private getClients(): any {
-    this.service.getClients()
+  private getClients() {
+    this.clientService.getClients()
       .subscribe(
         clients => this.clients = clients
       );
