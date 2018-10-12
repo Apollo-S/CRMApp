@@ -131,10 +131,7 @@ export class DocumentsComponent implements OnInit {
   }
 
   private getClients() {
-    this.clientService.getClients()
-      .subscribe(
-        clients => this.clients = clients
-      );
+    this.clientService.getClientsList()
   }
 
   private initColumns() {

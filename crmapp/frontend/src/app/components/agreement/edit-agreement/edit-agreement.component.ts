@@ -71,10 +71,7 @@ export class EditAgreementComponent implements OnInit , OnDestroy {
   }
 
   private getClients() {
-    this.clientService.getClients()
-      .subscribe(
-        clients => this.clients = clients
-      );
+    this.clientService.getClientsList()
   }
 
   private initCalendarSettings() {

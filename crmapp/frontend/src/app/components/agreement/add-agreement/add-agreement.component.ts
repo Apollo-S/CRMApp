@@ -63,10 +63,7 @@ export class AddAgreementComponent implements OnInit {
   }
 
   private getClients() {
-    this.clientService.getClients()
-      .subscribe(
-        clients => this.clients = clients
-      );
+    this.clientService.getClientsList()
   }
 
   private initCalendarSettings() {

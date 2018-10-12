@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -7,12 +7,14 @@ import { ClientAddress } from '../models/ClientAddress';
 import { ClientAccount } from '../models/ClientAccount';
 import { ClientAgreement } from '../models/ClientAgreement';
 import { ClientDirector } from '../models/ClientDirector';
+import { AppConst } from '../app-const';
 
 @Injectable()
 export class ClientService {
 
-  private clientsUrl = '/api/clients';
-  private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  clientsUrl: string;
+  emitterClients = new EventEmitter<any>();
+  headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   private _property$: BehaviorSubject<Client> = new BehaviorSubject({});
   
@@ -24,15 +26,18 @@ export class ClientService {
       return this._property$.asObservable();
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+              private appConst: AppConst) {
+    this.clientsUrl = appConst.baseUrl + appConst.clientsUrl;
+    this.getClientsList();
+  }
 
-  getClients(): Observable<Client[]> {
-    const url = `${this.clientsUrl}`;
-    return this.http
-      .get<Client[]>(url, { headers: this.headers })
-      .pipe(
-        catchError(this.handleError('getClients', []))
-      );
+  getClientsList() {
+    this.http.get<Client[]>(this.clientsUrl, { headers: this.headers })
+      .subscribe(
+        clients => {
+          this.emitterClients.emit(clients);
+      })
   }
   
   getClientById(id: number): Observable<Client> {
