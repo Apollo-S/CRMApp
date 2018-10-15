@@ -10,22 +10,24 @@ import { MenuItem } from 'primeng/api';
 })
 export class ClientsComponent implements OnInit {
   clients: Client[] = [];
-  columns: any[];
-  items: MenuItem[];
+  columns = [];
+  items: MenuItem[] = [];
   
-  constructor(private service: ClientService) { }
+  constructor(public clientService: ClientService) {
+  }
 
   ngOnInit() {
-    this.initColumns();
+    debugger
     this.getClients();
+    this.initColumns();
     this.initMenu();
   } 
 
-  private getClients(): any {
-    this.service.getClients()
+  private getClients() {
+    this.clientService.emitterClients
       .subscribe(
         clients => this.clients = clients
-      );
+      )
   }
 
   private initColumns() {
@@ -39,10 +41,10 @@ export class ClientsComponent implements OnInit {
 
   private initMenu() {
     this.items = [
-      { label: 'Договоры', icon: 'fa-file-text-o', title: 'agreements' },
-      { label: 'Адресы', icon: 'fa-building-o', title: 'addresses' },
-      { label: 'Руководители', icon: 'fa-user-o', title: 'directors' },
-      { label: 'Банк. реквизиты', icon: 'fa-bank', title: 'accounts' }
+      { label: 'Договоры', icon: 'fa fa-file-text-o', title: 'agreements' },
+      { label: 'Адресы', icon: 'fa fa-building-o', title: 'addresses' },
+      { label: 'Руководители', icon: 'fa fa-user-o', title: 'directors' },
+      { label: 'Банк. реквизиты', icon: 'fa fa-bank', title: 'accounts' }
     ];
   }
 

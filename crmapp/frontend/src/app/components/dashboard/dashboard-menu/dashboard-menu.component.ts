@@ -25,27 +25,27 @@ export class DashboardMenuComponent implements OnInit {
 
   private initCategories() {
     this.items = [
-      {"label": "Клиенты", "icon": "fa-folder-o", "expanded": false, "visible": true, "items": 
+      {"label": "Клиенты", "icon": "fa fa-folder-o", "expanded": false, "visible": true, "items": 
         [
-          {"label": "Все клиенты", "icon": "fa-asterisk", "routerLink": "/clients", "visible": true },
+          {"label": "Все клиенты", "icon": "fa fa-asterisk", "routerLink": "/clients", "visible": true },
         ]
       },
-      {"label": "Документооборот", "icon": "fa-folder", "expanded": false, "visible": true, "items": 
+      {"label": "Документооборот", "icon": "fa fa-folder", "expanded": false, "visible": true, "items": 
         [
-          {"label": "Договоры с клиентами", "icon": "fa-asterisk", "routerLink": "/agreements", "visible": true },
+          {"label": "Договоры с клиентами", "icon": "fa fa-asterisk", "routerLink": "/agreements", "visible": true },
         ]
       },
-      {"label": "Кадровый учет", "icon": "fa-navicon", "expanded": false, "visible": true, "items": 
+      {"label": "Кадровый учет", "icon": "fa fa-navicon", "expanded": false, "visible": true, "items": 
         [
-          {"label": "Сотрудники", "icon": "fa-asterisk", "routerLink": "/employees", "visible": true },
-          {"label": "Отпуски", "icon": "fa-asterisk", "routerLink": "/vacations", "visible": true },
-          {"label": "Больничные листы", "icon": "fa-asterisk", "routerLink": "/sick-lists", "visible": true },
+          {"label": "Сотрудники", "icon": "fa fa-asterisk", "routerLink": "/employees", "visible": true },
+          {"label": "Отпуски", "icon": "fa fa-asterisk", "routerLink": "/vacations", "visible": true },
+          {"label": "Больничные листы", "icon": "fa fa-asterisk", "routerLink": "/sick-lists", "visible": true },
         ]
       },
-      {"label": "Корреспонденция", "icon": "fa-navicon", "expanded": false, "visible": true, "items": 
+      {"label": "Корреспонденция", "icon": "fa fa-navicon", "expanded": false, "visible": true, "items": 
         [
-          {"label": "Исходящие номера", "icon": "fa-asterisk", "routerLink": "/output", "visible": true },
-          {"label": "Входящие номера", "icon": "fa-asterisk", "routerLink": "/input", "visible": true },
+          {"label": "Исходящие номера", "icon": "fa fa-asterisk", "routerLink": "/output", "visible": true },
+          {"label": "Входящие номера", "icon": "fa fa-asterisk", "routerLink": "/input", "visible": true },
         ]
       },
     ];

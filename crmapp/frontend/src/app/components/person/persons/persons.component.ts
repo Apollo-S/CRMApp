@@ -9,15 +9,16 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./persons.component.css']
 })
 export class PersonsComponent implements OnInit {  
-  persons: Person[] = [];
-  columns: any[];
-  items: MenuItem[];
+  persons: Array<Person> = [];
+  columns = [];
+  items: Array<MenuItem> = [];
 
-  constructor(private service: PersonService) { }
+  constructor(private service: PersonService) {
+    this.getPersons();
+   }
 
   ngOnInit() {
     this.initColumns();
-    this.getPersons();
     this.initMenu();
   }
 

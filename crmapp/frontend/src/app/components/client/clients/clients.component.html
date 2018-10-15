@@ -1,7 +1,17 @@
-<app-dashboard-table [title]="['Клиенты']" 
-    [columns]="columns" [datasource]="clients" [autoLayout]="true" 
-    [responsive]="true" [reorderableColumns]="true" 
-    [rows]="0" [paginator]="false" [rowHover]="true" 
-    [loading]="true" [menuModel]="items" [sortField]="id" 
-    addButtonTitle="Новый" editButtonTitle="Редакт." additionalButtonTitle="Прочее">
+<app-dashboard-table 
+    [title]="'Клиенты'" 
+    [columns]="columns" 
+    [datasource]="clients" 
+    [autoLayout]="true" 
+    [responsive]="true" 
+    [reorderableColumns]="true" 
+    [rows]="0" 
+    [paginator]="false" 
+    [rowHover]="true" 
+    [loading]="true" 
+    [menuModel]="items" 
+    [sortField]="id" 
+    [addButtonTitle]="'Новый'" 
+    [editButtonTitle]="'Редакт.'" 
+    [additionalButtonTitle]="'Прочее'">
 </app-dashboard-table>

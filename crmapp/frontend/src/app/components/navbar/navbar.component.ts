@@ -8,13 +8,12 @@ import { CategoryService } from '../../services/category.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-    isShown: boolean = true;
-    menubarItems: MenuItem[];
-    panelMenuItems: MenuItem[];
-    menuItems: MenuItem[];
-    navbarWidth: string = 'navbar-collapsed';
+    isShown = true;
+    menubarItems: Array<MenuItem> = [];
+    panelMenuItems: Array<MenuItem> = [];
+    menuItems: Array<MenuItem> = [];
 
-    constructor(private service: CategoryService) { }
+    constructor(private categoryService: CategoryService) { }
 
     ngOnInit() {
         this.initCategories();
@@ -34,7 +33,7 @@ export class NavbarComponent implements OnInit {
     }
     
     private getCategories() {
-        this.service.getCategories()
+        this.categoryService.getCategories()
             .subscribe(
                 panelMenuItems => this.panelMenuItems = panelMenuItems
             );
@@ -42,28 +41,28 @@ export class NavbarComponent implements OnInit {
     
     private initCategories() {
         this.panelMenuItems = [
-        { "label": "Клиенты", "icon": "fa-folder-o", "expanded": false, "visible": true, "items": 
+        { label: 'Клиенты', icon: 'fa fa-folder-o', expanded: false, visible: true, items: 
             [
-                { "label": "Все клиенты", "icon": "fa-asterisk", "routerLink": "/clients", "visible": true },
+                { label: 'Все клиенты', icon: 'fa fa-asterisk', routerLink: '/clients', visible: true },
             ]
         },
-        { "label": "Документооборот", "icon": "fa-folder", "expanded": false, "visible": true, "items": 
+        { label: 'Документооборот', icon: 'fa fa-folder', expanded: false, visible: true, items: 
             [
-                { "label": "Договоры с клиентами", "icon": "fa-asterisk", "routerLink": "/agreements", "visible": true },
-                { "label": "Документы", "icon": "fa-asterisk", "routerLink": "/documents", "visible": true },
+                { label: 'Договоры с клиентами', icon: 'fa fa-asterisk', routerLink: '/agreements', visible: true },
+                { label: 'Документы', icon: 'fa fa-asterisk', routerLink: '/documents', visible: true },
             ]
         },
-        { "label": "Кадровый учет", "icon": "fa-navicon", "expanded": false, "visible": true, "items": 
+        { label: 'Кадровый учет', icon: 'fa fa-navicon', expanded: false, visible: true, items: 
             [
-                { "label": "Сотрудники", "icon": "fa-asterisk", "routerLink": "/employees", "visible": true },
-                { "label": "Отпуски", "icon": "fa-asterisk", "routerLink": "/vacations", "visible": true },
-                { "label": "Больничные листы", "icon": "fa-asterisk", "routerLink": "/sick-lists", "visible": true },
+                { label: 'Сотрудники', icon: 'fa fa-asterisk', routerLink: '/employees', visible: true },
+                { label: 'Отпуски', icon: 'fa fa-asterisk', routerLink: '/vacations', visible: true },
+                { label: 'Больничные листы', icon: 'fa fa-asterisk', routerLink: '/sick-lists', visible: true },
             ]
         },
-        { "label": "Корреспонденция", "icon": "fa-navicon", "expanded": false, "visible": true, "items": 
+        { label: 'Корреспонденция', icon: 'fa fa-navicon', expanded: false, visible: true, items: 
             [
-                { "label": "Исходящие номера", "icon": "fa-asterisk", "routerLink": "/mail-outputs", "visible": true },
-                { "label": "Входящие номера", "icon": "fa-asterisk", "routerLink": "/mail-inputs", "visible": true },
+                { label: 'Исходящие номера', icon: 'fa fa-asterisk', routerLink: '/mail-outputs', visible: true },
+                { label: 'Входящие номера', icon: 'fa fa-asterisk', routerLink: '/mail-inputs', visible: true },
             ]
         },
         ];
@@ -71,34 +70,33 @@ export class NavbarComponent implements OnInit {
 
     private initMenues() {
         this.menubarItems = [
-            { title: 'Open/Hide', label: '', icon: 'fa-bars', disabled: false,
-                command: (event) => this.showHideMenu(this.isShown)
+            { title: 'Open/Hide', label: '', icon: 'fa fa-bars', disabled: false,
+                command: () => this.showHideMenu(this.isShown)
             },
-            { label: 'Главная', icon: 'fa-home', routerLink: [''] },
-            { label: 'Добавить', icon: 'fa-plus', items: [
+            { label: 'Главная', icon: 'fa fa-home', routerLink: [''] },
+            { label: 'Добавить', icon: 'fa fa-plus', items: [
                 { label: 'Новый клиент', routerLink: ['clients/add'] },
                 { label: 'Новый сотрудник', routerLink: ['employees/add'] },
                 { label: 'Новый договор', routerLink: ['agreements/add'] } ]
             },
-            { label: 'Справочники', icon: 'fa-list', items: [
-                { label: "Физические лица", routerLink: ['persons'] },
+            { label: 'Справочники', icon: 'fa fa-list', items: [
+                { label: 'Физические лица', routerLink: ['persons'] },
                 { label: 'Типы документов', routerLink: ['document-types'] } ]
             },
-            { label: 'Инфо', icon: 'fa-info-circle', routerLink: ['about'] }
+            { label: 'Инфо', icon: 'fa fa-info-circle', routerLink: ['about'] }
         ];
         this.menuItems = [
-            { label: 'Развернуть', icon: 'fa-plus-square', 
-                command: (event) => this.expandAll()
+            { label: 'Развернуть', icon: 'fa fa-plus-square', 
+                command: () => this.expandAll()
             },
-            { label: 'Свернуть', icon: 'fa-minus-square', 
-                command: (event) => this.collapseAll()
+            { label: 'Свернуть', icon: 'fa fa-minus-square', 
+                command: () => this.collapseAll()
             }
         ]
     }
 
     private showHideMenu(value: boolean): any {
-        this.isShown = value ? false : true;
-        this.navbarWidth = (this.isShown) ? 'navbar-collapsed' : 'navbar-expanded';
+        this.isShown = !this.isShown;
     }
 
 }

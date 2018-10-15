@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.json",
+    "start": "ng serve --proxy-config proxy.conf.json --port 4201",
     "build": "ng build --prod",
     "build:aot:prod": "npm run clean:dist && npm run clean:aot && webpack --config config/webpack.prod.js  --progress --profile --bail",
     "build:aot": "npm run build:aot:prod",
@@ -37,7 +37,7 @@
     "npm": "^6.2.0",
     "popper.js": "^1.14.3",
     "primeicons": "^1.0.0-beta.10",
-    "primeng": "6.0.1",
+    "primeng": "^6.1.2",
     "rxjs": "^6.2.2",
     "to": "^0.2.9",
     "update": "^0.7.4",

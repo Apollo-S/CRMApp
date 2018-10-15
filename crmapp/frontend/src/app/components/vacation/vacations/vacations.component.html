@@ -2,10 +2,10 @@
 
 <p-confirmDialog header="Внимание" icon="fa fa-question-circle" width="425" #cd>
     <p-footer>
-        <button type="button" pButton icon="fa-check" 
+        <button type="button" pButton icon="fa fa-check" 
           class="ui-button-primary" label="Ок" (click)="cd.accept()">
         </button>
-        <button type="button" pButton icon="fa-close" 
+        <button type="button" pButton icon="fa fa-close" 
           class="ui-button-secondary" label="Отмена" (click)="cd.reject()">
         </button>
     </p-footer>
@@ -18,7 +18,7 @@
                 <h4><b>Отпуски</b></h4>
             </span>  
             <button pButton type="button" label="Добавить" style="margin-top:6px;float:right" 
-                [routerLink]="['add']" icon="fa-plus">
+                [routerLink]="['add']" icon="fa fa-plus">
             </button>
         </div>
     </p-header>
@@ -29,15 +29,15 @@
         <ng-template pTemplate="caption">
             <div>
                 <button pButton type="button" label="Новый" style="margin-top:2px;float:left" 
-                    (click)="showDialogToAdd()" icon="fa-plus">
+                    (click)="showDialogToAdd()" icon="fa fa-plus">
                 </button>
                 <button pButton type="button" label="Редакт." style="margin-left:2px;margin-top:2px;float:left" 
-                    (click)="showDialog(selectedItem)" icon="fa-edit" class="ui-button-success" [disabled]="!selectedItem">
+                    (click)="showDialog(selectedItem)" icon="fa fa-edit" class="ui-button-success" [disabled]="!selectedItem">
                 </button>
                 <p-tieredMenu #menu [model]="menuModel" [popup]="true" 
                     appendTo="body">
                 </p-tieredMenu>
-                <button #btn pButton type="button" icon="fa-list" class="ui-button-info" 
+                <button #btn pButton type="button" icon="fa fa-list" class="ui-button-info" 
                     style="margin-left:2px;margin-top:2px;float:left" label="Прочее"
                     (click)="menu.toggle($event)" (mousedown)="initMenu(selectedItem?.id)" [disabled]="!selectedItem">
                 </button>
@@ -83,7 +83,7 @@
 </p-panel>
 
 <p-dialog [(visible)]="displayDialog" [contentStyle]="{'overflow':'visible'}"
-  showEffect="fade" [modal]="true" [width]="800" [autoAlign]="true" [responsive]="true">
+  showEffect="fade" [modal]="true" [width]="800" [responsive]="true">
     <p-header>
         {{headerText}}
     </p-header>
@@ -136,13 +136,13 @@
     </div>
     <p-footer>
         <div class="ui-dialog-buttonpane ui-helper-clearfix">
-            <button type="button" pButton icon="fa-trash" class="ui-button-danger" 
+            <button type="button" pButton icon="fa fa-trash" class="ui-button-danger" 
                 (click)="confirmDeleting()" label="Удалить">
             </button>
-            <button type="button" pButton icon="fa-close" class="ui-button-secondary" 
+            <button type="button" pButton icon="fa fa-close" class="ui-button-secondary" 
                 (click)="displayDialog=false" label="Закрыть">
             </button>
-            <button type="button" pButton icon="fa-check" class="ui-button-success" 
+            <button type="button" pButton icon="fa fa-check" class="ui-button-success" 
                 (click)="saveOrUpdate()" label="Сохранить">
             </button>
         </div>

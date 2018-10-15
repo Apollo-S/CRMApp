@@ -38,10 +38,10 @@ export class EmployeesComponent implements OnInit {
 
   private initMenu() {
     this.items = [
-      { label: 'Отпуски', icon: 'fa-user-o', title: 'vacations' },
-      { label: 'Больн. листы', icon: 'fa-user-o', title: 'sicks' },
-      { label: 'Адресы', icon: 'fa-building-o', title: 'addresses' },
-      { label: 'Банк. реквизиты', icon: 'fa-bank', title: 'accounts' }
+      { label: 'Отпуски', icon: 'fa fa-user-o', title: 'vacations' },
+      { label: 'Больн. листы', icon: 'fa fa-user-o', title: 'sicks' },
+      { label: 'Адресы', icon: 'fa fa-building-o', title: 'addresses' },
+      { label: 'Банк. реквизиты', icon: 'fa fa-bank', title: 'accounts' }
     ];
   }
 

@@ -57,16 +57,13 @@ export class AddAgreementComponent implements OnInit {
 
   private initTabs(): any {
     this.tabs = [
-      {label: 'Основные данные', icon: 'fa-address-card-o', disabled: true },
-      {label: 'Связанные документы', icon: 'fa-file-text-o', disabled: true}
+      {label: 'Основные данные', icon: 'fa fa-address-card-o', disabled: true },
+      {label: 'Связанные документы', icon: 'fa fa-file-text-o', disabled: true}
     ];
   }
 
   private getClients() {
-    this.clientService.getClients()
-      .subscribe(
-        clients => this.clients = clients
-      );
+    this.clientService.getClientsList()
   }
 
   private initCalendarSettings() {

@@ -8,5 +8,5 @@ Technologies for back-end:
 Database: 
 	MySQL, PostgreSQL (planning);
 Front-end: 
-	Angular 5, PrimeNG;
+	Angular 6, PrimeNG;
 

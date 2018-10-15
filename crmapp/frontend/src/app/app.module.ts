@@ -45,6 +45,7 @@ import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/components/common/messageservice';
 
 // Custom Service Imports
+import { AppConst } from './app-const';
 import { AgreementService } from './services/agreement.service';
 import { CategoryService } from './services/category.service';
 import { ClientService } from './services/client.service';
@@ -228,6 +229,7 @@ import { EmployeeDetailsSicksTabComponent } from './components/employee/employee
     TreeModule,
   ],
   providers: [
+    AppConst,
     AgreementService,
     CategoryService,
     ClientService,
