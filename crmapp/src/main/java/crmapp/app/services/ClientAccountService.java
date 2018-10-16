@@ -18,8 +18,7 @@ public class ClientAccountService extends AbstractService<ClientAccount, ClientA
 	private ClientService clientService;
 
 	public List<ClientAccount> findAllByClientId(Integer clientId) {
-		List<ClientAccount> accounts = repository.findAllByClientId(clientId);
-		return accounts;
+		return repository.findAllByClientId(clientId);
 	}
 
 	public ClientAccount save(int clientId, ClientAccount account) {

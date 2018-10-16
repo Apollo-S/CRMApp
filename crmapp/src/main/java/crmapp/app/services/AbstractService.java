@@ -1,14 +1,16 @@
 package crmapp.app.services;
 
+import java.io.Serializable;
 import java.util.List;
 
+import crmapp.app.repositories.BaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import crmapp.app.entities.BaseEntity;
 
-public abstract class AbstractService<T extends BaseEntity, R extends JpaRepository<T, Integer>>
-		implements BaseService<T> {
+public abstract class AbstractService<T extends BaseEntity, R extends BaseRepository<T, Integer>>
+		implements BaseService<T, Integer> {
 
 	@Autowired
 	protected R repository;
@@ -17,6 +19,11 @@ public abstract class AbstractService<T extends BaseEntity, R extends JpaReposit
 	public List<T> getAll() {
 		List<T> entities = repository.findAll();
 		return entities;
+	}
+
+	@Override
+	public List<Integer> findAllEntityIds() {
+		return repository.findAllEntityIds();
 	}
 
 	@Override
@@ -51,5 +58,7 @@ public abstract class AbstractService<T extends BaseEntity, R extends JpaReposit
 	public void delete(int id) {
 		repository.delete(id);
 	}
+
+
 
 }

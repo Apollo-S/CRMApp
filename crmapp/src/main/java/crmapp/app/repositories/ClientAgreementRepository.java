@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import crmapp.app.entities.ClientAgreement;
 
-public interface ClientAgreementRepository extends JpaRepository<ClientAgreement, Integer>{
+public interface ClientAgreementRepository extends BaseRepository<ClientAgreement, Integer>{
 	
 	@Query("SELECT ca FROM ClientAgreement ca WHERE ca.client.id = :clientId")
 	public List<ClientAgreement> findAllAgreementsByClientId(@Param("clientId") Integer clientId);

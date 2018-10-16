@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import crmapp.app.entities.Vacation;
 
-public interface VacationRepository extends JpaRepository<Vacation, Integer> {
+public interface VacationRepository extends BaseRepository<Vacation, Integer> {
 
 	@Query("SELECT v FROM Vacation v WHERE v.employee.id = :employeeId")
 	public List<Vacation> findAllVacationsByEmployeeId(@Param("employeeId") Integer employeeId);

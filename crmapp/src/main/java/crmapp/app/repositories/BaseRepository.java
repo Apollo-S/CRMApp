@@ -10,8 +10,8 @@ import org.springframework.data.repository.NoRepositoryBean;
 public interface BaseRepository<T, ID extends Serializable> extends JpaRepository<T, ID> {
 
 	@SuppressWarnings("unchecked")
-	public List<T> findByIds(ID...ids);
+	List<T> findByIds(ID... ids);
 	
-	public List<Integer> findAllEntityIds();
+	List<ID> findAllEntityIds();
 	
 }

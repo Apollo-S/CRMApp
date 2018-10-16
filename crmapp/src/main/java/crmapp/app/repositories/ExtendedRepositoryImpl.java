@@ -33,10 +33,10 @@ public class ExtendedRepositoryImpl<T, ID extends Serializable> extends SimpleJp
 	}
 
 	@Override 
-	public List<Integer> findAllEntityIds() {
+	public List<ID> findAllEntityIds() {
 		String qlString = "select e.id from " + this.entityInformation.getEntityName() + " e";
 		Query query = this.entityManager.createQuery(qlString);
-		return (List<Integer>) query.getResultList();
+		return (List<ID>) query.getResultList();
 	}
 
 }

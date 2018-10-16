@@ -2,13 +2,14 @@ package crmapp.app.services;
 
 import java.util.List;
 
-public interface BaseService<T> {
+public interface BaseService<T, ID> {
 
-	public List<T>getAll();
-	public T getById(int id);
-	public T save(T entity);
-	public T update(T entity);
-	public T update(int id, T entity);
-	public void delete(int id);
-	
+	List<T> getAll();
+	T getById(int id);
+	T save(T entity);
+	T update(T entity);
+	T update(int id, T entity);
+	void delete(int id);
+	List<ID> findAllEntityIds();
+
 }
