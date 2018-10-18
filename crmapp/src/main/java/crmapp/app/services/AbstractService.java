@@ -5,7 +5,6 @@ import java.util.List;
 
 import crmapp.app.repositories.BaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import crmapp.app.entities.BaseEntity;
 
@@ -27,7 +26,7 @@ public abstract class AbstractService<T extends BaseEntity, R extends BaseReposi
 	}
 
 	@Override
-	public T getById(int id) {
+	public T getById(Integer id) {
 		T entity = repository.findOne(id);
 		return entity;
 	}
@@ -48,14 +47,14 @@ public abstract class AbstractService<T extends BaseEntity, R extends BaseReposi
 	}
 
 	@Override
-	public T update(int entityId, T entity) {
+	public T update(Integer entityId, T entity) {
 		entity.setId(entityId);
 		entity = this.update(entity);
 		return entity;
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(Integer id) {
 		repository.delete(id);
 	}
 

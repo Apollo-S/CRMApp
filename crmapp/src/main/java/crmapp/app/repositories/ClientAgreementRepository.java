@@ -11,6 +11,6 @@ import crmapp.app.entities.ClientAgreement;
 public interface ClientAgreementRepository extends BaseRepository<ClientAgreement, Integer>{
 	
 	@Query("SELECT ca FROM ClientAgreement ca WHERE ca.client.id = :clientId")
-	public List<ClientAgreement> findAllAgreementsByClientId(@Param("clientId") Integer clientId);
+	List<ClientAgreement> findAllAgreementsByClientId(@Param("clientId") Integer clientId);
 
 }
