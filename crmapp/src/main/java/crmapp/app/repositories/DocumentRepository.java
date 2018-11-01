@@ -10,17 +10,12 @@ import crmapp.app.entities.Document;
 
 public interface DocumentRepository extends BaseRepository<Document, Integer> {
 
-	public static final String AGREEMENT_ID = "agreementId";
-	public static final String DOC_STATUSES = "docStatuses";
-	public static final String DOC_TYPES = "docTypes";
-	public static final String CLIENTS = "clients";
-
 	@Query("SELECT doc FROM Document doc WHERE doc.agreement.id = :agreementId")
-	public List<Document> findAllDocumentsByAgreementId(@Param(AGREEMENT_ID) Integer agreementId);
+	List<Document> findAllDocumentsByAgreementId(@Param("agreementId") Integer agreementId);
 
-	@Query("select doc from Document doc where doc.docType.id in (:docTypes) " +
-			"and doc.status.id in (:docStatuses) and doc.agreement.client.id in (:clients)")
-	public List<Document> findAllDocumentsByFilterAndSort(@Param(DOC_TYPES) List<Integer> docTypes, 
-			@Param(DOC_STATUSES) List<Integer> docStatuses, @Param(CLIENTS) List<Integer> clients, Sort sort);
+	@Query("SELECT doc FROM Document doc WHERE doc.docType.id IN (:docTypes) " +
+			"AND doc.status.id IN (:docStatuses) AND doc.agreement.client.id IN (:clients)")
+	List<Document> findAllDocumentsByFilterAndSort(@Param("docTypes") List<Integer> docTypes,
+			@Param("docStatuses") List<Integer> docStatuses, @Param("clients") List<Integer> clients, Sort sort);
 
 }

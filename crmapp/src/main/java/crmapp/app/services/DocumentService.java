@@ -41,7 +41,6 @@ public class DocumentService extends AbstractService<Document, DocumentRepositor
     public List<Document> getAllByFilterAndSort(List<Integer> docTypes, List<Integer> docStatuses,
                                                 List<Integer> clients, String sortType, String sortField) {
         logger.info("OK: DocumentService.getAllByFilterAndSort()");
-        List<Document> documents;
         if (docTypes.get(0) == 0 || docTypes.isEmpty()) {
             docTypes = documentTypeService.findAllEntityIds();
         }
@@ -52,7 +51,7 @@ public class DocumentService extends AbstractService<Document, DocumentRepositor
             clients = clientService.findAllEntityIds();
         }
         Sort sort = new Sort(fromString(sortType), sortField);
-        documents = super.repository.findAllDocumentsByFilterAndSort(docTypes, docStatuses, clients, sort);
+        List<Document> documents = super.repository.findAllDocumentsByFilterAndSort(docTypes, docStatuses, clients, sort);
         logger.info("OK: Count of documents equals " + documents.size());
         return documents;
     }
