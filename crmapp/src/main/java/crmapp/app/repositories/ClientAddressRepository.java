@@ -11,6 +11,6 @@ import crmapp.app.entities.ClientAddress;
 public interface ClientAddressRepository extends JpaRepository<ClientAddress, Integer> {
 
 	@Query("SELECT ca FROM ClientAddress ca WHERE ca.client.id = :clientId")
-	public List<ClientAddress> findAllClientAddressesByClientId(@Param("clientId") Integer clientId);
+	List<ClientAddress> findAllClientAddressesByClientId(@Param("clientId") Integer clientId);
 
 }

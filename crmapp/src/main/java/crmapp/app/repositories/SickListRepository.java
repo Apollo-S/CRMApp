@@ -11,6 +11,6 @@ import crmapp.app.entities.SickList;
 public interface SickListRepository extends JpaRepository<SickList, Integer> {
 
 	@Query("SELECT s FROM SickList s WHERE s.employee.id = :employeeId")
-	public List<SickList> findAllSickListsByEmployeeId(@Param("employeeId") Integer employeeId);
+	List<SickList> findAllSickListsByEmployeeId(@Param("employeeId") Integer employeeId);
 
 }

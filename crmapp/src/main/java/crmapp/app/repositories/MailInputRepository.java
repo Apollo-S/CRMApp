@@ -6,6 +6,6 @@ import crmapp.app.entities.MailInput;
 public interface MailInputRepository extends BaseRepository<MailInput, Integer> {
 
 	@Query("select coalesce(max(m.number),0) from MailInput m")
-	public int getMaxMailInputNumber();
+	int getMaxMailInputNumber();
 	
 }

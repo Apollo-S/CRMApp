@@ -11,7 +11,7 @@ import crmapp.app.entities.ClientDirector;
 public interface ClientDirectorRepository extends JpaRepository<ClientDirector, Integer>{
 
 	@Query("SELECT cd FROM ClientDirector cd WHERE cd.client.id = :clientId")
-	public List<ClientDirector> findAllDirectorsByClientId(@Param("clientId") Integer clientId);
+	List<ClientDirector> findAllDirectorsByClientId(@Param("clientId") Integer clientId);
 	
 }
 

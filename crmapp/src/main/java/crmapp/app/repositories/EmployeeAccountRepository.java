@@ -11,7 +11,7 @@ import crmapp.app.entities.EmployeeAccount;
 public interface EmployeeAccountRepository extends JpaRepository<EmployeeAccount, Integer>{
 
 	@Query("SELECT ea FROM EmployeeAccount ea WHERE ea.employee.id = :employeeId")
-	public List<EmployeeAccount> findAllByEmployeeId(@Param("employeeId") Integer employeeId);
+	List<EmployeeAccount> findAllByEmployeeId(@Param("employeeId") Integer employeeId);
 	
 }
 
