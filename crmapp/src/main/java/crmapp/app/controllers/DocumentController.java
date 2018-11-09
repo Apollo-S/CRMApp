@@ -43,7 +43,7 @@ public class DocumentController extends BaseController {
 		return new ResponseEntity<>(documents, HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/documents/filter/docTypes=[{docTypes}]&docStatuses=[{docStatuses}]&clients=[{clients}]&sortField={sortField}&sortType={sortType}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/documents/filter/docTypes=[{docTypes}]&docStatuses=[{docStatuses}]&clients=[{clients}]&sortField={sortField}&sortType={sortType}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Document>> getAllDocumentsByFilter(@PathVariable("docTypes") List<Integer> docTypes, 
 			@PathVariable("docStatuses") List<Integer> docStatuses, @PathVariable("clients") List<Integer> clients,
 			@PathVariable("sortField") String sortField, @PathVariable("sortType") String sortType) {
