@@ -2,6 +2,7 @@ package crmapp.app.controllers;
 
 import java.util.List;
 
+import crmapp.app.entities.DocumentFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,12 +44,10 @@ public class DocumentController extends BaseController {
 		return new ResponseEntity<>(documents, HttpStatus.OK);
 	}
 
-	@PostMapping(value = "/documents/filter/docTypes=[{docTypes}]&docStatuses=[{docStatuses}]&clients=[{clients}]&sortField={sortField}&sortType={sortType}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Document>> getAllDocumentsByFilter(@PathVariable("docTypes") List<Integer> docTypes, 
-			@PathVariable("docStatuses") List<Integer> docStatuses, @PathVariable("clients") List<Integer> clients,
-			@PathVariable("sortField") String sortField, @PathVariable("sortType") String sortType) {
+	@PostMapping(value = "/documents/filter/", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Document>> getAllDocumentsByFilter(@RequestBody DocumentFilter docFilter) {
 		logger.info(LOG_ENTER_METHOD + "getAllDocumentsByFilter()" + LOG_CLOSE);
-		List<Document> documents = documentService.getAllByFilterAndSort(docTypes, docStatuses, clients, sortType, sortField);
+		List<Document> documents = documentService.getAllByFilterAndSort(docFilter);
 		if (documents.size() == 0) {
 			logger.info(LOG_ERROR + "Documents were not found" + LOG_CLOSE);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);

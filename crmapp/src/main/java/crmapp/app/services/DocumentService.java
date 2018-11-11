@@ -1,7 +1,8 @@
 package crmapp.app.services;
 
-import java.util.List;
+import java.util.*;
 
+import crmapp.app.entities.DocumentFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,12 @@ public class DocumentService extends AbstractService<Document, DocumentRepositor
         List<Document> documents = super.repository.findAllDocumentsByFilterAndSort(docTypes, docStatuses, clients, sort);
         logger.info("OK: Count of documents equals " + documents.size());
         return documents;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Document> getAllByFilterAndSort(DocumentFilter docFilter) {
+        return getAllByFilterAndSort(docFilter.getDocTypes(), docFilter.getDocStatuses(), docFilter.getClients(),
+                docFilter.getSortType(), docFilter.getSortField());
     }
 
 }
