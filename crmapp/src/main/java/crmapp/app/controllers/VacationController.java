@@ -23,7 +23,6 @@ import crmapp.app.repositories.VacationRepository;
 import crmapp.app.services.VacationService;
 
 @RestController
-@Transactional
 @RequestMapping(value = "/api")
 public class VacationController extends BaseController {
 

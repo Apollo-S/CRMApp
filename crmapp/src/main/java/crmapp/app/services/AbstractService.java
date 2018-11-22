@@ -1,6 +1,5 @@
 package crmapp.app.services;
 
-import java.io.Serializable;
 import java.util.List;
 
 import crmapp.app.repositories.BaseRepository;

@@ -8,12 +8,14 @@ import org.springframework.stereotype.Service;
 
 import crmapp.app.entities.Vacation;
 import crmapp.app.repositories.VacationRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class VacationService extends AbstractService<Vacation, VacationRepository> {
 
 	private static final Logger logger = LoggerFactory.getLogger(VacationService.class);
 
+	@Transactional(readOnly = true)
 	public List<Vacation> getAllByEmployeeId(int id) {
 		logger.info("OK: VacationService.getAllByEmployeeId()");
 		List<Vacation> vacations = repository.findAllVacationsByEmployeeId(id);

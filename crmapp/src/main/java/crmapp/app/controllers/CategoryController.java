@@ -16,7 +16,6 @@ import crmapp.app.entities.Category;
 import crmapp.app.repositories.CategoryRepository;
 
 @RestController
-@Transactional
 @RequestMapping(value = "/api/categories")
 public class CategoryController extends BaseController {
 
@@ -25,6 +24,7 @@ public class CategoryController extends BaseController {
 	@Autowired
 	private CategoryRepository categoryRepository;
 
+	@Transactional(readOnly = true)
 	@GetMapping(value = "", headers = HEADER_JSON)
 	public ResponseEntity<List<Category>> getAllCategories() {
 		logger.info(LOG_ENTER_METHOD + "getAllCategories()" + LOG_CLOSE);
