@@ -5,11 +5,19 @@
 	<artifactId>crmapp</artifactId>
 	<version>0.0.1</version>
 	<name>crmapp</name>
+
+	<properties>
+		<java.version>1.8</java.version>
+		<dbcp2.version>2.1.1</dbcp2.version>
+		<h2.version>1.4.195</h2.version>
+		<lang3.version>3.7</lang3.version>
+		<mysql.conn.version>8.0.13</mysql.conn.version>
+	</properties>
 	
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.10.RELEASE</version>
+		<version>1.5.17.RELEASE</version>
 	</parent>
 	
 	<dependencies>
@@ -45,7 +53,8 @@
 	  	<dependency>
 	  		<groupId>mysql</groupId>
 	  		<artifactId>mysql-connector-java</artifactId>
-	  	</dependency>
+			<version>${mysql.conn.version}</version>
+		</dependency>
 	  	<dependency>
 	  		<groupId>org.springframework.boot</groupId>
 	  		<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -73,14 +82,6 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>${lang3.version}</version>
 		</dependency>
-
 	</dependencies>
-	
-	<properties>
-		<java.version>1.8</java.version>
-		<dbcp2.version>2.1.1</dbcp2.version>
-		<h2.version>1.4.195</h2.version>
-		<lang3.version>3.7</lang3.version>
-	</properties>
 	
 </project>
