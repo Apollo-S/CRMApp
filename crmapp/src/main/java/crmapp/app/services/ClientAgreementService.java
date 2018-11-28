@@ -13,8 +13,7 @@ import crmapp.app.repositories.ClientAgreementRepository;
 public class ClientAgreementService extends AbstractService<ClientAgreement, ClientAgreementRepository> {
 
 	public List<ClientAgreement> findAllByClientId(int clientId) {
-		List<ClientAgreement> agreements = repository.findAllAgreementsByClientId(clientId);
-		return agreements;
+		return repository.findAllAgreementsByClientId(clientId);
 	}
 
 }

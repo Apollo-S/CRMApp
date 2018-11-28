@@ -35,11 +35,11 @@ public class ClientController extends BaseController {
 		List<Client> clients = service.getAll();
 		if (clients.size() == 0) {
 			logger.info(LOG_ERROR + "Clients were not found" + LOG_CLOSE);
-			return new ResponseEntity<List<Client>>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 		logger.info(LOG_TEXT + "Count of clients: " + clients.size() + LOG_CLOSE);
 		logger.info(LOG_OUT_OF_METHOD + "getAllClients()" + LOG_CLOSE);
-		return new ResponseEntity<List<Client>>(clients, HttpStatus.OK);
+		return new ResponseEntity<>(clients, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/{id}", headers = HEADER_JSON)
@@ -48,11 +48,11 @@ public class ClientController extends BaseController {
 		Client client = service.getById(id);
 		if (client == null) {
 			logger.info(LOG_ERROR + "Client with ID=" + id + "wasn't found" + LOG_CLOSE);
-			return new ResponseEntity<Client>(client, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		logger.info(LOG_TEXT + "Client with ID=" + id + " was found: " + client + LOG_CLOSE);
 		logger.info(LOG_OUT_OF_METHOD + "getClientById()" + LOG_CLOSE);
-		return new ResponseEntity<Client>(client, HttpStatus.OK);
+		return new ResponseEntity<>(client, HttpStatus.OK);
 	}
 
 	@PostMapping(value = "", headers = HEADER_JSON)
