@@ -31,7 +31,7 @@ public class ClientAgreementController extends BaseController {
 	@GetMapping(value = "/agreements", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ClientAgreement>> getAllAgreements() {
 		logger.info(LOG_ENTER_METHOD + "getAllAgreements()" + LOG_CLOSE);
-		List<ClientAgreement> agreements = service.getAll();
+		List<ClientAgreement> agreements = service.findAll();
 		if (agreements.size() == 0) {
 			logger.info(LOG_ERROR + "ClientAgreements were not found" + LOG_CLOSE);
 			return new ResponseEntity<List<ClientAgreement>>(HttpStatus.NO_CONTENT);
@@ -57,7 +57,7 @@ public class ClientAgreementController extends BaseController {
 	@GetMapping(value = { "/agreements/{id}", "/clients/{clientId}/agreements/{id}" }, headers = HEADER_JSON)
 	public ResponseEntity<ClientAgreement> getAgreementById(@PathVariable(PARAM_ID) int id) {
 		logger.info(LOG_ENTER_METHOD + "getAgreementById()" + LOG_CLOSE);
-		ClientAgreement agreement = service.getById(id);
+		ClientAgreement agreement = service.findById(id);
 		if (agreement == null) {
 			logger.info(LOG_ERROR + "ClientAgreement with ID=" + id + "wasn't found" + LOG_CLOSE);
 			return new ResponseEntity<ClientAgreement>(agreement, HttpStatus.NOT_FOUND);

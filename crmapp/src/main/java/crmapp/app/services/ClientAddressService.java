@@ -21,13 +21,13 @@ public class ClientAddressService extends AbstractService<ClientAddress, ClientA
 	}
 
 	public ClientAddress save(int clientId, ClientAddress address) {
-		Client client = clientService.getById(clientId);
+		Client client = clientService.findById(clientId);
 		address.setClient(client);
 		return this.save(address);
 	}
 
 	public ClientAddress updateWithClientId(int clientId, ClientAddress address) {
-		Client client = clientService.getById(clientId);
+		Client client = clientService.findById(clientId);
 		address.setClient(client);
 		return this.update(address);
 	}

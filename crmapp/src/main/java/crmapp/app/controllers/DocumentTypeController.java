@@ -27,7 +27,7 @@ public class DocumentTypeController extends BaseController {
 	@GetMapping(value = "", headers = HEADER_JSON)
 	public ResponseEntity<List<DocumentType>> getAllDocumentTypes() {
 		logger.info(LOG_ENTER_METHOD + "getAllDocumentTypes()" + LOG_CLOSE);
-		List<DocumentType> docTypes = service.getAll();
+		List<DocumentType> docTypes = service.findAll();
 		if (docTypes.size() == 0) {
 			logger.info(LOG_ERROR + "docTypes were not found" + LOG_CLOSE);
 			return new ResponseEntity<List<DocumentType>>(HttpStatus.NO_CONTENT);
@@ -40,7 +40,7 @@ public class DocumentTypeController extends BaseController {
 	@GetMapping(value = "/{id}", headers = HEADER_JSON)
 	public ResponseEntity<DocumentType> getDocumentTypeById(@PathVariable(PARAM_ID) int id) {
 		logger.info(LOG_ENTER_METHOD + "getDocumentTypeById()" + LOG_CLOSE);
-		DocumentType docType = service.getById(id);
+		DocumentType docType = service.findById(id);
 		if (docType == null) {
 			logger.info(LOG_ERROR + "DocumentType with ID=" + id + "wasn't found" + LOG_CLOSE);
 			return new ResponseEntity<DocumentType>(docType, HttpStatus.NOT_FOUND);

@@ -14,7 +14,7 @@ public abstract class AbstractService<T extends BaseEntity, R extends BaseReposi
 	protected R repository;
 
 	@Override
-	public List<T> getAll() {
+	public List<T> findAll() {
 		List<T> entities = repository.findAll();
 		return entities;
 	}
@@ -25,7 +25,7 @@ public abstract class AbstractService<T extends BaseEntity, R extends BaseReposi
 	}
 
 	@Override
-	public T getById(Integer id) {
+	public T findById(Integer id) {
 		T entity = repository.findOne(id);
 		return entity;
 	}

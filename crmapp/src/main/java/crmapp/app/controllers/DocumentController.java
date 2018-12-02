@@ -34,7 +34,7 @@ public class DocumentController extends BaseController {
 	@GetMapping(value = "/documents", headers = HEADER_JSON)
 	public ResponseEntity<List<Document>> getAllDocuments() {
 		logger.info(LOG_ENTER_METHOD + "getAllDocuments()" + LOG_CLOSE);
-		List<Document> documents = documentService.getAll();
+		List<Document> documents = documentService.findAll();
 		if (documents.size() == 0) {
 			logger.info(LOG_ERROR + "Documents were not found" + LOG_CLOSE);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -73,7 +73,7 @@ public class DocumentController extends BaseController {
 	@GetMapping(value = "/documents/{id}", headers = HEADER_JSON)
 	public ResponseEntity<Document> getDocumentById(@PathVariable(PARAM_ID) int id) {
 		logger.info(LOG_ENTER_METHOD + "getDocumentById()" + LOG_CLOSE);
-		Document document = documentService.getById(id);
+		Document document = documentService.findById(id);
 		if (document == null) {
 			logger.info(LOG_ERROR + "Document with ID=" + id + "wasn't found" + LOG_CLOSE);
 			return new ResponseEntity<>(document, HttpStatus.NOT_FOUND);

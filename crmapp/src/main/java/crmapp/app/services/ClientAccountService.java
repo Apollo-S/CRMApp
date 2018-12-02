@@ -22,14 +22,14 @@ public class ClientAccountService extends AbstractService<ClientAccount, ClientA
 	}
 
 	public ClientAccount save(int clientId, ClientAccount account) {
-		Client client = clientService.getById(clientId);
+		Client client = clientService.findById(clientId);
 		account.setClient(client);
 		account = this.save(account);
 		return account;
 	}
 
 	public ClientAccount updateWithClientId(int clientId, ClientAccount account) {
-		Client client = clientService.getById(clientId);
+		Client client = clientService.findById(clientId);
 		account.setClient(client);
 		account = this.update(account);
 		return account;

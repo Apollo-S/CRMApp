@@ -25,14 +25,17 @@ import crmapp.app.services.ClientService;
 public class ClientController extends BaseController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ClientController.class);
+	private final ClientService service;
 
-	@Autowired
-	private ClientService service;
+    @Autowired
+    public ClientController(ClientService service) {
+        this.service = service;
+    }
 
-	@GetMapping(value = "", headers = HEADER_JSON)
+    @GetMapping(value = "", headers = HEADER_JSON)
 	public ResponseEntity<List<Client>> getAllClients() {
 		logger.info(LOG_ENTER_METHOD + "getAllClients()" + LOG_CLOSE);
-		List<Client> clients = service.getAll();
+		List<Client> clients = service.findAll();
 		if (clients.size() == 0) {
 			logger.info(LOG_ERROR + "Clients were not found" + LOG_CLOSE);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -45,7 +48,7 @@ public class ClientController extends BaseController {
 	@GetMapping(value = "/{id}", headers = HEADER_JSON)
 	public ResponseEntity<Client> getClientById(@PathVariable(PARAM_ID) int id) {
 		logger.info(LOG_ENTER_METHOD + "getClientById()" + LOG_CLOSE);
-		Client client = service.getById(id);
+		Client client = service.findById(id);
 		if (client == null) {
 			logger.info(LOG_ERROR + "Client with ID=" + id + "wasn't found" + LOG_CLOSE);
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -61,7 +64,7 @@ public class ClientController extends BaseController {
 		Client savedClient = service.save(client);
 		logger.info(LOG_TEXT + "Client added with ID=" + savedClient.getId() + LOG_CLOSE);
 		logger.info(LOG_OUT_OF_METHOD + "addClient()" + LOG_CLOSE);
-		return new ResponseEntity<Client>(savedClient, new HttpHeaders(), HttpStatus.CREATED);
+		return new ResponseEntity<>(savedClient, new HttpHeaders(), HttpStatus.CREATED);
 	}
 
 	@PutMapping(value = "/{id}", headers = HEADER_JSON)
@@ -70,7 +73,7 @@ public class ClientController extends BaseController {
 		client = service.update(id, client);
 		logger.info(LOG_TEXT + "Client with ID=" + id + " was updated: " + client + LOG_CLOSE);
 		logger.info(LOG_OUT_OF_METHOD + "updateClient()" + LOG_CLOSE);
-		return new ResponseEntity<Client>(client, new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<>(client, new HttpHeaders(), HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = "/{id}", headers = HEADER_JSON)
@@ -79,7 +82,7 @@ public class ClientController extends BaseController {
 		service.delete(id);
 		logger.info(LOG_TEXT + "Client with ID=" + id + " was deleted" + LOG_CLOSE);
 		logger.info(LOG_OUT_OF_METHOD + "deleteClient()" + LOG_CLOSE);
-		return new ResponseEntity<Void>(new HttpHeaders(), HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(new HttpHeaders(), HttpStatus.NO_CONTENT);
 	}
 
 }
