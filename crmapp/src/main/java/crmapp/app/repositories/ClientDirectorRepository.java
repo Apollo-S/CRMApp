@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import crmapp.app.entities.ClientDirector;
 
-public interface ClientDirectorRepository extends JpaRepository<ClientDirector, Integer>{
+public interface ClientDirectorRepository extends BaseRepository<ClientDirector, Integer>{
 
 	@Query("SELECT cd FROM ClientDirector cd WHERE cd.client.id = :clientId")
 	List<ClientDirector> findAllDirectorsByClientId(@Param("clientId") Integer clientId);
