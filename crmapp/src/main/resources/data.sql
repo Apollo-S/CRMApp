@@ -34,12 +34,13 @@ VALUES
 	(13, 'test-client7', 'ТОВ "TEST-CLIENT7"', '19028202', '', '', 0);
 
 TRUNCATE `client_address`;
-INSERT INTO `client_address` (`id`, `client_id`, `presentation`, `date_start`, `optlock`)
+INSERT INTO `client_address` (`id`, `client_id`, `country_id`, `city`, `region`, `street`, `building`, `apartment`, `zip`, `date_start`, `optlock`)
 VALUES 
-	(1, 1, 'Україна, 03150, м.Київ, вул. Горького, буд. 172, офіс 1421', '2012-01-01', 0),
-	(2, 2, 'Україна, 01210, м. Киев, вул. Крещатик, 38', '2012-01-01', 0),
-	(3, 3, 'Україна, 00023, м. Киев, бульв. Т. Шевченко, 18', '2012-01-01', 0),
-	(4, 1, 'Україна, 00089, м. Киев, бульв. Т. Шевченко, 21', '2015-01-01', 0);
+	(1, 1, 1, 'м. Київ', '', 'вул. Горького', 'буд. 172', 'оф. 1020', '03150', '2012-01-01', 0),
+	(2, 2, 1, 'м. Київ', '', 'вул. Крещатик', 'буд. 38', '', '01015', '2012-01-01', 0),
+	(3, 3, 1, 'м. Київ', '', 'бульв. Т. Шевченко', '18', '', '02010', '2012-01-01', 0),
+	(4, 1, 1, 'м. Київ', '', 'бульв. Т. Шевченко', '21', 'офіс 43', '02012', '2015-01-01', 0),
+	(5, 2, 1, 'м. Київ', '', 'ул. Лермонтова', '21', 'офіс 456', '04014', '2015-01-01', 0);
 
 TRUNCATE `client_director`;
 INSERT INTO `client_director` (`id`, `client_id`, `post_id`, `full_name`, `short_name`, `date_start`, `optlock`)
@@ -82,11 +83,11 @@ VALUES
 	(4, 4, b'0', '2012-01-01', null, 4, 0);
 
 TRUNCATE `employee_address`;
-INSERT INTO `employee_address` (`id`, `employee_id`, `presentation`, `date_start`, `optlock`)
-VALUES 
-	(1, 1, 'Україна, 04205, м.Київ, пр-т Оболонський, буд. 23, кв. 34', '2012-01-01', 0),
-	(2, 2, 'Україна, 01210, м. Киев, вул. Крещатик, 12', '2012-01-01', 0),
-	(3, 3, 'Україна, 00023, м. Киев, бульв. Т. Шевченко, 34/1', '2012-01-01', 0);
+INSERT INTO `employee_address` (`id`, `employee_id`, `country_id`, `city`, `region`, `street`, `building`, `apartment`, `zip`, `date_start`, `optlock`)
+VALUES
+	(1, 1, 1, 'м.Київ', '', 'пр-т Оболонський', 'буд. 23', 'кв. 34', '04205', '2012-01-01', 0),
+	(2, 2, 1, 'м. Киев', '', 'вул. Крещатик', '12', 'кв. 45', '01045', '2012-01-01', 0),
+	(3, 3, 1, 'м. Киев', '', 'бульв. Т. Шевченко', '34/1', 'кв. 2', '00023', '2012-01-01', 0);
 
 TRUNCATE `employee_account`;
 INSERT INTO `employee_account` (`id`, `employee_id`, `presentation`, `date_start`, `optlock`)
@@ -179,14 +180,21 @@ VALUES
 	(1, 'geosap', 'ТОВ "ГЕОСАП"', '36483010', '', '', 0);
 
 TRUNCATE `our_company_address`;
-INSERT INTO `our_company_address` (`id`, `our_company_id`, `presentation`, `date_start`, `optlock`)
-VALUES 
-	(1, 1, 'Україна, 03150, м.Київ, вул. Горького, буд. 172, офіс 1020', '2009-01-01', 0),
-	(2, 2, 'Україна, 03022, м. Киев, вул. Козацька, 120/4, літ. Б', '2015-07-01', 0);
+INSERT INTO `our_company_address` (`id`, `our_company_id`, `country_id`, `city`, `region`, `street`, `building`, `apartment`, `zip`, `date_start`, `optlock`)
+VALUES
+  (1, 1, 1, 'м. Київ', '', 'вул. Горького', 'буд. 172', 'офіс 1020', '03150', '2009-01-01', 0),
+  (2, 2, 1, 'м. Киев', '', 'вул. Козацька', '120/4', 'літ. Б', '03022', '2015-07-01', 0);
 
 TRUNCATE `our_company_director`;
 INSERT INTO `our_company_director` (`id`, `our_company_id`, `post_id`, `full_name`, `short_name`, `date_start`, `optlock`)
 VALUES
 	(1, 1, 1, 'Стоян Олександр Володимирович', 'Стоян О.В.', '2015-01-01', 0);
+
+TRUNCATE `country`;
+INSERT INTO `country` (`id`, `title`, `code`, `optlock`)
+VALUES
+	(1, 'Украина', 'UA', 0),
+	(2, 'Германия', 'DE', 0),
+	(3, 'Канада', 'CA', 0);
 
 SET FOREIGN_KEY_CHECKS=1;

@@ -25,9 +25,8 @@ public class ClientAddress extends AbstractAddress {
 	public ClientAddress() {
 	}
 
-	public ClientAddress(Client client, String presentation, Date dateStart) {
+	public ClientAddress(Client client, Date dateStart) {
 		this.client = client;
-		this.setPresentation(presentation);
 		this.setDateStart(dateStart);
 	}
 

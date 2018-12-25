@@ -25,9 +25,8 @@ public class EmployeeAddress extends AbstractAddress {
 	public EmployeeAddress() {
 	}
 
-	public EmployeeAddress(Employee employee, String presentation, Date dateStart) {
+	public EmployeeAddress(Employee employee, Date dateStart) {
 		this.employee = employee;
-		this.setPresentation(presentation);
 		this.setDateStart(dateStart);
 	}
 
