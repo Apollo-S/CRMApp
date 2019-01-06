@@ -128,12 +128,12 @@ VALUES
 	(4, 'Акт передачи лицензий', 'акт пер. лиц.', 0);
 
 TRUNCATE `document_status`;
-INSERT INTO `document_status` (`id`, `status`, `optlock`)
+INSERT INTO `document_status` (`id`, `status`, `background_color`, `color`, `optlock`)
 VALUES 
-	(1, 'Передан', 0),
-	(2, 'Подписан', 0),
-	(3, 'Оплачен', 0),
-	(4, 'Введен', 0);
+	(1, 'Передан', '#DAA7BB', '#FFFFFF', 0),
+	(2, 'Подписан', '#5FDAB1', '#FFFFFF', 0),
+	(3, 'Оплачен', '#32DA14', '#FFFFFF', 0),
+	(4, 'Введен', '#BD7EDA', '#FFFFFF', 0);
 
 TRUNCATE `document`;
 INSERT INTO `document` (`id`, `client_agreement_id`, `doc_type_id`, `number`, `dated`, `amount`, `payment_date`, `doc_status_id`, `comment`, `optlock`)
