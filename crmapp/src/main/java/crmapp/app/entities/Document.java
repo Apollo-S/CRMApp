@@ -136,6 +136,26 @@ public class Document extends BaseEntity {
 	public String getAgreementNumber() {
 		return agreement.getNumber();
 	}
+
+	@JsonInclude
+	public Date getAgreementDateStart() {
+		return agreement.getDateStart();
+	}
+
+	@JsonInclude
+	public String getAgreementUrl() {
+		return agreement.getUrl();
+	}
+
+	@JsonInclude
+	public String getClientTitle() {
+		return agreement.getClient().getTitle();
+	}
+
+	@JsonInclude
+	public String getClientUrl() {
+		return agreement.getClient().getUrl();
+	}
 	
 	@JsonInclude
 	public String getDocTypeShortTitle() {
