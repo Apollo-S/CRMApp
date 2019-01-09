@@ -153,8 +153,8 @@ public class Document extends BaseEntity {
 	}
 
 	@JsonInclude
-	public String getClientUrl() {
-		return agreement.getClient().getUrl();
+	public Integer getClientId() {
+		return agreement.getClient().getId();
 	}
 	
 	@JsonInclude
