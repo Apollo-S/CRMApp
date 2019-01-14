@@ -21,6 +21,9 @@ public class DocumentStatus extends BaseEntity {
 	@Column(name = "color", length = 15)
 	private String color;
 
+    @Column(name = "allow_payment_date")
+    private boolean allowPaymentDate;
+
 	public DocumentStatus() {
 	}
 
@@ -52,7 +55,15 @@ public class DocumentStatus extends BaseEntity {
 		this.color = color;
 	}
 
-	@Override
+    public boolean isAllowPaymentDate() {
+        return allowPaymentDate;
+    }
+
+    public void setAllowPaymentDate(boolean allowPaymentDate) {
+        this.allowPaymentDate = allowPaymentDate;
+    }
+
+    @Override
 	public String getUrl() {
 		return "document-statuses/" + this.getId();
 	}
