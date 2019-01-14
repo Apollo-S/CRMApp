@@ -76,7 +76,7 @@ public class DocumentController extends BaseController {
 		Document document = documentService.findById(id);
 		if (document == null) {
 			logger.info(LOG_ERROR + "Document with ID=" + id + "wasn't found" + LOG_CLOSE);
-			return new ResponseEntity<>(document, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		logger.info(LOG_TEXT + "Document with ID=" + id + " was found: " + document + LOG_CLOSE);
 		logger.info(LOG_OUT_OF_METHOD + "getDocumentById()" + LOG_CLOSE);
@@ -89,7 +89,7 @@ public class DocumentController extends BaseController {
 		document = documentService.save(document);
 		logger.info(LOG_TEXT + "Document added with ID=" + document.getId() + LOG_CLOSE);
 		logger.info(LOG_OUT_OF_METHOD + "addDocument()" + LOG_CLOSE);
-		return new ResponseEntity<Document>(document, new HttpHeaders(), HttpStatus.CREATED);
+		return new ResponseEntity<>(document, new HttpHeaders(), HttpStatus.CREATED);
 	}
 
 	@PutMapping(value = "/documents/{id}", headers = HEADER_JSON)
@@ -98,7 +98,7 @@ public class DocumentController extends BaseController {
 		document = documentService.update(id, document);
 		logger.info(LOG_TEXT + "Document with ID=" + id + " was updated: " + document + LOG_CLOSE);
 		logger.info(LOG_OUT_OF_METHOD + "updateDocument()" + LOG_CLOSE);
-		return new ResponseEntity<Document>(document, new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<>(document, new HttpHeaders(), HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = "/documents/{id}", headers = HEADER_JSON)
@@ -107,7 +107,7 @@ public class DocumentController extends BaseController {
 		documentService.delete(id);
 		logger.info(LOG_TEXT + "Document with ID=" + id + " was deleted: " + document + LOG_CLOSE);
 		logger.info(LOG_OUT_OF_METHOD + "deleteDocument()" + LOG_CLOSE);
-		return new ResponseEntity<Void>(new HttpHeaders(), HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(new HttpHeaders(), HttpStatus.NO_CONTENT);
 	}
 
 }
