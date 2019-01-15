@@ -24,6 +24,9 @@ public class DocumentStatus extends BaseEntity {
     @Column(name = "allow_payment_date")
     private boolean allowPaymentDate;
 
+    @Column(name = "allow_passing_date")
+    private boolean allowPassingDate;
+
 	public DocumentStatus() {
 	}
 
@@ -61,6 +64,14 @@ public class DocumentStatus extends BaseEntity {
 
     public void setAllowPaymentDate(boolean allowPaymentDate) {
         this.allowPaymentDate = allowPaymentDate;
+    }
+
+    public boolean isAllowPassingDate() {
+        return allowPassingDate;
+    }
+
+    public void setAllowPassingDate(boolean allowPassingDate) {
+        this.allowPassingDate = allowPassingDate;
     }
 
     @Override

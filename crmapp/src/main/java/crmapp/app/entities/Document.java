@@ -52,6 +52,10 @@ public class Document extends BaseEntity {
 	@JsonBackReference(value = "agreement-document")
 	private ClientAgreement agreement;
 
+    @Temporal(TemporalType.DATE)
+    @Column(name = "passing_date")
+    private Date passingDate;
+
 	public Document() {
 	}
 
@@ -126,8 +130,16 @@ public class Document extends BaseEntity {
 	public void setAgreement(ClientAgreement agreement) {
 		this.agreement = agreement;
 	}
-	
-	@JsonInclude
+
+    public Date getPassingDate() {
+        return passingDate;
+    }
+
+    public void setPassingDate(Date passingDate) {
+        this.passingDate = passingDate;
+    }
+
+    @JsonInclude
 	public Integer getAgreementId() {
 		return agreement.getId();
 	}
