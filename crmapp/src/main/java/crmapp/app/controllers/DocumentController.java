@@ -102,10 +102,10 @@ public class DocumentController extends BaseController {
 	}
 
 	@DeleteMapping(value = "/documents/{id}", headers = HEADER_JSON)
-	public ResponseEntity<Void> deleteDocument(@PathVariable(PARAM_ID) int id, @RequestBody Document document) {
+	public ResponseEntity<Void> deleteDocument(@PathVariable(PARAM_ID) int id) {
 		logger.info(LOG_ENTER_METHOD + "deleteDocument()" + LOG_CLOSE);
 		documentService.delete(id);
-		logger.info(LOG_TEXT + "Document with ID=" + id + " was deleted: " + document + LOG_CLOSE);
+		logger.info(LOG_TEXT + "Document with ID=" + id + " was deleted" + LOG_CLOSE);
 		logger.info(LOG_OUT_OF_METHOD + "deleteDocument()" + LOG_CLOSE);
 		return new ResponseEntity<>(new HttpHeaders(), HttpStatus.NO_CONTENT);
 	}
