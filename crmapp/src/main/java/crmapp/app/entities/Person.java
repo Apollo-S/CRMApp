@@ -11,7 +11,7 @@ import javax.persistence.TemporalType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "person")
+@Table(name = "persons")
 @JsonIgnoreProperties(
 		ignoreUnknown = true, 
 		value = { "hibernateLazyInitializer", "handler" })

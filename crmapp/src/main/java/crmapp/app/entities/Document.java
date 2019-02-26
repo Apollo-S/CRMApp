@@ -15,9 +15,13 @@ import javax.persistence.TemporalType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Table(name = "document")
+@Table(name = "documents")
+@Getter
+@Setter
 @JsonIgnoreProperties(ignoreUnknown = true,
 	value = { "hibernateLazyInitializer", "handler" })
 public class Document extends BaseEntity {
@@ -48,9 +52,9 @@ public class Document extends BaseEntity {
 	private DocumentStatus status;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "client_agreement_id")
+	@JoinColumn(name = "agreement_id")
 	@JsonBackReference(value = "agreement-document")
-	private ClientAgreement agreement;
+	private Agreement agreement;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "passing_date")
@@ -66,78 +70,6 @@ public class Document extends BaseEntity {
 		this.status = status;
 		this.comment = comment;
 	}
-
-	public Double getAmount() {
-		return amount;
-	}
-
-	public void setAmount(Double amount) {
-		this.amount = amount;
-	}
-
-	public Date getPaymentDate() {
-		return paymentDate;
-	}
-
-	public void setPaymentDate(Date paymentDate) {
-		this.paymentDate = paymentDate;
-	}
-
-	public DocumentType getDocType() {
-		return docType;
-	}
-
-	public void setDocType(DocumentType docType) {
-		this.docType = docType;
-	}
-
-	public DocumentStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(DocumentStatus status) {
-		this.status = status;
-	}
-
-	public String getComment() {
-		return comment;
-	}
-
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
-
-	public String getNumber() {
-		return number;
-	}
-
-	public void setNumber(String number) {
-		this.number = number;
-	}
-
-	public Date getDated() {
-		return dated;
-	}
-
-	public void setDated(Date dated) {
-		this.dated = dated;
-	}
-
-	public ClientAgreement getAgreement() {
-		return agreement;
-	}
-
-	public void setAgreement(ClientAgreement agreement) {
-		this.agreement = agreement;
-	}
-
-    public Date getPassingDate() {
-        return passingDate;
-    }
-
-    public void setPassingDate(Date passingDate) {
-        this.passingDate = passingDate;
-    }
 
     @JsonInclude
 	public Integer getAgreementId() {

@@ -11,10 +11,14 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Table(name = "client")
-@JsonIgnoreProperties(ignoreUnknown = true, 
+@Table(name = "clients")
+@Getter
+@Setter
+@JsonIgnoreProperties(ignoreUnknown = true,
 	value = { "hibernateLazyInitializer", "handler",
 			"agreements", "addresses", "directors", "accounts" })
 public class Client extends AbstractCompany {
@@ -22,7 +26,7 @@ public class Client extends AbstractCompany {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "client", orphanRemoval = true)
 	@OrderBy("id ASC")
 	@JsonManagedReference(value = "client-agreement")
-	private Set<ClientAgreement> agreements = new HashSet<>();
+	private Set<Agreement> agreements = new HashSet<>();
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "client", orphanRemoval = true)
 	@OrderBy("id ASC")
@@ -48,38 +52,6 @@ public class Client extends AbstractCompany {
 		this.setEdrpou(edrpou);
 		this.setInn(inn);
 		this.setVatCertificate(vatCertificate);
-	}
-
-	public Set<ClientAgreement> getAgreements() {
-		return agreements;
-	}
-
-	public void setAgreements(Set<ClientAgreement> agreements) {
-		this.agreements = agreements;
-	}
-
-	public Set<ClientAddress> getAddresses() {
-		return addresses;
-	}
-
-	public void setAddresses(Set<ClientAddress> addresses) {
-		this.addresses = addresses;
-	}
-
-	public Set<ClientDirector> getDirectors() {
-		return directors;
-	}
-
-	public void setDirectors(Set<ClientDirector> directors) {
-		this.directors = directors;
-	}
-
-	public Set<ClientAccount> getAccounts() {
-		return accounts;
-	}
-
-	public void setAccounts(Set<ClientAccount> accounts) {
-		this.accounts = accounts;
 	}
 
 	@Override

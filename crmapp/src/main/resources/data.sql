@@ -4,8 +4,8 @@ USE `crmapp`;
 
 SET FOREIGN_KEY_CHECKS=0;
 
-TRUNCATE `category`;
-INSERT INTO `category` (`id`, `label`, `icon`, `router_link`, `expanded`, `items`, `optlock`)
+TRUNCATE `categories`;
+INSERT INTO `categories` (`id`, `label`, `icon`, `router_link`, `expanded`, `items`, `optlock`)
 VALUES 
 	(1, 'Клиенты', 'fa-users', '/clients', b'0', null, 0),
 	(2, 'Договорные отношения', 'fa-file-o', '/agreements', b'0', null, 0),
@@ -16,8 +16,8 @@ VALUES
 	(7, 'Больничные листы', 'fa-file-o', '/sicklists', b'0', null, 0),
 	(8, 'Исходящий номер', 'fa-file-o', '/outputs', b'0', null, 0);
 
-TRUNCATE `client`;
-INSERT INTO `client` (`id`, `alias`, `title`, `edrpou`, `inn`, `vat_certificate`, `optlock`)
+TRUNCATE `clients`;
+INSERT INTO `clients` (`id`, `alias`, `title`, `edrpou`, `inn`, `vat_certificate`, `optlock`)
 VALUES 
 	(1, 'kyivstar', 'ПРАТ "КИЇВСТАР"', '00987654', '0098765321', '345432678', 0),
 	(2, 'farlep', 'ПРАТ "ФАРЛЕП-ІНВЕСТ"', '00678906', '00678905412', '087654322', 0),
@@ -57,8 +57,8 @@ VALUES
 	(2, 2, '26007247100756 в АТ "ПРИВАТБАНК", МФО 320699', '2013-01-01', 0),
 	(3, 1, '26007017134344 в АТ "Сити-Банк", МФО 311009', '2015-01-01', 0);
 
-TRUNCATE `post`;
-INSERT INTO `post` (`id`, `title`, `optlock`)
+TRUNCATE `posts`;
+INSERT INTO `posts` (`id`, `title`, `optlock`)
 VALUES
 	(1, 'Генеральный директор', 0),
 	(2, 'Java Developer', 0),
@@ -66,16 +66,16 @@ VALUES
 	(4, 'Senior Software Developer', 0),
 	(5, 'Software Developer', 0);
 	
-TRUNCATE `person`;
-INSERT INTO `person` (`id`, `surname`, `firstname`, `lastname`, `short_name`, `inn`, `birth_date`, `optlock`)
+TRUNCATE `persons`;
+INSERT INTO `persons` (`id`, `surname`, `firstname`, `lastname`, `short_name`, `inn`, `birth_date`, `optlock`)
 VALUES
 	(1, 'Иванов', 'Александр', 'Владимирович', 'Иванов А.В.', '2344566541', '1972-03-24', 0),
 	(2, 'Петров', 'Иван', 'Федорович', 'Петров И.Ф.', '3045679871', '1984-06-15', 0),
 	(3, 'Сидоров', 'Петр', 'Валерьевич', 'Сидоров П.В.', '2874526548', '1978-09-20', 0),
 	(4, 'Сидоренко', 'Федор', 'Степанович', 'Сидоренко Ф.С.', '2674826643', '1960-09-30', 0);
 	
-TRUNCATE `employee`;
-INSERT INTO `employee` (`id`, `person_id`, `is_entrepreneur`, `hire_date`, `fired_date`, `post_id`, `optlock`)
+TRUNCATE `employees`;
+INSERT INTO `employees` (`id`, `person_id`, `is_entrepreneur`, `hire_date`, `fired_date`, `post_id`, `optlock`)
 VALUES
 	(1, 1, b'0', '2012-01-01', null, 5, 0),
 	(2, 2, b'1', '2013-06-01', null, 5, 0),
@@ -96,8 +96,8 @@ VALUES
 	(2, 2, '26007247100756 в АТ "ПРИВАТБАНК", МФО 320699', '2013-01-01', 0),
 	(3, 3, '26007547230756 в АТ "ПРИВАТБАНК", МФО 320699', '2013-01-01', 0);
 
-TRUNCATE `vacation`;
-INSERT INTO `vacation` (`id`, `employee_id`, `description`, `date_start`, `date_final`, `days_amount`, `holiday_amount`, `comment`, `optlock`)
+TRUNCATE `vacations`;
+INSERT INTO `vacations` (`id`, `employee_id`, `description`, `date_start`, `date_final`, `days_amount`, `holiday_amount`, `comment`, `optlock`)
 VALUES
 	(1, 1, 'Отпуск (1 часть) за 2013 год', '2014-02-01', '2014-02-12', 12, 0, '', 0),
 	(2, 1, 'Отпуск (2 часть) за 2013 год', '2014-07-01', '2014-07-12', 12, 0, '', 0),
@@ -106,13 +106,13 @@ VALUES
 	(5, 3, 'Отпуск (1 часть) за 2013 год', '2014-02-01', '2014-02-12', 12, 0, '', 0),
 	(6, 3, 'Отпуск (2 часть) за 2013 год', '2014-07-01', '2014-07-12', 12, 0, '', 0);
 	
-TRUNCATE `sick_list`;
-INSERT INTO `sick_list` (`id`, `employee_id`, `description`, `date_start`, `date_final`, `days_amount`, `comment`, `optlock`)
+TRUNCATE `sick_lists`;
+INSERT INTO `sick_lists` (`id`, `employee_id`, `description`, `date_start`, `date_final`, `days_amount`, `comment`, `optlock`)
 VALUES
 	(1, 1, 'Больничный в феврале 2014 года', '2014-02-01', '2014-02-12', 12, '', 0);
 
-TRUNCATE `client_agreement`;
-INSERT INTO `client_agreement` (`id`, `client_id`, `number`, `date_start`, `comment`, `optlock`)
+TRUNCATE `agreements`;
+INSERT INTO `agreements` (`id`, `client_id`, `number`, `date_start`, `comment`, `optlock`)
 VALUES 
 	(1, 1, '20170701/45/76', '2017-07-01', '', 0),
 	(2, 2, 'FLP-2015/3', '2015-03-01', 'Договор на ТП 2015 год', 0),
@@ -135,8 +135,8 @@ VALUES
 	(3, 'Оплачен', '#32DA14', '#FFFFFF', b'1', b'0', 0),
 	(4, 'Введен', '#BD7EDA', '#FFFFFF', b'0', b'0', 0);
 
-TRUNCATE `document`;
-INSERT INTO `document` (`id`, `client_agreement_id`, `doc_type_id`, `number`, `dated`, `amount`, `payment_date`, `passing_date`, `doc_status_id`, `comment`, `optlock`)
+TRUNCATE `documents`;
+INSERT INTO `documents` (`id`, `agreement_id`, `doc_type_id`, `number`, `dated`, `amount`, `payment_date`, `passing_date`, `doc_status_id`, `comment`, `optlock`)
 VALUES 
 	(1, 1, 2, '18', '2017-06-30', 20000.0, null, '2017-06-30', '1', '', 0),
 	(2, 2, 3, '3', '2017-07-01', 500000.0, null, null, '4', 'На доп. услуги за 3 квартал', 0),
@@ -154,8 +154,8 @@ VALUES
 	(2, 'Доверенность', 0),
 	(3, 'Коммерческое предложение', 0);
 
-TRUNCATE `mail_output`;
-INSERT INTO `mail_output` (`id`, `mail_doc_type_id`, `number`, `dated`, `receiver`, `comment`, `optlock`)
+TRUNCATE `mail_outputs`;
+INSERT INTO `mail_outputs` (`id`, `mail_doc_type_id`, `number`, `dated`, `receiver`, `comment`, `optlock`)
 VALUES 
 	(1, 1, '401', '2017-04-30', 'Тестовый Получатель', '', 0),
 	(2, 2, '402', '2017-05-01', 'Тестовый Получатель', '', 0),
@@ -164,8 +164,8 @@ VALUES
 	(5, 1, '405', '2017-07-03', 'Тестовый Получатель', '', 0),
 	(6, 2, '406', '2017-09-06', 'Тестовый Получатель', '', 0);
 
-TRUNCATE `mail_input`;
-INSERT INTO `mail_input` (`id`, `mail_doc_type_id`, `number`, `dated`, `sender`, `comment`, `optlock`)
+TRUNCATE `mail_inputs`;
+INSERT INTO `mail_inputs` (`id`, `mail_doc_type_id`, `number`, `dated`, `sender`, `comment`, `optlock`)
 VALUES 
 	(1, 1, '1', '2017-04-30', 'ГНИ', '', 0),
 	(2, 2, '2', '2017-05-01', 'ГНИ', '', 0),
@@ -190,8 +190,8 @@ INSERT INTO `our_company_director` (`id`, `our_company_id`, `post_id`, `full_nam
 VALUES
 	(1, 1, 1, 'Стоян Олександр Володимирович', 'Стоян О.В.', '2015-01-01', 0);
 
-TRUNCATE `country`;
-INSERT INTO `country` (`id`, `title`, `code`, `optlock`)
+TRUNCATE `countries`;
+INSERT INTO `countries` (`id`, `title`, `code`, `optlock`)
 VALUES
 	(1, 'Украина', 'UA', 0),
 	(2, 'Германия', 'DE', 0),

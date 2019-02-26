@@ -9,9 +9,12 @@ import javax.persistence.Version;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.GenericGenerator;
+import lombok.Getter;
+import lombok.Setter;
 
 @MappedSuperclass
+@Getter
+@Setter
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public abstract class BaseEntity {
 
@@ -28,22 +31,6 @@ public abstract class BaseEntity {
 	@Column(name = "optlock", columnDefinition = "integer DEFAULT 0", nullable = false)
 	@JsonIgnore
 	private Integer version = 0;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public Integer getVersion() {
-		return version;
-	}
-
-	public void setVersion(Integer version) {
-		this.version = version;
-	}
 
 	public String getUrl() {
 		StringBuilder urlBuilder = new StringBuilder();

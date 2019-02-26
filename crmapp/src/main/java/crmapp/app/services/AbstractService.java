@@ -32,9 +32,13 @@ public abstract class AbstractService<T extends BaseEntity, R extends BaseReposi
 
 	@Override
 	public T save(T entity) {
-		entity.setVersion(0);
-		entity = repository.save(entity);
-		return entity;
+		T newEntity = null;
+		if (entity != null) {
+			entity = repository.save(entity);
+			entity.setVersion(0);
+			return entity;
+		}
+		return null;
 	}
 
 	@Override

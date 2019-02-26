@@ -1,11 +1,17 @@
 package crmapp.app.entities;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.Objects;
 
 @Entity
-@Table(name = "country")
+@Table(name = "countries")
+@Getter
+@Setter
 public class Country extends BaseEntity {
 
     @Column(name = "title", length = 100)
@@ -22,20 +28,18 @@ public class Country extends BaseEntity {
         this.code = code;
     }
 
-    public String getTitle() {
-        return title;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Country country = (Country) o;
+        return Objects.equals(getTitle(), country.getTitle()) &&
+                Objects.equals(getCode(), country.getCode());
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
+    @Override
+    public int hashCode() {
+        return Objects.hash(getTitle(), getCode());
     }
 
     @Override
