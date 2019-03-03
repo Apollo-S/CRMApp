@@ -7,6 +7,5 @@ import crmapp.app.entities.Client;
 import crmapp.app.repositories.ClientRepository;
 
 @Service
-@Transactional
 public class ClientService extends AbstractService<Client, ClientRepository> {
 }

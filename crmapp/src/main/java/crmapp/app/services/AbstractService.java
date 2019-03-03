@@ -6,7 +6,9 @@ import crmapp.app.repositories.BaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import crmapp.app.entities.BaseEntity;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
 public abstract class AbstractService<T extends BaseEntity, R extends BaseRepository<T, Integer>>
 		implements BaseService<T, Integer> {
 
@@ -56,7 +58,5 @@ public abstract class AbstractService<T extends BaseEntity, R extends BaseReposi
 	public void delete(Integer id) {
 		repository.delete(id);
 	}
-
-
 
 }
