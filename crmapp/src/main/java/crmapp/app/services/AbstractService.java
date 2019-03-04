@@ -41,7 +41,7 @@ public abstract class AbstractService<T extends BaseEntity, R extends BaseReposi
 
 	@Override
 	public T update(T entity) {
-		int actualVersionNumber = repository.getOne(entity.getId()).getVersion();
+		int actualVersionNumber = repository.fetchVersion(entity.getId());
 		entity.setVersion(actualVersionNumber);
 		entity = repository.save(entity);
 		return entity;

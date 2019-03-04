@@ -39,4 +39,12 @@ public class ExtendedRepositoryImpl<T, ID extends Serializable> extends SimpleJp
 		return (List<ID>) query.getResultList();
 	}
 
+	@Override
+	public Integer fetchVersion(ID entityId) {
+		String qlString = "select e.version from " + this.entityInformation.getEntityName() +
+				" e where e." + this.entityInformation.getIdAttribute().getName() + " = " + entityId;
+		Query query = this.entityManager.createQuery(qlString);
+		return (Integer) query.getSingleResult();
+	}
+
 }
