@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -25,25 +26,56 @@ public class ClientServiceUnitTest {
     @InjectMocks
     private ClientService clientService;
 
+    private Client mockClient;
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-    }
 
-    @Test
-    public void testAddClient() {
-        Client mockClient = new Client();
+        mockClient = new Client();
+        mockClient.setId(134);
         mockClient.setAlias("kievstar");
         mockClient.setTitle("KIEVSTAR LLC");
         mockClient.setEdrpou("123456");
         mockClient.setInn("123456789");
         mockClient.setVatCertificate("36475891243");
+    }
 
+    @Test
+    public void testAddClient() {
+        when(clientRepository.save(any(Client.class))).thenReturn(mockClient);
+        Client savedClient = clientService.save(new Client());
+        assertEquals("kievstar", savedClient.getAlias());
+    }
+
+    @Test
+    public void testUpdateClient() {
         when(clientRepository.save(any(Client.class))).thenReturn(mockClient);
 
-        Client savedClient = clientService.save(new Client());
+        Client savedClient = clientService.save(mockClient);
+        savedClient.setAlias("updated kievstar");
+        savedClient.setTitle("updated KIEVSTAR LLC");
+        savedClient.setEdrpou("654321");
+        savedClient.setInn("987654321");
+        savedClient.setVatCertificate("09090909090");
 
-        assertEquals("kievstar", savedClient.getAlias());
+        when(clientRepository.fetchVersion(anyInt())).thenReturn(0);
+        when(clientRepository.save(any(Client.class))).thenReturn(savedClient);
+        Client updatedClient = clientService.update(savedClient.getId(), mockClient);
+
+        assertEquals(updatedClient, mockClient);
+        assertEquals("updated kievstar", updatedClient.getAlias());
+        assertEquals("updated KIEVSTAR LLC", updatedClient.getTitle());
+        assertEquals("654321", updatedClient.getEdrpou());
+        assertEquals("987654321", updatedClient.getInn());
+        assertEquals("09090909090", updatedClient.getVatCertificate());
+    }
+
+    @Test
+    public void testDeleteClient() {
+        when(clientRepository.save(any(Client.class))).thenReturn(mockClient);
+        Client savedClient = clientService.save(mockClient);
+        clientService.delete(savedClient.getId());
     }
 
 }
