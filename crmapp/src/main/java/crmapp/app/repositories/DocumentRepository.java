@@ -7,7 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import crmapp.app.entities.Document;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface DocumentRepository extends BaseRepository<Document, Integer> {
 
 	@Query("SELECT doc FROM Document doc WHERE doc.agreement.id = :agreementId")

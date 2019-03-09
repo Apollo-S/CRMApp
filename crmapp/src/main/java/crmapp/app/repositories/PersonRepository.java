@@ -1,8 +1,9 @@
 package crmapp.app.repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import crmapp.app.entities.Person;
+import org.springframework.stereotype.Repository;
 
-public interface PersonRepository extends JpaRepository<Person, Integer>{
+@Repository
+public interface PersonRepository extends BaseRepository<Person, Integer>{
 
 }
