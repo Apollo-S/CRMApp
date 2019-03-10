@@ -1,6 +1,7 @@
 package crmapp.app.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -14,6 +15,7 @@ import java.util.Set;
 @Table(name = "agreements")
 @Getter
 @Setter
+@JsonIgnoreProperties(ignoreUnknown = true, value = {"hibernateLazyInitializer", "handler"})
 public class Agreement extends BaseEntity {
 
     @Column(name = "number")
@@ -30,6 +32,16 @@ public class Agreement extends BaseEntity {
     @JoinColumn(name = "client_id")
     @JsonBackReference(value = "client-agreement")
     private Client client;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id")
+    @JsonBackReference(value = "employee-agreement")
+    private Employee employee;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "our-company_id")
+    @JsonBackReference(value = "our-company-agreement")
+    private OurCompany ourCompany;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "agreement", orphanRemoval = true)
     @OrderBy("id ASC")

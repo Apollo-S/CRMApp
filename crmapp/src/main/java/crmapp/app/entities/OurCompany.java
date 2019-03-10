@@ -11,9 +11,13 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "our_company")
+@Getter
+@Setter
 @JsonIgnoreProperties(ignoreUnknown = true, 
 	value = { "hibernateLazyInitializer", "handler",
 		"agreements", "addresses", "directors", "accounts" })
@@ -22,12 +26,12 @@ public class OurCompany extends AbstractCompany {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "ourCompany", orphanRemoval = true)
 	@OrderBy("id ASC")
 	@JsonManagedReference(value = "our-company-address")
-	private Set<OurCompanyAddress> addresses = new HashSet<>();
+	private Set<Address> addresses = new HashSet<>();
 
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "our_company", orphanRemoval = true)
-//	@OrderBy("id ASC")
-//	@JsonManagedReference(value = "our-company-agreement")
-//	private Set<OurCompanyAgreement> agreements = new HashSet<>();
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "our_company", orphanRemoval = true)
+	@OrderBy("id ASC")
+	@JsonManagedReference(value = "our-company-agreement")
+	private Set<Agreement> agreements = new HashSet<>();
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "ourCompany", orphanRemoval = true)
 	@OrderBy("id ASC")
@@ -44,30 +48,6 @@ public class OurCompany extends AbstractCompany {
 
 	public OurCompany(String title, String alias, String edrpou, String inn, String vatCertificate) {
 		super(title, alias, edrpou, inn, vatCertificate);
-	}
-
-	public Set<OurCompanyAddress> getAddresses() {
-		return addresses;
-	}
-
-	public void setAddresses(Set<OurCompanyAddress> addresses) {
-		this.addresses = addresses;
-	}
-
-	public Set<OurCompanyDirector> getDirectors() {
-		return directors;
-	}
-
-	public void setDirectors(Set<OurCompanyDirector> directors) {
-		this.directors = directors;
-	}
-
-	public Set<OurCompanyAccount> getAccounts() {
-		return accounts;
-	}
-
-	public void setAccounts(Set<OurCompanyAccount> accounts) {
-		this.accounts = accounts;
 	}
 
 	@Override

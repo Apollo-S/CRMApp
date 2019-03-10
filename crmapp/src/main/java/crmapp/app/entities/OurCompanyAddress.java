@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Table(name = "our_company_address")
 @JsonIgnoreProperties(ignoreUnknown = true, 
 	value = { "hibernateLazyInitializer", "handler" })
-public class OurCompanyAddress extends AbstractAddress {
+public class OurCompanyAddress extends Address {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "our_company_id")
