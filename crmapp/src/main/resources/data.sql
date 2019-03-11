@@ -33,14 +33,20 @@ VALUES
 	(12, 'test-client6', 'ТОВ "TEST-CLIENT6"', '19028202', '', '', 0),
 	(13, 'test-client7', 'ТОВ "TEST-CLIENT7"', '19028202', '', '', 0);
 
-TRUNCATE `client_address`;
-INSERT INTO `client_address` (`id`, `client_id`, `country_id`, `city`, `region`, `street`, `building`, `apartment`, `zip`, `date_start`, `optlock`)
-VALUES 
-	(1, 1, 1, 'м. Київ', '', 'вул. Горького', 'буд. 172', 'оф. 1020', '03150', '2012-01-01', 0),
-	(2, 2, 1, 'м. Київ', '', 'вул. Крещатик', 'буд. 38', '', '01015', '2012-01-01', 0),
-	(3, 3, 1, 'м. Київ', '', 'бульв. Т. Шевченко', '18', '', '02010', '2012-01-01', 0),
-	(4, 1, 1, 'м. Київ', '', 'бульв. Т. Шевченко', '21', 'офіс 43', '02012', '2015-01-01', 0),
-	(5, 2, 1, 'м. Київ', '', 'ул. Лермонтова', '21', 'офіс 456', '04014', '2015-01-01', 0);
+TRUNCATE `addresses`;
+INSERT INTO `addresses` (`id`, `client_id`, `employee_id`, `our_company_id`, `country_id`, `city`, `region`, `street`, `building`, `apartment`, `zip`, `date_start`, `optlock`)
+VALUES
+	(1, 1, null, null, 1, 'м. Київ', '', 'вул. Горького', 'буд. 172', 'оф. 1020', '03150', '2012-01-01', 0),
+	(2, 2, null, null, 1, 'м. Київ', '', 'вул. Крещатик', 'буд. 38', '', '01015', '2012-01-01', 0),
+	(3, 3, null, null, 1, 'м. Київ', '', 'бульв. Т. Шевченко', '18', '', '02010', '2012-01-01', 0),
+	(4, 1, null, null, 1, 'м. Київ', '', 'бульв. Т. Шевченко', '21', 'офіс 43', '02012', '2015-01-01', 0),
+	(5, 2, null, null, 1, 'м. Київ', '', 'ул. Лермонтова', '21', 'офіс 456', '04014', '2015-01-01', 0),
+	(6, null, 1, null, 1, 'м.Київ', '', 'пр-т Оболонський', 'буд. 23', 'кв. 34', '04205', '2012-01-01', 0),
+	(7, null, 2, null, 1, 'м. Киев', '', 'вул. Крещатик', '12', 'кв. 45', '01045', '2012-01-01', 0),
+	(8, null, 3, null, 1, 'м. Киев', '', 'бульв. Т. Шевченко', '34/1', 'кв. 2', '00023', '2012-01-01', 0),
+  (9, null, null, 1, 1, 'м. Київ', '', 'вул. Горького', 'буд. 172', 'офіс 1020', '03150', '2009-01-01', 0),
+  (10, null, null, 2, 1, 'м. Киев', '', 'вул. Козацька', '120/4', 'літ. Б', '03022', '2015-07-01', 0);
+
 
 TRUNCATE `client_director`;
 INSERT INTO `client_director` (`id`, `client_id`, `post_id`, `full_name`, `short_name`, `date_start`, `optlock`)
@@ -82,13 +88,6 @@ VALUES
 	(3, 3, b'0', '2012-01-01', null, 5, 0),
 	(4, 4, b'0', '2012-01-01', null, 4, 0);
 
-TRUNCATE `employee_address`;
-INSERT INTO `employee_address` (`id`, `employee_id`, `country_id`, `city`, `region`, `street`, `building`, `apartment`, `zip`, `date_start`, `optlock`)
-VALUES
-	(1, 1, 1, 'м.Київ', '', 'пр-т Оболонський', 'буд. 23', 'кв. 34', '04205', '2012-01-01', 0),
-	(2, 2, 1, 'м. Киев', '', 'вул. Крещатик', '12', 'кв. 45', '01045', '2012-01-01', 0),
-	(3, 3, 1, 'м. Киев', '', 'бульв. Т. Шевченко', '34/1', 'кв. 2', '00023', '2012-01-01', 0);
-
 TRUNCATE `employee_account`;
 INSERT INTO `employee_account` (`id`, `employee_id`, `presentation`, `date_start`, `optlock`)
 VALUES
@@ -112,12 +111,15 @@ VALUES
 	(1, 1, 'Больничный в феврале 2014 года', '2014-02-01', '2014-02-12', 12, '', 0);
 
 TRUNCATE `agreements`;
-INSERT INTO `agreements` (`id`, `client_id`, `number`, `date_start`, `comment`, `optlock`)
+INSERT INTO `agreements` (`id`, `client_id`, `employee_id`, `number`, `date_start`, `comment`, `optlock`)
 VALUES 
-	(1, 1, '20170701/45/76', '2017-07-01', '', 0),
-	(2, 2, 'FLP-2015/3', '2015-03-01', 'Договор на ТП 2015 год', 0),
-	(3, 1, '20170701/45/77', '2017-08-01', '', 0),
-	(4, 3, '2017-07-01/4578/7709', '2017-09-01', '', 0);
+	(1, 1, null, '20170701/45/76', '2017-07-01', '', 0),
+	(2, 2, null, 'FLP-2015/3', '2015-03-01', 'Договор на ТП 2015 год', 0),
+	(3, 1, null, '20170701/45/77', '2017-08-01', '', 0),
+	(4, 3, null, '2017-07-01/4578/7709', '2017-09-01', '', 0),
+	(5, null, 1, '2015/3', '2015-03-01', 'Договор на ТП 2015 год', 0),
+	(6, null, 1, '2016/6', '2016-03-01', 'Договор на ТП 2016 год', 0),
+	(7, null, 1, '2017/8', '2017-03-01', 'Договор на ТП 2017 год', 0);
 
 TRUNCATE `document_type`;
 INSERT INTO `document_type` (`id`, `title`, `short_title`, `optlock`)
@@ -178,12 +180,6 @@ RUNCATE `our_company`;
 INSERT INTO `our_company` (`id`, `alias`, `title`, `edrpou`, `inn`, `vat_certificate`, `optlock`)
 VALUES 
 	(1, 'geosap', 'ТОВ "ГЕОСАП"', '36483010', '', '', 0);
-
-TRUNCATE `our_company_address`;
-INSERT INTO `our_company_address` (`id`, `our_company_id`, `country_id`, `city`, `region`, `street`, `building`, `apartment`, `zip`, `date_start`, `optlock`)
-VALUES
-  (1, 1, 1, 'м. Київ', '', 'вул. Горького', 'буд. 172', 'офіс 1020', '03150', '2009-01-01', 0),
-  (2, 2, 1, 'м. Киев', '', 'вул. Козацька', '120/4', 'літ. Б', '03022', '2015-07-01', 0);
 
 TRUNCATE `our_company_director`;
 INSERT INTO `our_company_director` (`id`, `our_company_id`, `post_id`, `full_name`, `short_name`, `date_start`, `optlock`)

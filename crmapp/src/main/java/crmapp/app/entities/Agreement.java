@@ -15,7 +15,7 @@ import java.util.Set;
 @Table(name = "agreements")
 @Getter
 @Setter
-@JsonIgnoreProperties(ignoreUnknown = true, value = {"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties(ignoreUnknown = true, value = {"hibernateLazyInitializer", "handler", "documents"})
 public class Agreement extends BaseEntity {
 
     @Column(name = "number")
@@ -39,7 +39,7 @@ public class Agreement extends BaseEntity {
     private Employee employee;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "our-company_id")
+    @JoinColumn(name = "our_company_id")
     @JsonBackReference(value = "our-company-agreement")
     private OurCompany ourCompany;
 

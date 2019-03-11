@@ -16,4 +16,7 @@ public interface AddressRepository extends BaseRepository<Address, Integer> {
 	@Query("SELECT a FROM Address a WHERE a.employee.id = :employeeId")
 	List<Address> findAllAddressesByEmployeeId(@Param("employeeId") Integer employeeId);
 
+	@Query("SELECT a FROM Address a WHERE a.ourCompany.id = :companyId")
+	List<Address> findAllAddressesByCompanyId(@Param("companyId") Integer companyId);
+
 }

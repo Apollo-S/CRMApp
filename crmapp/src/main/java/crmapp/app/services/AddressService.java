@@ -21,6 +21,9 @@ public class AddressService extends AbstractService<Address, AddressRepository> 
 	@Autowired
 	private EmployeeService employeeService;
 
+	@Autowired
+	private OurCompanyService ourCompanyService;
+
 	public List<Address> findAllByClientId(Integer clientId) {
 		return repository.findAllAddressesByClientId(clientId);
 	}

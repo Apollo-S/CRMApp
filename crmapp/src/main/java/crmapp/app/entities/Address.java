@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,7 +13,6 @@ import java.util.Objects;
 @Table(name = "addresses")
 @Getter
 @Setter
-@ToString
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Address extends BaseEntity {
 
@@ -113,14 +111,13 @@ public class Address extends BaseEntity {
                 Objects.equals(this.getDateStart(), that.getDateStart());
     }
 
-//    @Override
-//    public String toString() {
-//        return new StringBuilder()
-//                .append("Address [")
-//                .append(super.toString()).append(", ")
-//                .append("presentation=" + getPresentation()).append(", ")
-//                .append("dateStart=" + dateStart).append("]")
-//                .toString();
-//    }
+    @Override
+    public String toString() {
+        return new StringBuilder("Address [")
+                .append(super.toString()).append(", ")
+                .append("presentation=" + getPresentation()).append(", ")
+                .append("dateStart=" + dateStart).append("]")
+                .toString();
+    }
 
 }
