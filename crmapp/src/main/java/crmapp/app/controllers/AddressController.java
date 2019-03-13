@@ -104,7 +104,7 @@ public class AddressController extends BaseController {
     }
 
     @PostMapping(value = "/our-companies/{companyId}/addresses", headers = HEADER_JSON)
-    public ResponseEntity<Address> addCompanyAddress(
+    public ResponseEntity<Address> addOurCompanyAddress(
             @PathVariable("companyId") int companyId, @RequestBody Address address) {
         return postAddress(companyId, address, Owner.OUR_COMPANY);
     }
@@ -117,25 +117,53 @@ public class AddressController extends BaseController {
         return new ResponseEntity<>(savedAddress, new HttpHeaders(), HttpStatus.CREATED);
     }
 
+    // putAddress
     @PutMapping(value = "/clients/{clientId}/addresses/{id}", headers = HEADER_JSON)
     public ResponseEntity<Address> updateClientAddress(
             @PathVariable("clientId") int clientId, @RequestBody Address address) {
         return putAddress(clientId, address, Owner.CLIENT);
     }
 
+    @PutMapping(value = "/employees/{employeeId}/addresses/{id}", headers = HEADER_JSON)
+    public ResponseEntity<Address> updateEmployeeAddress(
+            @PathVariable("employeeId") int employeeId, @RequestBody Address address) {
+        return putAddress(employeeId, address, Owner.EMPLOYEE);
+    }
+
+    @PutMapping(value = "/our-companies/{companyId}/addresses/{id}", headers = HEADER_JSON)
+    public ResponseEntity<Address> updateOurCompanyAddress(
+            @PathVariable("companyId") int companyId, @RequestBody Address address) {
+        return putAddress(companyId, address, Owner.OUR_COMPANY);
+    }
+
     private ResponseEntity<Address> putAddress(Integer id, Address address, Owner owner) {
-        logger.info(LOG_ENTER_METHOD + "putAddress()" + LOG_CLOSE);
+        logger.info(LOG_ENTER_METHOD + "putAddress(" + owner.toString().toLowerCase() + ")" + LOG_CLOSE);
         Address updatedAddress = addressService.update(id, address, owner);
         logger.info(LOG_TEXT + "Address was updated: " + updatedAddress + LOG_CLOSE);
-        logger.info(LOG_OUT_OF_METHOD + "putAddress()" + LOG_CLOSE);
+        logger.info(LOG_OUT_OF_METHOD + "putAddress(" + owner.toString().toLowerCase() + ")" + LOG_CLOSE);
         return new ResponseEntity<>(updatedAddress, new HttpHeaders(), HttpStatus.OK);
     }
 
+    // deleteAddress
     @DeleteMapping(value = "/clients/{clientId}/addresses/{id}", headers = HEADER_JSON)
-    public ResponseEntity<Void> deleteAddress(@PathVariable(PARAM_ID) int id) {
+    public ResponseEntity<Void> deleteClientAddress(@PathVariable(PARAM_ID) int id) {
+        return deleteAddress(id);
+    }
+
+    @DeleteMapping(value = "/employees/{employeeId}/addresses/{id}", headers = HEADER_JSON)
+    public ResponseEntity<Void> deleteEmployeeAddress(@PathVariable(PARAM_ID) int id) {
+        return deleteAddress(id);
+    }
+
+    @DeleteMapping(value = "/clients/{companyId}/addresses/{id}", headers = HEADER_JSON)
+    public ResponseEntity<Void> deleteOurCompanyAddress(@PathVariable(PARAM_ID) int id) {
+        return deleteAddress(id);
+    }
+
+    private ResponseEntity<Void> deleteAddress(Integer id) {
         logger.info(LOG_ENTER_METHOD + "deleteAddress()" + LOG_CLOSE);
         addressService.delete(id);
-        logger.info(LOG_TEXT + "ClientAccount with ID=" + id + " was deleted" + LOG_CLOSE);
+        logger.info(LOG_TEXT + "Address with ID=" + id + " was deleted" + LOG_CLOSE);
         logger.info(LOG_OUT_OF_METHOD + "deleteAddress()" + LOG_CLOSE);
         return new ResponseEntity<>(new HttpHeaders(), HttpStatus.NO_CONTENT);
     }
