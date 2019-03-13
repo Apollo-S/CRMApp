@@ -176,8 +176,8 @@ VALUES
 	(5, 1, '5', '2017-07-03', 'ГНИ', '', 0),
 	(6, 2, '6', '2017-09-06', 'ГНИ', '', 0);
 
-RUNCATE `our_company`;
-INSERT INTO `our_company` (`id`, `alias`, `title`, `edrpou`, `inn`, `vat_certificate`, `optlock`)
+RUNCATE `our_companies`;
+INSERT INTO `our_companies` (`id`, `alias`, `title`, `edrpou`, `inn`, `vat_certificate`, `optlock`)
 VALUES 
 	(1, 'geosap', 'ТОВ "ГЕОСАП"', '36483010', '', '', 0);
 

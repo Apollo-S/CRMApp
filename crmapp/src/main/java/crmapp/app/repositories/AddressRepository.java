@@ -11,12 +11,12 @@ import org.springframework.stereotype.Repository;
 public interface AddressRepository extends BaseRepository<Address, Integer> {
 
 	@Query("SELECT a FROM Address a WHERE a.client.id = :clientId")
-	List<Address> findAllAddressesByClientId(@Param("clientId") Integer clientId);
+	List<Address> findAllByClientId(@Param("clientId") Integer clientId);
 
 	@Query("SELECT a FROM Address a WHERE a.employee.id = :employeeId")
-	List<Address> findAllAddressesByEmployeeId(@Param("employeeId") Integer employeeId);
+	List<Address> findAllByEmployeeId(@Param("employeeId") Integer employeeId);
 
 	@Query("SELECT a FROM Address a WHERE a.ourCompany.id = :companyId")
-	List<Address> findAllAddressesByCompanyId(@Param("companyId") Integer companyId);
+	List<Address> findAllByCompanyId(@Param("companyId") Integer companyId);
 
 }
