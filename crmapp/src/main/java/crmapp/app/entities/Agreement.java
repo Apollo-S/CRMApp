@@ -28,6 +28,10 @@ public class Agreement extends BaseEntity {
     @Column(name = "comment")
     private String comment;
 
+    @OneToOne
+    @JoinColumn(name = "agreement_type_code", referencedColumnName = "code")
+    private AgreementType agreementType;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     @JsonBackReference(value = "client-agreement")
