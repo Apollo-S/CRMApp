@@ -10,7 +10,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AgreementRepository extends BaseRepository<Agreement, Integer>{
 	
-	@Query("SELECT ca FROM Agreement ca WHERE ca.client.id = :clientId")
+	@Query("SELECT a FROM Agreement a WHERE a.client.id = :clientId")
 	List<Agreement> findAllAgreementsByClientId(@Param("clientId") Integer clientId);
+
+	@Query("SELECT a FROM Agreement a WHERE a.agreementType.code = :code")
+	List<Agreement> findAllAgreementsByType(@Param("code") String code);
 
 }
