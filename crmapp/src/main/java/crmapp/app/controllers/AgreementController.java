@@ -3,6 +3,7 @@ package crmapp.app.controllers;
 import java.util.List;
 
 import crmapp.app.entities.Agreement;
+import crmapp.app.entities.AgreementType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,19 @@ public class AgreementController extends BaseController {
 		return new ResponseEntity<>(agreements, HttpStatus.OK);
 	}
 
+	@PostMapping(value = "/agreements/type", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Agreement>> getAllAgreementsByType(@RequestBody AgreementType agrType) {
+		logger.info(LOG_ENTER_METHOD + "getAllAgreementsByType()" + LOG_CLOSE);
+		List<Agreement> agreements = service.findAllAgreementsByType(agrType);
+		if (agreements.size() == 0) {
+			logger.info(LOG_ERROR + "Agreements by type {" + agrType.getCode() + "} were not found" + LOG_CLOSE);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		logger.info(LOG_TEXT + "Count of Agreements by type: " + agreements.size() + LOG_CLOSE);
+		logger.info(LOG_OUT_OF_METHOD + "getAllAgreementsByType()" + LOG_CLOSE);
+		return new ResponseEntity<>(agreements, HttpStatus.OK);
+	}
+
 	@GetMapping(value = "/clients/{clientId}/agreements", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Agreement>> getAllAgreementsByClientId(@PathVariable("clientId") int clientId) {
 		logger.info(LOG_ENTER_METHOD + "getAllAgreementsByClientId()" + LOG_CLOSE);
@@ -54,7 +68,7 @@ public class AgreementController extends BaseController {
 		logger.info(LOG_OUT_OF_METHOD + "getAllAgreementsByClientId()" + LOG_CLOSE);
 		return new ResponseEntity<>(agreements, HttpStatus.OK);
 	}
-	
+
 	@GetMapping(value = { "/agreements/{id}", "/clients/{clientId}/agreements/{id}" }, headers = HEADER_JSON)
 	public ResponseEntity<Agreement> getAgreementById(@PathVariable(PARAM_ID) int id) {
 		logger.info(LOG_ENTER_METHOD + "getAgreementById()" + LOG_CLOSE);

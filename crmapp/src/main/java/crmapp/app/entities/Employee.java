@@ -28,7 +28,7 @@ import lombok.Setter;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true, 
 	value = { "hibernateLazyInitializer", "handler",
-			"vacations", "sickLists", "addresses", "accounts" })
+			"vacations", "sickLists", "addresses", "accounts", "agreements" })
 public class Employee extends BaseEntity {
 
 	@OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)

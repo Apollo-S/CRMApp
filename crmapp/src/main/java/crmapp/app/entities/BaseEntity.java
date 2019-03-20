@@ -12,11 +12,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @MappedSuperclass
 @Getter
 @Setter
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public abstract class BaseEntity {
+public abstract class BaseEntity implements Serializable {
 
 	static final String ID_SEPARATOR = "s/";
 	static final String PERIOD_SEPARATOR = " - ";

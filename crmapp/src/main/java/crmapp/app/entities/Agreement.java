@@ -2,6 +2,7 @@ package crmapp.app.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -10,6 +11,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Table(name = "agreements")
@@ -32,22 +35,22 @@ public class Agreement extends BaseEntity {
     @JoinColumn(name = "agreement_type_code", referencedColumnName = "code")
     private AgreementType agreementType;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "client_id")
     @JsonBackReference(value = "client-agreement")
     private Client client;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "employee_id")
     @JsonBackReference(value = "employee-agreement")
     private Employee employee;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "our_company_id")
     @JsonBackReference(value = "our-company-agreement")
     private OurCompany ourCompany;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "agreement", orphanRemoval = true)
+    @OneToMany(fetch = LAZY, mappedBy = "agreement", orphanRemoval = true)
     @OrderBy("id ASC")
     @JsonManagedReference(value = "agreement-document")
     private Set<Document> documents = new HashSet<>();
@@ -63,6 +66,21 @@ public class Agreement extends BaseEntity {
                 Objects.equals(this.getNumber(), that.getNumber()) &&
                 Objects.equals(this.getDateStart(), that.getDateStart()) &&
                 Objects.equals(this.getVersion(), that.getVersion());
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Client getCurrentClient() {
+        return this.client;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Employee getCurrentEmployee() {
+        return this.employee;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public OurCompany getCurrentOurCompany() {
+        return this.ourCompany;
     }
 
     @Override
