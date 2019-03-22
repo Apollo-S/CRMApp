@@ -68,19 +68,15 @@ public class Agreement extends BaseEntity {
                 Objects.equals(this.getVersion(), that.getVersion());
     }
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Client getCurrentClient() {
-        return this.client;
-    }
-
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Employee getCurrentEmployee() {
-        return this.employee;
-    }
-
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public OurCompany getCurrentOurCompany() {
-        return this.ourCompany;
+    @JsonInclude
+    public Object getContractorInfo() {
+        if (client != null) {
+            return client;
+        } else if (employee != null) {
+            return employee;
+        } else {
+            return ourCompany;
+        }
     }
 
     @Override
