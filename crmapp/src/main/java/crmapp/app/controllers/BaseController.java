@@ -1,9 +1,17 @@
 package crmapp.app.controllers;
 
+import crmapp.app.entities.BaseEntity;
+import crmapp.app.services.AbstractService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
 import javax.persistence.MappedSuperclass;
+import java.util.List;
 
 @MappedSuperclass
-public abstract class BaseController {
+public abstract class BaseController<T extends BaseEntity> {
 
 	static final String PARAM_ID = "id";
 	static final String HEADER_JSON = "Accept=application/json";
@@ -35,10 +43,36 @@ public abstract class BaseController {
 	public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 	
 	public static final String NUMBER_SIGNS = "###";
-	public static final String LOG_ENTER_METHOD = ANSI_BLUE + NUMBER_SIGNS + " Enter ";
+	public static final String LOG_ENTER_METHOD = ANSI_BLUE + NUMBER_SIGNS + " Enter to ";
 	public static final String LOG_OUT_OF_METHOD = ANSI_YELLOW + NUMBER_SIGNS + " Out of ";
 	public static final String LOG_TEXT = ANSI_GREEN + NUMBER_SIGNS + " ";
 	public static final String LOG_ERROR = ANSI_RED + NUMBER_SIGNS + " ";
 	public static final String LOG_CLOSE = " " + ANSI_RESET;
+
+	private static final Logger logger = LoggerFactory.getLogger(BaseController.class);
+
+	public ResponseEntity<List<T>> getAllEntities(AbstractService service) {
+        logger.info("  " + LOG_ENTER_METHOD + "getAllEntities()" + LOG_CLOSE);
+        List<T> entities = service.findAll();
+        if (entities.size() == 0) {
+            logger.info("  " + LOG_ERROR + "Entities for were not found" + LOG_CLOSE);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        logger.info("  " + LOG_TEXT + "Count of Entities: " + entities.size() + LOG_CLOSE);
+        logger.info("  " + LOG_OUT_OF_METHOD + "getAllEntities()" + LOG_CLOSE);
+        return new ResponseEntity<>(entities, HttpStatus.OK);
+    }
+
+	public ResponseEntity<T> getEntityById(int id, AbstractService service) {
+		logger.info(LOG_ENTER_METHOD + "getEntityById()" + LOG_CLOSE);
+		T entity = (T) service.findById(id);
+		if (entity == null) {
+			logger.info(LOG_ERROR + "Entity with ID=" + id + "wasn't found" + LOG_CLOSE);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		logger.info(LOG_TEXT + "Entity with ID=" + id + " was found: " + entity + LOG_CLOSE);
+		logger.info(LOG_OUT_OF_METHOD + "getEntityById()" + LOG_CLOSE);
+		return new ResponseEntity<>(entity, HttpStatus.OK);
+	}
 	
 }
