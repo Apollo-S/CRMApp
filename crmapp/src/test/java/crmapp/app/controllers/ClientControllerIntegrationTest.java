@@ -23,7 +23,7 @@ public class ClientControllerIntegrationTest {
     @Before
     public void setup() {
         client = new Client();
-        client.setAlias("kievstar");
+        client.setCode("kievstar");
         client.setTitle("KIEVSTAR LLC");
         client.setEdrpou("123456");
         client.setInn("123456789");
@@ -42,7 +42,7 @@ public class ClientControllerIntegrationTest {
         ResponseEntity<Client> respSavedClient = clientController.addClient(client);
 
         Client savedClient = respSavedClient.getBody();
-        savedClient.setAlias("updated kievstar");
+        savedClient.setCode("updated kievstar");
         savedClient.setTitle("updated KIEVSTAR LLC");
         savedClient.setEdrpou("654321");
         savedClient.setInn("987654321");

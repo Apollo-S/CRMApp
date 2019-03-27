@@ -39,7 +39,7 @@ public class ClientControllerUnitTest {
 
         mockClient = new Client();
         mockClient.setId(134);
-        mockClient.setAlias("kievstar");
+        mockClient.setCode("kievstar");
         mockClient.setTitle("KIEVSTAR LLC");
         mockClient.setEdrpou("123456");
         mockClient.setInn("123456789");

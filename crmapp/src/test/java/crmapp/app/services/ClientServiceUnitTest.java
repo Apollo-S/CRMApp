@@ -34,7 +34,7 @@ public class ClientServiceUnitTest {
 
         mockClient = new Client();
         mockClient.setId(134);
-        mockClient.setAlias("kievstar");
+        mockClient.setCode("kievstar");
         mockClient.setTitle("KIEVSTAR LLC");
         mockClient.setEdrpou("123456");
         mockClient.setInn("123456789");
@@ -45,7 +45,7 @@ public class ClientServiceUnitTest {
     public void testAddClient() {
         when(clientRepository.save(any(Client.class))).thenReturn(mockClient);
         Client savedClient = clientService.save(new Client());
-        assertEquals("kievstar", savedClient.getAlias());
+        assertEquals("kievstar", savedClient.getCode());
     }
 
     @Test
@@ -53,7 +53,7 @@ public class ClientServiceUnitTest {
         when(clientRepository.save(any(Client.class))).thenReturn(mockClient);
 
         Client savedClient = clientService.save(mockClient);
-        savedClient.setAlias("updated kievstar");
+        savedClient.setCode("updated kievstar");
         savedClient.setTitle("updated KIEVSTAR LLC");
         savedClient.setEdrpou("654321");
         savedClient.setInn("987654321");
@@ -64,7 +64,7 @@ public class ClientServiceUnitTest {
         Client updatedClient = clientService.update(savedClient.getId(), mockClient);
 
         assertEquals(updatedClient, mockClient);
-        assertEquals("updated kievstar", updatedClient.getAlias());
+        assertEquals("updated kievstar", updatedClient.getCode());
         assertEquals("updated KIEVSTAR LLC", updatedClient.getTitle());
         assertEquals("654321", updatedClient.getEdrpou());
         assertEquals("987654321", updatedClient.getInn());

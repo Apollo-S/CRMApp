@@ -15,7 +15,7 @@ VALUES
 	(8, 'Исходящий номер', 'fa-file-o', '/outputs', b'0', null, 0);
 
 TRUNCATE `clients`;
-INSERT INTO `clients` (`id`, `alias`, `title`, `edrpou`, `inn`, `vat_certificate`, `optlock`)
+INSERT INTO `clients` (`id`, `code`, `title`, `edrpou`, `inn`, `vat_certificate`, `optlock`)
 VALUES 
 	(1, 'kyivstar', 'ПРАТ "КИЇВСТАР"', '00987654', '0098765321', '345432678', 0),
 	(2, 'farlep', 'ПРАТ "ФАРЛЕП-ІНВЕСТ"', '00678906', '00678905412', '087654322', 0),
@@ -31,6 +31,32 @@ VALUES
 	(12, 'test-client6', 'ТОВ "TEST-CLIENT6"', '19028202', '', '', 0),
 	(13, 'test-client7', 'ТОВ "TEST-CLIENT7"', '19028202', '', '', 0);
 
+TRUNCATE `contractors`;
+INSERT INTO `contractors` (`id`, `code`, `title`, `edrpou`, `inn`, `vat_certificate`, `contractor_type_id`,`optlock`)
+VALUES
+	(1, 'kyivstar', 'ПРАТ "КИЇВСТАР"', '00987654', '0098765321', '345432678', 1, 0),
+	(2, 'farlep', 'ПРАТ "ФАРЛЕП-ІНВЕСТ"', '00678906', '00678905412', '087654322', 1, 0),
+	(3, 'ukrtelecom', 'ПАТ "УКРТЕЛЕКОМ"', '00312156', '00312156412', '085987432', 1, 0),
+	(4, 'pride-group', 'ТОВ "ПРАЙД-ГРУП"', '00352359', '', '', 1, 0),
+	(5, '2daytelecom', 'ТОО "2ДЭЙ ТЕЛЕКОМ"', '111111111', '', '', 1,  0),
+	(6, 'golden-tel', 'ТОВ "ГОЛДЕН ТЕЛЕКОМ"', '19028203', '', '', 1,  0),
+	(7, 'test-client1', 'ТОВ "TEST-CLIENT1"', '19028204', '', '', 1,  0),
+  (8, 'test-client2', 'ТОВ "TEST-CLIENT2"', '19028205', '', '', 1,  0),
+	(9, 'test-client3', 'ТОВ "TEST-CLIENT3"', '19028206', '', '', 1,  0),
+	(10, 'test-client4', 'ТОВ "TEST-CLIENT4"', '19028207', '', '', 1,  0),
+  (11, 'test-client5', 'ТОВ "TEST-CLIENT5"', '19028208', '', '', 1,  0),
+  (12, 'test-client6', 'ТОВ "TEST-CLIENT6"', '19028209', '', '', 1,  0),
+	(13, 'test-supplier1', 'ТОВ "TEST-SUPPLIER1"', '19028211', '', '', 2, 0),
+	(14, 'test-supplier2', 'ТОВ "TEST-SUPPLIER2"', '19028212', '', '', 2, 0),
+	(15, 'test-supplier3', 'ТОВ "TEST-SUPPLIER3"', '19028213', '', '', 2, 0),
+	(16, 'test-supplier4', 'ТОВ "TEST-SUPPLIER4"', '19028214', '', '', 2, 0);
+
+TRUNCATE `contractor_types`;
+INSERT INTO `contractor_types` (`id`,`code`, `title`, `optlock`)
+VALUES
+	(1, 'clients', 'Клиенты', 0),
+	(2, 'suppliers', 'Поставщики', 0);
+
 TRUNCATE `addresses`;
 INSERT INTO `addresses` (`id`, `client_id`, `employee_id`, `our_company_id`, `country_id`, `city`, `region`, `street`, `building`, `apartment`, `zip`, `date_start`, `optlock`)
 VALUES
@@ -45,17 +71,25 @@ VALUES
   (9, null, null, 1, 1, 'м. Київ', '', 'вул. Горького', 'буд. 172', 'офіс 1020', '03150', '2009-01-01', 0),
   (10, null, null, 2, 1, 'м. Киев', '', 'вул. Козацька', '120/4', 'літ. Б', '03022', '2015-07-01', 0);
 
+TRUNCATE `client_addresses`;
+INSERT INTO `client_addresses` (`id`, `client_id`, `country_id`, `city`, `region`, `street`, `building`, `apartment`, `zip`, `date_start`, `optlock`)
+VALUES
+	(1, 1, 1, 'м. Київ', '', 'вул. Горького', 'буд. 172', 'оф. 1020', '03150', '2012-01-01', 0),
+	(2, 2, 1, 'м. Київ', '', 'вул. Крещатик', 'буд. 38', '', '01015', '2012-01-01', 0),
+	(3, 3, 1, 'м. Київ', '', 'бульв. Т. Шевченко', '18', '', '02010', '2012-01-01', 0),
+	(4, 1, 1, 'м. Київ', '', 'бульв. Т. Шевченко', '21', 'офіс 43', '02012', '2015-01-01', 0),
+	(5, 2, 1, 'м. Київ', '', 'ул. Лермонтова', '21', 'офіс 456', '04014', '2015-01-01', 0);
 
-TRUNCATE `client_director`;
-INSERT INTO `client_director` (`id`, `client_id`, `post_id`, `full_name`, `short_name`, `date_start`, `optlock`)
+TRUNCATE `client_directors`;
+INSERT INTO `client_directors` (`id`, `client_id`, `post_id`, `full_name`, `short_name`, `date_start`, `optlock`)
 VALUES
 	(1, 1, 1, 'Степанюк Алла Борисівна', 'Степанюк А.Б.', '2013-01-01', 0),
 	(2, 2, 1, 'Слєпаков Семен Валерійович', 'Слєпаков С.В.', '2013-01-01', 0),
 	(3, 3, 1, 'Махно Нестор Петрович', 'Махно Н.П.', '2013-01-01', 0),
 	(4, 1, 1, 'Зощенко Виктор Алексеевич', 'Зощенко В.А.', '2015-01-01', 0);
 
-TRUNCATE `client_account`;
-INSERT INTO `client_account` (`id`, `client_id`, `presentation`, `date_start`, `optlock`)
+TRUNCATE `client_accounts`;
+INSERT INTO `client_accounts` (`id`, `client_id`, `presentation`, `date_start`, `optlock`)
 VALUES
 	(1, 1, '26007017100038 в АТ "Піреус Банк МКБ", МФО 300658', '2013-01-01', 0),
 	(2, 2, '26007247100756 в АТ "ПРИВАТБАНК", МФО 320699', '2013-01-01', 0),
@@ -86,8 +120,8 @@ VALUES
 	(3, 3, b'0', '2012-01-01', null, 5, 0),
 	(4, 4, b'0', '2012-01-01', null, 4, 0);
 
-TRUNCATE `employee_account`;
-INSERT INTO `employee_account` (`id`, `employee_id`, `presentation`, `date_start`, `optlock`)
+TRUNCATE `employee_accounts`;
+INSERT INTO `employee_accounts` (`id`, `employee_id`, `presentation`, `date_start`, `optlock`)
 VALUES
 	(1, 1, '26007017100038 в АТ "Піреус Банк МКБ", МФО 300658', '2013-01-01', 0),
 	(2, 2, '26007247100756 в АТ "ПРИВАТБАНК", МФО 320699', '2013-01-01', 0),
@@ -125,17 +159,17 @@ VALUES
 	(1, 'client', 'Клиент', 0),
 	(2, 'employee', 'Сотрудник', 0);
 
-TRUNCATE `document_type`;
-INSERT INTO `document_type` (`id`, `title`, `short_title`, `optlock`)
+TRUNCATE `document_types`;
+INSERT INTO `document_types` (`id`, `title`, `short_title`, `optlock`)
 VALUES 
 	(1, 'Акт выполненных работ', 'акт вып. раб.', 0),
 	(2, 'Счет-фактура', 'сч/ф', 0),
 	(3, 'Доп. соглашение', 'доп. согл.', 0),
 	(4, 'Акт передачи лицензий', 'акт пер. лиц.', 0);
 
-TRUNCATE `document_status`;
-INSERT INTO `document_status` (`id`, `status`, `background_color`, `color`, `allow_payment_date`, `allow_passing_date`, `optlock`)
-VALUES 
+TRUNCATE `document_statuses`;
+INSERT INTO `document_statuses` (`id`, `status`, `background_color`, `color`, `allow_payment_date`, `allow_passing_date`, `optlock`)
+VALUES
 	(1, 'Передан', '#DAA7BB', '#FFFFFF', b'0', b'1', 0),
 	(2, 'Подписан', '#5FDAB1', '#FFFFFF', b'0', b'0', 0),
 	(3, 'Оплачен', '#32DA14', '#FFFFFF', b'1', b'0', 0),
@@ -153,8 +187,8 @@ VALUES
 	(7, 3, 1, '68', '2017-09-30', 40000.0, null, null, '4', '', 0),
 	(8, 3, 1, '69', '2017-10-31', 300000.0, null, null, '4', '', 0);
 
-TRUNCATE `mail_document_type`;
-INSERT INTO `mail_document_type` (`id`, `title`, `optlock`)
+TRUNCATE `mail_document_types`;
+INSERT INTO `mail_document_types` (`id`, `title`, `optlock`)
 VALUES 
 	(1, 'Письмо', 0),
 	(2, 'Доверенность', 0),
@@ -185,8 +219,8 @@ INSERT INTO `our_companies` (`id`, `alias`, `title`, `edrpou`, `inn`, `vat_certi
 VALUES 
 	(1, 'geosap', 'ТОВ "ГЕОСАП"', '36483010', '', '', 0);
 
-TRUNCATE `our_company_director`;
-INSERT INTO `our_company_director` (`id`, `our_company_id`, `post_id`, `full_name`, `short_name`, `date_start`, `optlock`)
+TRUNCATE `our_company_directors`;
+INSERT INTO `our_company_directors` (`id`, `our_company_id`, `post_id`, `full_name`, `short_name`, `date_start`, `optlock`)
 VALUES
 	(1, 1, 1, 'Стоян Олександр Володимирович', 'Стоян О.В.', '2015-01-01', 0);
 

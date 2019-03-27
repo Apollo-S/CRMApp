@@ -22,7 +22,7 @@ public class ClientServiceIntegrationTest {
     @Before
     public void setup() {
         client = new Client();
-        client.setAlias("kievstar");
+        client.setCode("kievstar");
         client.setTitle("KIEVSTAR LLC");
         client.setEdrpou("123456");
         client.setInn("123456789");
@@ -35,14 +35,14 @@ public class ClientServiceIntegrationTest {
 
         assertNotNull(savedClient);
         assertNotNull(savedClient.getId());
-        assertEquals("kievstar", savedClient.getAlias());
+        assertEquals("kievstar", savedClient.getCode());
     }
 
     @Test
     public void testUpdateClient() {
         Client savedClient = clientService.save(client);
 
-        savedClient.setAlias("updated kievstar");
+        savedClient.setCode("updated kievstar");
         savedClient.setTitle("updated KIEVSTAR LLC");
         savedClient.setEdrpou("654321");
         savedClient.setInn("987654321");
@@ -51,7 +51,7 @@ public class ClientServiceIntegrationTest {
 
         assertNotNull(updatedClient);
         assertNotNull(updatedClient.getId());
-        assertEquals("updated kievstar", updatedClient.getAlias());
+        assertEquals("updated kievstar", updatedClient.getCode());
         assertEquals("updated KIEVSTAR LLC", updatedClient.getTitle());
         assertEquals("654321", updatedClient.getEdrpou());
         assertEquals("987654321", updatedClient.getInn());
