@@ -15,7 +15,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "clients")
+@Table(name = Tables.CLIENTS)
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true,
@@ -30,25 +30,25 @@ public class Client extends AbstractCompany {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "client", orphanRemoval = true)
 	@OrderBy("id ASC")
-	@JsonManagedReference(value = "client-address")
-	private Set<Address> addresses = new HashSet<>();
+	@JsonManagedReference(value = Tables.CLIENT_ADDRESSES)
+	private Set<ClientAddress> addresses = new HashSet<>();
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "client", orphanRemoval = true)
 	@OrderBy("id ASC")
-	@JsonManagedReference(value = "client-director")
+	@JsonManagedReference(value = Tables.CLIENT_DIRECTORS)
 	private Set<ClientDirector> directors = new HashSet<>();
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "client", orphanRemoval = true)
 	@OrderBy("id ASC")
-	@JsonManagedReference(value = "client-account")
+	@JsonManagedReference(value = Tables.CLIENT_ACCOUNTS)
 	private Set<ClientAccount> accounts = new HashSet<>();
 
 	public Client() {
 	}
 
-	public Client(String title, String alias, String edrpou, String inn, String vatCertificate) {
+	public Client(String title, String code, String edrpou, String inn, String vatCertificate) {
 		this.setTitle(title);
-		this.setAlias(alias);
+		this.setCode(code);
 		this.setEdrpou(edrpou);
 		this.setInn(inn);
 		this.setVatCertificate(vatCertificate);

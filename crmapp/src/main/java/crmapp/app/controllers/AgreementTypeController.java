@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/agreement-types")
-public class AgreementTypeController extends BaseController {
+public class AgreementTypeController extends BaseController<AgreementType, AgreementTypeService> {
 
 	private static final Logger logger = LoggerFactory.getLogger(AgreementTypeController.class);
 

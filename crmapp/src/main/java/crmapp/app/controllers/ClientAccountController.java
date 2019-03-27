@@ -22,7 +22,7 @@ import crmapp.app.services.ClientAccountService;
 
 @RestController
 @RequestMapping(value = "/api/clients/{clientId}/accounts")
-public class ClientAccountController extends BaseController {
+public class ClientAccountController extends BaseController<ClientAccount, ClientAccountService> {
 
 	private static final Logger logger = LoggerFactory.getLogger(ClientAccountController.class);
 	private final ClientAccountService accountService;

@@ -24,7 +24,7 @@ import crmapp.app.services.DocumentService;
 
 @RestController
 @RequestMapping(value = "/api")
-public class DocumentController extends BaseController {
+public class DocumentController extends BaseController<Document, DocumentService> {
 
 	private static final Logger logger = LoggerFactory.getLogger(DocumentController.class);
 

@@ -9,16 +9,20 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Table(name = "client_director")
+@Table(name = Tables.CLIENT_DIRECTORS)
+@Getter
+@Setter
 @JsonIgnoreProperties(ignoreUnknown = true, 
 	value = { "hibernateLazyInitializer", "handler" })
 public class ClientDirector extends AbstractDirector {
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "client_id")
-	@JsonBackReference(value = "client-director")
+	@JoinColumn(name = Tables.CLIENT_ID)
+	@JsonBackReference(value = Tables.CLIENT_DIRECTORS)
 	private Client client;
 
 	public ClientDirector() {
@@ -30,14 +34,6 @@ public class ClientDirector extends AbstractDirector {
 		this.setFullName(fullName);
 		this.setShortName(shortName);
 		this.setDateStart(dateStart);
-	}
-
-	public Client getClient() {
-		return client;
-	}
-
-	public void setClient(Client client) {
-		this.client = client;
 	}
 
 	@Override

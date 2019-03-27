@@ -2,6 +2,7 @@ package crmapp.app.controllers;
 
 import java.util.List;
 
+import crmapp.app.services.CategoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import crmapp.app.repositories.CategoryRepository;
 
 @RestController
 @RequestMapping(value = "/api/categories")
-public class CategoryController extends BaseController {
+public class CategoryController extends BaseController<Category, CategoryService> {
 
 	private static final Logger logger = LoggerFactory.getLogger(CategoryController.class);
 

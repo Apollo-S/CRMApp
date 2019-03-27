@@ -2,6 +2,7 @@ package crmapp.app.controllers;
 
 import java.util.List;
 
+import crmapp.app.services.PersonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ import crmapp.app.repositories.PersonRepository;
 @RestController
 @Transactional
 @RequestMapping(value = "/api/persons")
-public class PersonController extends BaseController {
+public class PersonController extends BaseController<Person, PersonService> {
 
 	private static final Logger logger = LoggerFactory.getLogger(PersonController.class);
 	

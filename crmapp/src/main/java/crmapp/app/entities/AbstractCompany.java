@@ -15,11 +15,11 @@ import lombok.Setter;
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public abstract class AbstractCompany extends BaseEntity {
 
-	@Column(name = "title", length = 255)
+	@Column(name = "title", length = 200)
 	private String title;
 
-	@Column(name = "alias", length = 100)
-	private String alias;
+	@Column(name = "code", length = 100)
+	private String code;
 
 	@Column(name = "edrpou", length = 12)
 	private String edrpou;
@@ -33,9 +33,9 @@ public abstract class AbstractCompany extends BaseEntity {
 	public AbstractCompany() {
 	}
 
-	public AbstractCompany(String title, String alias, String edrpou, String inn, String vatCertificate) {
+	public AbstractCompany(String title, String code, String edrpou, String inn, String vatCertificate) {
 		this.title = title;
-		this.alias = alias;
+		this.code = code;
 		this.edrpou = edrpou;
 		this.inn = inn;
 		this.vatCertificate = vatCertificate;
@@ -63,7 +63,7 @@ public abstract class AbstractCompany extends BaseEntity {
 		return new StringBuilder()
 			.append(super.toString()).append(", ")
 			.append("title=" + title).append(", ")
-			.append("alias=" + alias).append(", ")
+			.append("code=" + code).append(", ")
 			.append("edrpou=" + edrpou).append(", ")
 			.append("inn=" + inn).append(", ")
 			.append("vatCertificate=" + vatCertificate)

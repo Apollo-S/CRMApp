@@ -1,6 +1,7 @@
 package crmapp.app.entities;
 
 import crmapp.app.entities.base.TypeBaseEntity;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +13,9 @@ import javax.persistence.Table;
 @Getter
 @Setter
 public class ContractorType extends TypeBaseEntity {
+
+    public final static String CLIENT = "client";
+    public final static String SUPPLIER = "supplier";
 
     @Override
     public String getUrl() {

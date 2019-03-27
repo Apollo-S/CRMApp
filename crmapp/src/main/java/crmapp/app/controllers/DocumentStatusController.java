@@ -17,7 +17,7 @@ import crmapp.app.services.DocumentStatusService;
 
 @RestController
 @RequestMapping(value = "/api/document-statuses")
-public class DocumentStatusController extends BaseController {
+public class DocumentStatusController extends BaseController<DocumentStatus, DocumentStatusService> {
 
 	private static final Logger logger = LoggerFactory.getLogger(DocumentStatusController.class);
 

@@ -2,6 +2,7 @@ package crmapp.app.controllers;
 
 import java.util.List;
 
+import crmapp.app.services.SickListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ import crmapp.app.repositories.SickListRepository;
 @RestController
 @Transactional
 @RequestMapping(value = "/api/employees")
-public class SickListController extends BaseController {
+public class SickListController extends BaseController<SickList, SickListService> {
 
 	@Autowired
 	private SickListRepository sickListRepository;

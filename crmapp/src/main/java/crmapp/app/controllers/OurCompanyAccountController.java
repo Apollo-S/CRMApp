@@ -2,6 +2,7 @@ package crmapp.app.controllers;
 
 import java.util.List;
 
+import crmapp.app.services.OurCompanyAccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ import crmapp.app.repositories.OurCompanyRepository;
 @RestController
 @Transactional
 @RequestMapping(value = "/api/our-companies/{companyId}/accounts")
-public class OurCompanyAccountController extends BaseController {
+public class OurCompanyAccountController extends BaseController<OurCompanyAccount, OurCompanyAccountService> {
 
 	private static final Logger logger = LoggerFactory.getLogger(OurCompanyAccountController.class);
 

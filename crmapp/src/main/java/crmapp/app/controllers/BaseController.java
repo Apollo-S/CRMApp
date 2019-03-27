@@ -4,6 +4,7 @@ import crmapp.app.entities.BaseEntity;
 import crmapp.app.services.AbstractService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -11,7 +12,7 @@ import javax.persistence.MappedSuperclass;
 import java.util.List;
 
 @MappedSuperclass
-public abstract class BaseController<T extends BaseEntity> {
+public abstract class BaseController<T extends BaseEntity, S extends AbstractService> {
 
 	static final String PARAM_ID = "id";
 	static final String HEADER_JSON = "Accept=application/json";
@@ -51,9 +52,12 @@ public abstract class BaseController<T extends BaseEntity> {
 
 	private static final Logger logger = LoggerFactory.getLogger(BaseController.class);
 
-	public ResponseEntity<List<T>> getAllEntities(AbstractService service) {
+	@Autowired
+	protected S service;
+
+	public ResponseEntity<List<T>> getAllEntities() {
         logger.info("  " + LOG_ENTER_METHOD + "getAllEntities()" + LOG_CLOSE);
-        List<T> entities = service.findAll();
+        List<T> entities = this.service.findAll();
         if (entities.size() == 0) {
             logger.info("  " + LOG_ERROR + "Entities for were not found" + LOG_CLOSE);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -63,9 +67,9 @@ public abstract class BaseController<T extends BaseEntity> {
         return new ResponseEntity<>(entities, HttpStatus.OK);
     }
 
-	public ResponseEntity<T> getEntityById(int id, AbstractService service) {
+	public ResponseEntity<T> getEntityById(int id) {
 		logger.info(LOG_ENTER_METHOD + "getEntityById()" + LOG_CLOSE);
-		T entity = (T) service.findById(id);
+		T entity = (T) this.service.findById(id);
 		if (entity == null) {
 			logger.info(LOG_ERROR + "Entity with ID=" + id + "wasn't found" + LOG_CLOSE);
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

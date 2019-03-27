@@ -23,7 +23,7 @@ import crmapp.app.services.AgreementService;
 
 @RestController
 @RequestMapping(value = "/api")
-public class AgreementController extends BaseController {
+public class AgreementController extends BaseController<Agreement, AgreementService> {
 
 	private static final Logger logger = LoggerFactory.getLogger(AgreementController.class);
 

@@ -10,16 +10,20 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Table(name = "client_account")
+@Table(name = Tables.CLIENT_ACCOUNTS)
+@Getter
+@Setter
 @JsonIgnoreProperties(ignoreUnknown = true, 
 	value = { "hibernateLazyInitializer", "handler" })
 public class ClientAccount extends AbstractAccount {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "client_id")
-	@JsonBackReference(value = "client-account")
+	@JsonBackReference(value = Tables.CLIENT_ACCOUNTS)
 	private Client client;
 
 	public ClientAccount() {
@@ -27,14 +31,6 @@ public class ClientAccount extends AbstractAccount {
 
 	public ClientAccount(Client client, String presentation, Date dateStart) {
 		super(presentation, dateStart);
-		this.client = client;
-	}
-
-	public Client getClient() {
-		return client;
-	}
-
-	public void setClient(Client client) {
 		this.client = client;
 	}
 

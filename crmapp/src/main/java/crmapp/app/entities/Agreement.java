@@ -15,10 +15,11 @@ import java.util.Set;
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
-@Table(name = "agreements")
+@Table(name = Tables.AGREEMENTS)
 @Getter
 @Setter
-@JsonIgnoreProperties(ignoreUnknown = true, value = {"hibernateLazyInitializer", "handler", "documents"})
+@JsonIgnoreProperties(ignoreUnknown = true,
+        value = {"hibernateLazyInitializer", "handler", "documents"})
 public class Agreement extends BaseEntity {
 
     @Column(name = "number")

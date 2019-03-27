@@ -22,20 +22,14 @@ import crmapp.app.services.ClientService;
 
 @RestController
 @RequestMapping(value = "/api/clients")
-public class ClientController extends BaseController<Client> {
+public class ClientController extends BaseController<Client, ClientService> {
 
 	private static final Logger logger = LoggerFactory.getLogger(ClientController.class);
-	private final ClientService clientService;
-
-    @Autowired
-    public ClientController(ClientService service) {
-        this.clientService = service;
-    }
 
     @GetMapping(value = "", headers = HEADER_JSON)
 	public ResponseEntity<List<Client>> getAllClients() {
 		logger.info(LOG_ENTER_METHOD + "getAllClients()" + LOG_CLOSE);
-		ResponseEntity<List<Client>> responseEntity = super.getAllEntities(clientService);
+		ResponseEntity<List<Client>> responseEntity = super.getAllEntities();
 		logger.info(LOG_OUT_OF_METHOD + "getAllClients()" + LOG_CLOSE);
 		return responseEntity;
 	}
@@ -43,7 +37,7 @@ public class ClientController extends BaseController<Client> {
 	@GetMapping(value = "/{id}", headers = HEADER_JSON)
 	public ResponseEntity<Client> getClientById(@PathVariable(PARAM_ID) int id) {
 		logger.info(LOG_ENTER_METHOD + "getClientById()" + LOG_CLOSE);
-		ResponseEntity<Client> responseEntity = super.getEntityById(id, clientService);
+		ResponseEntity<Client> responseEntity = super.getEntityById(id);
 		logger.info(LOG_OUT_OF_METHOD + "getClientById()" + LOG_CLOSE);
 		return responseEntity;
 	}
@@ -51,16 +45,17 @@ public class ClientController extends BaseController<Client> {
 	@PostMapping(value = "", headers = HEADER_JSON)
 	public ResponseEntity<Client> addClient(@RequestBody Client client) {
 		logger.info(LOG_ENTER_METHOD + "addClient()" + LOG_CLOSE);
-		Client savedClient = clientService.save(client);
+		Client savedClient = super.service.save(client);
 		logger.info(LOG_TEXT + "Client added with ID=" + savedClient.getId() + LOG_CLOSE);
 		logger.info(LOG_OUT_OF_METHOD + "addClient()" + LOG_CLOSE);
 		return new ResponseEntity<>(savedClient, new HttpHeaders(), HttpStatus.CREATED);
 	}
 
 	@PutMapping(value = "/{id}", headers = HEADER_JSON)
-	public ResponseEntity<Client> updateClient(@PathVariable(PARAM_ID) int id, @RequestBody Client client) {
+	public ResponseEntity<Client> updateClient(@PathVariable(PARAM_ID) int id,
+											   @RequestBody Client client) {
 		logger.info(LOG_ENTER_METHOD + "updateClient()" + LOG_CLOSE);
-		client = clientService.update(id, client);
+		client = super.service.update(id, client);
 		logger.info(LOG_TEXT + "Client with ID=" + id + " was updated: " + client + LOG_CLOSE);
 		logger.info(LOG_OUT_OF_METHOD + "updateClient()" + LOG_CLOSE);
 		return new ResponseEntity<>(client, new HttpHeaders(), HttpStatus.OK);
@@ -69,7 +64,7 @@ public class ClientController extends BaseController<Client> {
 	@DeleteMapping(value = "/{id}", headers = HEADER_JSON)
 	public ResponseEntity<Void> deleteClient(@PathVariable(PARAM_ID) int id) {
 		logger.info(LOG_ENTER_METHOD + "deleteClient()" + LOG_CLOSE);
-		clientService.delete(id);
+		super.service.delete(id);
 		logger.info(LOG_TEXT + "Client with ID=" + id + " was deleted" + LOG_CLOSE);
 		logger.info(LOG_OUT_OF_METHOD + "deleteClient()" + LOG_CLOSE);
 		return new ResponseEntity<>(new HttpHeaders(), HttpStatus.NO_CONTENT);

@@ -1,6 +1,8 @@
 package crmapp.app.controllers;
 
 import java.util.List;
+
+import crmapp.app.services.MailOutputService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,7 @@ import crmapp.app.repositories.MailOutputRepository;
 @RestController
 @Transactional
 @RequestMapping(value = "/api/mail-outputs")
-public class MailOutputController extends BaseController {
+public class MailOutputController extends BaseController<MailOutput, MailOutputService> {
 
 	private static final Logger logger = LoggerFactory.getLogger(MailOutputController.class);
 

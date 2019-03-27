@@ -22,7 +22,7 @@ import crmapp.app.services.VacationService;
 
 @RestController
 @RequestMapping(value = "/api")
-public class VacationController extends BaseController {
+public class VacationController extends BaseController<Vacation, VacationService> {
 
 	private static final Logger logger = LoggerFactory.getLogger(VacationController.class);
 

@@ -23,7 +23,7 @@ import crmapp.app.entities.ClientDirector;
 
 @RestController
 @RequestMapping(value = "/api/clients/{clientId}/directors")
-public class ClientDirectorController extends BaseController {
+public class ClientDirectorController extends BaseController<ClientDirector, ClientDirectorService> {
 
 	private static final Logger logger = LoggerFactory.getLogger(ClientDirectorController.class);
 

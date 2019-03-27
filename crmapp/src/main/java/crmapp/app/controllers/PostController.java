@@ -2,6 +2,7 @@ package crmapp.app.controllers;
 
 import java.util.List;
 
+import crmapp.app.services.PostService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ import crmapp.app.repositories.PostRepository;
 @RestController
 @Transactional
 @RequestMapping(value = "/api/posts")
-public class PostController extends BaseController {
+public class PostController extends BaseController<Post, PostService> {
 	
 	private static final Logger logger = LoggerFactory.getLogger(PostController.class);
 	

@@ -42,6 +42,11 @@ public class Address extends BaseEntity {
     @Column(name = "date_start")
     private Date dateStart;
 
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "contractor_id")
+//    @JsonBackReference(value = "contractor-address")
+//    private Contractor contractor;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     @JsonBackReference(value = "client-address")

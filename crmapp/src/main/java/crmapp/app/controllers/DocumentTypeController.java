@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import crmapp.app.entities.DocumentType;
 import crmapp.app.services.DocumentTypeService;
+import org.thymeleaf.dom.DocType;
 
 @RestController
 @RequestMapping(value = "/api/document-types")
-public class DocumentTypeController extends BaseController {
+public class DocumentTypeController extends BaseController<DocumentType, DocumentTypeService> {
 
 	private static final Logger logger = LoggerFactory.getLogger(DocumentTypeController.class);
 

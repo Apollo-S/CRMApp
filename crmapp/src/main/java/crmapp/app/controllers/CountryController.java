@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/countries")
-public class CountryController extends BaseController {
+public class CountryController extends BaseController<Country, CountryService> {
 
     private static final Logger logger = LoggerFactory.getLogger(ClientController.class);
 

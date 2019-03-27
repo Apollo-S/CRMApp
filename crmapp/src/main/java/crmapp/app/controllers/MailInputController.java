@@ -1,6 +1,8 @@
 package crmapp.app.controllers;
 
 import java.util.List;
+
+import crmapp.app.services.MailInputService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,7 @@ import crmapp.app.repositories.MailInputRepository;
 @RestController
 @Transactional
 @RequestMapping(value = "/api/mail-inputs")
-public class MailInputController extends BaseController {
+public class MailInputController extends BaseController<MailInput, MailInputService> {
 
 	private static final Logger logger = LoggerFactory.getLogger(MailInputController.class);
 

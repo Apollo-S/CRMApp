@@ -2,6 +2,7 @@ package crmapp.app.controllers;
 
 import java.util.List;
 
+import crmapp.app.services.MailDocumentTypeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import crmapp.app.repositories.MailDocumentTypeRepository;
 @RestController
 @Transactional
 @RequestMapping(value = "/api/mail-document-types")
-public class MailDocumentTypeController extends BaseController {
+public class MailDocumentTypeController extends BaseController<MailDocumentType, MailDocumentTypeService> {
 
 	private static final Logger logger = LoggerFactory.getLogger(MailDocumentTypeController.class);
 
