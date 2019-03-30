@@ -26,7 +26,7 @@ public class Client extends AbstractCompany {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "client", orphanRemoval = true)
 	@OrderBy("id ASC")
 	@JsonManagedReference(value = "client-agreement")
-	private Set<Agreement> agreements = new HashSet<>();
+	private Set<ClientAgreement> agreements = new HashSet<>();
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "client", orphanRemoval = true)
 	@OrderBy("id ASC")

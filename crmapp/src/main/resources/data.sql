@@ -145,19 +145,19 @@ VALUES
 TRUNCATE `agreements`;
 INSERT INTO `agreements` (`id`, `client_id`, `employee_id`, `number`, `date_start`, `comment`, `optlock`, `agreement_type_code`)
 VALUES 
-	(1, 1, null, '20170701/45/76', '2017-07-01', '', 0, 'client'),
-	(2, 2, null, 'FLP-2015/3', '2015-03-01', 'Договор на ТП 2015 год', 0, 'client'),
-	(3, 1, null, '20170701/45/77', '2017-08-01', '', 0, 'client'),
-	(4, 3, null, '2017-07-01/4578/7709', '2017-09-01', '', 0, 'client'),
-	(5, null, 1, '2015/3', '2015-03-01', 'Договор на ТП 2015 год', 0, 'employee'),
-	(6, null, 1, '2016/6', '2016-03-01', 'Договор на ТП 2016 год', 0, 'employee'),
-	(7, null, 1, '2017/8', '2017-03-01', 'Договор на ТП 2017 год', 0, 'employee');
+	(1, 1, null, '20170701/45/76', '2017-07-01', '', 0, 'clients'),
+	(2, 2, null, 'FLP-2015/3', '2015-03-01', 'Договор на ТП 2015 год', 0, 'clients'),
+	(3, 1, null, '20170701/45/77', '2017-08-01', '', 0, 'clients'),
+	(4, 3, null, '2017-07-01/4578/7709', '2017-09-01', '', 0, 'clients'),
+	(5, null, 1, '2015/3', '2015-03-01', 'Договор на ТП 2015 год', 0, 'employees'),
+	(6, null, 1, '2016/6', '2016-03-01', 'Договор на ТП 2016 год', 0, 'employees'),
+	(7, null, 1, '2017/8', '2017-03-01', 'Договор на ТП 2017 год', 0, 'employees');
 
 TRUNCATE `agreement_types`;
 INSERT INTO `agreement_types` (`id`,`code`, `title`, `optlock`)
 VALUES
-	(1, 'client', 'Клиент', 0),
-	(2, 'employee', 'Сотрудник', 0);
+	(1, 'clients', 'Клиенты', 0),
+	(2, 'employees', 'Сотрудники', 0);
 
 TRUNCATE `document_types`;
 INSERT INTO `document_types` (`id`, `title`, `short_title`, `optlock`)
