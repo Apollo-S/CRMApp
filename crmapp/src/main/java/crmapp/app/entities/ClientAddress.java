@@ -10,6 +10,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,6 +33,11 @@ public class ClientAddress extends AbstractAddress {
 	public ClientAddress(Client client, Date dateStart) {
 		this.client = client;
 		this.setDateStart(dateStart);
+	}
+
+	@JsonInclude
+	public Client getClientInfo() {
+		return client;
 	}
 
 	@Override
