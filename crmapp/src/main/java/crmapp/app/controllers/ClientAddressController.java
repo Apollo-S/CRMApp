@@ -34,29 +34,19 @@ public class ClientAddressController extends BaseController<ClientAddress, Clien
 
 	@GetMapping(value = "", headers = HEADER_JSON)
 	public ResponseEntity<List<ClientAddress>> getAllClientAddresses(@PathVariable("clientId") Integer clientId) {
-		logger.info(LOG_ENTER_METHOD + "getAllClientAddresses()" + LOG_CLOSE);
-		ResponseEntity<List<ClientAddress>> responseEntity = super.getAllEntities();
-		logger.info(LOG_OUT_OF_METHOD + "getAllClientAddresses()" + LOG_CLOSE);
-		return responseEntity;
+		return super.getAllEntities();
 	}
 
 	@GetMapping(value = "/{id}", headers = HEADER_JSON)
 	public ResponseEntity<ClientAddress> getClientAddressById(@PathVariable(PARAM_ID) int id) {
-		logger.info(LOG_ENTER_METHOD + "getClientAddressById()" + LOG_CLOSE);
-		ClientAddress address = super.service.findById(id);
-		if (address == null) {
-			logger.info(LOG_ERROR + "ClientAccount with ID=" + id + "wasn't found" + LOG_CLOSE);
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-		logger.info(LOG_OUT_OF_METHOD + "getClientAddressById()" + LOG_CLOSE);
-		return new ResponseEntity<>(address, HttpStatus.OK);
+		return super.getEntityById(id);
 	}
 
 	@PostMapping(value = "", headers = HEADER_JSON)
 	public ResponseEntity<ClientAddress> addClientAddress(@PathVariable("clientId") int clientId,
 														  @RequestBody ClientAddress address) {
 		logger.info(LOG_ENTER_METHOD + "addClientAddress()" + LOG_CLOSE);
-		ClientAddress savedAddress = addressService.save(clientId, address);
+		ClientAddress savedAddress = super.service.save(clientId, address);
 		logger.info(LOG_TEXT + "ClientAddress added with ID=" + savedAddress.getId() + LOG_CLOSE);
 		logger.info(LOG_OUT_OF_METHOD + "addClientAddress()" + LOG_CLOSE);
 		return new ResponseEntity<>(savedAddress, new HttpHeaders(), HttpStatus.CREATED);
@@ -74,11 +64,7 @@ public class ClientAddressController extends BaseController<ClientAddress, Clien
 	
 	@DeleteMapping(value = "/{id}", headers = HEADER_JSON)
 	public ResponseEntity<Void> deleteClientAddress(@PathVariable(PARAM_ID) int id) {
-		logger.info(LOG_ENTER_METHOD + "deleteClientAddress()" + LOG_CLOSE);
-		addressService.delete(id);
-		logger.info(LOG_TEXT + "ClientAccount with ID=" + id + " was deleted" + LOG_CLOSE);
-		logger.info(LOG_OUT_OF_METHOD + "deleteClientAddress()" + LOG_CLOSE);
-		return new ResponseEntity<>(new HttpHeaders(), HttpStatus.NO_CONTENT);
+		return super.deleteEntityById(id);
 	}
 
 }

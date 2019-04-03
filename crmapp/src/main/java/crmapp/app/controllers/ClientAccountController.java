@@ -48,15 +48,7 @@ public class ClientAccountController extends BaseController<ClientAccount, Clien
 
 	@GetMapping(value = "/{id}", headers = HEADER_JSON)
 	public ResponseEntity<ClientAccount> getClientAccountById(@PathVariable(PARAM_ID) int id) {
-		logger.info(LOG_ENTER_METHOD + "getClientAccountById()" + LOG_CLOSE);
-		ClientAccount account = accountService.findById(id);
-		if (account == null) {
-			logger.info(LOG_ERROR + "ClientAccount with ID=" + id + "wasn't found" + LOG_CLOSE);
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-		logger.info(LOG_TEXT + "ClientAccount with ID=" + id + " was found: " + account + LOG_CLOSE);
-		logger.info(LOG_OUT_OF_METHOD + "getClientAccountById()" + LOG_CLOSE);
-		return new ResponseEntity<>(account, HttpStatus.OK);
+		return super.getEntityById(id);
 	}
 
 	@PostMapping(value = "", headers = HEADER_JSON)
@@ -82,11 +74,7 @@ public class ClientAccountController extends BaseController<ClientAccount, Clien
 
 	@DeleteMapping(value = "/{id}", headers = HEADER_JSON)
 	public ResponseEntity<Void> deleteClientAccount(@PathVariable(PARAM_ID) int id) {
-		logger.info(LOG_ENTER_METHOD + "deleteClientAccount()" + LOG_CLOSE);
-		accountService.delete(id);
-		logger.info(LOG_TEXT + "ClientAccount with ID=" + id + " was deleted" + LOG_CLOSE);
-		logger.info(LOG_OUT_OF_METHOD + "deleteClientAccount()" + LOG_CLOSE);
-		return new ResponseEntity<>(new HttpHeaders(), HttpStatus.NO_CONTENT);
+		return super.deleteEntityById(id);
 	}
 
 }
