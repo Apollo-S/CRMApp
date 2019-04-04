@@ -66,14 +66,14 @@ public abstract class BaseController<T extends BaseEntity, S extends AbstractSer
     }
 
     protected ResponseEntity<List<T>> getAllEntities() {
-        logger.info(LOG_ENTER_METHOD + "getAll" + genericType.getSimpleName() + "Entities" + LOG_CLOSE);
+        logger.info(LOG_ENTER_METHOD + "getAll" + genericType.getSimpleName() + "Entities()" + LOG_CLOSE);
         List<T> entities = this.service.findAll();
         if (entities.size() == 0) {
-            logger.info(LOG_ERROR + genericType.getSimpleName() + "Entities were not found" + LOG_CLOSE);
+            logger.info(LOG_ERROR + genericType.getSimpleName() + " Entities were not found" + LOG_CLOSE);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         logger.info(LOG_TEXT + "Count of '" + genericType.getSimpleName() + "' entities = " + entities.size() + LOG_CLOSE);
-        logger.info(LOG_OUT_OF_METHOD + "getAll" + genericType.getSimpleName() + "Entities" + LOG_CLOSE);
+        logger.info(LOG_OUT_OF_METHOD + "getAll" + genericType.getSimpleName() + "Entities()" + LOG_CLOSE);
         return new ResponseEntity<>(entities, HttpStatus.OK);
     }
 
@@ -90,11 +90,19 @@ public abstract class BaseController<T extends BaseEntity, S extends AbstractSer
     }
 
     protected ResponseEntity<T> addEntity(T entity) {
-        logger.info(LOG_ENTER_METHOD + "add" + genericType.getSimpleName() + "Entity" + LOG_CLOSE);
+        logger.info(LOG_ENTER_METHOD + "add" + genericType.getSimpleName() + "Entity()" + LOG_CLOSE);
         T savedEntity = (T) this.service.save(entity);
-        logger.info(LOG_TEXT + genericType.getSimpleName() + " added with ID=" + savedEntity.getId() + LOG_CLOSE);
-        logger.info(LOG_OUT_OF_METHOD + "add" + genericType.getSimpleName() + "Entity" + LOG_CLOSE);
+        logger.info(LOG_TEXT + genericType.getSimpleName() + " Entity added with ID=" + savedEntity.getId() + LOG_CLOSE);
+        logger.info(LOG_OUT_OF_METHOD + "add" + genericType.getSimpleName() + "Entity()" + LOG_CLOSE);
         return new ResponseEntity<>(savedEntity, new HttpHeaders(), HttpStatus.CREATED);
+    }
+
+    protected ResponseEntity<T> updateClient(int id, T entity) {
+        logger.info(LOG_ENTER_METHOD + "update" + genericType.getSimpleName() + "Entity()" + LOG_CLOSE);
+        entity = (T) this.service.update(id, entity);
+        logger.info(LOG_TEXT + genericType.getSimpleName() + " Entity with ID=" + id + " was updated: " + entity + LOG_CLOSE);
+        logger.info(LOG_OUT_OF_METHOD + "update" + genericType.getSimpleName() + "Entity()" + LOG_CLOSE);
+        return new ResponseEntity<>(entity, new HttpHeaders(), HttpStatus.OK);
     }
 
     protected ResponseEntity<Void> deleteEntityById(int id) {

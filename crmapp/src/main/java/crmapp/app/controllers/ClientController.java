@@ -28,27 +28,17 @@ public class ClientController extends BaseController<Client, ClientService> {
 
     @GetMapping(value = "", headers = HEADER_JSON)
 	public ResponseEntity<List<Client>> getAllClients() {
-		logger.info(LOG_ENTER_METHOD + "getAllClients()" + LOG_CLOSE);
-		ResponseEntity<List<Client>> responseEntity = super.getAllEntities();
-		logger.info(LOG_OUT_OF_METHOD + "getAllClients()" + LOG_CLOSE);
-		return responseEntity;
+		return super.getAllEntities();
 	}
 
 	@GetMapping(value = "/{id}", headers = HEADER_JSON)
 	public ResponseEntity<Client> getClientById(@PathVariable(PARAM_ID) int id) {
-		logger.info(LOG_ENTER_METHOD + "getClientById()" + LOG_CLOSE);
-		ResponseEntity<Client> responseEntity = super.getEntityById(id);
-		logger.info(LOG_OUT_OF_METHOD + "getClientById()" + LOG_CLOSE);
-		return responseEntity;
+		return super.getEntityById(id);
 	}
 
 	@PostMapping(value = "", headers = HEADER_JSON)
 	public ResponseEntity<Client> addClient(@RequestBody Client client) {
-		logger.info(LOG_ENTER_METHOD + "addClient()" + LOG_CLOSE);
-		Client savedClient = super.service.save(client);
-		logger.info(LOG_TEXT + "Client added with ID=" + savedClient.getId() + LOG_CLOSE);
-		logger.info(LOG_OUT_OF_METHOD + "addClient()" + LOG_CLOSE);
-		return new ResponseEntity<>(savedClient, new HttpHeaders(), HttpStatus.CREATED);
+		return super.addEntity(client);
 	}
 
 	@PutMapping(value = "/{id}", headers = HEADER_JSON)
@@ -63,11 +53,7 @@ public class ClientController extends BaseController<Client, ClientService> {
 
 	@DeleteMapping(value = "/{id}", headers = HEADER_JSON)
 	public ResponseEntity<Void> deleteClient(@PathVariable(PARAM_ID) int id) {
-		logger.info(LOG_ENTER_METHOD + "deleteClient()" + LOG_CLOSE);
-		super.service.delete(id);
-		logger.info(LOG_TEXT + "Client with ID=" + id + " was deleted" + LOG_CLOSE);
-		logger.info(LOG_OUT_OF_METHOD + "deleteClient()" + LOG_CLOSE);
-		return new ResponseEntity<>(new HttpHeaders(), HttpStatus.NO_CONTENT);
+		return super.deleteEntityById(id);
 	}
 
 }
