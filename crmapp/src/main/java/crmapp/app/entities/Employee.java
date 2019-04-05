@@ -67,7 +67,7 @@ public class Employee extends BaseEntity {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", orphanRemoval = true)
 	@OrderBy("id ASC")
-	@JsonManagedReference(value = "employee-account")
+	@JsonManagedReference(value = Tables.EMPLOYEE_ACCOUNTS)
 	private Set<EmployeeAccount> accounts = new HashSet<>();
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", orphanRemoval = true)

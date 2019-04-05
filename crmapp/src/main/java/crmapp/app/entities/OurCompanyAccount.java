@@ -25,8 +25,8 @@ public class OurCompanyAccount extends AbstractAccount {
 	public OurCompanyAccount() {
 	}
 
-	public OurCompanyAccount(OurCompany ourCompany, String presentation, Date dateStart) {
-		super(presentation, dateStart);
+	public OurCompanyAccount(String number, String bankName, String mfo, Date dateStart, OurCompany ourCompany) {
+		super(number, bankName, mfo, dateStart);
 		this.ourCompany = ourCompany;
 	}
 

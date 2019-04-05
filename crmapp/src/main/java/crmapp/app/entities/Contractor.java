@@ -36,18 +36,19 @@ public class Contractor extends BaseEntity {
     private String vatCertificate;
 
     @OneToOne
-    @JoinColumn(name = "contractor_type_code", referencedColumnName = "code")
+//    @JoinColumn(name = "contractor_type_code", referencedColumnName = "code")
+    @JoinColumn(name = "contractor_type_id", referencedColumnName = "id")
     private ContractorType contractorType;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "contractor", orphanRemoval = true)
-    @OrderBy("id ASC")
-    @JsonManagedReference(value = "contractor-agreement")
-    private Set<Agreement> agreements = new HashSet<>();
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "contractor", orphanRemoval = true)
-    @OrderBy("id ASC")
-    @JsonManagedReference(value = "contractor-address")
-    private Set<Address> addresses = new HashSet<>();
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "contractor", orphanRemoval = true)
+//    @OrderBy("id ASC")
+//    @JsonManagedReference(value = "contractor-agreement")
+//    private Set<Agreement> agreements = new HashSet<>();
+//
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "contractor", orphanRemoval = true)
+//    @OrderBy("id ASC")
+//    @JsonManagedReference(value = "contractor-address")
+//    private Set<Address> addresses = new HashSet<>();
 
 //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "contractor", orphanRemoval = true)
 //    @OrderBy("id ASC")
@@ -64,7 +65,7 @@ public class Contractor extends BaseEntity {
 
     @Override
     public String getUrl() {
-        return contractorType.getCode() + "s/" + this.getId();
+        return contractorType.getCode() + "/" + this.getId();
     }
 
     @Override

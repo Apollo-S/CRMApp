@@ -10,4 +10,5 @@ public class Tables {
     public static final String CLIENT_DIRECTORS = "client_directors";
     public static final String CLIENT_AGREEMENTS = "client_agreements";
     public static final String AGREEMENTS = "agreements";
+    public static final String EMPLOYEE_ACCOUNTS = "employee_accounts";
 }

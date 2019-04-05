@@ -22,15 +22,20 @@ import lombok.Setter;
 public class ClientAccount extends AbstractAccount {
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "client_id")
+	@JoinColumn(name = Tables.CLIENT_ID)
 	@JsonBackReference(value = Tables.CLIENT_ACCOUNTS)
 	private Client client;
 
 	public ClientAccount() {
 	}
 
-	public ClientAccount(Client client, String presentation, Date dateStart) {
-		super(presentation, dateStart);
+	public ClientAccount(String number, String bankName, String mfo, Date dateStart, Client client) {
+		super(number, bankName, mfo, dateStart);
+		this.client = client;
+	}
+
+	public ClientAccount(Client client, Date dateStart) {
+		super();
 		this.client = client;
 	}
 
@@ -44,7 +49,7 @@ public class ClientAccount extends AbstractAccount {
 		StringBuilder builder = new StringBuilder();
 		builder.append("ClientAccount [");
 		builder.append(super.toString()).append(", ");
-		builder.append("client=" + client).append("]");
+		builder.append("client=" + client.getCode()).append("]");
 		return builder.toString();
 	}
 

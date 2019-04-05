@@ -10,33 +10,28 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Table(name = "employee_account")
+@Table(name = Tables.EMPLOYEE_ACCOUNTS)
+@Getter
+@Setter
 @JsonIgnoreProperties(ignoreUnknown = true, 
 	value = { "hibernateLazyInitializer", "handler" })
 public class EmployeeAccount extends AbstractAccount {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "employee_id")
-	@JsonBackReference(value = "employee-account")
+	@JsonBackReference(value = Tables.EMPLOYEE_ACCOUNTS)
 	private Employee employee;
 
 
 	public EmployeeAccount() {
 	}
 
-	public EmployeeAccount(Employee employee, String presentation, Date dateStart) {
-		this.employee = employee;
-		this.setPresentation(presentation);
-		this.setDateStart(dateStart);
-	}
-
-	public Employee getEmployee() {
-		return employee;
-	}
-
-	public void setEmployee(Employee employee) {
+	public EmployeeAccount(String number, String bankName, String mfo, Date dateStart, Employee employee) {
+		super(number, bankName, mfo, dateStart);
 		this.employee = employee;
 	}
 

@@ -9,13 +9,24 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Getter;
+import lombok.Setter;
 
 @MappedSuperclass
+@Getter
+@Setter
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public abstract class AbstractAccount extends BaseEntity {
 
-	@Column(name = "presentation", length = 255)
-	private String presentation;
+	@Column(name = "number", length = 255)
+	private String number;
+
+	@Column(name = "bank_name", length = 200)
+	private String bankName;
+
+	@Column(name = "mfo", length = 7)
+	private String mfo;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "date_start")
@@ -24,25 +35,16 @@ public abstract class AbstractAccount extends BaseEntity {
 	public AbstractAccount() {
 	}
 
-	public AbstractAccount(String presentation, Date dateStart) {
-		this.presentation = presentation;
+	public AbstractAccount(String number, String bankName, String mfo, Date dateStart) {
+		this.number = number;
+		this.bankName = bankName;
+		this.mfo = mfo;
 		this.dateStart = dateStart;
 	}
 
+	@JsonInclude
 	public String getPresentation() {
-		return presentation;
-	}
-
-	public void setPresentation(String presentation) {
-		this.presentation = presentation;
-	}
-
-	public Date getDateStart() {
-		return dateStart;
-	}
-
-	public void setDateStart(Date dateStart) {
-		this.dateStart = dateStart;
+		return null;
 	}
 
 	@Override
@@ -68,7 +70,9 @@ public abstract class AbstractAccount extends BaseEntity {
 	public String toString() {
 		return new StringBuilder()
 			.append(super.toString()).append(", ")
-			.append("presentation=" + presentation).append(", ")
+			.append("number=" + number).append(", ")
+			.append("bankName=" + bankName).append(", ")
+			.append("mfo=" + mfo).append(", ")
 			.append("dateStart=" + dateStart)
 			.toString();
 	}
