@@ -30,7 +30,7 @@ public class AgreementController extends BaseController<Agreement, AgreementServ
 	@Autowired
 	private AgreementService service;
 
-	@GetMapping(value = "/agreements", produces = MediaType.APPLICATION_JSON_VALUE)
+//	@GetMapping(value = "/agreements", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Agreement>> getAllAgreements() {
 		logger.info(LOG_ENTER_METHOD + "getAllAgreements()" + LOG_CLOSE);
 		List<Agreement> agreements = service.findAll();
@@ -43,7 +43,7 @@ public class AgreementController extends BaseController<Agreement, AgreementServ
 		return new ResponseEntity<>(agreements, HttpStatus.OK);
 	}
 
-	@PostMapping(value = "/agreements/type", produces = MediaType.APPLICATION_JSON_VALUE)
+//	@PostMapping(value = "/agreements/type", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Agreement>> getAllAgreementsByType(@RequestBody AgreementType agrType) {
 		logger.info(LOG_ENTER_METHOD + "getAllAgreementsByType()" + LOG_CLOSE);
 		List<Agreement> agreements = service.findAllAgreementsByType(agrType);
@@ -56,7 +56,7 @@ public class AgreementController extends BaseController<Agreement, AgreementServ
 		return new ResponseEntity<>(agreements, HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/clients/{clientId}/agreements", produces = MediaType.APPLICATION_JSON_VALUE)
+//	@GetMapping(value = "/clients/{clientId}/agreements", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Agreement>> getAllAgreementsByClientId(@PathVariable("clientId") int clientId) {
 		logger.info(LOG_ENTER_METHOD + "getAllAgreementsByClientId()" + LOG_CLOSE);
 		List<Agreement> agreements = service.findAllByClientId(clientId);
@@ -69,7 +69,7 @@ public class AgreementController extends BaseController<Agreement, AgreementServ
 		return new ResponseEntity<>(agreements, HttpStatus.OK);
 	}
 
-	@GetMapping(value = { "/agreements/{id}", "/clients/{clientId}/agreements/{id}" }, headers = HEADER_JSON)
+//	@GetMapping(value = { "/agreements/{id}", "/clients/{clientId}/agreements/{id}" }, headers = HEADER_JSON)
 	public ResponseEntity<Agreement> getAgreementById(@PathVariable(PARAM_ID) int id) {
 		logger.info(LOG_ENTER_METHOD + "getAgreementById()" + LOG_CLOSE);
 		Agreement agreement = service.findById(id);
@@ -82,7 +82,7 @@ public class AgreementController extends BaseController<Agreement, AgreementServ
 		return new ResponseEntity<>(agreement, HttpStatus.OK);
 	}
 
-	@PostMapping(value = "/agreements", headers = HEADER_JSON)
+//	@PostMapping(value = "/agreements", headers = HEADER_JSON)
 	public ResponseEntity<Agreement> addAgreement(@RequestBody Agreement agreement) {
 		logger.info(LOG_ENTER_METHOD + "addAgreement()" + LOG_CLOSE);
 		agreement = service.save(agreement);
@@ -91,7 +91,7 @@ public class AgreementController extends BaseController<Agreement, AgreementServ
 		return new ResponseEntity<>(agreement, new HttpHeaders(), HttpStatus.CREATED);
 	}
 
-	@PutMapping(value = "/agreements/{id}", headers = HEADER_JSON)
+//	@PutMapping(value = "/agreements/{id}", headers = HEADER_JSON)
 	public ResponseEntity<Agreement> updateAgreement(@PathVariable(PARAM_ID) int id,
 			@RequestBody Agreement agreement) {
 		logger.info(LOG_ENTER_METHOD + "updateAgreement()" + LOG_CLOSE);
@@ -101,7 +101,7 @@ public class AgreementController extends BaseController<Agreement, AgreementServ
 		return new ResponseEntity<>(agreement, new HttpHeaders(), HttpStatus.OK);
 	}
 
-	@DeleteMapping(value = { "/agreements/{id}", "/clients/{clientId}/agreements/{id}" }, headers = HEADER_JSON)
+//	@DeleteMapping(value = { "/agreements/{id}", "/clients/{clientId}/agreements/{id}" }, headers = HEADER_JSON)
 	public ResponseEntity<Void> deleteAgreement(@PathVariable(PARAM_ID) int id) {
 		logger.info(LOG_ENTER_METHOD + "deleteAgreement()" + LOG_CLOSE);
 		service.delete(id);

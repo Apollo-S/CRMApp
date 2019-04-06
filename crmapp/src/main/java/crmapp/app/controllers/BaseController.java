@@ -97,7 +97,7 @@ public abstract class BaseController<T extends BaseEntity, S extends AbstractSer
         return new ResponseEntity<>(savedEntity, new HttpHeaders(), HttpStatus.CREATED);
     }
 
-    protected ResponseEntity<T> updateClient(int id, T entity) {
+    protected ResponseEntity<T> updateEntity(int id, T entity) {
         logger.info(LOG_ENTER_METHOD + "update" + genericType.getSimpleName() + "Entity()" + LOG_CLOSE);
         entity = (T) this.service.update(id, entity);
         logger.info(LOG_TEXT + genericType.getSimpleName() + " Entity with ID=" + id + " was updated: " + entity + LOG_CLOSE);

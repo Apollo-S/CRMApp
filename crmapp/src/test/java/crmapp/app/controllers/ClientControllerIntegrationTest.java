@@ -48,7 +48,7 @@ public class ClientControllerIntegrationTest {
         savedClient.setInn("987654321");
         savedClient.setVatCertificate("09090909090");
 
-        ResponseEntity<Client> respUpdClient = clientController.updateClient(savedClient.getId(), savedClient);
+        ResponseEntity<Client> respUpdClient = clientController.updateEntity(savedClient.getId(), savedClient);
         System.out.println("respUpdClient = " + respUpdClient);
         assertThat(respUpdClient.getStatusCode().is2xxSuccessful()).isTrue();
         assertThat(respUpdClient.getBody().equals(savedClient)).isTrue();

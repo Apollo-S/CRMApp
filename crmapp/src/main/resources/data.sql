@@ -89,11 +89,11 @@ VALUES
 	(4, 1, 1, 'Зощенко Виктор Алексеевич', 'Зощенко В.А.', '2015-01-01', 0);
 
 TRUNCATE `client_accounts`;
-INSERT INTO `client_accounts` (`id`, `client_id`, `presentation`, `date_start`, `optlock`)
+INSERT INTO `client_accounts` (`id`, `client_id`, `number`,`bank_name`, `mfo`, `date_start`, `optlock`)
 VALUES
-	(1, 1, '26007017100038 в АТ "Піреус Банк МКБ", МФО 300658', '2013-01-01', 0),
-	(2, 2, '26007247100756 в АТ "ПРИВАТБАНК", МФО 320699', '2013-01-01', 0),
-	(3, 1, '26007017134344 в АТ "Сити-Банк", МФО 311009', '2015-01-01', 0);
+	(1, 1, '26007017100038', 'АТ "Піреус Банк МКБ"', '300658', '2013-01-01', 0),
+	(2, 2, '26007247100756', 'АТ "ПРИВАТБАНК"', '320699', '2013-01-01', 0),
+	(3, 1, '26007017134344', 'АТ "Сити-Банк"', '311009', '2015-01-01', 0);
 
 TRUNCATE `client_agreements`;
 INSERT INTO `client_agreements` (`id`, `client_id`, `code`, `number`, `date_start`, `comment`, `optlock`)

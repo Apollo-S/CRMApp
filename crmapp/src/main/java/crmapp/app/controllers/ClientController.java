@@ -42,12 +42,12 @@ public class ClientController extends BaseController<Client, ClientService> {
 	}
 
 	@PutMapping(value = "/{id}", headers = HEADER_JSON)
-	public ResponseEntity<Client> updateClient(@PathVariable(PARAM_ID) int id,
+	public ResponseEntity<Client> updateEntity(@PathVariable(PARAM_ID) int id,
 											   @RequestBody Client client) {
-		logger.info(LOG_ENTER_METHOD + "updateClient()" + LOG_CLOSE);
+		logger.info(LOG_ENTER_METHOD + "updateEntity()" + LOG_CLOSE);
 		client = super.service.update(id, client);
 		logger.info(LOG_TEXT + "Client with ID=" + id + " was updated: " + client + LOG_CLOSE);
-		logger.info(LOG_OUT_OF_METHOD + "updateClient()" + LOG_CLOSE);
+		logger.info(LOG_OUT_OF_METHOD + "updateEntity()" + LOG_CLOSE);
 		return new ResponseEntity<>(client, new HttpHeaders(), HttpStatus.OK);
 	}
 
