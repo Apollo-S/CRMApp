@@ -1,7 +1,6 @@
 package crmapp.app.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static crmapp.app.entities.Tables.CLIENT_AGREEMENTS;
 import static javax.persistence.FetchType.LAZY;
@@ -34,7 +36,17 @@ public class ClientAgreement extends AbstractAgreement {
 
     @JsonInclude
     public Client getClientInfo() {
-        return client;
+        return this.client;
+    }
+
+    @JsonInclude
+    public String getClientCode() {
+        return this.client.getCode();
+    }
+
+    @JsonInclude
+    public String getClientUrl() {
+        return this.client.getUrl();
     }
 
     @Override

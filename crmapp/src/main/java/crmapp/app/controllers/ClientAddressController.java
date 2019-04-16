@@ -33,8 +33,16 @@ public class ClientAddressController extends BaseController<ClientAddress, Clien
 	}
 
 	@GetMapping(value = "", headers = HEADER_JSON)
-	public ResponseEntity<List<ClientAddress>> getAllClientAddresses(@PathVariable("clientId") Integer clientId) {
-		return super.getAllEntities();
+	public ResponseEntity<List<ClientAddress>> getAllClientAddressesByClientId(@PathVariable("clientId") Integer clientId) {
+		logger.info(LOG_ENTER_METHOD + "getAllClientAddressesByClientId()" + LOG_CLOSE);
+		List<ClientAddress> addresses = super.service.findAllByClientId(clientId);
+		if (addresses.size() == 0) {
+			logger.info(LOG_ERROR + "ClientAddressea were not found" + LOG_CLOSE);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		logger.info(LOG_TEXT + "Count of ClientAddresses: " + addresses.size() + LOG_CLOSE);
+		logger.info(LOG_OUT_OF_METHOD + "getAllClientAddressesByClientId()" + LOG_CLOSE);
+		return new ResponseEntity<>(addresses, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/{id}", headers = HEADER_JSON)

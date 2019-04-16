@@ -17,8 +17,7 @@ public class ClientAddressService extends AbstractService<ClientAddress, ClientA
 	private ClientService clientService;
 
 	public List<ClientAddress> findAllByClientId(Integer clientId) {
-//		return repository.findAllClientAddressesByClientId(clientId);
-		return null;
+		return repository.findAllByClientId(clientId);
 	}
 
 	public ClientAddress save(int clientId, ClientAddress address) {
