@@ -14,7 +14,7 @@ import java.util.Objects;
 public abstract class AbstractAgreement extends BaseEntity {
 
     @Column(name = "code")
-    private String code;
+    private String code = "";
 
     @Column(name = "number")
     private String number;

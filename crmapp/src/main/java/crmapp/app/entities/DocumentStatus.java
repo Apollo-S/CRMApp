@@ -5,9 +5,15 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Table(name = "document_status")
+@Table(name = Tables.DOCUMENT_STATUSES)
+@Getter
+@Setter
+@EqualsAndHashCode
 @JsonIgnoreProperties(ignoreUnknown = true, 
 	value = { "hibernateLazyInitializer", "handler" })
 public class DocumentStatus extends BaseEntity {
@@ -33,46 +39,6 @@ public class DocumentStatus extends BaseEntity {
 	public DocumentStatus(String status) {
 		this.status = status;
 	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public String getBackgroundColor() {
-		return backgroundColor;
-	}
-
-	public void setBackgroundColor(String backgroundColor) {
-		this.backgroundColor = backgroundColor;
-	}
-
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
-	}
-
-    public boolean isAllowPaymentDate() {
-        return allowPaymentDate;
-    }
-
-    public void setAllowPaymentDate(boolean allowPaymentDate) {
-        this.allowPaymentDate = allowPaymentDate;
-    }
-
-    public boolean isAllowPassingDate() {
-        return allowPassingDate;
-    }
-
-    public void setAllowPassingDate(boolean allowPassingDate) {
-        this.allowPassingDate = allowPassingDate;
-    }
 
     @Override
 	public String getUrl() {

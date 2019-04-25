@@ -19,6 +19,7 @@ import static javax.persistence.FetchType.LAZY;
 @Table(name = CLIENT_AGREEMENTS)
 @Getter
 @Setter
+@JsonIgnoreProperties(ignoreUnknown = true, value = {"hibernateLazyInitializer", "handler"})
 public class ClientAgreement extends AbstractAgreement {
 
     @ManyToOne(fetch = LAZY)

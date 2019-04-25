@@ -1,12 +1,9 @@
 package crmapp.app.controllers;
 
-import crmapp.app.entities.AgreementType;
 import crmapp.app.entities.ClientAgreement;
-import crmapp.app.services.AgreementService;
 import crmapp.app.services.ClientAgreementService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -49,11 +46,7 @@ public class ClientAgreementController extends BaseController<ClientAgreement, C
 
     @PostMapping(value = "/agreements", headers = HEADER_JSON)
     public ResponseEntity<ClientAgreement> addClientAgreement(@RequestBody ClientAgreement agreement) {
-        logger.info(LOG_ENTER_METHOD + "addClientAgreement()" + LOG_CLOSE);
-        agreement = super.service.save(agreement);
-        logger.info(LOG_TEXT + "ClientAgreement added with ID=" + agreement.getId() + LOG_CLOSE);
-        logger.info(LOG_OUT_OF_METHOD + "addClientAgreement()" + LOG_CLOSE);
-        return new ResponseEntity<>(agreement, new HttpHeaders(), HttpStatus.CREATED);
+        return super.addEntity(agreement);
     }
 
     @PutMapping(value = "/agreements/{id}", headers = HEADER_JSON)
@@ -68,11 +61,7 @@ public class ClientAgreementController extends BaseController<ClientAgreement, C
 
     @DeleteMapping(value = {"/agreements/{id}", "/clients/{clientId}/agreements/{id}"}, headers = HEADER_JSON)
     public ResponseEntity<Void> deleteClientAgreement(@PathVariable(PARAM_ID) int id) {
-        logger.info(LOG_ENTER_METHOD + "deleteClientAgreement()" + LOG_CLOSE);
-        super.deleteEntityById(id);
-        logger.info(LOG_TEXT + "ClientAgreement with ID=" + id + " was deleted" + LOG_CLOSE);
-        logger.info(LOG_OUT_OF_METHOD + "deleteClientAgreement()" + LOG_CLOSE);
-        return new ResponseEntity<>(new HttpHeaders(), HttpStatus.NO_CONTENT);
+        return super.deleteEntityById(id);
     }
 
 }

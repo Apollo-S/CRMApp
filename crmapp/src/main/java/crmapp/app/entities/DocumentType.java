@@ -5,9 +5,15 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Table(name = "document_type")
+@Table(name = Tables.DOCUMENT_TYPES)
+@Getter
+@Setter
+@EqualsAndHashCode
 @JsonIgnoreProperties(ignoreUnknown = true, 
 	value = { "hibernateLazyInitializer", "handler" })
 public class DocumentType extends AbstractDocumentType {
@@ -16,14 +22,6 @@ public class DocumentType extends AbstractDocumentType {
 	private String shortTitle;
 
 	public DocumentType() {
-	}
-
-	public String getShortTitle() {
-		return shortTitle;
-	}
-
-	public void setShortTitle(String shortTitle) {
-		this.shortTitle = shortTitle;
 	}
 
 	@Override

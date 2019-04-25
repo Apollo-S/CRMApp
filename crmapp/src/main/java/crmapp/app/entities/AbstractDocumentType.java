@@ -4,8 +4,12 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
 
 @MappedSuperclass
+@Getter
+@Setter
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public abstract class AbstractDocumentType extends BaseEntity {
 
@@ -15,14 +19,6 @@ public abstract class AbstractDocumentType extends BaseEntity {
 	public AbstractDocumentType() {
 	}
 
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	
 	@Override
 	public String toString() {
 		return new StringBuilder()

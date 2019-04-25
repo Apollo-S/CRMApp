@@ -15,13 +15,15 @@ import javax.persistence.TemporalType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "documents")
+@Table(name = Tables.DOCUMENTS)
 @Getter
 @Setter
+@EqualsAndHashCode
 @JsonIgnoreProperties(ignoreUnknown = true,
 	value = { "hibernateLazyInitializer", "handler" })
 public class Document extends BaseEntity {
@@ -75,7 +77,7 @@ public class Document extends BaseEntity {
 	public Integer getAgreementId() {
 		return agreement.getId();
 	}
-	
+
 	@JsonInclude
 	public String getAgreementNumber() {
 		return agreement.getNumber();
@@ -100,12 +102,12 @@ public class Document extends BaseEntity {
 	public Integer getClientId() {
 		return agreement.getClient().getId();
 	}
-	
+
 	@JsonInclude
 	public String getDocTypeShortTitle() {
 		return docType.getShortTitle();
 	}
-	
+
 	@JsonInclude
 	public String getDocStatus() {
 		return status.getStatus();
