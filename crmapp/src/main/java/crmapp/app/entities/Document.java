@@ -1,6 +1,7 @@
 package crmapp.app.entities;
 
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +16,6 @@ import javax.persistence.TemporalType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,7 +23,6 @@ import lombok.Setter;
 @Table(name = Tables.DOCUMENTS)
 @Getter
 @Setter
-@EqualsAndHashCode
 @JsonIgnoreProperties(ignoreUnknown = true,
 	value = { "hibernateLazyInitializer", "handler" })
 public class Document extends BaseEntity {
@@ -111,6 +110,27 @@ public class Document extends BaseEntity {
 	@JsonInclude
 	public String getDocStatus() {
 		return status.getStatus();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Document document = (Document) o;
+		return Objects.equals(getDocType(), document.getDocType()) &&
+				Objects.equals(getNumber(), document.getNumber()) &&
+				Objects.equals(getAmount(), document.getAmount()) &&
+				Objects.equals(getDated(), document.getDated()) &&
+				Objects.equals(getPaymentDate(), document.getPaymentDate()) &&
+				Objects.equals(getComment(), document.getComment()) &&
+				Objects.equals(getStatus(), document.getStatus()) &&
+				Objects.equals(getAgreement(), document.getAgreement()) &&
+				Objects.equals(getPassingDate(), document.getPassingDate());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getDocType(), getNumber(), getAmount(), getDated(), getPaymentDate(), getComment(), getStatus(), getAgreement(), getPassingDate());
 	}
 
 	@Override
