@@ -44,12 +44,12 @@ public class ClientAgreementController extends BaseController<ClientAgreement, C
         return agreement;
     }
 
-    @PostMapping(value = "/agreements", headers = HEADER_JSON)
+    @PostMapping(value = {"/agreements", "/clients/{clientId}/agreements"}, headers = HEADER_JSON)
     public ResponseEntity<ClientAgreement> addClientAgreement(@RequestBody ClientAgreement agreement) {
         return super.addEntity(agreement);
     }
 
-    @PutMapping(value = "/agreements/{id}", headers = HEADER_JSON)
+    @PutMapping(value = {"/agreements/{id}", "/clients/{clientId}/agreements"}, headers = HEADER_JSON)
     public ResponseEntity<ClientAgreement> updateClientAgreement(@PathVariable(PARAM_ID) int id,
                                                                  @RequestBody ClientAgreement agreement) {
         logger.info(LOG_ENTER_METHOD + "updateClientAgreement()" + LOG_CLOSE);
