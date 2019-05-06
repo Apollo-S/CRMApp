@@ -3,6 +3,7 @@ package crmapp.app.entities;
 public class Tables {
 
     public static final String CLIENT_ID = "client_id";
+    public static final String SUPPLIER_ID = "supplier_id";
 
     public static final String CLIENTS = "clients";
     public static final String CLIENT_ADDRESSES = "client_addresses";
@@ -14,4 +15,10 @@ public class Tables {
     public static final String DOCUMENTS = "documents";
     public static final String DOCUMENT_TYPES = "document_types";
     public static final String DOCUMENT_STATUSES = "document_statuses";
+    public static final String SUPPLIERS = "suppliers";
+    public static final String SUPPLIER_ADDRESSES = "supplier_addresses";
+    public static final String SUPPLIER_ACCOUNTS = "supplier_accounts";
+    public static final String SUPPLIER_DIRECTORS = "supplier_directors";
+    public static final String SUPPLIER_AGREEMENTS = "supplier_agreements";
+
 }
