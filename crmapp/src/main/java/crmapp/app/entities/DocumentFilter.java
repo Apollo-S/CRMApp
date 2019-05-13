@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -16,5 +17,11 @@ public class DocumentFilter {
     private List<Integer> clients;
     private String sortType;
     private String sortField;
+    private Date datedStart;
+    private Date datedFinal;
+    private Date paymentDateStart;
+    private Date paymentDateFinal;
+    private Date passingDateStart;
+    private Date passingDateFinal;
 
 }
