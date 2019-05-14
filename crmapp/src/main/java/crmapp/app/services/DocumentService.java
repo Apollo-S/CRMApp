@@ -40,7 +40,7 @@ public class DocumentService extends AbstractService<Document, DocumentRepositor
 
     @Transactional(readOnly = true)
     public List<Document> getAllByFilterAndSort(List<Integer> docTypes, List<Integer> docStatuses,
-                                                List<Integer> clients, String sortType, String sortField) {
+                                                List<Integer> clients, Date datedStart, Date datedFinal, String sortType, String sortField) {
         logger.info("OK: DocumentService.getAllByFilterAndSort()");
         if (docTypes.get(0) == 0 || docTypes.isEmpty()) {
             docTypes = documentTypeService.findAllEntityIds();
@@ -52,7 +52,7 @@ public class DocumentService extends AbstractService<Document, DocumentRepositor
             clients = clientService.findAllEntityIds();
         }
         Sort sort = new Sort(fromString(sortType), sortField);
-        List<Document> documents = super.repository.findAllDocumentsByFilterAndSort(docTypes, docStatuses, clients, sort);
+        List<Document> documents = super.repository.findAllDocumentsByFilterAndSort(docTypes, docStatuses, clients, datedStart, datedFinal, sort);
         logger.info("OK: Count of documents equals " + documents.size());
         return documents;
     }
@@ -60,7 +60,7 @@ public class DocumentService extends AbstractService<Document, DocumentRepositor
     @Transactional(readOnly = true)
     public List<Document> getAllByFilterAndSort(DocumentFilter docFilter) {
         return getAllByFilterAndSort(docFilter.getDocTypes(), docFilter.getDocStatuses(), docFilter.getClients(),
-                docFilter.getSortType(), docFilter.getSortField());
+                docFilter.getDatedStart(), docFilter.getDatedFinal(), docFilter.getSortType(), docFilter.getSortField());
     }
 
 }
