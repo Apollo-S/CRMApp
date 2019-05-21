@@ -20,7 +20,7 @@ import org.springframework.web.context.WebApplicationContext;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -47,7 +47,7 @@ public class ClientControllerUnitTest {
         JacksonTester.initFields(this, objectMapper);
 
         mockClient = new Client();
-        mockClient.setId(134);
+        mockClient.setId(123);
         mockClient.setCode("kievstar");
         mockClient.setTitle("KIEVSTAR LLC");
         mockClient.setEdrpou("123456");
@@ -72,12 +72,46 @@ public class ClientControllerUnitTest {
 
         mockMvc
                 .perform(
-                        post("/api/clients/", client)
+                        post("/api/clients/")
                                 .contentType(APPLICATION_JSON_VALUE)
                                 .content(jsonClient)
                 )
                 .andDo(print())
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    public void testUpdateClient() throws Exception {
+        Client client = new Client();
+        client.setId(123);
+        client.setCode("kievstar");
+        client.setTitle("KIEVSTAR LLC");
+        client.setEdrpou("123456");
+        client.setInn("123456789");
+        client.setVatCertificate("36475891243");
+
+        String jsonClient = json.write(client).getJson();
+
+        mockMvc
+                .perform(
+                        put("/api/clients/123")
+                                .contentType(APPLICATION_JSON_VALUE)
+                                .content(jsonClient)
+                )
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testDeleteClient() throws Exception {
+        mockMvc
+                .perform(
+                        delete("/api/clients/123")
+                                .contentType(APPLICATION_JSON_VALUE)
+
+                )
+                .andDo(print())
+                .andExpect(status().isNoContent());
     }
 
 }
