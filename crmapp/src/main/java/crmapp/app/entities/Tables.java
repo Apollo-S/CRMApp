@@ -20,5 +20,9 @@ public class Tables {
     public static final String SUPPLIER_ACCOUNTS = "supplier_accounts";
     public static final String SUPPLIER_DIRECTORS = "supplier_directors";
     public static final String SUPPLIER_AGREEMENTS = "supplier_agreements";
+    public static final String CONTRACTORS = "contractors";
+    public static final String ADDRESSES = "addresses";
+    public static final String ACCOUNTS = "accounts";
+    public static final String DIRECTORS = "directors";
 
 }
