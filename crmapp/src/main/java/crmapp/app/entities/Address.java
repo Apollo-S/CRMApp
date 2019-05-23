@@ -1,16 +1,14 @@
 package crmapp.app.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
-@Table(name = "addresses")
+@Table(name = Tables.ADDRESSES)
 @Getter
 @Setter
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -42,25 +40,8 @@ public class Address extends BaseEntity {
     @Column(name = "date_start")
     private Date dateStart;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "contractor_id")
-//    @JsonBackReference(value = "contractor-address")
-//    private Contractor contractor;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "client_id")
-    @JsonBackReference(value = "client-address")
-    private Client client;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_id")
-    @JsonBackReference(value = "employee-address")
-    private Employee employee;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "our_company_id")
-    @JsonBackReference(value = "our-company-address")
-    private OurCompany ourCompany;
+    @ManyToMany(mappedBy = "addresses")
+    Set<Contractor> contractors = new HashSet<>();
 
     public Address() {
     }
@@ -90,13 +71,7 @@ public class Address extends BaseEntity {
 
     @Override
     public String getUrl() {
-        if (client != null) {
-            return client.getUrl() + "/addresses/" + getId();
-        } else if (employee != null) {
-            return employee.getUrl() + "/addresses/" + getId();
-        } else {
-            return ourCompany.getUrl() + "/addresses/" + getId();
-        }
+        return "";
     }
 
     @Override

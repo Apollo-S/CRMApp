@@ -25,4 +25,5 @@ public class Tables {
     public static final String ACCOUNTS = "accounts";
     public static final String DIRECTORS = "directors";
 
+    public static final String CONTRACTOR_TYPES = "contractor_types";
 }

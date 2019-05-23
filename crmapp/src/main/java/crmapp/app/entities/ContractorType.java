@@ -9,17 +9,17 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "contractor_types")
+@Table(name = Tables.CONTRACTOR_TYPES)
 @Getter
 @Setter
 public class ContractorType extends TypeBaseEntity {
 
-    public final static String CLIENT = "client";
-    public final static String SUPPLIER = "supplier";
+    public final static String CLIENT = "clients";
+    public final static String SUPPLIER = "suppliers";
 
     @Override
     public String getUrl() {
-        return "contractor-types/" + this.getId();
+        return Tables.CONTRACTOR_TYPES + "/" + this.getId();
     }
 
     @Override

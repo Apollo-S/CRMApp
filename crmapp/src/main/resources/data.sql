@@ -71,6 +71,13 @@ VALUES
   (9, null, null, 1, 1, 'м. Київ', '', 'вул. Горького', 'буд. 172', 'офіс 1020', '03150', '2009-01-01', 0),
   (10, null, null, 2, 1, 'м. Киев', '', 'вул. Козацька', '120/4', 'літ. Б', '03022', '2015-07-01', 0);
 
+TRUNCATE `contractor_addresses`;
+INSERT INTO `contractor_addresses` (`contractor_id`, `address_id`)
+VALUES
+  (1, 1),
+  (1, 2),
+  (1, 3);
+
 TRUNCATE `client_addresses`;
 INSERT INTO `client_addresses` (`id`, `client_id`, `country_id`, `city`, `region`, `street`, `building`, `apartment`, `zip`, `date_start`, `optlock`)
 VALUES
