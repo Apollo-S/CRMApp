@@ -11,13 +11,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "contractors")
+@Table(name = Tables.CONTRACTORS)
 @Getter
 @Setter
 @EqualsAndHashCode
 @JsonIgnoreProperties(ignoreUnknown = true,
-        value = { "hibernateLazyInitializer", "handler",
-                "agreements", "addresses", "directors", "accounts" })
+        value = {"hibernateLazyInitializer", "handler",
+                "agreements", "addresses", "directors", "accounts"})
 public class Contractor extends BaseEntity {
 
     @Column(name = "title", length = 200)
@@ -36,29 +36,13 @@ public class Contractor extends BaseEntity {
     private String vatCertificate;
 
     @OneToOne
-//    @JoinColumn(name = "contractor_type_code", referencedColumnName = "code")
     @JoinColumn(name = "contractor_type_id", referencedColumnName = "id")
     private ContractorType contractorType;
 
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "contractor", orphanRemoval = true)
-//    @OrderBy("id ASC")
-//    @JsonManagedReference(value = "contractor-agreement")
-//    private Set<Agreement> agreements = new HashSet<>();
-//
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "contractor", orphanRemoval = true)
-//    @OrderBy("id ASC")
-//    @JsonManagedReference(value = "contractor-address")
-//    private Set<Address> addresses = new HashSet<>();
-
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "contractor", orphanRemoval = true)
-//    @OrderBy("id ASC")
-//    @JsonManagedReference(value = "contractor-director")
-//    private Set<ClientDirector> directors = new HashSet<>();
-//
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "contractor", orphanRemoval = true)
-//    @OrderBy("id ASC")
-//    @JsonManagedReference(value = "contractor-account")
-//    private Set<ClientAccount> accounts = new HashSet<>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "contractor", orphanRemoval = true)
+    @OrderBy("id ASC")
+    @JsonManagedReference(value = "contractor-addresses")
+    private Set<Address> addresses = new HashSet<>();
 
     public Contractor() {
     }

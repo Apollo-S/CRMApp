@@ -6,20 +6,19 @@ import org.junit.Test;
 import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 
 public class AddressPresentationTest {
 
-    Address addressOne;
-    Address addressTwo;
-    Address addressThree;
-    Address addressFour;
-    Address emptyAddress;
+    ClientAddress addressOne;
+    ClientAddress addressTwo;
+    ClientAddress addressThree;
+    ClientAddress addressFour;
+    ClientAddress emptyAddress;
 
     @Before
     public void initEntities() {
-        addressOne = new Address();
+        addressOne = new ClientAddress();
         addressOne.setCountry(new Country("Украина", "UA"));
         addressOne.setZip("03150");
         addressOne.setRegion("");
@@ -28,7 +27,7 @@ public class AddressPresentationTest {
         addressOne.setBuilding("дом 65");
         addressOne.setApartment("офис 1056");
 
-        addressTwo = new Address();
+        addressTwo = new ClientAddress();
         addressTwo.setCountry(new Country("Украина", "UA"));
         addressTwo.setZip("09934");
         addressTwo.setRegion("Черниговская обл.");
@@ -37,7 +36,7 @@ public class AddressPresentationTest {
         addressTwo.setBuilding("дом Колотушкина");
         addressTwo.setApartment("кв. 25");
 
-        addressThree = new Address();
+        addressThree = new ClientAddress();
         addressThree.setCountry(new Country("Украина", "UA"));
         addressThree.setZip("");
         addressThree.setRegion("");
@@ -46,10 +45,10 @@ public class AddressPresentationTest {
         addressThree.setBuilding("");
         addressThree.setApartment("");
 
-        addressFour = new Address();
+        addressFour = new ClientAddress();
         addressFour.setCountry(new Country("", ""));
 
-        emptyAddress = new Address();
+        emptyAddress = new ClientAddress();
         emptyAddress.setId(1);
         emptyAddress.setDateStart(new Date());
         emptyAddress.setCountry(new Country("", ""));
@@ -78,26 +77,16 @@ public class AddressPresentationTest {
 
     @Test
     public void hasAddressProperUrlAccordingType() {
-        Client client = new Client();
-        client.setId(123);
-        Address clientAddress = new Address();
-        clientAddress.setId(231);
-        clientAddress.setClient(client);
-        assertEquals("clients/123/addresses/231", clientAddress.getUrl());
-
-        Employee employee = new Employee();
-        employee.setId(98);
-        Address employeeAddress = new Address();
-        employeeAddress.setId(567);
-        employeeAddress.setEmployee(employee);
-        assertEquals("employees/98/addresses/567", employeeAddress.getUrl());
-
-        OurCompany company = new OurCompany();
-        company.setId(23);
-        Address companyAddress = new Address();
-        companyAddress.setId(970);
-        companyAddress.setOurCompany(company);
-        assertEquals("our-companies/23/addresses/970", companyAddress.getUrl());
+        Contractor contractor = new Contractor();
+        contractor.setId(123);
+        ContractorType type = new ContractorType();
+        type.setCode(ContractorType.CLIENT);
+        contractor.setContractorType(type);
+        Address address = new Address();
+        address.setId(231);
+        address.setCountry(new Country("Germany", "GER"));
+        address.setContractor(contractor);
+        assertEquals("clients/123/addresses/231", address.getUrl());
     }
 
 }

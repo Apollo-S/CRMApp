@@ -1,5 +1,6 @@
 package crmapp.app.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
@@ -40,8 +41,10 @@ public class Address extends BaseEntity {
     @Column(name = "date_start")
     private Date dateStart;
 
-    @ManyToMany(mappedBy = "addresses")
-    Set<Contractor> contractors = new HashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = Tables.CONTRACTOR_ID)
+    @JsonBackReference(value = "contractor-addresses")
+    private Contractor contractor;
 
     public Address() {
     }
@@ -71,7 +74,7 @@ public class Address extends BaseEntity {
 
     @Override
     public String getUrl() {
-        return "";
+        return contractor.getContractorType().getCode() + "/" + contractor.getId() + "/addresses/" + getId();
     }
 
     @Override

@@ -4,6 +4,7 @@ public class Tables {
 
     public static final String CLIENT_ID = "client_id";
     public static final String SUPPLIER_ID = "supplier_id";
+    public static final String CONTRACTOR_ID = "contractor_id";
 
     public static final String CLIENTS = "clients";
     public static final String CLIENT_ADDRESSES = "client_addresses";
