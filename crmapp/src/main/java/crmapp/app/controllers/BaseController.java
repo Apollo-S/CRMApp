@@ -52,12 +52,12 @@ public abstract class BaseController<T extends BaseEntity, S extends AbstractSer
     public static final String LOG_ERROR = ANSI_RED + NUMBER_SIGNS + " ";
     public static final String LOG_CLOSE = " " + ANSI_RESET;
 
-    private static final Logger logger = LoggerFactory.getLogger(BaseController.class);
+    protected static final Logger logger = LoggerFactory.getLogger(BaseController.class);
 
     @Autowired
     protected S service;
 
-    private final Class<T> genericType;
+    protected final Class<T> genericType;
 
     @SuppressWarnings("unchecked")
     public BaseController() {

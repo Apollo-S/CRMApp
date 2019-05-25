@@ -15,7 +15,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "our_companies")
+@Table(name = Tables.OUR_COMPANIES)
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true, 
@@ -25,8 +25,8 @@ public class OurCompany extends AbstractCompany {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "ourCompany", orphanRemoval = true)
 	@OrderBy("id ASC")
-	@JsonManagedReference(value = "our-company-address")
-	private Set<Address> addresses = new HashSet<>();
+	@JsonManagedReference(value = Tables.OUR_COMPANY_ADDRESSES)
+	private Set<OurCompanyAddress> addresses = new HashSet<>();
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "ourCompany", orphanRemoval = true)
 	@OrderBy("id ASC")
@@ -60,7 +60,7 @@ public class OurCompany extends AbstractCompany {
 		return new StringBuilder("OurCompany [")
 			.append(super.toString()).append(", ")
 //			.append("agreements=" + agreements.size()).append(", ")
-			.append("addresses=" + addresses.size()).append(", ")
+//			.append("addresses=" + addresses.size()).append(", ")
 			.append("directors=" + directors.size()).append(", ")
 			.append("accounts=" + accounts.size()).append("]")
 			.toString();
