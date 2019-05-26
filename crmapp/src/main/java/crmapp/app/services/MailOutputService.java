@@ -2,6 +2,7 @@ package crmapp.app.services;
 
 import crmapp.app.entities.MailOutput;
 import crmapp.app.repositories.MailOutputRepository;
+import crmapp.app.services.base.AbstractService;
 import org.springframework.stereotype.Service;
 
 @Service

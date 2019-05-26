@@ -1,37 +1,28 @@
 package crmapp.app.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.Getter;
-import lombok.Setter;
-
 @Entity
-@Table(name = "employees")
+@Table(name = Tables.EMPLOYEES)
 @Getter
 @Setter
+@EqualsAndHashCode
 @JsonIgnoreProperties(ignoreUnknown = true, 
 	value = { "hibernateLazyInitializer", "handler",
 			"vacations", "sickLists", "addresses", "accounts", "agreements" })
 public class Employee extends BaseEntity {
 
-	@OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JoinColumn(name = "person_id")
 	private Person person;
 	
@@ -62,8 +53,8 @@ public class Employee extends BaseEntity {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", orphanRemoval = true)
 	@OrderBy("id ASC")
-	@JsonManagedReference(value = "employee-address")
-	private Set<Address> addresses = new HashSet<>();
+	@JsonManagedReference(value = Tables.EMPLOYEE_ADDRESSES)
+	private Set<EmployeeAddress> addresses = new HashSet<>();
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", orphanRemoval = true)
 	@OrderBy("id ASC")

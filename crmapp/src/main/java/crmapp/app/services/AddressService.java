@@ -3,6 +3,7 @@ package crmapp.app.services;
 import crmapp.app.entities.Address;
 import crmapp.app.entities.Owner;
 import crmapp.app.repositories.AddressRepository;
+import crmapp.app.services.base.AbstractService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

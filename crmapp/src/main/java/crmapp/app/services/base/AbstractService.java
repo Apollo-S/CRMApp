@@ -1,12 +1,11 @@
-package crmapp.app.services;
-
-import java.util.List;
-
-import crmapp.app.repositories.BaseRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+package crmapp.app.services.base;
 
 import crmapp.app.entities.BaseEntity;
+import crmapp.app.repositories.BaseRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Transactional
 public abstract class AbstractService<T extends BaseEntity, R extends BaseRepository<T, Integer>>

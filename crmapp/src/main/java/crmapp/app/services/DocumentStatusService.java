@@ -1,5 +1,6 @@
 package crmapp.app.services;
 
+import crmapp.app.services.base.AbstractService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

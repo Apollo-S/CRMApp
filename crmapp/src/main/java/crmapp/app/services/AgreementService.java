@@ -4,6 +4,7 @@ import java.util.List;
 
 import crmapp.app.entities.Agreement;
 import crmapp.app.entities.AgreementType;
+import crmapp.app.services.base.AbstractService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -2,6 +2,7 @@ package crmapp.app.services;
 
 import java.util.List;
 
+import crmapp.app.services.base.AbstractService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package crmapp.app.services;
 
+import crmapp.app.services.base.AbstractService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import crmapp.app.entities.Client;
 import crmapp.app.repositories.ClientRepository;
