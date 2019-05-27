@@ -1,18 +1,20 @@
 package crmapp.app.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = Tables.ADDRESSES)
 @Getter
 @Setter
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@EqualsAndHashCode
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "contractors"})
 public class Address extends BaseEntity {
 
     @Column(name = "zip", length = 10)
@@ -37,19 +39,13 @@ public class Address extends BaseEntity {
     @JoinColumn(name = "country_id")
     private Country country;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "date_start")
-    private Date dateStart;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = Tables.CONTRACTOR_ID)
-    @JsonBackReference(value = "contractor-addresses")
-    private Contractor contractor;
+    @OneToMany(mappedBy = "address")
+    private Set<ContractorAddress> contractors = new HashSet<>();
 
     public Address() {
     }
 
-    public Address(String zip, String street, String building, String apartment, String city, String region, Country country, Date dateStart) {
+    public Address(String zip, String street, String building, String apartment, String city, String region, Country country) {
         this.zip = zip;
         this.street = street;
         this.building = building;
@@ -57,7 +53,6 @@ public class Address extends BaseEntity {
         this.city = city;
         this.region = region;
         this.country = country;
-        this.dateStart = dateStart;
     }
 
     public String getPresentation() {
@@ -73,33 +68,11 @@ public class Address extends BaseEntity {
     }
 
     @Override
-    public String getUrl() {
-        return contractor.getContractorType().getCode() + "/" + contractor.getId() + "/addresses/" + getId();
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(this.getId(), this.getPresentation(), this.getDateStart());
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null || (getClass() != obj.getClass()))
-            return false;
-        Address that = (Address) obj;
-        return Objects.equals(this.getId(), that.getId()) &&
-                Objects.equals(this.getPresentation(), that.getPresentation()) &&
-                Objects.equals(this.getDateStart(), that.getDateStart());
-    }
-
-    @Override
     public String toString() {
         return new StringBuilder("Address [")
                 .append(super.toString()).append(", ")
                 .append("presentation=" + getPresentation()).append(", ")
-                .append("dateStart=" + dateStart).append("]")
+                .append("]")
                 .toString();
     }
 

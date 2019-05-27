@@ -14,7 +14,4 @@ public interface ContractorRepository extends BaseRepository<Contractor, Integer
             "SELECT ct.id FROM ContractorType ct WHERE ct.code = :contractorType)")
     List<Contractor> findAllByContractorType(@Param("contractorType") String contractorType);
 
-//    @Query(nativeQuery = true, value = "SELECT * FROM contractor c WHERE c.contractor_type_code = :contractorType")
-//    List<Contractor> findAllByContractorType(@Param("contractorType") String contractorType);
-
 }

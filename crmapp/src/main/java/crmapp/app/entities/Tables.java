@@ -7,6 +7,7 @@ public class Tables {
     public static final String CONTRACTOR_ID = "contractor_id";
     public static final String OUR_COMPANY_ID = "our_company_id";
     public static final String EMPLOYEE_ID = "employee_id";
+    public static final String ADDRESS_ID = "address_id";
 
     public static final String CLIENTS = "clients";
     public static final String CLIENT_ADDRESSES = "client_addresses";
@@ -33,5 +34,6 @@ public class Tables {
     public static final String CONTRACTOR_TYPES = "contractor_types";
     public static final String EMPLOYEES = "employees";
     public static final String EMPLOYEE_ADDRESSES = "employee_addresses";
+    public static final String CONTRACTOR_ADDRESSES = "contractor_addresses";
 
 }

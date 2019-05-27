@@ -1,7 +1,6 @@
 package crmapp.app.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -39,10 +38,8 @@ public class Contractor extends BaseEntity {
     @JoinColumn(name = "contractor_type_id", referencedColumnName = "id")
     private ContractorType contractorType;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "contractor", orphanRemoval = true)
-    @OrderBy("id ASC")
-    @JsonManagedReference(value = "contractor-addresses")
-    private Set<Address> addresses = new HashSet<>();
+    @OneToMany(mappedBy = "contractor")
+    private Set<ContractorAddress> addresses = new HashSet<>();
 
     public Contractor() {
     }

@@ -14,7 +14,7 @@ import java.util.List;
 public class AddressService extends AbstractService<Address, AddressRepository> {
 
     public List<Address> findAllByContractorId(Integer id) {
-        return repository.findAllByContractorId(id);
+        return null;
     }
 
     public Address save(int clientId, Address address) {
