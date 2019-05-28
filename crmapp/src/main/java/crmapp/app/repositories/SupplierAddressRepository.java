@@ -1,6 +1,7 @@
 package crmapp.app.repositories;
 
 import crmapp.app.entities.SupplierAddress;
+import crmapp.app.repositories.base.BaseRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;

@@ -1,5 +1,6 @@
 package crmapp.app.repositories;
 
+import crmapp.app.repositories.base.BaseRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import crmapp.app.entities.MailOutput;

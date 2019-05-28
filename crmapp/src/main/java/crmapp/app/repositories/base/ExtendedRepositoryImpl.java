@@ -1,16 +1,19 @@
-package crmapp.app.repositories;
+package crmapp.app.repositories.base;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.data.jpa.repository.support.JpaEntityInformation;
+import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-
-import org.springframework.data.jpa.repository.support.JpaEntityInformation;
-import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
-
 @SuppressWarnings("unchecked")
+@Getter
+@Setter
 public class ExtendedRepositoryImpl<T, ID extends Serializable> extends SimpleJpaRepository<T, ID>
 		implements BaseRepository<T, ID> {
 

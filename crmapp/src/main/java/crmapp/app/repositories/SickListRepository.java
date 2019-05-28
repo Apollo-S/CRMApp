@@ -2,6 +2,7 @@ package crmapp.app.repositories;
 
 import java.util.List;
 
+import crmapp.app.repositories.base.BaseRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 

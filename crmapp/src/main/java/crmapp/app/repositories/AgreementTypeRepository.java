@@ -1,9 +1,10 @@
 package crmapp.app.repositories;
 
 import crmapp.app.entities.AgreementType;
+import crmapp.app.repositories.base.BaseRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AgreementTypeRepository extends BaseRepository<AgreementType, Integer>{
+public interface AgreementTypeRepository extends BaseRepository<AgreementType, Integer> {
 
 }

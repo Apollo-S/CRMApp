@@ -20,7 +20,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import crmapp.app.repositories.ExtendedRepositoryImpl;
+import crmapp.app.repositories.base.ExtendedRepositoryImpl;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "crmapp.app.repositories", 
