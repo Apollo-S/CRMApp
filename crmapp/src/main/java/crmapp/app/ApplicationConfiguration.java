@@ -1,10 +1,6 @@
 package crmapp.app;
 
-import java.util.Properties;
-
-import javax.sql.DataSource;
-import javax.persistence.EntityManagerFactory;
-
+import crmapp.app.repositories.base.BaseRepositoryImpl;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -20,11 +16,13 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import crmapp.app.repositories.base.ExtendedRepositoryImpl;
+import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
+import java.util.Properties;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "crmapp.app.repositories", 
-	repositoryBaseClass=ExtendedRepositoryImpl.class)
+	repositoryBaseClass= BaseRepositoryImpl.class)
 public class ApplicationConfiguration {
 
 	@Bean
