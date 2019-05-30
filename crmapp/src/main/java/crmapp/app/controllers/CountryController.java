@@ -1,5 +1,6 @@
 package crmapp.app.controllers;
 
+import crmapp.app.controllers.base.BaseController;
 import crmapp.app.entities.Country;
 import crmapp.app.services.CountryService;
 import org.slf4j.Logger;

@@ -1,5 +1,6 @@
 package crmapp.app.controllers;
 
+import crmapp.app.controllers.base.BaseController;
 import crmapp.app.entities.AgreementType;
 import crmapp.app.services.AgreementTypeService;
 import org.slf4j.Logger;

@@ -3,7 +3,7 @@ package crmapp.app.services;
 import crmapp.app.entities.Address;
 import crmapp.app.entities.Owner;
 import crmapp.app.repositories.AddressRepository;
-import crmapp.app.services.base.AbstractService;
+import crmapp.app.services.base.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class AddressService extends AbstractService<Address, AddressRepository> {
+public class AddressService extends BaseServiceImpl<Address, AddressRepository> {
 
     public List<Address> findAllByContractorId(Integer id) {
         return null;

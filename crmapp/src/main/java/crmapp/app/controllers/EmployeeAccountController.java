@@ -2,6 +2,7 @@ package crmapp.app.controllers;
 
 import java.util.List;
 
+import crmapp.app.controllers.base.BaseController;
 import crmapp.app.services.EmployeeAccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import crmapp.app.entities.Employee;
 import crmapp.app.entities.EmployeeAccount;
-import crmapp.app.repositories.ClientRepository;
 import crmapp.app.repositories.EmployeeAccountRepository;
 import crmapp.app.repositories.EmployeeRepository;
 

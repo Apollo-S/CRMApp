@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Transactional
-public abstract class AbstractService<T extends BaseEntity, R extends BaseRepository<T, Integer>>
+public abstract class BaseServiceImpl<T extends BaseEntity, R extends BaseRepository<T, Integer>>
 		implements BaseService<T, Integer> {
 
 	@Autowired

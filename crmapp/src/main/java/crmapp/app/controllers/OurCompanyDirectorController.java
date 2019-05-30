@@ -2,8 +2,8 @@ package crmapp.app.controllers;
 
 import java.util.List;
 
+import crmapp.app.controllers.base.BaseController;
 import crmapp.app.services.OurCompanyDirectorService;
-import crmapp.app.services.OurCompanyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

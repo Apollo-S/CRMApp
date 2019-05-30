@@ -1,7 +1,7 @@
-package crmapp.app.controllers;
+package crmapp.app.controllers.base;
 
 import crmapp.app.entities.BaseEntity;
-import crmapp.app.services.base.AbstractService;
+import crmapp.app.services.base.BaseServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,36 +14,16 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 @MappedSuperclass
-public abstract class BaseController<T extends BaseEntity, S extends AbstractService> {
+public abstract class BaseController<T extends BaseEntity, S extends BaseServiceImpl> {
 
-    static final String PARAM_ID = "id";
-    static final String HEADER_JSON = "Accept=application/json";
-
-    static final String REQUEST_MAPPING_EMPTY = "";
-    static final String REQUEST_MAPPING_GET_ALL = "/";
-    static final String REQUEST_MAPPING_BY_ID = "/{" + PARAM_ID + "}";
-    static final String REQUEST_MAPPING_ADD = "/add/";
-    static final String REQUEST_MAPPING_UPDATE = "/update/{id}";
-    static final String REQUEST_MAPPING_DELETE = "/delete/{id}";
+    protected static final String PARAM_ID = "id";
+    protected static final String HEADER_JSON = "Accept=application/json";
 
     public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_GREEN = "\u001B[32m";
     public static final String ANSI_YELLOW = "\u001B[33m";
     public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String ANSI_PURPLE = "\u001B[35m";
-    public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_WHITE = "\u001B[37m";
-
-    public static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
-    public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
-    public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
-    public static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
-    public static final String ANSI_BLUE_BACKGROUND = "\u001B[44m";
-    public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
-    public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
-    public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
     public static final String NUMBER_SIGNS = "###";
     public static final String LOG_ENTER_METHOD = ANSI_BLUE + NUMBER_SIGNS + " Enter to ";

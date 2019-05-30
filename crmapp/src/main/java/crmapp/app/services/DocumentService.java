@@ -3,7 +3,7 @@ package crmapp.app.services;
 import java.util.*;
 
 import crmapp.app.entities.DocumentFilter;
-import crmapp.app.services.base.AbstractService;
+import crmapp.app.services.base.BaseServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import crmapp.app.entities.Document;
 import crmapp.app.repositories.DocumentRepository;
 
 @Service
-public class DocumentService extends AbstractService<Document, DocumentRepository> {
+public class DocumentService extends BaseServiceImpl<Document, DocumentRepository> {
 
     private static final Logger logger = LoggerFactory.getLogger(DocumentService.class);
 

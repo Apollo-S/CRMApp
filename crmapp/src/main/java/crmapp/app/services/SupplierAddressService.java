@@ -3,7 +3,7 @@ package crmapp.app.services;
 import crmapp.app.entities.Supplier;
 import crmapp.app.entities.SupplierAddress;
 import crmapp.app.repositories.SupplierAddressRepository;
-import crmapp.app.services.base.AbstractService;
+import crmapp.app.services.base.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class SupplierAddressService extends AbstractService<SupplierAddress, SupplierAddressRepository> {
+public class SupplierAddressService extends BaseServiceImpl<SupplierAddress, SupplierAddressRepository> {
 
     @Autowired
     private SupplierService supplierService;

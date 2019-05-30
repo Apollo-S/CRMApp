@@ -1,5 +1,6 @@
 package crmapp.app.controllers;
 
+import crmapp.app.controllers.base.BaseController;
 import crmapp.app.entities.Supplier;
 import crmapp.app.services.SupplierService;
 import org.slf4j.Logger;

@@ -2,6 +2,7 @@ package crmapp.app.controllers;
 
 import java.util.List;
 
+import crmapp.app.controllers.base.BaseController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

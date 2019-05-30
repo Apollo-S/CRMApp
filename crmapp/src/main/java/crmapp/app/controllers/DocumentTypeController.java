@@ -2,6 +2,7 @@ package crmapp.app.controllers;
 
 import java.util.List;
 
+import crmapp.app.controllers.base.BaseController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import crmapp.app.entities.DocumentType;
 import crmapp.app.services.DocumentTypeService;
-import org.thymeleaf.dom.DocType;
 
 @RestController
 @RequestMapping(value = "/api/document-types")

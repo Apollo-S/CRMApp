@@ -1,6 +1,6 @@
 package crmapp.app.services;
 
-import crmapp.app.services.base.AbstractService;
+import crmapp.app.services.base.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,6 +9,6 @@ import crmapp.app.repositories.DocumentStatusRepository;
 
 @Service
 @Transactional
-public class DocumentStatusService extends AbstractService<DocumentStatus, DocumentStatusRepository> {
+public class DocumentStatusService extends BaseServiceImpl<DocumentStatus, DocumentStatusRepository> {
 	
 }

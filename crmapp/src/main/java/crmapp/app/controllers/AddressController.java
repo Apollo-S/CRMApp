@@ -1,5 +1,6 @@
 package crmapp.app.controllers;
 
+import crmapp.app.controllers.base.BaseController;
 import crmapp.app.entities.ContractorAddress;
 import crmapp.app.services.ContractorAddressService;
 import org.slf4j.Logger;

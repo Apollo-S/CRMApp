@@ -1,7 +1,8 @@
 package crmapp.app.controllers;
 
+import crmapp.app.controllers.base.ExtendedBaseController;
 import crmapp.app.entities.OurCompanyAddress;
-import crmapp.app.services.OurCompanyAddressService;
+import crmapp.app.services.ExtendedAbstractService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,19 +15,19 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/our-companies/{id}/addresses")
-public class OurCompanyAddressController extends ExtBaseController<OurCompanyAddress, OurCompanyAddressService> {
+public class OurCompanyAddressController extends ExtendedBaseController<OurCompanyAddress, ExtendedAbstractService> {
 
 	private static final Logger logger = LoggerFactory.getLogger(OurCompanyAddressController.class);
-	private final OurCompanyAddressService addressService;
+	private final ExtendedAbstractService addressService;
 
 	@Autowired
-	public OurCompanyAddressController(OurCompanyAddressService addressService) {
+	public OurCompanyAddressController(ExtendedAbstractService addressService) {
 		this.addressService = addressService;
 	}
 
 	@GetMapping(value = "", headers = HEADER_JSON)
 	public ResponseEntity<List<OurCompanyAddress>> getAllByOurCompanyId(@PathVariable("id") Integer id) {
-		return super.getAllEntitiesByMainEntityId(id);
+		return super.getAllFilterBy("ourCompany", id);
 	}
 
 	@GetMapping(value = "/{id}", headers = HEADER_JSON)

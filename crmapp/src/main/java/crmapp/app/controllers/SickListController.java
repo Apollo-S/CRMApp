@@ -2,6 +2,7 @@ package crmapp.app.controllers;
 
 import java.util.List;
 
+import crmapp.app.controllers.base.BaseController;
 import crmapp.app.services.SickListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,28 +1,21 @@
 package crmapp.app.controllers;
 
-import java.util.List;
-
+import crmapp.app.controllers.base.ExtendedBaseController;
+import crmapp.app.entities.ClientAccount;
+import crmapp.app.services.ClientAccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import crmapp.app.entities.ClientAccount;
-import crmapp.app.services.ClientAccountService;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/clients/{clientId}/accounts")
-public class ClientAccountController extends BaseController<ClientAccount, ClientAccountService> {
+public class ClientAccountController extends ExtendedBaseController<ClientAccount, ClientAccountService> {
 
 	private static final Logger logger = LoggerFactory.getLogger(ClientAccountController.class);
 	private final ClientAccountService accountService;
@@ -35,15 +28,7 @@ public class ClientAccountController extends BaseController<ClientAccount, Clien
 	@GetMapping(value = "", headers = HEADER_JSON)
 	public ResponseEntity<List<ClientAccount>> getAllClientAccountsByClientId(
 			@PathVariable("clientId") Integer clientId) {
-		logger.info(LOG_ENTER_METHOD + "getAllClientAccountsByClientId()" + LOG_CLOSE);
-		List<ClientAccount> accounts = accountService.findAllByClientId(clientId);
-		if (accounts.size() == 0) {
-			logger.info(LOG_ERROR + "ClientAccounts were not found" + LOG_CLOSE);
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-		logger.info(LOG_TEXT + "Count of ClientAccounts: " + accounts.size() + LOG_CLOSE);
-		logger.info(LOG_OUT_OF_METHOD + "getAllClientAccountsByClientId()" + LOG_CLOSE);
-		return new ResponseEntity<>(accounts, HttpStatus.OK);
+		return super.getAllFilterBy("client", clientId);
 	}
 
 	@GetMapping(value = "/{id}", headers = HEADER_JSON)

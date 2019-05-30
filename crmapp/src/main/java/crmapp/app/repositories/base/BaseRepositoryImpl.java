@@ -2,7 +2,6 @@ package crmapp.app.repositories.base;
 
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
-import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -10,7 +9,6 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
-@Repository
 @SuppressWarnings("unchecked")
 public class BaseRepositoryImpl<T, ID extends Serializable> extends SimpleJpaRepository<T, ID>
 		implements BaseRepository<T, ID> {

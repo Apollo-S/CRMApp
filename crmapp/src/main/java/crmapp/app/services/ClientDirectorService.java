@@ -2,7 +2,7 @@ package crmapp.app.services;
 
 import crmapp.app.entities.ClientDirector;
 import crmapp.app.repositories.ClientDirectorRepository;
-import crmapp.app.services.base.AbstractService;
+import crmapp.app.services.base.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class ClientDirectorService extends AbstractService<ClientDirector, ClientDirectorRepository> {
+public class ClientDirectorService extends BaseServiceImpl<ClientDirector, ClientDirectorRepository> {
 
     @Autowired
     private ClientService clientService;

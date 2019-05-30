@@ -1,26 +1,19 @@
 package crmapp.app.services;
 
-import java.util.List;
-
-import crmapp.app.services.base.AbstractService;
+import crmapp.app.entities.Client;
+import crmapp.app.entities.ClientAccount;
+import crmapp.app.repositories.ClientAccountRepository;
+import crmapp.app.services.base.ExtendedBaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import crmapp.app.entities.Client;
-import crmapp.app.entities.ClientAccount;
-import crmapp.app.repositories.ClientAccountRepository;
-
 @Service
 @Transactional
-public class ClientAccountService extends AbstractService<ClientAccount, ClientAccountRepository> {
+public class ClientAccountService extends ExtendedBaseServiceImpl<ClientAccount, ClientAccountRepository> {
 
 	@Autowired
 	private ClientService clientService;
-
-	public List<ClientAccount> findAllByClientId(Integer clientId) {
-		return repository.findAllByClientId(clientId);
-	}
 
 	public ClientAccount save(int clientId, ClientAccount account) {
 		Client client = clientService.findById(clientId);

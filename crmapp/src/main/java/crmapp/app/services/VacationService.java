@@ -2,7 +2,7 @@ package crmapp.app.services;
 
 import java.util.List;
 
-import crmapp.app.services.base.AbstractService;
+import crmapp.app.services.base.BaseServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import crmapp.app.repositories.VacationRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class VacationService extends AbstractService<Vacation, VacationRepository> {
+public class VacationService extends BaseServiceImpl<Vacation, VacationRepository> {
 
 	private static final Logger logger = LoggerFactory.getLogger(VacationService.class);
 

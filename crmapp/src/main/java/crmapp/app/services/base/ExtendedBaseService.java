@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface ExtendedBaseService<T, ID> extends BaseService<T, ID> {
 
-	List<T> getAllEntitiesByMainEntityId(Integer mainEntityId);
+	List<T> findAllFilterBy(String fieldName, Integer fieldId);
 
 }
