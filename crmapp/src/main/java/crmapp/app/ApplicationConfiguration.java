@@ -1,6 +1,6 @@
 package crmapp.app;
 
-import crmapp.app.repositories.base.BaseRepositoryImpl;
+import crmapp.app.repositories.base.ExtendedBaseRepositoryImpl;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -21,59 +21,59 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "crmapp.app.repositories", 
-	repositoryBaseClass= BaseRepositoryImpl.class)
+@EnableJpaRepositories(basePackages = "crmapp.app.repositories",
+        repositoryBaseClass = ExtendedBaseRepositoryImpl.class)
 public class ApplicationConfiguration {
 
-	@Bean
-	@ConfigurationProperties("app.hibernate")
-	@Autowired
-	public EntityManagerFactory entityManagerFactory(DataSource dataSource) {
-		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-		vendorAdapter.setGenerateDdl(true);
-		vendorAdapter.setShowSql(true);
+    @Bean
+    @ConfigurationProperties("app.hibernate")
+    @Autowired
+    public EntityManagerFactory entityManagerFactory(DataSource dataSource) {
+        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        vendorAdapter.setGenerateDdl(true);
+        vendorAdapter.setShowSql(true);
 
-		Properties jpaProperties = new Properties();
-		jpaProperties.setProperty("hibernate.dialect", "${dialect}");
+        Properties jpaProperties = new Properties();
+        jpaProperties.setProperty("hibernate.dialect", "${dialect}");
 
-		LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
-		localContainerEntityManagerFactoryBean.setJpaVendorAdapter(vendorAdapter);
-		localContainerEntityManagerFactoryBean.setPackagesToScan("crmapp.app");
-		localContainerEntityManagerFactoryBean.setDataSource(dataSource);
-		localContainerEntityManagerFactoryBean.setJpaProperties(jpaProperties);
-		localContainerEntityManagerFactoryBean.afterPropertiesSet();
-		return localContainerEntityManagerFactoryBean.getObject();
-	}
+        LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+        localContainerEntityManagerFactoryBean.setJpaVendorAdapter(vendorAdapter);
+        localContainerEntityManagerFactoryBean.setPackagesToScan("crmapp.app");
+        localContainerEntityManagerFactoryBean.setDataSource(dataSource);
+        localContainerEntityManagerFactoryBean.setJpaProperties(jpaProperties);
+        localContainerEntityManagerFactoryBean.afterPropertiesSet();
+        return localContainerEntityManagerFactoryBean.getObject();
+    }
 
-	@Bean
-	@Autowired
-	public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
-		JpaTransactionManager jpaTransactionManager = new JpaTransactionManager();
-		jpaTransactionManager.setEntityManagerFactory(entityManagerFactory);
-		return jpaTransactionManager;
-	}
+    @Bean
+    @Autowired
+    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+        JpaTransactionManager jpaTransactionManager = new JpaTransactionManager();
+        jpaTransactionManager.setEntityManagerFactory(entityManagerFactory);
+        return jpaTransactionManager;
+    }
 
-	@Bean
-	@Primary
-	@ConfigurationProperties("app.datasource")
-	public DataSource dataSource() {
-		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setDriverClassName("${driver-class-name}");
-		dataSource.setUrl("${url}");
-		dataSource.setUsername("${username}");
-		dataSource.setPassword("${password}");
-		return dataSource;
-	}
-	
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-		return new WebMvcConfigurerAdapter() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/api/**")
-				.allowedMethods("GET", "POST", "PUT", "DELETE");
-			}
-		};
-	}
+    @Bean
+    @Primary
+    @ConfigurationProperties("app.datasource")
+    public DataSource dataSource() {
+        BasicDataSource dataSource = new BasicDataSource();
+        dataSource.setDriverClassName("${driver-class-name}");
+        dataSource.setUrl("${url}");
+        dataSource.setUsername("${username}");
+        dataSource.setPassword("${password}");
+        return dataSource;
+    }
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurerAdapter() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/api/**")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE");
+            }
+        };
+    }
 
 }
