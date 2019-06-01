@@ -77,6 +77,14 @@ public abstract class BaseController<T extends BaseEntity, S extends BaseService
         return new ResponseEntity<>(savedEntity, new HttpHeaders(), HttpStatus.CREATED);
     }
 
+    protected ResponseEntity<T> updateEntity(T entity) {
+        logger.info(LOG_ENTER_METHOD + "update" + genericType.getSimpleName() + "Entity()" + LOG_CLOSE);
+        entity = (T) this.service.update(entity);
+        logger.info(LOG_TEXT + genericType.getSimpleName() + " Entity with ID=" + entity.getId() + " was updated: " + entity + LOG_CLOSE);
+        logger.info(LOG_OUT_OF_METHOD + "update" + genericType.getSimpleName() + "Entity()" + LOG_CLOSE);
+        return new ResponseEntity<>(entity, new HttpHeaders(), HttpStatus.OK);
+    }
+
     protected ResponseEntity<T> updateEntity(int id, T entity) {
         logger.info(LOG_ENTER_METHOD + "update" + genericType.getSimpleName() + "Entity()" + LOG_CLOSE);
         entity = (T) this.service.update(id, entity);
