@@ -2,7 +2,7 @@ package crmapp.app.controllers;
 
 import crmapp.app.controllers.base.ExtendedBaseController;
 import crmapp.app.entities.OurCompanyAddress;
-import crmapp.app.services.ExtendedAbstractService;
+import crmapp.app.services.OurCompanyAddressService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +15,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/our-companies/{id}/addresses")
-public class OurCompanyAddressController extends ExtendedBaseController<OurCompanyAddress, ExtendedAbstractService> {
+public class OurCompanyAddressController extends ExtendedBaseController<OurCompanyAddress, OurCompanyAddressService> {
 
 	private static final Logger logger = LoggerFactory.getLogger(OurCompanyAddressController.class);
-	private final ExtendedAbstractService addressService;
+	private final OurCompanyAddressService addressService;
 
 	@Autowired
-	public OurCompanyAddressController(ExtendedAbstractService addressService) {
+	public OurCompanyAddressController(OurCompanyAddressService addressService) {
 		this.addressService = addressService;
 	}
 
