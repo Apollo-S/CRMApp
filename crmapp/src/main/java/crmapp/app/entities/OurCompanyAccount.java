@@ -1,15 +1,11 @@
 package crmapp.app.entities;
 
-import java.util.Date;
-
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import crmapp.app.entities.base.AbstractAccount;
+
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "our_company_account")

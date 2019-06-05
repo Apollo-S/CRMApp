@@ -1,17 +1,17 @@
-package crmapp.app.entities;
+package crmapp.app.entities.base;
 
-import java.util.Date;
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import crmapp.app.entities.BaseEntity;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.Getter;
-import lombok.Setter;
+import java.util.Date;
+import java.util.Objects;
 
 @MappedSuperclass
 @Getter

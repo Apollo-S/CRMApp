@@ -1,17 +1,14 @@
 package crmapp.app.entities;
 
-import java.util.Date;
-
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import crmapp.app.entities.base.AbstractAccount;
+import crmapp.app.entities.base.Contractorable;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = Tables.CLIENT_ACCOUNTS)
@@ -19,7 +16,7 @@ import lombok.Setter;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true, 
 	value = { "hibernateLazyInitializer", "handler" })
-public class ClientAccount extends AbstractAccount {
+public class ClientAccount extends AbstractAccount implements Contractorable<Client> {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = Tables.CLIENT_ID)
@@ -36,6 +33,11 @@ public class ClientAccount extends AbstractAccount {
 
 	public ClientAccount(Client client, Date dateStart) {
 		super();
+		this.client = client;
+	}
+
+	@Override
+	public void setContractor(Client client) {
 		this.client = client;
 	}
 
