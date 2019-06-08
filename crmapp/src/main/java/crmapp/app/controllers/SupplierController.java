@@ -5,8 +5,6 @@ import crmapp.app.entities.Supplier;
 import crmapp.app.services.SupplierService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +23,7 @@ public class SupplierController extends BaseController<Supplier, SupplierService
 
 	@GetMapping(value = "/{id}", headers = HEADER_JSON)
 	public ResponseEntity<Supplier> getSupplierById(@PathVariable(PARAM_ID) int id) {
-		return super.getEntityById(id);
+		return super.getEntityBy(id);
 	}
 
 	@PostMapping(value = "", headers = HEADER_JSON)
@@ -36,11 +34,7 @@ public class SupplierController extends BaseController<Supplier, SupplierService
 	@PutMapping(value = "/{id}", headers = HEADER_JSON)
 	public ResponseEntity<Supplier> updateEntity(@PathVariable(PARAM_ID) int id,
 											   @RequestBody Supplier supplier) {
-		logger.info(LOG_ENTER_METHOD + "updateEntity()" + LOG_CLOSE);
-		supplier = super.service.update(id, supplier);
-		logger.info(LOG_TEXT + "Supplier with ID=" + id + " was updated: " + supplier + LOG_CLOSE);
-		logger.info(LOG_OUT_OF_METHOD + "updateEntity()" + LOG_CLOSE);
-		return new ResponseEntity<>(supplier, new HttpHeaders(), HttpStatus.OK);
+		return super.updateEntity(supplier);
 	}
 
 	@DeleteMapping(value = "/{id}", headers = HEADER_JSON)

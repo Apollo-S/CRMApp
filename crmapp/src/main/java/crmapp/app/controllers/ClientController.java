@@ -19,7 +19,7 @@ public class ClientController extends BaseController<Client, ClientService> {
 
     @GetMapping(value = "/{id}", headers = HEADER_JSON)
     public ResponseEntity<Client> getClientById(@PathVariable(PARAM_ID) int id) {
-        return super.getEntityById(id);
+        return super.getEntityBy(id);
     }
 
     @PostMapping(value = "", headers = HEADER_JSON)

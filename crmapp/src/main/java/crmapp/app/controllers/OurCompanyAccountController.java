@@ -1,8 +1,10 @@
 package crmapp.app.controllers;
 
-import java.util.List;
-
-import crmapp.app.controllers.base.BaseController;
+import crmapp.app.controllers.base.ExtendedBaseController;
+import crmapp.app.entities.OurCompany;
+import crmapp.app.entities.OurCompanyAccount;
+import crmapp.app.repositories.OurCompanyAccountRepository;
+import crmapp.app.repositories.OurCompanyRepository;
 import crmapp.app.services.OurCompanyAccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,24 +13,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import crmapp.app.entities.OurCompany;
-import crmapp.app.entities.OurCompanyAccount;
-import crmapp.app.repositories.OurCompanyAccountRepository;
-import crmapp.app.repositories.OurCompanyRepository;
+import java.util.List;
 
 @RestController
 @Transactional
 @RequestMapping(value = "/api/our-companies/{companyId}/accounts")
-public class OurCompanyAccountController extends BaseController<OurCompanyAccount, OurCompanyAccountService> {
+public class OurCompanyAccountController extends ExtendedBaseController<OurCompanyAccount, OurCompanyAccountService> {
 
 	private static final Logger logger = LoggerFactory.getLogger(OurCompanyAccountController.class);
 
@@ -41,15 +33,7 @@ public class OurCompanyAccountController extends BaseController<OurCompanyAccoun
 	@GetMapping(value = "", headers = HEADER_JSON)
 	public ResponseEntity<List<OurCompanyAccount>> getAllOurCompanyAccountsByCompanyId(
 			@PathVariable("companyId") int companyId) {
-		logger.info(LOG_ENTER_METHOD + "getAllOurCompanyAccountsByCompanyId()" + LOG_CLOSE);
-		List<OurCompanyAccount> accounts = accountRepository.findAllByOurCompanyId(companyId);
-		if (accounts.size() == 0) {
-			logger.info(LOG_ERROR + "OurCompanyAccounts were not found" + LOG_CLOSE);
-			return new ResponseEntity<List<OurCompanyAccount>>(HttpStatus.NO_CONTENT);
-		}
-		logger.info(LOG_TEXT + "Count of OurCompanyAccounts: " + accounts.size() + LOG_CLOSE);
-		logger.info(LOG_OUT_OF_METHOD + "getAllOurCompanyAccountsByCompanyId()" + LOG_CLOSE);
-		return new ResponseEntity<List<OurCompanyAccount>>(accounts, HttpStatus.OK);
+		return super.getAllFilterBy("ourCompany", companyId);
 	}
 
 	@GetMapping(value = "/{id}", headers = HEADER_JSON)

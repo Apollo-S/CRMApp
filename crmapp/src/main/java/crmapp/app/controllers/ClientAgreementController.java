@@ -40,7 +40,7 @@ public class ClientAgreementController extends BaseController<ClientAgreement, C
     @GetMapping(value = {"/agreements/{id}", "/clients/{clientId}/agreements/{id}"}, headers = HEADER_JSON)
     public ResponseEntity<ClientAgreement> getClientAgreementById(@PathVariable(PARAM_ID) int id) {
         logger.info(LOG_ENTER_METHOD + "getClientAgreementById()" + LOG_CLOSE);
-        ResponseEntity<ClientAgreement> agreement = super.getEntityById(id);
+        ResponseEntity<ClientAgreement> agreement = super.getEntityBy(id);
         logger.info(LOG_OUT_OF_METHOD + "getClientAgreementById()" + LOG_CLOSE);
         return agreement;
     }

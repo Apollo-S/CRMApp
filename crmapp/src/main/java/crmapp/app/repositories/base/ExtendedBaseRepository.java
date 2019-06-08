@@ -9,5 +9,5 @@ import java.util.List;
 public interface ExtendedBaseRepository<T, ID extends Serializable> extends BaseRepository<T, ID> {
 
 	List<T> getAllFilterBy(String fieldName, ID fieldId);
-	
+
 }

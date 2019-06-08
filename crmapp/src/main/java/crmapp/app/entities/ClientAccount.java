@@ -24,6 +24,7 @@ public class ClientAccount extends AbstractAccount implements Contractorable<Cli
 	private Client client;
 
 	public ClientAccount() {
+		client = new Client();
 	}
 
 	public ClientAccount(String number, String bankName, String mfo, Date dateStart, Client client) {

@@ -57,7 +57,7 @@ public abstract class BaseController<T extends BaseEntity, S extends BaseService
         return new ResponseEntity<>(entities, HttpStatus.OK);
     }
 
-    protected ResponseEntity<T> getEntityById(int id) {
+    protected ResponseEntity<T> getEntityBy(int id) {
         logger.info(LOG_ENTER_METHOD + "get" + genericType.getSimpleName() + "EntityById()" + LOG_CLOSE);
         T entity = (T) this.service.findById(id);
         if (entity == null) {
