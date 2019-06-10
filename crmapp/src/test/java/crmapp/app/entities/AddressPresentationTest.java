@@ -6,7 +6,6 @@ import org.junit.Test;
 import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
 
 public class AddressPresentationTest {
 
@@ -77,16 +76,6 @@ public class AddressPresentationTest {
 
     @Test
     public void hasAddressProperUrlAccordingType() {
-        Contractor contractor = new Contractor();
-        contractor.setId(123);
-        ContractorType type = new ContractorType();
-        type.setCode(ContractorType.CLIENT);
-        contractor.setContractorType(type);
-        Address address = new Address();
-        address.setId(231);
-        address.setCountry(new Country("Germany", "GER"));
-        address.setContractor(contractor);
-        assertEquals("clients/123/addresses/231", address.getUrl());
     }
 
 }

@@ -1,5 +1,6 @@
 package crmapp.app.services;
 
+import crmapp.app.entities.Bank;
 import crmapp.app.entities.Client;
 import crmapp.app.entities.ClientAccount;
 import org.junit.Before;
@@ -33,8 +34,7 @@ public class ClientAccountServiceIntegrationTest {
 
         clientAccount = new ClientAccount();
         clientAccount.setNumber("26007017134344");
-        clientAccount.setBankName("АТ \"Сити-Банк\"");
-        clientAccount.setMfo("311009");
+        clientAccount.setBank(new Bank("АТ \"Сити-Банк\"", "311009"));
         clientAccount.setDateStart(date);
         clientAccount.setClient(client);
     }
@@ -54,15 +54,14 @@ public class ClientAccountServiceIntegrationTest {
     @Transactional
     public void testUpdateClientAccount() {
         ClientAccount savedAccount = clientAccountService.save(this.clientAccount);
-        savedAccount.setBankName("PrivatBank JSPC");
-        savedAccount.setMfo("300711");
+        savedAccount.setBank(new Bank("PrivatBank JSPC", "300711"));
         savedAccount.setNumber("260001313131");
         savedAccount.setDateStart(new GregorianCalendar(2017, Calendar.MARCH, 25).getTime());
 
         ClientAccount updatedAccount = clientAccountService.update(savedAccount);
 
-        assertEquals("PrivatBank JSPC", updatedAccount.getBankName());
-        assertEquals("300711", updatedAccount.getMfo());
+        assertEquals("PrivatBank JSPC", updatedAccount.getBank().getTitle());
+        assertEquals("300711", updatedAccount.getBank().getMfo());
         assertEquals("260001313131", updatedAccount.getNumber());
 
     }
