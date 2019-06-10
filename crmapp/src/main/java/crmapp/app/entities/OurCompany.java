@@ -1,18 +1,14 @@
 package crmapp.app.entities;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import crmapp.app.entities.base.AbstractCompany;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = Tables.OUR_COMPANIES)
@@ -40,7 +36,7 @@ public class OurCompany extends AbstractCompany {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "ourCompany", orphanRemoval = true)
 	@OrderBy("id ASC")
-	@JsonManagedReference(value = "our-company-account")
+	@JsonManagedReference(value = Tables.OUR_COMPANY_ACCOUNTS)
 	private Set<OurCompanyAccount> accounts = new HashSet<>();
 
 	public OurCompany() {

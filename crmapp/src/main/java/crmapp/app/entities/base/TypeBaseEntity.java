@@ -1,7 +1,6 @@
 package crmapp.app.entities.base;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import crmapp.app.entities.BaseEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

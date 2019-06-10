@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import crmapp.app.entities.base.AbstractDocumentType;
 
 @Entity
 @Table(name = "mail_document_type")

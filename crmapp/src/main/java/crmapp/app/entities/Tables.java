@@ -36,4 +36,7 @@ public class Tables {
     public static final String EMPLOYEE_ADDRESSES = "employee_addresses";
     public static final String CONTRACTOR_ADDRESSES = "contractor_addresses";
 
+    public static final String BANKS = "banks";
+    public static final String CURRENCY_TYPES = "currency_types";
+    public static final String COUNTRIES = "countries";
 }

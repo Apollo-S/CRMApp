@@ -9,6 +9,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import crmapp.app.entities.base.BaseEntity;
 
 @Entity
 @Table(name = "persons")

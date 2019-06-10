@@ -1,6 +1,7 @@
 package crmapp.app.entities;
 
 import com.fasterxml.jackson.annotation.*;
+import crmapp.app.entities.base.AbstractAgreement;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,9 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static crmapp.app.entities.Tables.CLIENT_AGREEMENTS;
 import static javax.persistence.FetchType.LAZY;

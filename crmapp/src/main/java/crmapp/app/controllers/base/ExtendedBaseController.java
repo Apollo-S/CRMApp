@@ -1,6 +1,6 @@
 package crmapp.app.controllers.base;
 
-import crmapp.app.entities.BaseEntity;
+import crmapp.app.entities.base.BaseEntity;
 import crmapp.app.services.base.ExtendedBaseServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

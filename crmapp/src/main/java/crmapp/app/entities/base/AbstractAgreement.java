@@ -1,6 +1,5 @@
-package crmapp.app.entities;
+package crmapp.app.entities.base;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 

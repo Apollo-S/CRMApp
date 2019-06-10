@@ -1,6 +1,6 @@
 package crmapp.app.services.base;
 
-import crmapp.app.entities.BaseEntity;
+import crmapp.app.entities.base.BaseEntity;
 import crmapp.app.repositories.base.ExtendedBaseRepository;
 import org.springframework.transaction.annotation.Transactional;
 

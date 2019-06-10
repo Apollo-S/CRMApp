@@ -98,11 +98,11 @@ VALUES
 	(4, 1, 1, 'Зощенко Виктор Алексеевич', 'Зощенко В.А.', '2015-01-01', 0);
 
 TRUNCATE `client_accounts`;
-INSERT INTO `client_accounts` (`id`, `client_id`, `number`,`bank_name`, `mfo`, `date_start`, `optlock`)
+INSERT INTO `client_accounts` (`id`, `client_id`, `number`,`bank_id`, `currency_type_id`, `date_start`, `optlock`)
 VALUES
-	(1, 1, '26007017100038', 'АТ "Піреус Банк МКБ"', '300658', '2013-01-01', 0),
-	(2, 2, '26007247100756', 'АТ "ПРИВАТБАНК"', '320699', '2013-01-01', 0),
-	(3, 1, '26007017134344', 'АТ "Сити-Банк"', '311009', '2015-01-01', 0);
+	(1, 1, '26007017100038', 1, 1, '2013-01-01', 0),
+	(2, 2, '26007247100756', 1, 1, '2013-01-01', 0),
+	(3, 1, '26007017134344', 2, 1, '2015-01-01', 0);
 
 TRUNCATE `client_agreements`;
 INSERT INTO `client_agreements` (`id`, `client_id`, `code`, `number`, `date_start`, `comment`, `optlock`)
@@ -141,11 +141,11 @@ VALUES
 	(4, 4, b'0', '2012-01-01', null, 4, 0);
 
 TRUNCATE `employee_accounts`;
-INSERT INTO `employee_accounts` (`id`, `employee_id`, `presentation`, `date_start`, `optlock`)
+INSERT INTO `employee_accounts` (`id`, `employee_id`, `number`, `bank_id`, `currency_type_id`, `date_start`, `optlock`)
 VALUES
-	(1, 1, '26007017100038 в АТ "Піреус Банк МКБ", МФО 300658', '2013-01-01', 0),
-	(2, 2, '26007247100756 в АТ "ПРИВАТБАНК", МФО 320699', '2013-01-01', 0),
-	(3, 3, '26007547230756 в АТ "ПРИВАТБАНК", МФО 320699', '2013-01-01', 0);
+	(1, 1, '26007017100038', 1, 1, '2013-01-01', 0),
+	(2, 2, '26007247100756', 2, 1, '2013-01-01', 0),
+	(3, 3, '26007547230756', 1, 1, '2013-01-01', 0);
 
 TRUNCATE `vacations`;
 INSERT INTO `vacations` (`id`, `employee_id`, `description`, `date_start`, `date_final`, `days_amount`, `holiday_amount`, `comment`, `optlock`)
@@ -277,11 +277,11 @@ VALUES
 	(4, 1, 1, 'Зощенко Виктор Алексеевич', 'Зощенко В.А.', '2015-01-01', 0);
 
 TRUNCATE `supplier_accounts`;
-INSERT INTO `supplier_accounts` (`id`, `supplier_id`, `number`,`bank_name`, `mfo`, `date_start`, `optlock`)
+INSERT INTO `supplier_accounts` (`id`, `supplier_id`, `number`,`bank_id`, `currency_type_id`, `date_start`, `optlock`)
 VALUES
-	(1, 1, '26007017100038', 'АТ "Піреус Банк МКБ"', '300658', '2013-01-01', 0),
-	(2, 2, '26007247100756', 'АТ "ПРИВАТБАНК"', '320699', '2013-01-01', 0),
-	(3, 1, '26007017134344', 'АТ "Сити-Банк"', '311009', '2015-01-01', 0);
+	(1, 1, '26007017100038', 1, 1, '2013-01-01', 0),
+	(2, 2, '26007247100756', 2, 1, '2013-01-01', 0),
+	(3, 1, '26007017134344', 3, 1, '2015-01-01', 0);
 
 TRUNCATE `supplier_agreements`;
 INSERT INTO `supplier_agreements` (`id`, `supplier_id`, `code`, `number`, `date_start`, `comment`, `optlock`)
@@ -293,5 +293,18 @@ VALUES
 	(5, 1, '', '2015/3', '2015-03-01', 'Договор на ТП 2015 год', 0),
 	(6, 2, '', '2016/6', '2016-03-01', 'Договор на ТП 2016 год', 0),
 	(7, 3, '', '2017/8', '2017-03-01', 'Договор на ТП 2017 год', 0);
+
+TRUNCATE `banks`;
+INSERT INTO `banks` (`id`, `title`, `mfo`, `optlock`)
+VALUES
+    (1, 'АТ "Піреус Банк МКБ"', '300658', 0),
+    (2, 'АТ "ПРИВАТБАНК"', '320699', 0),
+    (3, 'АТ "Сити-Банк"', '311009', 0);
+
+TRUNCATE `currency_types`;
+INSERT into `currency_types` (`id`, `curr_code`, `curr_name`, `curr_short_name`, `optlock`)
+VALUES
+    (1, '980', 'Украинская гривна', 'UAH', 0),
+    (2, '840', 'Доллар США', 'USD', 0);
 
 SET FOREIGN_KEY_CHECKS=1;

@@ -1,5 +1,7 @@
 package crmapp.app.entities;
 
+import crmapp.app.entities.base.BaseEntity;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;

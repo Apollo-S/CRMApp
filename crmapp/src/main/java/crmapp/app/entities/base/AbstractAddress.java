@@ -1,13 +1,13 @@
-package crmapp.app.entities;
-
-import java.util.Date;
-import java.util.Objects;
-
-import javax.persistence.*;
+package crmapp.app.entities.base;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import crmapp.app.entities.Country;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.Date;
+import java.util.Objects;
 
 @MappedSuperclass
 @Getter

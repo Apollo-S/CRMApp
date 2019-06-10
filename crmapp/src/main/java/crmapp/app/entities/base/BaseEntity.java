@@ -1,17 +1,11 @@
-package crmapp.app.entities;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Version;
+package crmapp.app.entities.base;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
 @MappedSuperclass
@@ -20,9 +14,9 @@ import java.io.Serializable;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public abstract class BaseEntity implements Serializable {
 
-	static final String ID_SEPARATOR = "s/";
-	static final String PERIOD_SEPARATOR = " - ";
-	static final String DATE_FORMAT = "dd.MM.yyyy";
+	protected static final String ID_SEPARATOR = "s/";
+	protected static final String PERIOD_SEPARATOR = " - ";
+	protected static final String DATE_FORMAT = "dd.MM.yyyy";
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

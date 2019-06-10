@@ -8,21 +8,21 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "our_company_account")
+@Table(name = Tables.OUR_COMPANY_ACCOUNTS)
 @JsonIgnoreProperties(ignoreUnknown = true, 
 	value = { "hibernateLazyInitializer", "handler" })
 public class OurCompanyAccount extends AbstractAccount {
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "our_company_id")
-	@JsonBackReference(value = "our-company-account")
+	@JoinColumn(name = Tables.OUR_COMPANY_ID)
+	@JsonBackReference(value = Tables.OUR_COMPANY_ACCOUNTS)
 	private OurCompany ourCompany;
 
 	public OurCompanyAccount() {
 	}
 
-	public OurCompanyAccount(String number, String bankName, String mfo, Date dateStart, OurCompany ourCompany) {
-		super(number, bankName, mfo, dateStart);
+	public OurCompanyAccount(String number, Bank bank, Date dateStart, OurCompany ourCompany) {
+		super(number, bank, dateStart);
 		this.ourCompany = ourCompany;
 	}
 

@@ -2,14 +2,12 @@ package crmapp.app.entities.base;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import crmapp.app.entities.BaseEntity;
+import crmapp.app.entities.Bank;
+import crmapp.app.entities.CurrencyType;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 
@@ -22,11 +20,13 @@ public abstract class AbstractAccount extends BaseEntity {
     @Column(name = "number", length = 255)
     private String number;
 
-    @Column(name = "bank_name", length = 200)
-    private String bankName;
+    @OneToOne
+    @JoinColumn(name = "bank_id")
+    private Bank bank;
 
-    @Column(name = "mfo", length = 7)
-    private String mfo;
+    @OneToOne
+    @JoinColumn(name = "currency_type_id")
+    private CurrencyType currencyType;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "date_start")
@@ -35,18 +35,17 @@ public abstract class AbstractAccount extends BaseEntity {
     public AbstractAccount() {
     }
 
-    public AbstractAccount(String number, String bankName, String mfo, Date dateStart) {
+    public AbstractAccount(String number, Bank bank, Date dateStart) {
         this.number = number;
-        this.bankName = bankName;
-        this.mfo = mfo;
+        this.bank = bank;
         this.dateStart = dateStart;
     }
 
     @JsonInclude
     public String getPresentation() {
         StringBuilder accountBuilder = new StringBuilder();
-        accountBuilder.append(getNumber()).append(", ");
-        accountBuilder.append(getBankName()).append(" (МФО ").append(getMfo()).append(")");
+        accountBuilder.append(getNumber()).append(" (").append(currencyType.getCurrShortName()).append("),");
+        accountBuilder.append(bank.getTitle()).append(" (МФО ").append(bank.getMfo()).append(")");
         return accountBuilder.toString();
     }
 
@@ -72,8 +71,7 @@ public abstract class AbstractAccount extends BaseEntity {
         return new StringBuilder()
                 .append(super.toString()).append(", ")
                 .append("number=" + number).append(", ")
-                .append("bankName=" + bankName).append(", ")
-                .append("mfo=" + mfo).append(", ")
+                .append("bank=" + bank).append(", ")
                 .append("dateStart=" + dateStart)
                 .toString();
     }

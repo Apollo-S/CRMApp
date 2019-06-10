@@ -27,8 +27,8 @@ public class ClientAccount extends AbstractAccount implements Contractorable<Cli
 		client = new Client();
 	}
 
-	public ClientAccount(String number, String bankName, String mfo, Date dateStart, Client client) {
-		super(number, bankName, mfo, dateStart);
+	public ClientAccount(String number, Bank bank , Date dateStart, Client client) {
+		super(number, bank, dateStart);
 		this.client = client;
 	}
 

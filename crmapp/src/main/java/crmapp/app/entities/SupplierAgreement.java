@@ -3,6 +3,7 @@ package crmapp.app.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import crmapp.app.entities.base.AbstractAgreement;
 import lombok.Getter;
 import lombok.Setter;
 

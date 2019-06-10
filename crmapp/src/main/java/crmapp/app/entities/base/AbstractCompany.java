@@ -1,4 +1,4 @@
-package crmapp.app.entities;
+package crmapp.app.entities.base;
 
 import java.util.Objects;
 

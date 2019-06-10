@@ -1,9 +1,10 @@
-package crmapp.app.entities;
+package crmapp.app.entities.base;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import crmapp.app.entities.base.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 

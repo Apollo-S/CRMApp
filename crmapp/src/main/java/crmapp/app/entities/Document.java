@@ -16,6 +16,7 @@ import javax.persistence.TemporalType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import crmapp.app.entities.base.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -18,7 +18,7 @@ import java.util.Date;
 public class EmployeeAccount extends AbstractAccount {
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "employee_id")
+	@JoinColumn(name = Tables.EMPLOYEE_ID)
 	@JsonBackReference(value = Tables.EMPLOYEE_ACCOUNTS)
 	private Employee employee;
 
@@ -26,8 +26,8 @@ public class EmployeeAccount extends AbstractAccount {
 	public EmployeeAccount() {
 	}
 
-	public EmployeeAccount(String number, String bankName, String mfo, Date dateStart, Employee employee) {
-		super(number, bankName, mfo, dateStart);
+	public EmployeeAccount(String number, Bank bank, Date dateStart, Employee employee) {
+		super(number, bank, dateStart);
 		this.employee = employee;
 	}
 

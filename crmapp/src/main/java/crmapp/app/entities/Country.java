@@ -1,5 +1,6 @@
 package crmapp.app.entities;
 
+import crmapp.app.entities.base.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +10,7 @@ import javax.persistence.Table;
 import java.util.Objects;
 
 @Entity
-@Table(name = "countries")
+@Table(name = Tables.COUNTRIES)
 @Getter
 @Setter
 public class Country extends BaseEntity {

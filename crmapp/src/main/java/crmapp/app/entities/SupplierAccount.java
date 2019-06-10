@@ -24,12 +24,12 @@ public class SupplierAccount extends AbstractAccount {
     public SupplierAccount() {
     }
 
-    public SupplierAccount(String number, String bankName, String mfo, Date dateStart, Supplier supplier) {
-        super(number, bankName, mfo, dateStart);
+    public SupplierAccount(String number, Bank bank, Date dateStart, Supplier supplier) {
+        super(number, bank, dateStart);
         this.supplier = supplier;
     }
 
-    public SupplierAccount(Supplier supplier, Date dateStart) {
+    public SupplierAccount(Supplier supplier) {
         super();
         this.supplier = supplier;
     }
