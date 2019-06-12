@@ -1,9 +1,7 @@
 package crmapp.app.entities;
 
 import crmapp.app.entities.base.BaseEntity;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +12,8 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
 public class CurrencyType extends BaseEntity {
 
     @Column(name = "curr_code", length = 3)
