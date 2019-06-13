@@ -44,7 +44,7 @@ public abstract class AbstractAccount extends BaseEntity {
     @JsonInclude
     public String getPresentation() {
         StringBuilder accountBuilder = new StringBuilder();
-        accountBuilder.append(getNumber()).append(" (").append(currencyType.getCurrShortName()).append("),");
+        accountBuilder.append(getNumber()).append(" (").append(currencyType.getCurrShortName()).append("), ");
         accountBuilder.append(bank.getTitle()).append(" (МФО ").append(bank.getMfo()).append(")");
         return accountBuilder.toString();
     }
