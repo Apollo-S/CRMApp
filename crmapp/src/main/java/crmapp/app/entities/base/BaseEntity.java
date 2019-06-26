@@ -28,13 +28,13 @@ public abstract class BaseEntity implements Serializable {
 
 	@JsonIgnore
 	@CreatedDate
-	@Column(name = "created_date", nullable = false)
-	private Date CreatedDate;
+	@Column(name = "created", nullable = false)
+	private Date created;
 
 	@JsonIgnore
 	@LastModifiedDate
-	@Column(name = "last_modified_date", nullable = false)
-	private Date LastModifiedDate;
+	@Column(name = "last_modified", nullable = false)
+	private Date lastModified;
 
 	@Version
 	@Column(name = "optlock", columnDefinition = "integer DEFAULT 0", nullable = false)
