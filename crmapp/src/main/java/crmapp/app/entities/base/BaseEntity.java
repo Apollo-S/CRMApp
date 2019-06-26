@@ -4,9 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @MappedSuperclass
 @Getter
@@ -22,6 +25,16 @@ public abstract class BaseEntity implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
+
+	@JsonIgnore
+	@CreatedDate
+	@Column(name = "created_date", nullable = false)
+	private Date CreatedDate;
+
+	@JsonIgnore
+	@LastModifiedDate
+	@Column(name = "last_modified_date", nullable = false)
+	private Date LastModifiedDate;
 
 	@Version
 	@Column(name = "optlock", columnDefinition = "integer DEFAULT 0", nullable = false)
