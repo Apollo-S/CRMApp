@@ -1,8 +1,8 @@
-package crmapp.app.controllers;
+package crmapp.app.controllers.experimental;
 
 import crmapp.app.controllers.base.BaseController;
-import crmapp.app.entities.Contractor;
-import crmapp.app.services.ContractorService;
+import crmapp.app.entities.experimental.Contractor;
+import crmapp.app.services.experimental.ContractorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -32,6 +32,20 @@ public class ContractorController extends BaseController<Contractor, ContractorS
 		logger.info(LOG_TEXT + "Count of contractors: " + contractors.size() + LOG_CLOSE);
 		logger.info(LOG_OUT_OF_METHOD + "getAllContractors()" + LOG_CLOSE);
 		return new ResponseEntity<>(contractors, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/{contractorType}/{id}", headers = HEADER_JSON)
+	public ResponseEntity<Contractor> getAllContractorById(@PathVariable("contractorType") String contractorType,
+																 @PathVariable ("id") int id) {
+		logger.info(LOG_ENTER_METHOD + "getAllContractorById()" + LOG_CLOSE);
+		logger.info(LOG_TEXT + "contractorType = '" + contractorType + "' and id = '" + id + "'" + LOG_CLOSE);
+		Contractor contractor = super.service.findById(id);
+		if (contractor == null) {
+			logger.info(LOG_ERROR + "Contractors were not found" + LOG_CLOSE);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		logger.info(LOG_OUT_OF_METHOD + "getAllContractorById()" + LOG_CLOSE);
+		return new ResponseEntity<>(contractor, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "", headers = HEADER_JSON)

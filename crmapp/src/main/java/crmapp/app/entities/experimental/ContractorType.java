@@ -1,7 +1,7 @@
-package crmapp.app.entities;
+package crmapp.app.entities.experimental;
 
+import crmapp.app.entities.Tables;
 import crmapp.app.entities.base.TypeBaseEntity;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 

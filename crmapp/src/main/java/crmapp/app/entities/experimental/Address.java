@@ -1,6 +1,8 @@
-package crmapp.app.entities;
+package crmapp.app.entities.experimental;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import crmapp.app.entities.Country;
+import crmapp.app.entities.Tables;
 import crmapp.app.entities.base.BaseEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -66,6 +68,11 @@ public class Address extends BaseEntity {
         if (getBuilding() != null && !getBuilding().isEmpty()) addressBuilder.append(", " + getBuilding());
         if (getApartment() != null && !getApartment().isEmpty()) addressBuilder.append(", " + getApartment());
         return addressBuilder.toString();
+    }
+
+    @Override
+    public String getUrl() {
+        return "contractors/" + this.contractors;
     }
 
     @Override

@@ -1,7 +1,7 @@
-package crmapp.app.services;
+package crmapp.app.services.experimental;
 
-import crmapp.app.entities.Contractor;
-import crmapp.app.repositories.ContractorRepository;
+import crmapp.app.entities.experimental.Contractor;
+import crmapp.app.repositories.experimental.ContractorRepository;
 import crmapp.app.services.base.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 

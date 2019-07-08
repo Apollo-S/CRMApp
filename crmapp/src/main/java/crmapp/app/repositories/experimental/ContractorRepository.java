@@ -1,6 +1,6 @@
-package crmapp.app.repositories;
+package crmapp.app.repositories.experimental;
 
-import crmapp.app.entities.Contractor;
+import crmapp.app.entities.experimental.Contractor;
 import crmapp.app.repositories.base.BaseRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

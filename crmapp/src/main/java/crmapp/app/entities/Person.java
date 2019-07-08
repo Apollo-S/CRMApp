@@ -1,105 +1,74 @@
 package crmapp.app.entities;
 
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import crmapp.app.entities.base.BaseEntity;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
-@Table(name = "persons")
+@Table(name = Tables.PERSONS)
+@Getter
+@Setter
+@EqualsAndHashCode
 @JsonIgnoreProperties(
-		ignoreUnknown = true, 
-		value = { "hibernateLazyInitializer", "handler" })
+        ignoreUnknown = true,
+        value = {"hibernateLazyInitializer", "handler",
+                "surname", "firstname", "lastname"})
 public class Person extends BaseEntity {
 
-	@Column(name = "surname", length = 50)
-	private String surname;
+    @Column(name = "surname", length = 50)
+    private String surname;
 
-	@Column(name = "firstname", length = 50)
-	private String firstname;
+    @Column(name = "firstname", length = 50)
+    private String firstname;
 
-	@Column(name = "lastname", length = 50)
-	private String lastname;
+    @Column(name = "lastname", length = 50)
+    private String lastname;
 
-	@Column(name = "short_name", length = 20)
-	private String shortName;
+    @Column(name = "inn", length = 20)
+    private String inn;
 
-	@Column(name = "inn", length = 20)
-	private String inn;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "birth_date")
+    private Date birthDate;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "birth_date")
-	private Date birthDate;
+    public Person() {
+    }
 
-	public Person() {
-	}
+    public String getFullName() {
+        StringBuilder builder = new StringBuilder();
+        if (getSurname() != null && !getSurname().isEmpty()) builder.append(getSurname());
+        if (getFirstname() != null && !getFirstname().isEmpty()) builder.append(" " + getFirstname());
+        if (getLastname() != null && !getLastname().isEmpty()) builder.append(" " + getLastname());
+        return builder.toString();
+    }
 
-	public String getSurname() {
-		return surname;
-	}
+    public String getShortName() {
+        StringBuilder builder = new StringBuilder();
+        if (getSurname() != null && !getSurname().isEmpty()) builder.append(getSurname());
+        if (getFirstname() != null && !getFirstname().isEmpty()) builder.append(" " +
+                getFirstname().substring(0, 1).toUpperCase() + ".");
+        if (getLastname() != null && !getLastname().isEmpty()) builder.append(
+                getLastname().substring(0, 1).toUpperCase() + ".");
+        return builder.toString();
+    }
 
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-
-	public String getFirstname() {
-		return firstname;
-	}
-
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
-
-	public String getLastname() {
-		return lastname;
-	}
-
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
-
-	public String getShortName() {
-		return shortName;
-	}
-
-	public void setShortName(String shortName) {
-		this.shortName = shortName;
-	}
-
-	public String getInn() {
-		return inn;
-	}
-
-	public void setInn(String inn) {
-		this.inn = inn;
-	}
-
-	public Date getBirthDate() {
-		return birthDate;
-	}
-
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Person [");
-		builder.append(super.toString()).append(", ");
-		builder.append("surname=" + surname).append(", ");
-		builder.append("firstname=" + firstname).append(", ");
-		builder.append("lastname=" + lastname).append(", ");
-		builder.append("shortName=" + shortName).append(", ");
-		builder.append("inn=" + inn).append(", ");
-		builder.append("birthDate=" + birthDate).append("]");
-		return builder.toString();
-	}
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Person [");
+        builder.append(super.toString()).append(", ");
+        builder.append("surname=" + surname).append(", ");
+        builder.append("firstname=" + firstname).append(", ");
+        builder.append("lastname=" + lastname).append(", ");
+        builder.append("shortName=" + getShortName()).append(", ");
+        builder.append("inn=" + inn).append(", ");
+        builder.append("birthDate=" + birthDate).append("]");
+        return builder.toString();
+    }
 
 }

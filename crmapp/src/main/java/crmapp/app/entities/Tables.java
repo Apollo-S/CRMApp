@@ -39,4 +39,6 @@ public class Tables {
     public static final String BANKS = "banks";
     public static final String CURRENCY_TYPES = "currency_types";
     public static final String COUNTRIES = "countries";
+    public static final String PERSONS = "persons";
+
 }

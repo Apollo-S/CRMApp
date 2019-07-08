@@ -1,6 +1,6 @@
-package crmapp.app.repositories;
+package crmapp.app.repositories.experimental;
 
-import crmapp.app.entities.Address;
+import crmapp.app.entities.experimental.Address;
 import crmapp.app.repositories.base.BaseRepository;
 import org.springframework.stereotype.Repository;
 

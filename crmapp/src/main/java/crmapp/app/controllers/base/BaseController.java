@@ -61,7 +61,7 @@ public abstract class BaseController<T extends BaseEntity, S extends BaseService
         logger.info(LOG_ENTER_METHOD + "get" + genericType.getSimpleName() + "EntityById()" + LOG_CLOSE);
         T entity = (T) this.service.findById(id);
         if (entity == null) {
-            logger.info(LOG_ERROR + genericType.getSimpleName() + " Entity with ID=" + id + "wasn't found" + LOG_CLOSE);
+            logger.info(LOG_ERROR + genericType.getSimpleName() + " Entity with ID=" + id + " wasn't found" + LOG_CLOSE);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         logger.info(LOG_TEXT + genericType.getSimpleName() + " Entity with ID=" + id + " was found: " + entity + LOG_CLOSE);

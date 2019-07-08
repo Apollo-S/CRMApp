@@ -26,15 +26,15 @@ public abstract class BaseEntity implements Serializable {
 	@Column(name = "id")
 	private Integer id;
 
-	@JsonIgnore
-	@CreatedDate
-	@Column(name = "created", nullable = false)
-	private Date created;
+    @JsonIgnore
+    @CreatedDate
+    @Column(name = "created", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", nullable = false)
+    private Date created = new Date();
 
-	@JsonIgnore
-	@LastModifiedDate
-	@Column(name = "last_modified", nullable = false)
-	private Date lastModified;
+    @JsonIgnore
+    @LastModifiedDate
+    @Column(name = "last_modified", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", nullable = false)
+    private Date lastModified = new Date();
 
 	@Version
 	@Column(name = "optlock", columnDefinition = "integer DEFAULT 0", nullable = false)

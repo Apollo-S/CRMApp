@@ -38,7 +38,7 @@ public class BaseRepositoryImpl<T, ID extends Serializable> extends SimpleJpaRep
         return (List<ID>) query.getResultList();
     }
 
-    @Override
+    @Override // TODO rewrite sending type as parameter
     public Integer fetchVersion(ID entityId) {
         String qlString = "select e.version from " + this.entityInformation.getEntityName() +
                 " e where e." + this.entityInformation.getIdAttribute().getName() + " = " + entityId;
