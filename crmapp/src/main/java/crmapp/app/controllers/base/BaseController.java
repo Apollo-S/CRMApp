@@ -1,9 +1,11 @@
 package crmapp.app.controllers.base;
 
+import crmapp.app.dto.BaseModelDTO;
 import crmapp.app.entities.base.BaseEntity;
 import crmapp.app.services.base.BaseServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -12,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import javax.persistence.MappedSuperclass;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 @MappedSuperclass
 public abstract class BaseController<T extends BaseEntity, S extends BaseServiceImpl> {
@@ -57,6 +61,31 @@ public abstract class BaseController<T extends BaseEntity, S extends BaseService
         return new ResponseEntity<>(entities, HttpStatus.OK);
     }
 
+    protected <U extends BaseModelDTO> ResponseEntity<List<U>> getAllEntities(Class<U> objDTO) {
+        logger.info(LOG_ENTER_METHOD + "getAll" + genericType.getSimpleName() + "Entities()" + LOG_CLOSE);
+        List<T> entities = this.service.findAll();
+        if (entities.size() == 0) {
+            logger.info(LOG_ERROR + genericType.getSimpleName() + " Entities were not found" + LOG_CLOSE);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        List<U> entitiesDTO = entities.stream()
+                .map(item -> {
+                    U itemDTO = null;
+                    try {
+                        itemDTO = objDTO.newInstance();
+                    } catch (InstantiationException e) {
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
+                    BeanUtils.copyProperties(item, itemDTO);
+                    return itemDTO;
+                }).collect(toList());
+        logger.info(LOG_TEXT + "Count of '" + genericType.getSimpleName() + "' entities = " + entities.size() + LOG_CLOSE);
+        logger.info(LOG_OUT_OF_METHOD + "getAll" + genericType.getSimpleName() + "Entities()" + LOG_CLOSE);
+        return new ResponseEntity<>(entitiesDTO, HttpStatus.OK);
+    }
+
     protected ResponseEntity<T> getEntityBy(int id) {
         logger.info(LOG_ENTER_METHOD + "get" + genericType.getSimpleName() + "EntityById()" + LOG_CLOSE);
         T entity = (T) this.service.findById(id);
@@ -67,6 +96,27 @@ public abstract class BaseController<T extends BaseEntity, S extends BaseService
         logger.info(LOG_TEXT + genericType.getSimpleName() + " Entity with ID=" + id + " was found: " + entity + LOG_CLOSE);
         logger.info(LOG_OUT_OF_METHOD + "get" + genericType.getSimpleName() + "EntityById()" + LOG_CLOSE);
         return new ResponseEntity<>(entity, HttpStatus.OK);
+    }
+
+    protected <U extends BaseModelDTO> ResponseEntity<U> getEntityBy(int id, Class<U> objDTO) {
+        logger.info(LOG_ENTER_METHOD + "get" + genericType.getSimpleName() + "EntityById()" + LOG_CLOSE);
+        T entity = (T) this.service.findById(id);
+        if (entity == null) {
+            logger.error(LOG_ERROR + genericType.getSimpleName() + " Entity with ID=" + id + " wasn't found" + LOG_CLOSE);
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        U entityDTO = null;
+        try {
+            entityDTO = objDTO.newInstance();
+            BeanUtils.copyProperties(entity, entityDTO);
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        logger.info(LOG_TEXT + genericType.getSimpleName() + " Entity with ID=" + id + " was found: " + entity + LOG_CLOSE);
+        logger.info(LOG_OUT_OF_METHOD + "get" + genericType.getSimpleName() + "EntityById()" + LOG_CLOSE);
+        return new ResponseEntity<>(entityDTO, HttpStatus.OK);
     }
 
     protected ResponseEntity<T> addEntity(T entity) {

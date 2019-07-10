@@ -1,6 +1,7 @@
 package crmapp.app.controllers;
 
 import crmapp.app.controllers.base.BaseController;
+import crmapp.app.dto.ClientDTO;
 import crmapp.app.entities.Client;
 import crmapp.app.services.ClientService;
 import org.springframework.http.ResponseEntity;
@@ -13,13 +14,13 @@ import java.util.List;
 public class ClientController extends BaseController<Client, ClientService> {
 
     @GetMapping(value = "", headers = HEADER_JSON)
-    public ResponseEntity<List<Client>> getAllClients() {
-        return super.getAllEntities();
+    public ResponseEntity<List<ClientDTO>> getAllClients() {
+        return super.getAllEntities(ClientDTO.class);
     }
 
     @GetMapping(value = "/{id}", headers = HEADER_JSON)
-    public ResponseEntity<Client> getClientById(@PathVariable(PARAM_ID) int id) {
-        return super.getEntityBy(id);
+    public ResponseEntity<ClientDTO> getClientById(@PathVariable(PARAM_ID) int id) {
+        return super.getEntityBy(id, ClientDTO.class);
     }
 
     @PostMapping(value = "", headers = HEADER_JSON)
