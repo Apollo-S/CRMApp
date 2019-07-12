@@ -15,5 +15,7 @@ public interface BaseRepository<T, ID extends Serializable> extends JpaRepositor
 	List<ID> findAllEntityIds();
 
 	Integer fetchVersion(ID entityId);
+
+	<U> U fetchValueByField(ID entityId, String fieldName);
 	
 }

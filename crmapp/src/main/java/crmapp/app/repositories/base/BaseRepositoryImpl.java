@@ -46,4 +46,11 @@ public class BaseRepositoryImpl<T, ID extends Serializable> extends SimpleJpaRep
         return (Integer) query.getSingleResult();
     }
 
+    public <U> U fetchValueByField(ID entityId, String fieldName) {
+        String qlString = "select e." + fieldName + " from " + this.entityInformation.getEntityName() +
+                " e where e." + this.entityInformation.getIdAttribute().getName() + " = " + entityId;
+        Query query = this.entityManager.createQuery(qlString);
+        return (U) query.getSingleResult();
+    }
+
 }

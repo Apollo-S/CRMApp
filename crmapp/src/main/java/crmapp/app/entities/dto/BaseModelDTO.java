@@ -1,4 +1,4 @@
-package crmapp.app.dto;
+package crmapp.app.entities.dto;
 
 import lombok.Getter;
 import lombok.Setter;
