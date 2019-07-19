@@ -51,13 +51,13 @@ public class ClientAgreementController extends BaseController<ClientAgreement, C
     }
 
     @PutMapping(value = {"/agreements/{id}", "/clients/{clientId}/agreements"}, headers = HEADER_JSON)
-    public ResponseEntity<ClientAgreement> updateClientAgreement(@PathVariable(PARAM_ID) int id,
+    public ResponseEntity<Void> updateClientAgreement(@PathVariable(PARAM_ID) int id,
                                                                  @RequestBody ClientAgreement agreement) {
         logger.info(LOG_ENTER_METHOD + "updateClientAgreement()" + LOG_CLOSE);
-        agreement = super.service.update(id, agreement);
+        super.service.update(id, agreement);
         logger.info(LOG_TEXT + "ClientAgreement with ID=" + id + " was updated: " + agreement + LOG_CLOSE);
         logger.info(LOG_OUT_OF_METHOD + "updateClientAgreement()" + LOG_CLOSE);
-        return new ResponseEntity<>(agreement, new HttpHeaders(), HttpStatus.OK);
+        return new ResponseEntity<>(new HttpHeaders(), HttpStatus.OK);
     }
 
     @DeleteMapping(value = {"/agreements/{id}", "/clients/{clientId}/agreements/{id}"}, headers = HEADER_JSON)

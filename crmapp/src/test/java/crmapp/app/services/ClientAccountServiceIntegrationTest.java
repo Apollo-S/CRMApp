@@ -58,12 +58,12 @@ public class ClientAccountServiceIntegrationTest {
         savedAccount.setNumber("260001313131");
         savedAccount.setDateStart(new GregorianCalendar(2017, Calendar.MARCH, 25).getTime());
 
-        ClientAccount updatedAccount = clientAccountService.update(savedAccount);
+        clientAccountService.update(savedAccount);
 
+        ClientAccount updatedAccount = clientAccountService.findById(savedAccount.getId());
         assertEquals("PrivatBank JSPC", updatedAccount.getBank().getTitle());
         assertEquals("300711", updatedAccount.getBank().getMfo());
         assertEquals("260001313131", updatedAccount.getNumber());
-
     }
 
     @Test

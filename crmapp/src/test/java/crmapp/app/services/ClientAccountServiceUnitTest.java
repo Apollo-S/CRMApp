@@ -72,7 +72,9 @@ public class ClientAccountServiceUnitTest {
         savedClientAccount.setCurrencyType(new CurrencyType("980", "Grivna", "UAH"));
 
         when(clientAccountRepository.save(any(ClientAccount.class))).thenReturn(savedClientAccount);
-        ClientAccount updatedClientAccount = clientAccountService.update(savedClientAccount);
+        clientAccountService.update(savedClientAccount);
+        when(clientAccountRepository.findOne(anyInt())).thenReturn(mockClientAccount);
+        ClientAccount updatedClientAccount = clientAccountService.findById(1354);
 
         assertEquals(updatedClientAccount, savedClientAccount);
 

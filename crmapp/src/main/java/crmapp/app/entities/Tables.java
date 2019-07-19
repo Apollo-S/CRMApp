@@ -8,6 +8,8 @@ public class Tables {
     public static final String OUR_COMPANY_ID = "our_company_id";
     public static final String EMPLOYEE_ID = "employee_id";
     public static final String ADDRESS_ID = "address_id";
+    public static final String POST_ID = "post_id";
+    public static final String PERSON_ID = "person_id";
 
     public static final String CLIENTS = "clients";
     public static final String CLIENT_ADDRESSES = "client_addresses";
@@ -34,6 +36,7 @@ public class Tables {
     public static final String CONTRACTOR_TYPES = "contractor_types";
     public static final String EMPLOYEES = "employees";
     public static final String EMPLOYEE_ADDRESSES = "employee_addresses";
+    public static final String EMPLOYEE_POSTS = "employee_posts";
     public static final String CONTRACTOR_ADDRESSES = "contractor_addresses";
 
     public static final String BANKS = "banks";
@@ -41,4 +44,6 @@ public class Tables {
     public static final String COUNTRIES = "countries";
     public static final String PERSONS = "persons";
 
+    public static final String POSTS = "posts";
+    public static final String VACATIONS = "vacations";
 }

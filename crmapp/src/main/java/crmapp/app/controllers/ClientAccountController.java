@@ -31,7 +31,7 @@ public class ClientAccountController extends ExtendedBaseController<ClientAccoun
     }
 
     @PutMapping(value = "/{id}", headers = HEADER_JSON)
-    public ResponseEntity<ClientAccount> updateClientAccount(@PathVariable(PARAM_ID) int clientId,
+    public ResponseEntity<Void> updateClientAccount(@PathVariable(PARAM_ID) int clientId,
                                                              @NotNull @RequestBody ClientAccount account) {
         return super.updateEntity(account);
     }

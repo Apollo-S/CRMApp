@@ -28,7 +28,7 @@ public class BankController extends BaseController<Bank, BankService> {
     }
 
     @PutMapping(value = "/{id}", headers = HEADER_JSON)
-    public ResponseEntity<Bank> updateBank(@PathVariable(PARAM_ID) int id, @RequestBody Bank bank) {
+    public ResponseEntity<Void> updateBank(@PathVariable(PARAM_ID) int id, @RequestBody Bank bank) {
         return super.updateEntity(id, bank);
     }
 

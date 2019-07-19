@@ -1,10 +1,9 @@
-package crmapp.app.controllers;
-
-import java.util.List;
+package crmapp.app.controllers.experimental;
 
 import crmapp.app.controllers.base.BaseController;
 import crmapp.app.entities.Agreement;
 import crmapp.app.entities.AgreementType;
+import crmapp.app.services.AgreementService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import crmapp.app.services.AgreementService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -88,13 +88,13 @@ public class AgreementController extends BaseController<Agreement, AgreementServ
 	}
 
 //	@PutMapping(value = "/agreements/{id}", headers = HEADER_JSON)
-	public ResponseEntity<Agreement> updateAgreement(@PathVariable(PARAM_ID) int id,
+	public ResponseEntity<Void> updateAgreement(@PathVariable(PARAM_ID) int id,
 			@RequestBody Agreement agreement) {
 		logger.info(LOG_ENTER_METHOD + "updateAgreement()" + LOG_CLOSE);
-		agreement = service.update(id, agreement);
+		service.update(id, agreement);
 		logger.info(LOG_TEXT + "Agreement with ID=" + id + " was updated: " + agreement + LOG_CLOSE);
 		logger.info(LOG_OUT_OF_METHOD + "updateAgreement()" + LOG_CLOSE);
-		return new ResponseEntity<>(agreement, new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<>(new HttpHeaders(), HttpStatus.OK);
 	}
 
 //	@DeleteMapping(value = { "/agreements/{id}", "/clients/{clientId}/agreements/{id}" }, headers = HEADER_JSON)

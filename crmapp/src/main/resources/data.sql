@@ -125,20 +125,20 @@ VALUES
 	(5, 'Software Developer', 0);
 	
 TRUNCATE `persons`;
-INSERT INTO `persons` (`id`, `surname`, `firstname`, `lastname`, `short_name`, `inn`, `birth_date`, `optlock`)
+INSERT INTO `persons` (`id`, `surname`, `firstname`, `lastname`, `inn`, `birth_date`, `optlock`)
 VALUES
-	(1, 'Иванов', 'Александр', 'Владимирович', 'Иванов А.В.', '2344566541', '1972-03-24', 0),
-	(2, 'Петров', 'Иван', 'Федорович', 'Петров И.Ф.', '3045679871', '1984-06-15', 0),
-	(3, 'Сидоров', 'Петр', 'Валерьевич', 'Сидоров П.В.', '2874526548', '1978-09-20', 0),
-	(4, 'Сидоренко', 'Федор', 'Степанович', 'Сидоренко Ф.С.', '2674826643', '1960-09-30', 0);
+	(1, 'Иванов', 'Александр', 'Владимирович', '2344566541', '1972-03-24', 0),
+	(2, 'Петров', 'Иван', 'Федорович', '3045679871', '1984-06-15', 0),
+	(3, 'Сидоров', 'Петр', 'Валерьевич', '2874526548', '1978-09-20', 0),
+	(4, 'Сидоренко', 'Федор', 'Степанович', '2674826643', '1960-09-30', 0);
 	
 TRUNCATE `employees`;
-INSERT INTO `employees` (`id`, `person_id`, `is_entrepreneur`, `hire_date`, `fired_date`, `post_id`, `optlock`)
+INSERT INTO `employees` (`id`, `person_id`, `is_entrepreneur`, `hire_date`, `fired_date`, `optlock`)
 VALUES
-	(1, 1, b'0', '2012-01-01', null, 5, 0),
-	(2, 2, b'1', '2013-06-01', null, 5, 0),
-	(3, 3, b'0', '2012-01-01', null, 5, 0),
-	(4, 4, b'0', '2012-01-01', null, 4, 0);
+	(1, 1, b'0', '2012-01-01', null, 0),
+	(2, 2, b'1', '2013-06-01', null, 0),
+	(3, 3, b'0', '2012-01-01', null, 0),
+	(4, 4, b'0', '2012-01-01', null, 0);
 
 TRUNCATE `employee_accounts`;
 INSERT INTO `employee_accounts` (`id`, `employee_id`, `number`, `bank_id`, `currency_type_id`, `date_start`, `optlock`)
@@ -146,6 +146,16 @@ VALUES
 	(1, 1, '26007017100038', 1, 1, '2013-01-01', 0),
 	(2, 2, '26007247100756', 2, 1, '2013-01-01', 0),
 	(3, 3, '26007547230756', 1, 1, '2013-01-01', 0);
+
+TRUNCATE `employee_posts`;
+INSERT INTO `employee_posts` (`id`, `employee_id`, `post_id`, `date_start`, `optlock`)
+VALUES
+	(1, 1, 1, '2013-01-01', 0),
+	(2, 1, 2, '2013-03-01', 0),
+	(3, 1, 3, '2013-10-01', 0),
+	(4, 2, 1, '2013-10-01', 0),
+	(5, 2, 3, '2013-10-01', 0),
+	(6, 2, 2, '2013-10-01', 0);
 
 TRUNCATE `vacations`;
 INSERT INTO `vacations` (`id`, `employee_id`, `description`, `date_start`, `date_final`, `days_amount`, `holiday_amount`, `comment`, `optlock`)

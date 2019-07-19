@@ -1,19 +1,14 @@
 package crmapp.app.entities;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import crmapp.app.entities.base.AbstractCompany;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = Tables.CLIENTS)
@@ -24,22 +19,24 @@ import lombok.Setter;
 			"agreements", "addresses", "directors", "accounts" })
 public class Client extends AbstractCompany {
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "client", orphanRemoval = true)
+    private static final String CLIENT = "client";
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = CLIENT, orphanRemoval = true)
 	@OrderBy("id ASC")
 	@JsonManagedReference(value = "client-agreement")
 	private Set<ClientAgreement> agreements = new HashSet<>();
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "client", orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = CLIENT, orphanRemoval = true)
 	@OrderBy("id ASC")
 	@JsonManagedReference(value = Tables.CLIENT_ADDRESSES)
 	private Set<ClientAddress> addresses = new HashSet<>();
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "client", orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = CLIENT, orphanRemoval = true)
 	@OrderBy("id ASC")
 	@JsonManagedReference(value = Tables.CLIENT_DIRECTORS)
 	private Set<ClientDirector> directors = new HashSet<>();
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "client", orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = CLIENT, orphanRemoval = true)
 	@OrderBy("id ASC")
 	@JsonManagedReference(value = Tables.CLIENT_ACCOUNTS)
 	private Set<ClientAccount> accounts = new HashSet<>();

@@ -1,7 +1,6 @@
 package crmapp.app.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import crmapp.app.entities.base.BaseEntity;
 import lombok.EqualsAndHashCode;
@@ -20,11 +19,13 @@ import java.util.Set;
 @EqualsAndHashCode
 @JsonIgnoreProperties(ignoreUnknown = true, 
 	value = { "hibernateLazyInitializer", "handler",
-			"vacations", "sickLists", "addresses", "accounts", "agreements" })
+			"vacations", "sickLists", "addresses", "accounts", "agreements", "posts"})
 public class Employee extends BaseEntity {
 
-    @OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-	@JoinColumn(name = "person_id")
+	public static final String ENTITY_NAME = "employee";
+
+	@OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+	@JoinColumn(name = Tables.PERSON_ID)
 	private Person person;
 	
 	@Column(name = "is_entrepreneur", nullable = false)
@@ -38,9 +39,8 @@ public class Employee extends BaseEntity {
 	@Column(name = "fired_date")
 	private Date firedDate;
 
-	@OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-	@JoinColumn(name = "post_id")
-	private Post post;
+	@OneToMany(mappedBy = "employee")
+	private Set<EmployeePost> posts = new HashSet<>();
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", orphanRemoval = true)
 	@OrderBy("id ASC")
@@ -70,21 +70,6 @@ public class Employee extends BaseEntity {
 	public Employee() {
 	}
 
-	@JsonInclude
-	public String getPersonShortName() {
-		return person.getShortName();
-	}
-	
-	@JsonInclude
-	public String getPersonInn() {
-		return person.getInn();
-	}
-	
-	@JsonInclude
-	public String getPostTitle() {
-		return post.getTitle();
-	}
-
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -94,7 +79,6 @@ public class Employee extends BaseEntity {
 		builder.append("isEntrepreneur=" + isEntrepreneur).append(", ");
 		builder.append("hireDate=" + hireDate).append(", ");
 		builder.append("firedDate=" + firedDate).append(", ");
-		builder.append("post=" + post.getTitle()).append("]");
 		return builder.toString();
 	}
 

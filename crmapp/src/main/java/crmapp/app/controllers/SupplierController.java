@@ -3,8 +3,6 @@ package crmapp.app.controllers;
 import crmapp.app.controllers.base.BaseController;
 import crmapp.app.entities.Supplier;
 import crmapp.app.services.SupplierService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,8 +11,6 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/suppliers")
 public class SupplierController extends BaseController<Supplier, SupplierService> {
-
-	private static final Logger logger = LoggerFactory.getLogger(SupplierController.class);
 
     @GetMapping(value = "", headers = HEADER_JSON)
 	public ResponseEntity<List<Supplier>> getAllSuppliers() {
@@ -32,7 +28,7 @@ public class SupplierController extends BaseController<Supplier, SupplierService
 	}
 
 	@PutMapping(value = "/{id}", headers = HEADER_JSON)
-	public ResponseEntity<Supplier> updateEntity(@PathVariable(PARAM_ID) int id,
+	public ResponseEntity<Void> updateEntity(@PathVariable(PARAM_ID) int id,
 											   @RequestBody Supplier supplier) {
 		return super.updateEntity(supplier);
 	}

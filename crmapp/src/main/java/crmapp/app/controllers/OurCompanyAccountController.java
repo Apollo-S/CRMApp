@@ -32,7 +32,7 @@ public class OurCompanyAccountController extends ExtendedBaseController<OurCompa
 	}
 
 	@PutMapping(value = "/{id}", headers = HEADER_JSON)
-	public ResponseEntity<OurCompanyAccount> updateOurCompanyAccount(@PathVariable("companyId") int companyId,
+	public ResponseEntity<Void> updateOurCompanyAccount(@PathVariable("companyId") int companyId,
 			@RequestBody OurCompanyAccount account) {
 		return super.updateEntity(account);
 	}

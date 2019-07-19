@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
 @Transactional
 public class SupplierAddressService extends BaseServiceImpl<SupplierAddress, SupplierAddressRepository> {
@@ -17,20 +15,10 @@ public class SupplierAddressService extends BaseServiceImpl<SupplierAddress, Sup
     @Autowired
     private SupplierService supplierService;
 
-    public List<SupplierAddress> findAllByClientId(Integer clientId) {
-        return repository.findAllBySupplierId(clientId);
-    }
-
     public SupplierAddress save(int supplierId, SupplierAddress address) {
         Supplier supplier = supplierService.findById(supplierId);
         address.setSupplier(supplier);
         return this.save(address);
-    }
-
-    public SupplierAddress updateWithClientId(int supplierId, SupplierAddress address) {
-        Supplier supplier = supplierService.findById(supplierId);
-        address.setSupplier(supplier);
-        return this.update(address);
     }
 
 }

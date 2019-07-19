@@ -1,25 +1,17 @@
 package crmapp.app.controllers;
 
-import java.util.List;
-
 import crmapp.app.controllers.base.BaseController;
+import crmapp.app.entities.Vacation;
+import crmapp.app.services.VacationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import crmapp.app.entities.Vacation;
-import crmapp.app.services.VacationService;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -49,11 +41,11 @@ public class VacationController extends BaseController<Vacation, VacationService
 		List<Vacation> vacations = service.findAll();
 		if(vacations.size() == 0) {
 			logger.info(LOG_ERROR + "Vacations were not found" + LOG_CLOSE);
-			return new ResponseEntity<List<Vacation>>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 		logger.info(LOG_TEXT + "Count of Vacations: " + vacations.size() + LOG_CLOSE);
 		logger.info(LOG_OUT_OF_METHOD + "getAllVacations()" + LOG_CLOSE);
-		return new ResponseEntity<List<Vacation>>(vacations, HttpStatus.OK);
+		return new ResponseEntity<>(vacations, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/vacations/{id}", headers = HEADER_JSON)
@@ -62,11 +54,11 @@ public class VacationController extends BaseController<Vacation, VacationService
 		Vacation vacation = service.findById(id);
 		if (vacation == null) {
 			logger.info(LOG_ERROR + "Vacation with ID=" + id + "wasn't found" + LOG_CLOSE);
-			return new ResponseEntity<Vacation>(vacation, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(vacation, HttpStatus.NOT_FOUND);
 		}
 		logger.info(LOG_TEXT + "Vacation with ID=" + id + " was found: " + vacation + LOG_CLOSE);
 		logger.info(LOG_OUT_OF_METHOD + "getVacationById()" + LOG_CLOSE);
-		return new ResponseEntity<Vacation>(vacation, HttpStatus.OK);
+		return new ResponseEntity<>(vacation, HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/vacations", headers = HEADER_JSON)
@@ -75,17 +67,17 @@ public class VacationController extends BaseController<Vacation, VacationService
 		vacation = service.save(vacation);
 		logger.info(LOG_TEXT + "Vacation added with ID=" + vacation.getId() + LOG_CLOSE);
 		logger.info(LOG_OUT_OF_METHOD + "addVacation()" + LOG_CLOSE);
-		return new ResponseEntity<Vacation>(vacation, new HttpHeaders(), HttpStatus.CREATED);
+		return new ResponseEntity<>(vacation, new HttpHeaders(), HttpStatus.CREATED);
 	}
 
 	@PutMapping(value = "/vacations/{id}", headers = HEADER_JSON)
-	public ResponseEntity<Vacation> updateVacation(@PathVariable(PARAM_ID) int id,
+	public ResponseEntity<Void> updateVacation(@PathVariable(PARAM_ID) int id,
 			@RequestBody Vacation vacation) {
 		logger.info(LOG_ENTER_METHOD + "updateVacation()" + LOG_CLOSE);
-		vacation = service.update(id, vacation);
+		service.update(id, vacation);
 		logger.info(LOG_TEXT + "Vacation with ID=" + id + " was updated: " + vacation + LOG_CLOSE);
 		logger.info(LOG_OUT_OF_METHOD + "updateVacation()" + LOG_CLOSE);
-		return new ResponseEntity<Vacation>(vacation, new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<>(new HttpHeaders(), HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = "/vacations/{id}", headers = HEADER_JSON)
@@ -94,7 +86,7 @@ public class VacationController extends BaseController<Vacation, VacationService
 		service.delete(id);
 		logger.info(LOG_TEXT + "Vacation with ID=" + id + " was deleted" + LOG_CLOSE);
 		logger.info(LOG_OUT_OF_METHOD + "deleteVacation()" + LOG_CLOSE);
-		return new ResponseEntity<Void>(new HttpHeaders(), HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(new HttpHeaders(), HttpStatus.NO_CONTENT);
 	}
 
 }

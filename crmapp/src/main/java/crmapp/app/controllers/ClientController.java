@@ -1,7 +1,7 @@
 package crmapp.app.controllers;
 
 import crmapp.app.controllers.base.BaseController;
-import crmapp.app.dto.ClientDTO;
+import crmapp.app.entities.dto.ClientDTO;
 import crmapp.app.entities.Client;
 import crmapp.app.services.ClientService;
 import org.springframework.http.ResponseEntity;
@@ -24,13 +24,13 @@ public class ClientController extends BaseController<Client, ClientService> {
     }
 
     @PostMapping(value = "", headers = HEADER_JSON)
-    public ResponseEntity<Client> addClient(@RequestBody Client client) {
+    public ResponseEntity<ClientDTO> addClient(@RequestBody ClientDTO client) {
         return super.addEntity(client);
     }
 
     @PutMapping(value = "/{id}", headers = HEADER_JSON)
-    public ResponseEntity<Client> updateEntity(@PathVariable(PARAM_ID) int id, @RequestBody Client client) {
-        return super.updateEntity(id, client);
+    public ResponseEntity<Void> updateEntity(@PathVariable(PARAM_ID) int id, @RequestBody ClientDTO client) {
+        return super.updateEntity(client);
     }
 
     @DeleteMapping(value = "/{id}", headers = HEADER_JSON)

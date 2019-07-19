@@ -1,4 +1,4 @@
-package crmapp.app.controllers;
+package crmapp.app.controllers.experimental;
 
 import crmapp.app.controllers.base.BaseController;
 import crmapp.app.entities.AgreementType;

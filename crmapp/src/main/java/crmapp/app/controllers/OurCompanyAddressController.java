@@ -29,7 +29,7 @@ public class OurCompanyAddressController extends ExtendedBaseController<OurCompa
 	}
 
 	@PutMapping(value = "/{id}", headers = HEADER_JSON)
-	public ResponseEntity<OurCompanyAddress> updateOurCompanyAddress(@PathVariable("clientId") int clientId,
+	public ResponseEntity<Void> updateOurCompanyAddress(@PathVariable("clientId") int clientId,
 															 @RequestBody OurCompanyAddress address) {
 		return super.updateEntity(address);
 	}

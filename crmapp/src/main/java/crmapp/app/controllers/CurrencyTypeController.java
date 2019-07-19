@@ -28,7 +28,7 @@ public class CurrencyTypeController extends BaseController<CurrencyType, Currenc
     }
 
     @PutMapping(value = "/{id}", headers = HEADER_JSON)
-    public ResponseEntity<CurrencyType> updateCurrencyType(@PathVariable(PARAM_ID) int id, @RequestBody CurrencyType currencyType) {
+    public ResponseEntity<Void> updateCurrencyType(@PathVariable(PARAM_ID) int id, @RequestBody CurrencyType currencyType) {
         return super.updateEntity(id, currencyType);
     }
 

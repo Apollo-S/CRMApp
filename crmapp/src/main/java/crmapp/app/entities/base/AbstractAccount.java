@@ -20,11 +20,11 @@ public abstract class AbstractAccount extends BaseEntity {
     @Column(name = "number", length = 255)
     private String number;
 
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "bank_id")
     private Bank bank;
 
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "currency_type_id")
     private CurrencyType currencyType;
 

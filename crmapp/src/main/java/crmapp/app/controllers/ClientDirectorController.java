@@ -29,7 +29,7 @@ public class ClientDirectorController extends ExtendedBaseController<ClientDirec
 	}
 
 	@PutMapping(value = "/{id}", headers = HEADER_JSON)
-	public ResponseEntity<ClientDirector> updateClientDirector(@PathVariable("clientId") int clientId, 
+	public ResponseEntity<Void> updateClientDirector(@PathVariable("clientId") int clientId,
 			@RequestBody ClientDirector director) {
 		return super.updateEntity(director);
 	}

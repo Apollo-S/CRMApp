@@ -47,8 +47,8 @@ public class ClientServiceIntegrationTest {
         savedClient.setEdrpou("654321");
         savedClient.setInn("987654321");
         savedClient.setVatCertificate("09090909090");
-        Client updatedClient = clientService.update(savedClient.getId(), savedClient);
-
+        clientService.update(savedClient.getId(), savedClient);
+        Client updatedClient = clientService.findById(savedClient.getId());
         assertNotNull(updatedClient);
         assertNotNull(updatedClient.getId());
         assertEquals("updated kievstar", updatedClient.getCode());
