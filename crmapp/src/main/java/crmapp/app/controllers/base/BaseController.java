@@ -16,6 +16,8 @@ import javax.persistence.MappedSuperclass;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+import static crmapp.app.services.Utils.convertEntityToDTO;
+
 @MappedSuperclass
 public abstract class BaseController<T extends BaseEntity, S extends BaseServiceImpl> {
 
@@ -67,7 +69,7 @@ public abstract class BaseController<T extends BaseEntity, S extends BaseService
             logger.info(LOG_ERROR + genericType.getSimpleName() + " Entities were not found" + LOG_CLOSE);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        List<U> entitiesDTO = Utils.convertEntityToDTO(entities, objDTO);
+        List<U> entitiesDTO = convertEntityToDTO(entities, objDTO);
         logger.info(LOG_TEXT + "Count of '" + genericType.getSimpleName() + "' entities = " + entities.size() + LOG_CLOSE);
         logger.info(LOG_OUT_OF_METHOD + "getAll" + genericType.getSimpleName() + "Entities()" + LOG_CLOSE);
         return new ResponseEntity<>(entitiesDTO, HttpStatus.OK);
@@ -92,15 +94,7 @@ public abstract class BaseController<T extends BaseEntity, S extends BaseService
             logger.error(LOG_ERROR + genericType.getSimpleName() + " Entity with ID=" + id + " wasn't found" + LOG_CLOSE);
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
-        U entityDTO = null;
-        try {
-            entityDTO = objDTO.newInstance();
-            BeanUtils.copyProperties(entity, entityDTO);
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
+        U entityDTO = convertEntityToDTO(entity, objDTO);
         logger.info(LOG_TEXT + genericType.getSimpleName() + " Entity with ID=" + id + " was found: " + entity + LOG_CLOSE);
         logger.info(LOG_OUT_OF_METHOD + "get" + genericType.getSimpleName() + "EntityById()" + LOG_CLOSE);
         return new ResponseEntity<>(entityDTO, HttpStatus.OK);
@@ -116,24 +110,9 @@ public abstract class BaseController<T extends BaseEntity, S extends BaseService
 
     protected <U extends BaseModelDTO> ResponseEntity<U> addEntity(U entityDTO) {
         logger.info(LOG_ENTER_METHOD + "add" + genericType.getSimpleName() + "EntityDTO()" + LOG_CLOSE);
-        T entity = null;
-        try {
-            entity = genericType.newInstance();
-            BeanUtils.copyProperties(entityDTO, entity);
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
+        T entity = Utils.convertDTOToEntity(entityDTO, genericType);
         T savedEntity = (T) this.service.save(entity);
-        U savedEntityDTO = null;
-        try {
-            savedEntityDTO = (U) entityDTO.getClass().newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
+        U savedEntityDTO = (U) convertEntityToDTO(savedEntity, entityDTO.getClass());
         BeanUtils.copyProperties(savedEntity, savedEntityDTO);
         logger.info(LOG_TEXT + genericType.getSimpleName() + " Entity added with ID=" + savedEntity.getId() + LOG_CLOSE);
         logger.info(LOG_OUT_OF_METHOD + "add" + genericType.getSimpleName() + "EntityDTO()" + LOG_CLOSE);
@@ -150,15 +129,7 @@ public abstract class BaseController<T extends BaseEntity, S extends BaseService
 
     protected <U extends BaseModelDTO> ResponseEntity<Void> updateEntity(U entityDTO) {
         logger.info(LOG_ENTER_METHOD + "update" + genericType.getSimpleName() + "Entity()" + LOG_CLOSE);
-        T entity = null;
-        try {
-            entity = genericType.newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        BeanUtils.copyProperties(entityDTO, entity);
+        T entity = Utils.convertDTOToEntity(entityDTO, genericType);
         this.service.update(entity);
         logger.info(LOG_TEXT + genericType.getSimpleName() + " Entity with ID=" + entityDTO.getId() + " was updated: " + entityDTO + LOG_CLOSE);
         logger.info(LOG_OUT_OF_METHOD + "update" + genericType.getSimpleName() + "Entity()" + LOG_CLOSE);

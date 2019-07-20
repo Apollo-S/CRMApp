@@ -10,21 +10,33 @@ import static java.util.stream.Collectors.toList;
 
 public class Utils {
 
-    public static <E, R> List<R> convertEntityToDTO(Collection<E> source, Class<R> classDTO) {
-        List<R> resultDTO = source.stream()
+    public static <T> List<T> convertEntityToDTO(@NotNull Collection<?> source, Class<T> targetDTO) {
+        return source.stream()
                 .map(item -> {
-                    R itemDTO = null;
+                    T itemDTO = null;
                     try {
-                        itemDTO = classDTO.newInstance();
-                    } catch (InstantiationException e) {
-                        e.printStackTrace();
-                    } catch (IllegalAccessException e) {
+                        itemDTO = targetDTO.newInstance();
+                        BeanUtils.copyProperties(item, itemDTO);
+                    } catch (InstantiationException | IllegalAccessException e) {
                         e.printStackTrace();
                     }
-                    BeanUtils.copyProperties(item, itemDTO);
                     return itemDTO;
                 }).collect(toList());
-        return resultDTO;
+    }
+
+    public static <E, T> T convertEntityToDTO(E source, Class<T> targetDTO) {
+        T entityDTO = null;
+        try {
+            entityDTO = targetDTO.newInstance();
+            BeanUtils.copyProperties(source, entityDTO);
+        } catch (InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return entityDTO;
+    }
+
+    public static <E, T> T convertDTOToEntity(E sourceDTO, Class<T> target) {
+        return convertEntityToDTO(sourceDTO, target);
     }
 
     @NotNull

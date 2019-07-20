@@ -28,7 +28,7 @@ public class SupplierController extends BaseController<Supplier, SupplierService
 	}
 
 	@PutMapping(value = "/{id}", headers = HEADER_JSON)
-	public ResponseEntity<Void> updateEntity(@PathVariable(PARAM_ID) int id,
+	public ResponseEntity<Void> updateSupplier(@PathVariable(PARAM_ID) int id,
 											   @RequestBody Supplier supplier) {
 		return super.updateEntity(supplier);
 	}

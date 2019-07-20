@@ -17,10 +17,9 @@ public abstract class ExtendedBaseServiceImpl<T extends BaseEntity, R extends Ex
         return this.repository.getAllFilterBy(fieldName, fieldId);
     }
 
-    public <U> List<U> findAllFilterBy(String fieldName, Integer fieldId, Class<U> objDTO) {
+    public <U> List<U> findAllFilterBy(String fieldName, Integer fieldId, Class<U> classDTO) {
         List<T> entities = this.repository.getAllFilterBy(fieldName, fieldId);
-        List<U> entitiesDTO = convertEntityToDTO(entities, objDTO);
-        return entitiesDTO;
+        return convertEntityToDTO(entities, classDTO);
     }
 
 }
