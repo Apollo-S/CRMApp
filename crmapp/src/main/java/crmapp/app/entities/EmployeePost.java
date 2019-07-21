@@ -1,6 +1,5 @@
 package crmapp.app.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import crmapp.app.entities.base.BaseEntity;
 import lombok.EqualsAndHashCode;
@@ -27,10 +26,12 @@ public class EmployeePost extends BaseEntity {
     @JoinColumn(name = Tables.POST_ID)
     private Post post;
 
-    @JsonIgnore
     @Temporal(TemporalType.DATE)
     @Column(name = "date_start")
     private Date dateStart;
+
+    @Column(name = "is_active")
+    private boolean isActive;
 
     @Override
     public String getUrl() {

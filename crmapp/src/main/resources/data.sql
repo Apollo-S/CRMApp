@@ -148,14 +148,14 @@ VALUES
 	(3, 3, '26007547230756', 1, 1, '2013-01-01', 0);
 
 TRUNCATE `employee_posts`;
-INSERT INTO `employee_posts` (`id`, `employee_id`, `post_id`, `date_start`, `optlock`)
+INSERT INTO `employee_posts` (`id`, `employee_id`, `post_id`, `date_start`, `is_active`, `optlock`)
 VALUES
-	(1, 1, 1, '2013-01-01', 0),
-	(2, 1, 2, '2013-03-01', 0),
-	(3, 1, 3, '2013-10-01', 0),
-	(4, 2, 1, '2013-10-01', 0),
-	(5, 2, 3, '2013-10-01', 0),
-	(6, 2, 2, '2013-10-01', 0);
+	(1, 1, 1, '2013-01-01', b'0', 0),
+	(2, 1, 2, '2013-03-01', b'0', 0),
+	(3, 1, 3, '2013-10-01', b'1', 0),
+	(4, 2, 1, '2013-10-01', b'0', 0),
+	(5, 2, 3, '2013-10-01', b'0', 0),
+	(6, 2, 2, '2013-10-01', b'1', 0);
 
 TRUNCATE `vacations`;
 INSERT INTO `vacations` (`id`, `employee_id`, `description`, `date_start`, `date_final`, `days_amount`, `holiday_amount`, `comment`, `optlock`)

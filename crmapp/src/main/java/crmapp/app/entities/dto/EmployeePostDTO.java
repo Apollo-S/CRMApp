@@ -10,7 +10,7 @@ import java.util.Date;
 @Setter
 public class EmployeePostDTO extends BaseModelDTO {
 
-//    private Employee employee;
+    private boolean isActive;
     private Post post;
     private Date dateStart;
 

@@ -12,6 +12,7 @@ import java.util.Date;
 public class EmployeePostFullDTO extends BaseModelDTO {
 
     private Employee employee;
+    private boolean isActive;
     private Post post;
     private Date dateStart;
 
