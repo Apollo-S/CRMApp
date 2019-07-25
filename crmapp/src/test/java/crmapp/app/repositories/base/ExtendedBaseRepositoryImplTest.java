@@ -3,19 +3,24 @@ package crmapp.app.repositories.base;
 import crmapp.app.entities.Bank;
 import crmapp.app.entities.Client;
 import crmapp.app.entities.ClientAccount;
+import crmapp.app.entities.EmployeePost;
+import crmapp.app.repositories.EmployeePostRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.annotation.Resource;
+import java.util.List;
+
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class ExtendedBaseRepositoryImplTest {
 
-    @Resource
-    private ExtendedBaseRepositoryImpl clientRepository;
+    @Autowired(required=true)
+    private EmployeePostRepository repository;
 
     @Test
     public void testSaveEntityWith() {
@@ -29,4 +34,13 @@ public class ExtendedBaseRepositoryImplTest {
         account.setNumber("2600000032230");
         account.setClient(client);
     }
+
+    @Test
+    public void test_fetchDataByNamedQuery() {
+        int employeeId = 1;
+        List<EmployeePost> result = repository.fetchDataByNamedQuery(EmployeePost.FIND_ALL_POSTS_BY_EMPLOYEE_ID, EmployeePost.class, employeeId);
+
+        assertNotNull(result);
+    }
+
 }

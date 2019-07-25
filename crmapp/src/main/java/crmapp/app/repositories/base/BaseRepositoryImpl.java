@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
@@ -46,11 +47,21 @@ public class BaseRepositoryImpl<T, ID extends Serializable> extends SimpleJpaRep
         return (Integer) query.getSingleResult();
     }
 
+    @Override
     public <U> U fetchValueByField(ID entityId, String fieldName) {
         String qlString = "select e." + fieldName + " from " + this.entityInformation.getEntityName() +
                 " e where e." + this.entityInformation.getIdAttribute().getName() + " = " + entityId;
         Query query = this.entityManager.createQuery(qlString);
         return (U) query.getSingleResult();
+    }
+
+    @Override
+    public <U> List<U> fetchDataByNamedQuery(String queryName, Class<U> entityClass, Object ... params) {
+        TypedQuery<U> query = entityManager.createNamedQuery(queryName, entityClass);
+        for (int i = 0; i < params.length; i++) {
+            query.setParameter(i+1, params[i]);
+        }
+        return query.getResultList();
     }
 
 }

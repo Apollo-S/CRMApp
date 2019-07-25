@@ -1,6 +1,5 @@
 package crmapp.app.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import crmapp.app.entities.base.BaseEntity;
 import lombok.EqualsAndHashCode;
@@ -19,13 +18,12 @@ import java.util.Set;
 @Getter
 @Setter
 @EqualsAndHashCode
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "employees"})
 public class Post extends BaseEntity {
 
 	@Column(name = "title", length = 100)
 	private String title;
 
-	@JsonIgnore
 	@OneToMany(mappedBy = "post")
 	private Set<EmployeePost> employees = new HashSet<>();
 

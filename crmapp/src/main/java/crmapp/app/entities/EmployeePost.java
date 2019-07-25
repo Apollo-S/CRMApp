@@ -16,7 +16,13 @@ import java.util.Date;
 @EqualsAndHashCode
 @JsonIgnoreProperties(ignoreUnknown = true,
         value = {"hibernateLazyInitializer", "handler"})
+@NamedQuery(
+        name = EmployeePost.FIND_ALL_POSTS_BY_EMPLOYEE_ID,
+        query = "SELECT e FROM EmployeePost e WHERE e.employee.id = ?1"
+)
 public class EmployeePost extends BaseEntity {
+
+    public static final String FIND_ALL_POSTS_BY_EMPLOYEE_ID = "findAllPostsByEmployeeId";
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = Tables.EMPLOYEE_ID)
