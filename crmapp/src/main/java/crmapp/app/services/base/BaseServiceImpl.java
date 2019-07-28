@@ -60,4 +60,8 @@ public abstract class BaseServiceImpl<T extends BaseEntity, R extends BaseReposi
         repository.delete(id);
     }
 
+    @Override
+    public List<T> findAllByNamedQuery(String queryName, Class<T> entityClass, Object... params) {
+        return repository.fetchDataByNamedQuery(queryName, entityClass, params);
+    }
 }

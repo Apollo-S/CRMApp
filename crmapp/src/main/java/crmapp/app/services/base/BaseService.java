@@ -11,5 +11,6 @@ public interface BaseService<T, ID> {
 	void update(ID id, T entity);
 	void delete(ID id);
 	List<ID> findAllEntityIds();
+	List<T> findAllByNamedQuery(String queryName, Class<T> entityClass, Object ... params);
 
 }
