@@ -52,9 +52,7 @@ public class Employee extends BaseEntity {
 	@JsonManagedReference(value = "employee-sicklist")
 	private Set<SickList> sickLists = new HashSet<>();
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", orphanRemoval = true)
-	@OrderBy("id ASC")
-	@JsonManagedReference(value = Tables.EMPLOYEE_ADDRESSES)
+	@OneToMany(mappedBy = "employee")
 	private Set<EmployeeAddress> addresses = new HashSet<>();
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", orphanRemoval = true)

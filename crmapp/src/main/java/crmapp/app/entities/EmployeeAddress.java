@@ -1,9 +1,8 @@
 package crmapp.app.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import crmapp.app.entities.base.AbstractAddress;
+import crmapp.app.entities.base.BaseEntity;
+import crmapp.app.entities.experimental.Address;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,24 +17,27 @@ import java.util.Date;
 @EqualsAndHashCode
 @JsonIgnoreProperties(ignoreUnknown = true,
 	value = { "hibernateLazyInitializer", "handler" })
-public class EmployeeAddress extends AbstractAddress {
+@NamedQuery(
+		name = EmployeeAddress.FIND_ALL_ADDRESSES_BY_EMPLOYEE_ID,
+		query = "SELECT e FROM EmployeeAddress e WHERE e.employee.id = ?1"
+)
+public class EmployeeAddress extends BaseEntity {
+
+	public static final String FIND_ALL_ADDRESSES_BY_EMPLOYEE_ID = "findAllAddressesByEmployeeId";
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = Tables.EMPLOYEE_ID)
-	@JsonBackReference(value = Tables.EMPLOYEE_ADDRESSES)
 	private Employee employee;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = Tables.ADDRESS_ID)
+	private Address address;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "date_start")
+	private Date dateStart;
+
 	public EmployeeAddress() {
-	}
-
-	public EmployeeAddress(Employee employee, Date dateStart) {
-		this.employee = employee;
-		this.setDateStart(dateStart);
-	}
-
-	@JsonInclude
-	public Employee getClientInfo() {
-		return employee;
 	}
 
 	@Override

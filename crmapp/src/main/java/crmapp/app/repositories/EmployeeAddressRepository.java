@@ -1,17 +1,9 @@
 package crmapp.app.repositories;
 
 import crmapp.app.entities.EmployeeAddress;
-import crmapp.app.repositories.base.BaseRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import crmapp.app.repositories.base.ExtendedBaseRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface EmployeeAddressRepository extends BaseRepository<EmployeeAddress, Integer> {
-
-    @Query("SELECT ea FROM EmployeeAddress ea WHERE ea.employee.id = :employeeId")
-    List<EmployeeAddress> findAllByEmployeeId(@Param("employeeId") Integer employeeId);
-
+public interface EmployeeAddressRepository extends ExtendedBaseRepository<EmployeeAddress, Integer> {
 }
