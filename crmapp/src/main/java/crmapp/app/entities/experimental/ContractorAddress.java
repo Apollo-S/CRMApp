@@ -25,7 +25,7 @@ public class ContractorAddress extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = Tables.ADDRESS_ID)
-    private Address address;
+    private Address contractorAddress;
 
     @JsonIgnore
     @Temporal(TemporalType.DATE)

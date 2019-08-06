@@ -1,5 +1,6 @@
 package crmapp.app.entities.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import crmapp.app.entities.experimental.Address;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +11,8 @@ import java.util.Date;
 @Setter
 public class EmployeeAddressDTO extends BaseModelDTO {
 
-    private Address address;
+    @JsonProperty(value = "address")
+    private Address employeeAddress;
     private Date dateStart;
 
 }

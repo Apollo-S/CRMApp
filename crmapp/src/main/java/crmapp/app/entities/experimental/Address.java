@@ -2,6 +2,7 @@ package crmapp.app.entities.experimental;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import crmapp.app.entities.Country;
+import crmapp.app.entities.EmployeeAddress;
 import crmapp.app.entities.Tables;
 import crmapp.app.entities.base.BaseEntity;
 import lombok.EqualsAndHashCode;
@@ -17,7 +18,7 @@ import java.util.Set;
 @Getter
 @Setter
 @EqualsAndHashCode
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "contractors"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "contractors", "employees"})
 public class Address extends BaseEntity {
 
     @Column(name = "zip", length = 10)
@@ -42,8 +43,11 @@ public class Address extends BaseEntity {
     @JoinColumn(name = "country_id")
     private Country country;
 
-    @OneToMany(mappedBy = "address")
+    @OneToMany(mappedBy = "contractorAddress")
     private Set<ContractorAddress> contractors = new HashSet<>();
+
+    @OneToMany(mappedBy = "employeeAddress")
+    private Set<EmployeeAddress> employees = new HashSet<>();
 
     public Address() {
     }
@@ -68,11 +72,6 @@ public class Address extends BaseEntity {
         if (getBuilding() != null && !getBuilding().isEmpty()) addressBuilder.append(", " + getBuilding());
         if (getApartment() != null && !getApartment().isEmpty()) addressBuilder.append(", " + getApartment());
         return addressBuilder.toString();
-    }
-
-    @Override
-    public String getUrl() {
-        return "contractors/" + this.contractors;
     }
 
     @Override

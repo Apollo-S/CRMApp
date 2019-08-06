@@ -16,10 +16,8 @@ import java.util.Date;
 @EqualsAndHashCode
 @JsonIgnoreProperties(ignoreUnknown = true,
         value = {"hibernateLazyInitializer", "handler"})
-@NamedQuery(
-        name = EmployeePost.FIND_ALL_POSTS_BY_EMPLOYEE_ID,
-        query = "SELECT e FROM EmployeePost e WHERE e.employee.id = ?1"
-)
+@NamedQuery(name = EmployeePost.FIND_ALL_POSTS_BY_EMPLOYEE_ID,
+        query = "SELECT e FROM EmployeePost e WHERE e.employee.id = ?1")
 public class EmployeePost extends BaseEntity {
 
     public static final String FIND_ALL_POSTS_BY_EMPLOYEE_ID = "findAllPostsByEmployeeId";
@@ -41,13 +39,13 @@ public class EmployeePost extends BaseEntity {
 
     @Override
     public String getUrl() {
-        return employee.getUrl() + "/posts/" + this.getId();
+        return employee.getUrl() + "/posts/" + getId();
     }
 
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("EmployeePostRepository [");
+        builder.append("EmployeePost [");
         builder.append(super.toString()).append(", ");
         builder.append("employee=" + employee).append(", ");
         return builder.toString();

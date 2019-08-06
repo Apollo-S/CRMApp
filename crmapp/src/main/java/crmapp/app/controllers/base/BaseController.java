@@ -51,10 +51,10 @@ public abstract class BaseController<T extends BaseEntity, S extends BaseService
     }
 
     protected ResponseEntity<List<T>> getAllEntities() {
-        logger.info(LOG_ENTER_METHOD + "getAll" + genericType.getSimpleName() + "Entities()" + LOG_CLOSE);
+        logger.info(LOG_ENTER_METHOD + "getAllEntities (type: " + genericType.getSimpleName() + ")" + LOG_CLOSE);
         List<T> entities = this.service.findAll();
         if (entities.size() == 0) {
-            logger.info(LOG_ERROR + genericType.getSimpleName() + " Entities were not found" + LOG_CLOSE);
+            logger.info(LOG_ERROR + "Entities (type: " + genericType.getSimpleName() + ") were not found" + LOG_CLOSE);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         logger.info(LOG_TEXT + "Count of '" + genericType.getSimpleName() + "' entities = " + entities.size() + LOG_CLOSE);
@@ -66,7 +66,7 @@ public abstract class BaseController<T extends BaseEntity, S extends BaseService
         logger.info(LOG_ENTER_METHOD + "getAll" + genericType.getSimpleName() + "Entities()" + LOG_CLOSE);
         List<T> entities = this.service.findAll();
         if (entities.size() == 0) {
-            logger.info(LOG_ERROR + genericType.getSimpleName() + " Entities were not found" + LOG_CLOSE);
+            logger.info(LOG_ERROR + "Entities (type: " + genericType.getSimpleName() + ") were not found" + LOG_CLOSE);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         List<U> entitiesDTO = convertEntityToDTO(entities, objDTO);
@@ -150,6 +150,30 @@ public abstract class BaseController<T extends BaseEntity, S extends BaseService
         logger.info(LOG_TEXT + genericType.getSimpleName() + " Entity with ID=" + id + " was deleted" + LOG_CLOSE);
         logger.info(LOG_OUT_OF_METHOD + "delete" + genericType.getSimpleName() + "EntityById()" + LOG_CLOSE);
         return new ResponseEntity<>(new HttpHeaders(), HttpStatus.NO_CONTENT);
+    }
+
+    protected ResponseEntity<List<T>> getAllByNamedQuery(String queryName, Object... params) {
+        logger.info(LOG_ENTER_METHOD + "getAllByNamedQuery method (type: " + genericType.getSimpleName() + ")" + LOG_CLOSE);
+        List<T> entities = this.service.findAllByNamedQuery(queryName, genericType, params);
+        if (entities.size() == 0) {
+            logger.info(LOG_ERROR + genericType.getSimpleName() + " Entities were not found" + LOG_CLOSE);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        logger.info(LOG_TEXT + "Count of '" + genericType.getSimpleName() + "' entities = " + entities.size() + LOG_CLOSE);
+        logger.info(LOG_OUT_OF_METHOD + "getAllByNamedQuery method | " + genericType.getSimpleName() + " | Entities()" + LOG_CLOSE);
+        return new ResponseEntity<>(entities, HttpStatus.OK);
+    }
+
+    protected <U extends BaseModelDTO> ResponseEntity<List<U>> getAllByNamedQuery(String queryName, Class<U> entityDTO,
+                                                                                  Object... params) {
+        logger.info(LOG_ENTER_METHOD + "getAllByNamedQuery method (type: " + entityDTO.getSimpleName() + ")" + LOG_CLOSE);
+        List<T> entities = this.service.findAllByNamedQuery(queryName, genericType, params);
+        if (entities.size() == 0) {
+            logger.info(LOG_ERROR + genericType.getSimpleName() + " Entities were not found" + LOG_CLOSE);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        List<U> entitiesDTO = convertEntityToDTO(entities, entityDTO);
+        return new ResponseEntity<>(entitiesDTO, HttpStatus.OK);
     }
 
 }

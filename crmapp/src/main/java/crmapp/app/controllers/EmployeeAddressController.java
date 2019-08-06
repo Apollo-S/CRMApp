@@ -15,12 +15,6 @@ import static crmapp.app.entities.EmployeeAddress.FIND_ALL_ADDRESSES_BY_EMPLOYEE
 @RequestMapping(value = "/api/employees/{employeeId}/addresses")
 public class EmployeeAddressController extends ExtendedBaseController<EmployeeAddress, EmployeeAddressService> {
 
-    @GetMapping(value = "/exper", headers = HEADER_JSON)
-    public ResponseEntity<List<EmployeeAddress>> getAllEmployeeAddressesByEmployeeIdExper(
-            @PathVariable("employeeId") Integer employeeId) {
-        return super.getAllByNamedQuery(FIND_ALL_ADDRESSES_BY_EMPLOYEE_ID, employeeId);
-    }
-
     @GetMapping(value = "", headers = HEADER_JSON)
     public ResponseEntity<List<EmployeeAddressDTO>> getAllEmployeeAddressesByEmployeeId(
             @PathVariable("employeeId") Integer employeeId) {
@@ -33,14 +27,14 @@ public class EmployeeAddressController extends ExtendedBaseController<EmployeeAd
     }
 
     @PostMapping(value = "", headers = HEADER_JSON)
-    public ResponseEntity<EmployeeAddress> addEmployeeAddress(@PathVariable("employeeId") int employeeId,
-                                                        @RequestBody EmployeeAddress address) {
+    public ResponseEntity<EmployeeAddressDTO> addEmployeeAddress(@PathVariable("employeeId") int employeeId,
+                                                        @RequestBody EmployeeAddressDTO address) {
         return super.addEntity(address);
     }
 
     @PutMapping(value = "/{id}", headers = HEADER_JSON)
     public ResponseEntity<Void> updateEmployeeAddress(@PathVariable("employeeId") int employeeId,
-                                                   @RequestBody EmployeeAddress address) {
+                                                   @RequestBody EmployeeAddressDTO address) {
         return super.updateEntity(address);
     }
 

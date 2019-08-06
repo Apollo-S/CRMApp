@@ -16,11 +16,9 @@ import java.util.Date;
 @Setter
 @EqualsAndHashCode
 @JsonIgnoreProperties(ignoreUnknown = true,
-	value = { "hibernateLazyInitializer", "handler" })
-@NamedQuery(
-		name = EmployeeAddress.FIND_ALL_ADDRESSES_BY_EMPLOYEE_ID,
-		query = "SELECT e FROM EmployeeAddress e WHERE e.employee.id = ?1"
-)
+		value = { "hibernateLazyInitializer", "handler" })
+@NamedQuery(name = EmployeeAddress.FIND_ALL_ADDRESSES_BY_EMPLOYEE_ID,
+		query = "SELECT e FROM EmployeeAddress e WHERE e.employee.id = ?1")
 public class EmployeeAddress extends BaseEntity {
 
 	public static final String FIND_ALL_ADDRESSES_BY_EMPLOYEE_ID = "findAllAddressesByEmployeeId";
@@ -31,7 +29,7 @@ public class EmployeeAddress extends BaseEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = Tables.ADDRESS_ID)
-	private Address address;
+	private Address employeeAddress;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "date_start")
