@@ -73,7 +73,7 @@ public class ClientAccountServiceUnitTest {
 
         when(clientAccountRepository.save(any(ClientAccount.class))).thenReturn(savedClientAccount);
         clientAccountService.update(savedClientAccount);
-        when(clientAccountRepository.findOne(anyInt())).thenReturn(mockClientAccount);
+        when(clientAccountRepository.getOne(anyInt())).thenReturn(mockClientAccount);
         ClientAccount updatedClientAccount = clientAccountService.findById(1354);
 
         assertEquals(updatedClientAccount, savedClientAccount);

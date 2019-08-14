@@ -53,7 +53,7 @@ public class ClientRepositoryIntegrationTest {
     public void testClientRepositoryDeleteClient() {
         Client savedClient = this.clientRepository.save(this.client1);
         Client client = null;
-        this.clientRepository.delete(savedClient.getId());
+        this.clientRepository.deleteById(savedClient.getId());
         try {
             client = this.clientRepository.getOne(savedClient.getId());
         } catch (RuntimeException e) {

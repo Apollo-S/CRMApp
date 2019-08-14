@@ -3,90 +3,46 @@ package crmapp.app.controllers;
 import crmapp.app.controllers.base.BaseController;
 import crmapp.app.entities.Vacation;
 import crmapp.app.services.VacationService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api")
 public class VacationController extends BaseController<Vacation, VacationService> {
 
-	private static final Logger logger = LoggerFactory.getLogger(VacationController.class);
+    @GetMapping(value = "/employees/{employeeId}/vacations", headers = HEADER_JSON)
+    public ResponseEntity<List<Vacation>> getAllVacationsByEmployeeId(@PathVariable("employeeId") int employeeId) {
+        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NO_CONTENT); //TODO Needed NamedQuery
+    }
 
-	@Autowired
-	private VacationService service;
-	
-	@GetMapping(value = "/employees/{employeeId}/vacations", headers = HEADER_JSON)
-	public ResponseEntity<List<Vacation>> getAllVacationsByEmployeeId(@PathVariable("employeeId") int employeeId) {
-		logger.info(LOG_ENTER_METHOD + "getAllVacationsByEmployeeId()" + LOG_CLOSE);
-		List<Vacation> vacations = service.getAllByEmployeeId(employeeId);
-		if (vacations == null) {
-			logger.info(LOG_ERROR + "Vacations were not found" + LOG_CLOSE);
-			return new ResponseEntity<List<Vacation>>(HttpStatus.NO_CONTENT);
-		}
-		logger.info(LOG_TEXT + "Count of Vacations: " + vacations.size() + LOG_CLOSE);
-		logger.info(LOG_OUT_OF_METHOD + "getAllVacationsByEmployeeId()" + LOG_CLOSE);
-		return new ResponseEntity<List<Vacation>>(vacations, HttpStatus.OK);
-	}
-	
-	@GetMapping(value = "/vacations", headers = HEADER_JSON) 
-	public ResponseEntity<List<Vacation>> getAllVacations() {
-		logger.info(LOG_ENTER_METHOD + "getAllVacations()" + LOG_CLOSE);
-		List<Vacation> vacations = service.findAll();
-		if(vacations.size() == 0) {
-			logger.info(LOG_ERROR + "Vacations were not found" + LOG_CLOSE);
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-		logger.info(LOG_TEXT + "Count of Vacations: " + vacations.size() + LOG_CLOSE);
-		logger.info(LOG_OUT_OF_METHOD + "getAllVacations()" + LOG_CLOSE);
-		return new ResponseEntity<>(vacations, HttpStatus.OK);
-	}
+    @GetMapping(value = "/vacations", headers = HEADER_JSON)
+    public ResponseEntity<List<Vacation>> getAllVacations() {
+        return super.getAllEntities();
+    }
 
-	@GetMapping(value = "/vacations/{id}", headers = HEADER_JSON)
-	public ResponseEntity<Vacation> getVacationById(@PathVariable(PARAM_ID) int id) {
-		logger.info(LOG_ENTER_METHOD + "getVacationById()" + LOG_CLOSE);
-		Vacation vacation = service.findById(id);
-		if (vacation == null) {
-			logger.info(LOG_ERROR + "Vacation with ID=" + id + "wasn't found" + LOG_CLOSE);
-			return new ResponseEntity<>(vacation, HttpStatus.NOT_FOUND);
-		}
-		logger.info(LOG_TEXT + "Vacation with ID=" + id + " was found: " + vacation + LOG_CLOSE);
-		logger.info(LOG_OUT_OF_METHOD + "getVacationById()" + LOG_CLOSE);
-		return new ResponseEntity<>(vacation, HttpStatus.OK);
-	}
+    @GetMapping(value = "/vacations/{id}", headers = HEADER_JSON)
+    public ResponseEntity<Vacation> getVacationById(@PathVariable(PARAM_ID) int id) {
+        return super.getEntityBy(id);
+    }
 
-	@PostMapping(value = "/vacations", headers = HEADER_JSON)
-	public ResponseEntity<Vacation> addVacation(@RequestBody Vacation vacation) {
-		logger.info(LOG_ENTER_METHOD + "addVacation()" + LOG_CLOSE);
-		vacation = service.save(vacation);
-		logger.info(LOG_TEXT + "Vacation added with ID=" + vacation.getId() + LOG_CLOSE);
-		logger.info(LOG_OUT_OF_METHOD + "addVacation()" + LOG_CLOSE);
-		return new ResponseEntity<>(vacation, new HttpHeaders(), HttpStatus.CREATED);
-	}
+    @PostMapping(value = "/vacations", headers = HEADER_JSON)
+    public ResponseEntity<Vacation> addVacation(@RequestBody Vacation vacation) {
+        return super.addEntity(vacation);
+    }
 
-	@PutMapping(value = "/vacations/{id}", headers = HEADER_JSON)
-	public ResponseEntity<Void> updateVacation(@PathVariable(PARAM_ID) int id,
-			@RequestBody Vacation vacation) {
-		logger.info(LOG_ENTER_METHOD + "updateVacation()" + LOG_CLOSE);
-		service.update(id, vacation);
-		logger.info(LOG_TEXT + "Vacation with ID=" + id + " was updated: " + vacation + LOG_CLOSE);
-		logger.info(LOG_OUT_OF_METHOD + "updateVacation()" + LOG_CLOSE);
-		return new ResponseEntity<>(new HttpHeaders(), HttpStatus.OK);
-	}
+    @PutMapping(value = "/vacations/{id}", headers = HEADER_JSON)
+    public ResponseEntity<Void> updateVacation(@PathVariable(PARAM_ID) int id,
+                                               @RequestBody Vacation vacation) {
+        return super.updateEntity(id, vacation);
+    }
 
-	@DeleteMapping(value = "/vacations/{id}", headers = HEADER_JSON)
-	public ResponseEntity<Void> deleteVacation(@PathVariable(PARAM_ID) int id) {
-		logger.info(LOG_ENTER_METHOD + "deleteVacation()" + LOG_CLOSE);
-		service.delete(id);
-		logger.info(LOG_TEXT + "Vacation with ID=" + id + " was deleted" + LOG_CLOSE);
-		logger.info(LOG_OUT_OF_METHOD + "deleteVacation()" + LOG_CLOSE);
-		return new ResponseEntity<>(new HttpHeaders(), HttpStatus.NO_CONTENT);
-	}
+    @DeleteMapping(value = "/vacations/{id}", headers = HEADER_JSON)
+    public ResponseEntity<Void> deleteVacation(@PathVariable(PARAM_ID) int id) {
+        return super.deleteEntityById(id);
+    }
 
 }

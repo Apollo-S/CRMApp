@@ -62,7 +62,7 @@ public class ClientServiceUnitTest {
         when(clientRepository.fetchVersion(anyInt())).thenReturn(0);
         when(clientRepository.save(any(Client.class))).thenReturn(savedClient);
         clientService.update(savedClient.getId(), mockClient);
-        when(clientRepository.findOne(anyInt())).thenReturn(savedClient);
+        when(clientRepository.getOne(anyInt())).thenReturn(savedClient);
         Client updatedClient = clientService.findById(savedClient.getId());
         assertEquals(updatedClient, mockClient);
         assertEquals("updated kievstar", updatedClient.getCode());

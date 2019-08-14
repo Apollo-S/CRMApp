@@ -4,13 +4,11 @@ import crmapp.app.controllers.base.ExtendedBaseController;
 import crmapp.app.entities.OurCompanyDirector;
 import crmapp.app.services.OurCompanyDirectorService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@Transactional
 @RequestMapping(value = "/api/our-companies/{companyId}/directors")
 public class OurCompanyDirectorController extends ExtendedBaseController<OurCompanyDirector, OurCompanyDirectorService> {
 
@@ -32,7 +30,7 @@ public class OurCompanyDirectorController extends ExtendedBaseController<OurComp
 
     @PutMapping(value = "/{id}", headers = HEADER_JSON)
     public ResponseEntity<Void> updateOurCompanyDirector(@PathVariable("companyId") int companyId,
-                                                                       @RequestBody OurCompanyDirector director) {
+                                                         @RequestBody OurCompanyDirector director) {
         return super.updateEntity(director);
     }
 

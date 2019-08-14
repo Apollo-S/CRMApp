@@ -27,7 +27,7 @@ public abstract class BaseServiceImpl<T extends BaseEntity, R extends BaseReposi
 
     @Override
     public T findById(Integer id) {
-        return repository.findOne(id);
+        return repository.getOne(id);
     }
 
     @Override
@@ -51,13 +51,15 @@ public abstract class BaseServiceImpl<T extends BaseEntity, R extends BaseReposi
 
     @Override
     public void update(Integer entityId, T entity) {
-        entity.setId(entityId);
+        if (entity.getId() != entityId || entity.getId() == null) {
+            entity.setId(entityId);
+        }
         this.update(entity);
     }
 
     @Override
     public void delete(Integer id) {
-        repository.delete(id);
+        repository.deleteById(id);
     }
 
     @Override
