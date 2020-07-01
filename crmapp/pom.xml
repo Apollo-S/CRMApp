@@ -11,7 +11,7 @@
 		<dbcp2.version>2.1.1</dbcp2.version>
 		<h2.version>1.4.195</h2.version>
 		<lang3.version>3.7</lang3.version>
-		<mysql.conn.version>8.0.13</mysql.conn.version>
+		<mysql.conn.version>8.0.16</mysql.conn.version>
 		<lombok.version>1.18.4</lombok.version>
 	</properties>
 	
